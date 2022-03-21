@@ -5,7 +5,8 @@
       <div id="nav">
         <router-link to="/">Home</router-link> |
         <router-link to="/fox">Fox</router-link> |
-        <router-link to="/bee">Bee</router-link>
+        <router-link to="/bee">Bee</router-link> |
+        <router-link to="/beehive">Beehive</router-link>
       </div>
       <router-view/>
     </div>

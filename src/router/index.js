@@ -23,6 +23,13 @@ const routes = [
     component: function () {
       return import('../views/Bee.vue')
     }
+  },
+  {
+    path: '/beehive',
+    name: 'beehive',
+    component: function () {
+      return import('../views/Beehive.vue')
+    }
   }
 ]
 
