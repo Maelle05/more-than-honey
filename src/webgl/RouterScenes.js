@@ -3,7 +3,8 @@ import WebGl from "./webglManager"
 import BaseScene from "./scenes/BaseScene"
 import FoxScene from "./scenes/FoxScene"
 import BeeScene from "./scenes/BeeScene"
-import BeehiveScene from "./scenes/BeehiveScene"
+import HiveScene from "./scenes/HiveScene"
+import OutsideOne from "./scenes/OutsideOne"
 
 let routerScenesInstance = null
 
@@ -41,8 +42,12 @@ export default class RouterScenes {
           this.allScenes[nameScene] = new BeeScene()
           break;
         
-        case 'beehive':
-            this.allScenes[nameScene] = new BeehiveScene()
+        case 'hive':
+            this.allScenes[nameScene] = new HiveScene()
+            break;
+        
+        case 'outsideOne':
+            this.allScenes[nameScene] = new OutsideOne()
             break;
       
         default:

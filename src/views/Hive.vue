@@ -1,6 +1,6 @@
 <template>
-  <div class="beehive">
-    <h1>This is the beehive page</h1>
+  <div class="hive">
+    <h1>This is the hive page</h1>
   </div>
 </template>
 

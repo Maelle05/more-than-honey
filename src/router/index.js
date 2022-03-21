@@ -25,10 +25,38 @@ const routes = [
     }
   },
   {
-    path: '/beehive',
-    name: 'beehive',
+    path: '/planetBreath',
+    name: 'planetBreath',
     component: function () {
-      return import('../views/Beehive.vue')
+      return import('../views/PlanetBreathHome.vue')
+    }
+  },
+  {
+    path: '/planetBreath/intro',
+    name: 'planetBreathIntro',
+    component: function () {
+      return import('../views/PlanetBreathIntro.vue')
+    }
+  },
+  {
+    path: '/loading',
+    name: 'loading',
+    component: function () {
+      return import('../views/Loading.vue')
+    }
+  },
+  {
+    path: '/hive',
+    name: 'hive',
+    component: function () {
+      return import('../views/Hive.vue')
+    }
+  },
+  {
+    path: '/outside/one',
+    name: 'outsideOne',
+    component: function () {
+      return import('../views/OutsideOne.vue')
     }
   }
 ]

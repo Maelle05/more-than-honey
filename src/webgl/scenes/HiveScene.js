@@ -10,7 +10,7 @@ export default class BaseScene extends Group
     this.resources = this.webGl.resources
 
     // Wait for resources
-    this.resources.on(`sourcesReadybeehive`, () =>
+    this.resources.on(`sourcesReadyhive`, () =>
     {
       this.setup()
     })

@@ -5,8 +5,14 @@
       <div id="nav">
         <router-link to="/">Home</router-link> |
         <router-link to="/fox">Fox</router-link> |
-        <router-link to="/bee">Bee</router-link> |
-        <router-link to="/beehive">Beehive</router-link>
+        <router-link to="/bee">Bee</router-link>
+        <br>
+        <br>
+        <router-link to="/planetBreath">Planet Breath Home</router-link> |
+        <router-link to="/planetBreath/intro">Planet Breath Intro</router-link> |
+        <router-link to="/loading">Loading</router-link> |
+        <router-link to="/hive">Hive</router-link> |
+        <router-link to="/outside/one">Outside one</router-link> |
       </div>
       <router-view/>
     </div>
