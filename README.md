@@ -1,4 +1,4 @@
-# starter-vue-three-multiple-scenes
+# more-than-honey
 
 ## Project setup
 ```
