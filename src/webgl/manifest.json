@@ -1,0 +1,26 @@
+[
+  {
+    "name": "foxModel",
+    "type": "gltfModel",
+    "actingScenes": "foxScene",
+    "path": "webgl/models/Fox/glTF/Fox.gltf"
+  },
+  {
+    "name": "beeModel",
+    "type": "gltfModel",
+    "actingScenes": "beeScene",
+    "path": "webgl/models/Bee/scene.gltf"
+  },
+  {
+    "name": "grassNormalTexture",
+    "type": "texture",
+    "actingScenes": "foxScene beeScene",
+    "path": "webgl/textures/Grass/normal.jpg"
+  },
+  {
+    "name": "grassColorTexture",
+    "type": "texture",
+    "actingScenes": "foxScene beeScene",
+    "path": "webgl/textures/Grass/color.jpg"
+  }
+]
