@@ -86,7 +86,4 @@ export default class WebGl{
     this.world.update()
     this.renderer.render(this.scene, this.camera)
   }
-
-  destroy(){
-  }
 }

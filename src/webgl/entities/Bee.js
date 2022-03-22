@@ -10,12 +10,6 @@ export default class Bee
     this.time = this.webGl.time
     this.debug = this.webGl.debug
 
-    // Debug
-    if(this.debug.active)
-    {
-      this.debugFolder = this.debug.ui.addFolder('Bee')
-    }
-
     // Resource
     this.resource = this.resources.items.beeModel
 
