@@ -13,7 +13,6 @@ export default class RaceGameScene extends Group
     // Wait for resources
     this.resources.on(`sourcesReadyraceGame`, () =>
     {
-      console.log('coucou');
       this.setup()
     })
   }

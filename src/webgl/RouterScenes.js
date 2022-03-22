@@ -37,7 +37,6 @@ export default class RouterScenes extends EventEmitter{
 
   rootChange(nameScene){
     this.webGl.scene.remove(this.currentScene)
-    console.log(nameScene);
     if (!this.allScenes[nameScene]) {
       switch (nameScene) {
         case 'fox':
@@ -76,6 +75,8 @@ export default class RouterScenes extends EventEmitter{
           this.allScenes[nameScene] = new BaseScene()
           break;
       }
+    }else{
+      this.allScenes[nameScene].setup()
     }
 
     console.log(this.allScenes);
