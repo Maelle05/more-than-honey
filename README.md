@@ -1,5 +1,5 @@
-# more-than-honey
-Project Gobelins
+# 🐝 More than honey 🐝
+Final project for Gobelins BDDI
 
 ## Project setup
 ```
@@ -15,8 +15,3 @@ npm run dev
 ```
 npm run build
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-# more-than-honey
