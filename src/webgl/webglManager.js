@@ -1,4 +1,4 @@
-import { Scene, PerspectiveCamera, WebGLRenderer, sRGBEncoding, CineonToneMapping, PCFSoftShadowMap} from 'three'
+import { Scene, PerspectiveCamera, WebGLRenderer, sRGBEncoding, CineonToneMapping, PCFSoftShadowMap, AmbientLight} from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 import sources from './manifest.json'
@@ -38,6 +38,10 @@ export default class WebGl{
     // OrbitControls
     this.controls = new OrbitControls(this.camera, this.canvas)
     this.controls.enableDamping = true
+
+    // Add Light
+    const light = new AmbientLight( 0x404040 );
+    this.scene.add( light );
 
     // Renderer
     this.renderer = new WebGLRenderer({

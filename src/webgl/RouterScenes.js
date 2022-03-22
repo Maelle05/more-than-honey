@@ -9,15 +9,18 @@ import PollenGameScene from "./scenes/PollenGameScene"
 import OutsideTwoScene from "./scenes/OutsideTwoScene"
 import RaceGameScene from "./scenes/RaceGameScene"
 import EndingScene from "./scenes/HiveEndingScene"
+import EventEmitter from "./utils/EventEmitter"
 
 let routerScenesInstance = null
 
-export default class RouterScenes {
+export default class RouterScenes extends EventEmitter{
   constructor(){
 
     if(routerScenesInstance){
       return routerScenesInstance
     }
+
+    super()
 
     routerScenesInstance = this
 

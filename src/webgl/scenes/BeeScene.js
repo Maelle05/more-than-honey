@@ -1,4 +1,4 @@
-import { Group, AmbientLight } from 'three'
+import { Group } from 'three'
 import Bee from '../entities/Bee'
 import WebGl from '../webglManager'
 
@@ -21,10 +21,6 @@ export default class BeeScene extends Group
     // Add Bee
     this.bee = new Bee()
     this.add(this.bee.model)
-
-    // Add Light
-    const light = new AmbientLight( 0x404040 );
-    this.add( light );
 
   }
 
