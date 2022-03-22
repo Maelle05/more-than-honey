@@ -13,7 +13,6 @@ export default class Root {
   }
   rootChange(path){
     if(path != this.currentPath){
-      console.log(path)
       this.currentPath = path
 
       if (!this.resourcesCall.includes(this.currentPath)) {

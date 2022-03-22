@@ -13,6 +13,11 @@
         <router-link to="/loading">Loading</router-link> |
         <router-link to="/hive">Hive</router-link> |
         <router-link to="/outside/one">Outside one</router-link> |
+        <router-link to="/pollenGame">Pollen Game</router-link> |
+        <router-link to="/outside/two">Outside two</router-link> |
+        <router-link to="/raceGame">Race Game</router-link> |
+        <router-link to="/ending">Ending</router-link> |
+        <router-link to="/credits">Credits</router-link>
       </div>
       <router-view/>
     </div>

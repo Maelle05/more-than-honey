@@ -4,7 +4,11 @@ import BaseScene from "./scenes/BaseScene"
 import FoxScene from "./scenes/FoxScene"
 import BeeScene from "./scenes/BeeScene"
 import HiveScene from "./scenes/HiveScene"
-import OutsideOne from "./scenes/OutsideOne"
+import OutsideOneScene from "./scenes/OutsideOneScene"
+import PollenGameScene from "./scenes/PollenGameScene"
+import OutsideTwoScene from "./scenes/OutsideTwoScene"
+import RaceGameScene from "./scenes/RaceGameScene"
+import EndingScene from "./scenes/HiveEndingScene"
 
 let routerScenesInstance = null
 
@@ -29,9 +33,8 @@ export default class RouterScenes {
   }
 
   rootChange(nameScene){
-    
     this.webGl.scene.remove(this.currentScene)
-
+    console.log(nameScene);
     if (!this.allScenes[nameScene]) {
       switch (nameScene) {
         case 'fox':
@@ -43,12 +46,28 @@ export default class RouterScenes {
           break;
         
         case 'hive':
-            this.allScenes[nameScene] = new HiveScene()
-            break;
+          this.allScenes[nameScene] = new HiveScene()
+          break;
         
         case 'outsideOne':
-            this.allScenes[nameScene] = new OutsideOne()
-            break;
+          this.allScenes[nameScene] = new OutsideOneScene()
+          break;
+
+        case 'pollenGame':
+          this.allScenes[nameScene] = new PollenGameScene()
+          break;
+        
+        case 'outsideTwo':
+          this.allScenes[nameScene] = new OutsideTwoScene()
+          break;
+        
+        case 'raceGame':
+          this.allScenes[nameScene] = new RaceGameScene()
+          break;
+        
+        case 'ending':
+          this.allScenes[nameScene] = new EndingScene()
+          break;
       
         default:
           this.allScenes[nameScene] = new BaseScene()
@@ -56,7 +75,7 @@ export default class RouterScenes {
       }
     }
 
-    // console.log(this.allScenes);
+    console.log(this.allScenes);
 
     this.currentScene = this.allScenes[nameScene]
 

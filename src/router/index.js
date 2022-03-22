@@ -58,6 +58,41 @@ const routes = [
     component: function () {
       return import('../views/OutsideOne.vue')
     }
+  },
+  {
+    path: '/pollenGame',
+    name: 'pollenGame',
+    component: function () {
+      return import('../views/PollenGame.vue')
+    }
+  },
+  {
+    path: '/outside/two',
+    name: 'outsideTwo',
+    component: function () {
+      return import('../views/OutsideTwo.vue')
+    }
+  },
+  {
+    path: '/raceGame',
+    name: 'raceGame',
+    component: function () {
+      return import('../views/RaceGame.vue')
+    }
+  },
+  {
+    path: '/ending',
+    name: 'ending',
+    component: function () {
+      return import('../views/Ending.vue')
+    }
+  },
+  {
+    path: '/credits',
+    name: 'credits',
+    component: function () {
+      return import('../views/Credits.vue')
+    }
   }
 ]
 

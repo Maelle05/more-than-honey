@@ -1,7 +1,7 @@
 import { Group } from 'three'
 import WebGl from '../webglManager'
 
-export default class HiveScene extends Group
+export default class OutsideTwoScene extends Group
 {
   constructor(){
     super()
@@ -10,7 +10,7 @@ export default class HiveScene extends Group
     this.resources = this.webGl.resources
 
     // Wait for resources
-    this.resources.on(`sourcesReadyhive`, () =>
+    this.resources.on(`sourcesReadyoutsideTwo`, () =>
     {
       this.setup()
     })
