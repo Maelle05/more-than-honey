@@ -15,12 +15,9 @@ export default class Root {
     if(path != this.currentPath){
       this.currentPath = path
 
-      if (!this.resourcesCall.includes(this.currentPath)) {
-        this.resourcesCall = this.resourcesCall + ` ${this.currentPath}`
-        this.resources.rootChange(this.currentPath)
-      }
-
       this.routerScenes.rootChange(this.currentPath)
+      this.resources.rootChange(this.currentPath)
+
     }
   }
 }

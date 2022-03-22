@@ -75,11 +75,9 @@ export default class RouterScenes extends EventEmitter{
           this.allScenes[nameScene] = new BaseScene()
           break;
       }
-    }else{
-      this.allScenes[nameScene].setup()
     }
 
-    console.log(this.allScenes);
+    // console.log(this.allScenes);
 
     this.currentScene = this.allScenes[nameScene]
 

@@ -33,7 +33,6 @@ export default class Resources extends EventEmitter {
   }
 
   checkSceneItems(activePathName){
-
     for (let i = 0; i < this.sources.length; i++) {
       if(this.sources[i].actingScenes.includes(`${activePathName}Scene`) && activePathName != '' || this.sources[i].actingScenes.includes(`all`)){
         this.sceneItems.push(this.sources[i])
@@ -47,6 +46,9 @@ export default class Resources extends EventEmitter {
 
   startLoading(){
     // Load each source
+    if(this.sceneItems.length === 0){
+      this.trigger(`sourcesReady${this.activeSceneName}`)
+    }
 
     for(const source of this.sceneItems)
     {
