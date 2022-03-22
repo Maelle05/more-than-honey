@@ -1,4 +1,4 @@
-import { Group } from 'three'
+import {Group, Mesh, MeshBasicMaterial, BoxGeometry} from 'three'
 import WebGl from '../webglManager'
 
 export default class HiveScene extends Group
@@ -17,10 +17,13 @@ export default class HiveScene extends Group
   }
 
   setup(){
-
+    const geometry = new BoxGeometry( 1, 1, 1 )
+    const material = new MeshBasicMaterial( {color: 0x00ff00} )
+    const cube = new Mesh( geometry, material )
+    this.add( cube )
   }
 
   update(){
-    
+
   }
 }
