@@ -1,7 +1,7 @@
-import { Group } from 'three'
+import { Group, MathUtils } from 'three'
 import WebGl from '../webglManager'
 import Bee from '../entities/Bee'
-import gsap, { Power1 } from 'gsap/all'
+// import gsap, { Power1 } from 'gsap/all'
 
 export default class RaceGameScene extends Group
 {
@@ -17,8 +17,11 @@ export default class RaceGameScene extends Group
       'bee': {
         'placingHeight': 1.5,
         'limitRightLeft': 3.5,
+      },
+      'cursor': {
+        'current': 0,
+        'target': 0,
       }
-      
     }
 
     // Wait for resources
@@ -65,29 +68,23 @@ export default class RaceGameScene extends Group
       // Update hauteur bee
       this.bee.model.position.y = (Math.sin(this.time.elapsed / 700) / 5) - this.property.bee.placingHeight
       
-      // MathUtils.damp():
+      this.property.cursor.current = MathUtils.damp(this.property.cursor.current, this.property.cursor.target, 0.001, this.time.delta);
+      this.bee.model.position.x = this.property.cursor.current
     }
   }
 
   handleMoveCursor(e){
-    console.log(e);
     const windowWidth = window.innerWidth
-    
-      const positionCursorH = e.screenX - (windowWidth / 2) 
-    
-      if(this.bee){
-        const convertX = - (positionCursorH * this.property.bee.limitRightLeft) / (windowWidth/2);
-    
-        let posX
-        posX = Math.min(this.property.bee.limitRightLeft, convertX)
-        posX = Math.max(-this.property.bee.limitRightLeft, posX)
-    
-        gsap.to(this.bee.model.position, {
-          x: posX,
-          duration: 1.3,
-          ease: Power1.easeOut()
-        })
-        
-      }
+    const positionCursorH = e.screenX - (windowWidth / 2) 
+  
+    if(this.bee){
+      const convertX = - (positionCursorH * this.property.bee.limitRightLeft) / (windowWidth/2);
+  
+      let posX
+      posX = Math.min(this.property.bee.limitRightLeft, convertX)
+      posX = Math.max(-this.property.bee.limitRightLeft, posX)
+
+      this.property.cursor.target = posX   
+    }
   }
 }

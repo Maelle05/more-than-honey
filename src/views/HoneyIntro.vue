@@ -1,6 +1,6 @@
 <template>
-  <div class="planetBreathHome">
-    <h1>Planet Breath Home</h1>
+  <div class="honeyIntro">
+    <h1>Honey Home Intro</h1>
   </div>
 </template>
 

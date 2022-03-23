@@ -32,8 +32,11 @@ export default class WebGl{
 
     // Camera
     this.camera = new PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 100)
-    this.camera.position.set(6, 4, 8)
+    this.camera.position.set(6, 5, 0)
     this.scene.add(this.camera)
+
+    // Debug
+
 
     // OrbitControls
     this.controls = new OrbitControls(this.camera, this.canvas)

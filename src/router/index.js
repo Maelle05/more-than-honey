@@ -25,17 +25,10 @@ const routes = [
     }
   },
   {
-    path: '/planetBreath',
-    name: 'planetBreath',
+    path: '/honeyIntro',
+    name: 'honeyIntro',
     component: function () {
-      return import('../views/PlanetBreathHome.vue')
-    }
-  },
-  {
-    path: '/planetBreath/intro',
-    name: 'planetBreathIntro',
-    component: function () {
-      return import('../views/PlanetBreathIntro.vue')
+      return import('../views/HoneyIntro.vue')
     }
   },
   {
