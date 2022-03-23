@@ -37,12 +37,12 @@ export default class RaceGameScene extends Group
   }
 
   setup(){
+    // Set Camera position
+    this.webGl.camera.position.set(0, 2.62, -10)
+
     // Add Bee
     this.bee = new Bee()
     this.add(this.bee.model)
-
-    // Set Camera position
-    this.webGl.camera.position.set(0, 2.62, -10)
 
     // Debug
     this.debug = this.webGl.debug
