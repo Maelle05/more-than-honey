@@ -43,4 +43,8 @@ export default class FoxScene extends Group
     if(this.fox)
       this.fox.update()
   }
+
+  delete(){
+    
+  }
 }

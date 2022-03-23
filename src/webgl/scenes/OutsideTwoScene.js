@@ -23,4 +23,8 @@ export default class OutsideTwoScene extends Group
   update(){
     
   }
+
+  delete(){
+    
+  }
 }

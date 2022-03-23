@@ -28,4 +28,8 @@ export default class BeeScene extends Group
     if(this.bee)
       this.bee.update()
   }
+
+  delete(){
+    
+  }
 }

@@ -73,6 +73,10 @@ export default class RaceGameScene extends Group
     }
   }
 
+  delete(){
+    
+  }
+
   handleMoveCursor(e){
     const windowWidth = window.innerWidth
     const positionCursorH = e.screenX - (windowWidth / 2) 

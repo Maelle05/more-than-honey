@@ -23,4 +23,8 @@ export default class EndingScene extends Group
   update(){
     
   }
+
+  delete(){
+    
+  }
 }

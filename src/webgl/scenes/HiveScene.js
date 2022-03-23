@@ -93,4 +93,8 @@ export default class HiveScene extends Group
       currentIntersect = null
     }
   }
+
+  delete(){
+    
+  }
 }

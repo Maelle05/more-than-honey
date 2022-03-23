@@ -23,4 +23,8 @@ export default class PollenGameScene extends Group
   update(){
     
   }
+
+  delete(){
+    
+  }
 }

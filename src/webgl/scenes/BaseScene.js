@@ -23,4 +23,8 @@ export default class BaseScene extends Group
   update(){
     
   }
+
+  delete(){
+    
+  }
 }
