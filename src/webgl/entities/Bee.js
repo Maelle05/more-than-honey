@@ -5,7 +5,6 @@ export default class Bee
 {
   constructor(){
     this.webGl = new WebGl()
-    this.scene = this.webGl.scene
     this.resources = this.webGl.resources
     this.time = this.webGl.time
     this.debug = this.webGl.debug

@@ -52,7 +52,7 @@ export default class RaceGameScene extends Group
     }
 
     // Lisener 
-    document.addEventListener('mousemove', (e)=>{ this.handleMoveCursor(e) })
+    document.addEventListener('mousemove', this.handleMoveCursor.bind(this))
 
     // Add Water
     
@@ -63,11 +63,14 @@ export default class RaceGameScene extends Group
       // Update annim bee
       this.bee.update()
       // Update hauteur bee
-      this.bee.scene.position.y = (Math.sin(this.time.elapsed / 700) / 5) - this.property.bee.placingHeight
+      this.bee.model.position.y = (Math.sin(this.time.elapsed / 700) / 5) - this.property.bee.placingHeight
+      
+      // MathUtils.damp():
     }
   }
 
   handleMoveCursor(e){
+    console.log(e);
     const windowWidth = window.innerWidth
     
       const positionCursorH = e.screenX - (windowWidth / 2) 
@@ -79,7 +82,7 @@ export default class RaceGameScene extends Group
         posX = Math.min(this.property.bee.limitRightLeft, convertX)
         posX = Math.max(-this.property.bee.limitRightLeft, posX)
     
-        gsap.to(this.bee.scene.position, {
+        gsap.to(this.bee.model.position, {
           x: posX,
           duration: 1.3,
           ease: Power1.easeOut()
