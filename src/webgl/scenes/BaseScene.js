@@ -17,9 +17,15 @@ export default class BaseScene extends Group
   }
 
   setup(){
-    // Set Camera position
-    // this.webGl.camera.position.set(0, 2.62, -10)
+    this.init()
 
+  }
+
+  init(){
+    // Set Camera position
+    // this.webGl.camera.position.set(8, 3, 5)
+
+    // Lisener 
   }
 
   update(){

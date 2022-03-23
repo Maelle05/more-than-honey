@@ -20,9 +20,8 @@ export default class FoxScene extends Group
   }
 
   setup(){
-    // Set Camera position
-    // this.webGl.camera.position.set(0, 2.62, -10)
-    
+    this.init()
+
     // Add fox to FoxScene group
     this.fox = new Fox()
     this.add(this.fox.model)
@@ -40,6 +39,13 @@ export default class FoxScene extends Group
     this.sunLight.position.set(3.5, 2, - 1.25)
     this.add(this.sunLight)
 
+  }
+
+  init(){
+    // Set Camera position
+    this.webGl.camera.position.set(8, 3, 5)
+
+    // Lisener 
   }
 
   update(){

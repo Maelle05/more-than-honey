@@ -82,6 +82,8 @@ export default class RouterScenes extends EventEmitter{
 
     this.currentScene = this.allScenes[nameScene]
 
+    this.currentScene.init()
+
     this.webGl.scene.add(this.currentScene)
 
   }

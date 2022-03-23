@@ -37,9 +37,8 @@ export default class RaceGameScene extends Group
   }
 
   setup(){
-    // Set Camera position
-    this.webGl.camera.position.set(0, 2.62, -10)
-
+    this.init()
+    
     // Add Bee
     this.bee = new Bee()
     this.add(this.bee.model)
@@ -65,11 +64,15 @@ export default class RaceGameScene extends Group
 
     }
 
+    // Add Water
+  }
+
+  init(){
+    // Set Camera position
+    this.webGl.camera.position.set(0, 2.62, -10)
+
     // Lisener 
     document.addEventListener('mousemove', this.handleMoveCursor.bind(this))
-
-    // Add Water
-    
   }
 
   update(){

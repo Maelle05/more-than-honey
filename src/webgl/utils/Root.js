@@ -16,7 +16,11 @@ export default class Root {
       this.currentPath = path
 
       this.routerScenes.rootChange(this.currentPath)
-      this.resources.rootChange(this.currentPath)
+
+      if (!this.resourcesCall.includes(this.currentPath)) {
+        this.resourcesCall = this.resourcesCall + ` ${this.currentPath}`
+        this.resources.rootChange(this.currentPath)
+      }
 
     }
   }

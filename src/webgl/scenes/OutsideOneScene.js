@@ -17,9 +17,15 @@ export default class OutsideOneScene extends Group
   }
 
   setup(){
+    this.init()
+
+  }
+
+  init(){
     // Set Camera position
     // this.webGl.camera.position.set(0, 2.62, -10)
 
+    // Lisener 
   }
 
   update(){

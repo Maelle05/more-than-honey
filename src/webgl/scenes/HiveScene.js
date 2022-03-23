@@ -41,9 +41,8 @@ export default class HiveScene extends Group
   }
 
   setup(){
-    // Set Camera position
-    // this.webGl.camera.position.set(0, 2.62, -10)
-    
+    this.init()
+
     this.object1 = new Mesh(
       new SphereGeometry(0.5, 16, 16),
       new MeshBasicMaterial({ color: "#ff0000" })
@@ -65,6 +64,13 @@ export default class HiveScene extends Group
 
     this.raycaster = new Raycaster()
 
+  }
+
+  init(){
+    // Set Camera position
+    // this.webGl.camera.position.set(0, 2.62, -10)
+
+    // Lisener 
   }
 
   update(){
