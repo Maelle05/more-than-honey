@@ -29,6 +29,8 @@ export default class RaceGameScene extends Group
       }
     }
 
+    this.mouseMovehandle = this.handleMoveCursor.bind(this)
+
     // Wait for resources
     this.resources.on(`sourcesReadyraceGame`, () =>
     {
@@ -71,7 +73,7 @@ export default class RaceGameScene extends Group
     this.webGl.camera.position.set(0, 2.62, -10)
 
     // Lisener 
-    document.addEventListener('mousemove', this.handleMoveCursor.bind(this))
+    document.addEventListener('mousemove', this.mouseMovehandle)
 
     // Add models 
     this.add(this.bee.model)
@@ -91,11 +93,10 @@ export default class RaceGameScene extends Group
   }
 
   delete(){
-    document.removeEventListener('mousemove', () => this.handleMoveCursor.bind(this) )
+    document.removeEventListener('mousemove', this.mouseMovehandle )
   }
 
   handleMoveCursor(e){
-    // console.log(e);
     const windowWidth = window.innerWidth
     const positionCursorH = e.clientX - (windowWidth / 2) 
   
