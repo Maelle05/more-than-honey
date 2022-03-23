@@ -15,3 +15,7 @@ npm run dev
 ```
 npm run build
 ```
+
+## How does the project work ?
+
+In progress ...

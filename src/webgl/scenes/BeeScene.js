@@ -28,7 +28,12 @@ export default class BeeScene extends Group
 
   init(){
     // Set Camera position
-    // this.webGl.camera.position.set(8, 3, 5)
+    this.webGl.camera.position.set(6, 5, 0)
+
+    // Set Bee Posistion
+    if(this.bee){
+      this.bee.model.position.set(0, 0, 0)
+    }
 
     // Lisener 
   }
