@@ -41,8 +41,6 @@ export default class HiveScene extends Group
   }
 
   setup(){
-    this.init()
-
     this.object1 = new Mesh(
       new SphereGeometry(0.5, 16, 16),
       new MeshBasicMaterial({ color: "#ff0000" })
@@ -64,6 +62,7 @@ export default class HiveScene extends Group
 
     this.raycaster = new Raycaster()
 
+    this.init()
   }
 
   init(){

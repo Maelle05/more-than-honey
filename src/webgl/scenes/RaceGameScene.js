@@ -37,11 +37,8 @@ export default class RaceGameScene extends Group
   }
 
   setup(){
-    this.init()
-    
     // Add Bee
     this.bee = new Bee()
-    this.add(this.bee.model)
 
     // Debug
     this.debug = this.webGl.debug
@@ -65,6 +62,8 @@ export default class RaceGameScene extends Group
     }
 
     // Add Water
+
+    this.init()
   }
 
   init(){
@@ -73,6 +72,10 @@ export default class RaceGameScene extends Group
 
     // Lisener 
     document.addEventListener('mousemove', this.handleMoveCursor.bind(this))
+
+    // Add models 
+    this.add(this.bee.model)
+
   }
 
   update(){
@@ -88,21 +91,23 @@ export default class RaceGameScene extends Group
   }
 
   delete(){
-    document.removeEventListener('mousemove', this.handleMoveCursor.bind(this) )
+    document.removeEventListener('mousemove', () => this.handleMoveCursor.bind(this) )
   }
 
   handleMoveCursor(e){
+    // console.log(e);
     const windowWidth = window.innerWidth
-    const positionCursorH = e.screenX - (windowWidth / 2) 
+    const positionCursorH = e.clientX - (windowWidth / 2) 
   
     if(this.bee){
       const convertX = - (positionCursorH * this.property.bee.limitRightLeft) / (windowWidth/2);
-  
+
       let posX
       posX = Math.min(this.property.bee.limitRightLeft, convertX)
       posX = Math.max(-this.property.bee.limitRightLeft, posX)
 
-      this.property.cursor.target = posX   
+      this.property.cursor.target = posX
+
     }
   }
 }

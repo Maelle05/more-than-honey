@@ -17,8 +17,8 @@ export default class EndingScene extends Group
   }
 
   setup(){
+    
     this.init()
-
   }
 
   init(){

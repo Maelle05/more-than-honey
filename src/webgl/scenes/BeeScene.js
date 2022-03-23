@@ -18,12 +18,10 @@ export default class BeeScene extends Group
   }
 
   setup(){
-    this.init()
-
     // Add Bee
     this.bee = new Bee()
-    this.add(this.bee.model)
 
+    this.init()
   }
 
   init(){
@@ -32,6 +30,7 @@ export default class BeeScene extends Group
 
     // Set Bee Posistion
     if(this.bee){
+      this.add(this.bee.model)
       this.bee.model.position.set(0, 0, 0)
     }
 

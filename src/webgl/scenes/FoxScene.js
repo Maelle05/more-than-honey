@@ -20,8 +20,6 @@ export default class FoxScene extends Group
   }
 
   setup(){
-    this.init()
-
     // Add fox to FoxScene group
     this.fox = new Fox()
     this.add(this.fox.model)
@@ -39,6 +37,7 @@ export default class FoxScene extends Group
     this.sunLight.position.set(3.5, 2, - 1.25)
     this.add(this.sunLight)
 
+    this.init()
   }
 
   init(){

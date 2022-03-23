@@ -17,8 +17,9 @@ export default class OutsideOneScene extends Group
   }
 
   setup(){
-    this.init()
 
+
+    this.init()
   }
 
   init(){
