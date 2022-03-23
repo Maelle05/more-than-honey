@@ -14,13 +14,18 @@ export default class RaceGameScene extends Group
 
     // Property Game
     this.property = {
-      'bee': {
-        'placingHeight': 1.5,
-        'limitRightLeft': 3.5,
+      bee: {
+        placingHeight: 1.5,
+        limitRightLeft: 3.5,
       },
-      'cursor': {
-        'current': 0,
-        'target': 0,
+      cursor: {
+        current: 0,
+        target: 0,
+      },
+      game: {
+        bee: {
+          speed: 0.001
+        }
       }
     }
 
@@ -44,6 +49,7 @@ export default class RaceGameScene extends Group
     if(this.debug.active)
     {
       const viewGUI = this.debug.ui.addFolder('Vision')
+
       const camGUI = viewGUI.addFolder('Position Camera')
       camGUI.add(this.webGl.camera.position, 'x', -10, 10)
       camGUI.add(this.webGl.camera.position, 'y', -10, 10)
@@ -52,6 +58,11 @@ export default class RaceGameScene extends Group
       const beePlacingGUI = viewGUI.addFolder('Bee Placing')
       beePlacingGUI.add(this.property.bee, 'placingHeight', -2, 3, 0.01).name( 'Height' )
       beePlacingGUI.add(this.property.bee, 'limitRightLeft', -2, 3, 0.01).name( 'Limits Left Right' )
+
+      const gameGUI = this.debug.ui.addFolder('Game')
+      gameGUI.add(this.property.game.bee, 'speed', 0, 0.003, 0.0001).name( 'Bee speed' )
+
+
     }
 
     // Lisener 
@@ -68,13 +79,13 @@ export default class RaceGameScene extends Group
       // Update hauteur bee
       this.bee.model.position.y = (Math.sin(this.time.elapsed / 700) / 5) - this.property.bee.placingHeight
       
-      this.property.cursor.current = MathUtils.damp(this.property.cursor.current, this.property.cursor.target, 0.001, this.time.delta);
+      this.property.cursor.current = MathUtils.damp(this.property.cursor.current, this.property.cursor.target, this.property.game.bee.speed, this.time.delta);
       this.bee.model.position.x = this.property.cursor.current
     }
   }
 
   delete(){
-    
+    document.removeEventListener('mousemove', this.handleMoveCursor.bind(this) )
   }
 
   handleMoveCursor(e){
