@@ -49,7 +49,7 @@ body {
     }
 
     #nav, a{
-      color: red;
+      color: powderblue;
     }
   }
 }
