@@ -22,5 +22,11 @@
     "type": "texture",
     "actingScenes": "foxScene beeScene",
     "path": "webgl/textures/Grass/color.jpg"
+  },
+  {
+    "name": "lysModel",
+    "type": "gltfModel",
+    "actingScenes": "outsideOneScene",
+    "path": "webgl/models/Lys/LYS5.gltf"
   }
 ]

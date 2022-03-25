@@ -1,5 +1,6 @@
-import { Group } from 'three'
-import WebGl from '../webglManager'
+import WebGl from '../webglManager';
+
+import { Group } from 'three';
 
 export default class OutsideOneScene extends Group
 {
@@ -7,6 +8,8 @@ export default class OutsideOneScene extends Group
     super()
     this.webGl = new WebGl()
     this.scene = this.webGl.scene
+    this.renderer = this.webGl.renderer
+    this.camera = this.webGl.camera
     this.resources = this.webGl.resources
 
     // Wait for resources
@@ -17,14 +20,19 @@ export default class OutsideOneScene extends Group
   }
 
   setup(){
+    this.lys = this.resources.items.lysModel.scene
+
 
 
     this.init()
   }
 
   init(){
+    // Add lys
+    this.add(this.lys)
+
     // Set Camera position
-    // this.webGl.camera.position.set(0, 2.62, -10)
+    this.webGl.camera.position.set(0, 1, 1)
 
     // Lisener 
   }

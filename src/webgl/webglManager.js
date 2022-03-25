@@ -7,6 +7,7 @@ import Debug from './utils/Debug.js'
 import Sizes from './utils/Sizes.js'
 import Time from './utils/Time'
 import RouterScenes from './RouterScenes'
+import Processing from './shaders/postProssesing'
 
 let webglInstance = null
 
@@ -41,7 +42,7 @@ export default class WebGl{
     // OrbitControls
     this.controls = new OrbitControls(this.camera, this.canvas)
     this.controls.enableDamping = true
-    this.controls.enabled = false
+    this.controls.enabled = true
 
     // Add Light
     const light = new AmbientLight( 0x404040 );
@@ -58,9 +59,12 @@ export default class WebGl{
     this.renderer.toneMappingExposure = 1.75
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMap.type = PCFSoftShadowMap
-    this.renderer.setClearColor('#211d20')
+    this.renderer.setClearColor('#000000')
     this.renderer.setSize(this.sizes.width, this.sizes.height)
     this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
+
+    // Post Prossesing
+    this.postPross = new Processing()
 
 
     // Resize event
@@ -87,6 +91,7 @@ export default class WebGl{
   update(){
     this.controls.update()
     this.world.update()
+    // this.postPross.rendererRender()
     this.renderer.render(this.scene, this.camera)
   }
 }

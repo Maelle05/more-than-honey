@@ -84,7 +84,7 @@ export default class RouterScenes extends EventEmitter{
       }
     }
 
-    console.log(this.allScenes);
+    // console.log(this.allScenes);
     
     this.currentScene = this.allScenes[nameScene]
 

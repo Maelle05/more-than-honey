@@ -46,7 +46,7 @@ const routes = [
     }
   },
   {
-    path: '/outside/one',
+    path: '/outsideOne',
     name: 'outsideOne',
     component: function () {
       return import('../views/OutsideOne.vue')
@@ -60,7 +60,7 @@ const routes = [
     }
   },
   {
-    path: '/outside/two',
+    path: '/outsideTwo',
     name: 'outsideTwo',
     component: function () {
       return import('../views/OutsideTwo.vue')

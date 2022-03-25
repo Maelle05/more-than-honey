@@ -1,7 +1,6 @@
 import { Group, MathUtils } from 'three'
 import WebGl from '../webglManager'
 import Bee from '../entities/Bee'
-// import gsap, { Power1 } from 'gsap/all'
 
 export default class RaceGameScene extends Group
 {
@@ -63,7 +62,12 @@ export default class RaceGameScene extends Group
 
     }
 
-    // Add Water
+    // Add Sky
+    
+    
+
+
+
 
     this.init()
   }
