@@ -4,11 +4,6 @@
     <div class="point"></div>
     <div class="ui">
       <div id="nav">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/fox">Fox</router-link> |
-        <router-link to="/bee">Bee</router-link>
-        <br>
-        <br>
         <router-link to="/honeyIntro">Honey Intro</router-link> |
         <router-link to="/loading">Loading</router-link> |
         <router-link to="/hive">Hive</router-link> |
