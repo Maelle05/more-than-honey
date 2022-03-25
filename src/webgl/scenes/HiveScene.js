@@ -13,8 +13,6 @@ let currentIntersect = null
 window.addEventListener("mousemove", (e) => {
   mouse.x = (e.clientX / sizes.width) * 2 - 1;
   mouse.y = -(e.clientY / sizes.height) * 2 + 1;
-
- // console.log(mouse);
 })
 
 window.addEventListener("click", () => {
@@ -28,7 +26,6 @@ let hiveInstance = null
 export default class HiveScene extends Group
 {
   constructor(){
-
     if(hiveInstance) {
       return(
         hiveInstance
@@ -77,11 +74,13 @@ export default class HiveScene extends Group
     )
     this.object1.position.x = -3;
     this.object1.position.z = 1;
+    this.object1.name = 1;
 
     this.object2 = new Mesh(
       new SphereGeometry(0.5, 16, 16),
       new MeshBasicMaterial({ color: "#C571FF" })
     )
+    this.object2.name = 2;
 
     this.object3 = new Mesh(
       new SphereGeometry(0.5, 16, 16),
@@ -90,10 +89,12 @@ export default class HiveScene extends Group
     this.object3.position.x = 2;
     this.object3.position.y = 1.5;
     this.object3.position.z = 2;
+    this.object3.name = 3;
 
     this.add(this.object1, this.object2, this.object3)
 
     this.raycaster = new Raycaster()
+    
 
     this.init()
   }
@@ -108,18 +109,17 @@ export default class HiveScene extends Group
   }
 
   update(){
+    this.raycaster.setFromCamera(mouse, this.camera)
 
     if(this.points) {
       for(const point of this.points)
       {
-        this.raycaster.setFromCamera(mouse, this.camera)
 
         const screenPosition = point.position.clone()
         screenPosition.project(this.camera)
         const objectsToTest = [this.object1, this.object2, this.object3];
 
         const intersects = this.raycaster.intersectObjects(objectsToTest); // objects listed
-        // console.log(intersects.length);
 
         for (const object of objectsToTest) {
           object.material.color.set("#C571FF");
@@ -130,20 +130,16 @@ export default class HiveScene extends Group
         }
 
         if(intersects.length) {
-          console.log(currentIntersect, objectsToTest, intersects[0])
+          console.log(intersects[0].object.name)
           if(!currentIntersect) {
-            // console.log("mouse enter")
-            console.log("--------------------------")
-            console.log(point, "POINT")
-            point.element.classList.add('visible')
+            this.points[intersects[0].object.name].element.classList.add('visible')
 
           }
           currentIntersect = intersects[0]
         } else {
 
           if(currentIntersect) {
-            // console.log("mouse leave")
-            point.element.classList.remove('visible')
+            this.points[intersects[0].object.name].element.classList.remove('visible')
 
           }
           currentIntersect = null

@@ -48,20 +48,8 @@ export default class Processing {
     this.composer.addPass( this.bloomPass );
   }
 
-  setCurrentRenderer(name){
-    switch (name) {
-      case 'bloom':
-        this.currentRenderer = this.composer
-        break;
-    
-      default:
-        this.currentRenderer = this.renderer
-        break;
-    }
-  }
-
   rendererRender(){
-    this.currentRenderer.render(this.scene, this.camera)
+    this.composer.render()
   }
   
 }

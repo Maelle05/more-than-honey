@@ -91,7 +91,7 @@ export default class WebGl{
   update(){
     this.controls.update()
     this.world.update()
-    // this.postPross.rendererRender()
-    this.renderer.render(this.scene, this.camera)
+    this.postPross.rendererRender()
+    // this.renderer.render(this.scene, this.camera)
   }
 }
