@@ -1,4 +1,4 @@
-import {Group, Mesh, MeshBasicMaterial, SphereGeometry, Vector2, Raycaster} from 'three'
+import {Group, Mesh, MeshBasicMaterial, SphereGeometry, Vector2, Raycaster, Vector3} from 'three'
 import WebGl from '../webglManager'
 
 // to move somewhere else
@@ -7,6 +7,7 @@ const sizes = {
   width: window.innerWidth,
   height: window.innerHeight,
 }
+
 let currentIntersect = null
 
 window.addEventListener("mousemove", (e) => {
@@ -22,16 +23,28 @@ window.addEventListener("click", () => {
   }
 })
 
+let hiveInstance = null
+
 export default class HiveScene extends Group
 {
   constructor(){
+
+    if(hiveInstance) {
+      return(
+        hiveInstance
+      )
+    }
+
     super()
+    hiveInstance = this
+
     this.webGl = new WebGl()
     this.scene = this.webGl.scene
     this.resources = this.webGl.resources
     this.camera = this.webGl.camera
 
     this.raycaster = null
+
 
     // Wait for resources
     this.resources.on(`sourcesReadyhive`, () =>
@@ -40,23 +53,43 @@ export default class HiveScene extends Group
     })
   }
 
+  setUpPoints(points) {
+    this.points = [
+      {
+        position: new Vector3(-3, 0, 1),
+        element: points[0]
+      },
+      {
+        position: new Vector3(0, 0, 0),
+        element: points[1]
+      },
+      {
+        position: new Vector3(2,  1.5, 2),
+        element: points[2]
+      }
+    ]
+  }
+
   setup(){
     this.object1 = new Mesh(
       new SphereGeometry(0.5, 16, 16),
-      new MeshBasicMaterial({ color: "#ff0000" })
+      new MeshBasicMaterial({ color: "#C571FF" })
     )
-    this.object1.position.x = -2;
+    this.object1.position.x = -3;
+    this.object1.position.z = 1;
 
     this.object2 = new Mesh(
       new SphereGeometry(0.5, 16, 16),
-      new MeshBasicMaterial({ color: "#ff0000" })
+      new MeshBasicMaterial({ color: "#C571FF" })
     )
 
     this.object3 = new Mesh(
       new SphereGeometry(0.5, 16, 16),
-      new MeshBasicMaterial({ color: "#ff0000" })
+      new MeshBasicMaterial({ color: "#C571FF" })
     );
     this.object3.position.x = 2;
+    this.object3.position.y = 1.5;
+    this.object3.position.z = 2;
 
     this.add(this.object1, this.object2, this.object3)
 
@@ -67,39 +100,62 @@ export default class HiveScene extends Group
 
   init(){
     // Set Camera position
-    // this.webGl.camera.position.set(0, 2.62, -10)
+    this.webGl.camera.position.set(0, 1, -10)
 
-    // Lisener 
+    // Listener
+
+
   }
 
   update(){
-    this.raycaster.setFromCamera(mouse, this.camera)
 
-    const objectsToTest = [this.object1, this.object2, this.object3];
+    if(this.points) {
+      for(const point of this.points)
+      {
+        this.raycaster.setFromCamera(mouse, this.camera)
 
-    const intersects = this.raycaster.intersectObjects(objectsToTest); // objects listed
-    // console.log(intersects.length);
+        const screenPosition = point.position.clone()
+        screenPosition.project(this.camera)
+        const objectsToTest = [this.object1, this.object2, this.object3];
 
-    for (const object of objectsToTest) {
-      object.material.color.set("#ff0000");
-    }
+        const intersects = this.raycaster.intersectObjects(objectsToTest); // objects listed
+        // console.log(intersects.length);
 
-    for (const intersect of intersects) {
-      intersect.object.material.color.set("#0000ff");
-    }
+        for (const object of objectsToTest) {
+          object.material.color.set("#C571FF");
+        }
 
-    if(intersects.length) {
-      if(!currentIntersect) {
-        console.log("mouse enter")
+        for (const intersect of intersects) {
+          intersect.object.material.color.set("#0000ff");
+        }
+
+        if(intersects.length) {
+          console.log(currentIntersect, objectsToTest, intersects[0])
+          if(!currentIntersect) {
+            // console.log("mouse enter")
+            console.log("--------------------------")
+            console.log(point, "POINT")
+            point.element.classList.add('visible')
+
+          }
+          currentIntersect = intersects[0]
+        } else {
+
+          if(currentIntersect) {
+            // console.log("mouse leave")
+            point.element.classList.remove('visible')
+
+          }
+          currentIntersect = null
+        }
+
+        const translateX = screenPosition.x * sizes.width * 0.5
+        const translateY = - screenPosition.y * sizes.height * 0.5
+        point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`
       }
-      currentIntersect = intersects[0]
-    } else {
 
-      if(currentIntersect) {
-        console.log("mouse leave")
-      }
-      currentIntersect = null
     }
+
   }
 
   delete(){

@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <canvas class="webgl"/>
+    <div class="point"></div>
     <div class="ui">
       <div id="nav">
         <router-link to="/">Home</router-link> |
