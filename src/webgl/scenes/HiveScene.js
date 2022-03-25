@@ -1,6 +1,7 @@
 import {Group, Mesh, MeshBasicMaterial, SphereGeometry, Vector2, Raycaster, Vector3} from 'three'
 import WebGl from '../webglManager'
 
+<<<<<<< HEAD
 // to move somewhere else
 const mouse = new Vector2()
 const sizes = {
@@ -21,6 +22,8 @@ window.addEventListener("click", () => {
   }
 })
 
+=======
+>>>>>>> ed95247f55687e2afcaa42aa0612bb090de6a789
 let hiveInstance = null
 
 export default class HiveScene extends Group
@@ -41,7 +44,13 @@ export default class HiveScene extends Group
     this.camera = this.webGl.camera
 
     this.raycaster = null
+    this.currentIntersect = null
 
+    this.mouse = new Vector2()
+    this.sizes = {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    }
 
     // Wait for resources
     this.resources.on(`sourcesReadyhive`, () =>
@@ -104,16 +113,32 @@ export default class HiveScene extends Group
     this.webGl.camera.position.set(0, 1, -10)
 
     // Listener
+    window.addEventListener("mousemove", (e) => {
+      this.mouse.x = (e.clientX / this.sizes.width) * 2 - 1;
+      this.mouse.y = -(e.clientY / this.sizes.height) * 2 + 1;
+    })
 
+    window.addEventListener("click", () => {
+      if(this.currentIntersect) {
+        console.log('click on model')
+      }
+    })
 
   }
 
   update(){
+<<<<<<< HEAD
     this.raycaster.setFromCamera(mouse, this.camera)
 
     if(this.points) {
       for(const point of this.points)
       {
+=======
+    if(this.points) {
+      for(const point of this.points)
+      {
+        this.raycaster.setFromCamera(this.mouse, this.camera)
+>>>>>>> ed95247f55687e2afcaa42aa0612bb090de6a789
 
         const screenPosition = point.position.clone()
         screenPosition.project(this.camera)
@@ -130,31 +155,51 @@ export default class HiveScene extends Group
         }
 
         if(intersects.length) {
+<<<<<<< HEAD
           console.log(intersects[0].object.name)
           if(!currentIntersect) {
             this.points[intersects[0].object.name].element.classList.add('visible')
+=======
+          if(this.currentIntersect) {
+
+            if(this.currentIntersect && JSON.stringify(this.currentIntersect.object.position) === JSON.stringify(point.position)) {
+              point.element.classList.add('visible')
+            }
+>>>>>>> ed95247f55687e2afcaa42aa0612bb090de6a789
 
           }
-          currentIntersect = intersects[0]
+          this.currentIntersect = intersects[0]
         } else {
 
+<<<<<<< HEAD
           if(currentIntersect) {
             this.points[intersects[0].object.name].element.classList.remove('visible')
+=======
+          if(!this.currentIntersect) {
+            point.element.classList.remove('visible')
+>>>>>>> ed95247f55687e2afcaa42aa0612bb090de6a789
 
           }
-          currentIntersect = null
+          this.currentIntersect = null
         }
 
-        const translateX = screenPosition.x * sizes.width * 0.5
-        const translateY = - screenPosition.y * sizes.height * 0.5
+        const translateX = screenPosition.x * this.sizes.width * 0.5
+        const translateY = - screenPosition.y * this.sizes.height * 0.5
         point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`
       }
-
     }
-
   }
 
   delete(){
-    
+    window.removeEventListener("click", () => {
+      if(this.currentIntersect) {
+        console.log('click on model')
+      }
+    })
+
+    window.removeEventListener("mousemove", (e) => {
+      this.mouse.x = (e.clientX / this.sizes.width) * 2 - 1;
+      this.mouse.y = -(e.clientY / this.sizes.height) * 2 + 1;
+    })
   }
 }
