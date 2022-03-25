@@ -46,6 +46,30 @@ export default class Processing {
   setup(){
     this.composer.addPass( this.renderScene );
     this.composer.addPass( this.bloomPass );
+
+    // Debug
+    this.debug = this.webGl.debug
+    if(this.debug.active)
+    {
+      const viewGUI = this.debug.ui.addFolder('Bloom Proprety')
+
+      viewGUI.add( this.params, 'exposure', 0.1, 2 ).onChange( (value) => {
+        this.renderer.toneMappingExposure = Math.pow( value, 4.0 );
+      });
+
+      viewGUI.add( this.params, 'bloomThreshold', 0.0, 1.0 ).onChange(( value ) => {
+        this.bloomPass.threshold = Number( value );
+      });
+
+      viewGUI.add( this.params, 'bloomStrength', 0.0, 3.0 ).onChange( ( value ) => {
+        this.bloomPass.strength = Number( value );
+      });
+
+      viewGUI.add( this.params, 'bloomRadius', 0.0, 1.0 ).step( 0.01 ).onChange( ( value ) => {
+        this.bloomPass.radius = Number( value );
+      });
+
+    }
   }
 
   rendererRender(){

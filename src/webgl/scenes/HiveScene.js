@@ -1,29 +1,6 @@
 import {Group, Mesh, MeshBasicMaterial, SphereGeometry, Vector2, Raycaster, Vector3} from 'three'
 import WebGl from '../webglManager'
 
-<<<<<<< HEAD
-// to move somewhere else
-const mouse = new Vector2()
-const sizes = {
-  width: window.innerWidth,
-  height: window.innerHeight,
-}
-
-let currentIntersect = null
-
-window.addEventListener("mousemove", (e) => {
-  mouse.x = (e.clientX / sizes.width) * 2 - 1;
-  mouse.y = -(e.clientY / sizes.height) * 2 + 1;
-})
-
-window.addEventListener("click", () => {
-  if(currentIntersect) {
-    console.log('clic on element')
-  }
-})
-
-=======
->>>>>>> ed95247f55687e2afcaa42aa0612bb090de6a789
 let hiveInstance = null
 
 export default class HiveScene extends Group
@@ -127,18 +104,10 @@ export default class HiveScene extends Group
   }
 
   update(){
-<<<<<<< HEAD
-    this.raycaster.setFromCamera(mouse, this.camera)
-
-    if(this.points) {
-      for(const point of this.points)
-      {
-=======
     if(this.points) {
       for(const point of this.points)
       {
         this.raycaster.setFromCamera(this.mouse, this.camera)
->>>>>>> ed95247f55687e2afcaa42aa0612bb090de6a789
 
         const screenPosition = point.position.clone()
         screenPosition.project(this.camera)
@@ -155,29 +124,18 @@ export default class HiveScene extends Group
         }
 
         if(intersects.length) {
-<<<<<<< HEAD
-          console.log(intersects[0].object.name)
-          if(!currentIntersect) {
-            this.points[intersects[0].object.name].element.classList.add('visible')
-=======
           if(this.currentIntersect) {
 
             if(this.currentIntersect && JSON.stringify(this.currentIntersect.object.position) === JSON.stringify(point.position)) {
               point.element.classList.add('visible')
             }
->>>>>>> ed95247f55687e2afcaa42aa0612bb090de6a789
 
           }
           this.currentIntersect = intersects[0]
         } else {
 
-<<<<<<< HEAD
-          if(currentIntersect) {
-            this.points[intersects[0].object.name].element.classList.remove('visible')
-=======
           if(!this.currentIntersect) {
             point.element.classList.remove('visible')
->>>>>>> ed95247f55687e2afcaa42aa0612bb090de6a789
 
           }
           this.currentIntersect = null
