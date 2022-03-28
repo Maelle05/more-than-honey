@@ -28,5 +28,11 @@
     "type": "gltfModel",
     "actingScenes": "outsideOneScene",
     "path": "webgl/models/Lys/LYS5.gltf"
+  },
+  {
+    "name": "particlesTexture",
+    "type": "texture",
+    "actingScenes": "outsideOneScene",
+    "path": "webgl/particles/3.png"
   }
 ]

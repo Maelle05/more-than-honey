@@ -1,6 +1,7 @@
 import WebGl from '../webglManager';
 
 import { Group } from 'three';
+import Particules from '../shaders/particulesTest';
 
 export default class OutsideOneScene extends Group
 {
@@ -21,6 +22,7 @@ export default class OutsideOneScene extends Group
 
   setup(){
     this.lys = this.resources.items.lysModel.scene
+    this.particles = new Particules()
 
 
 
@@ -29,7 +31,11 @@ export default class OutsideOneScene extends Group
 
   init(){
     // Add lys
+    this.lys.position.y = - 0.15
     this.add(this.lys)
+
+    // Add particles
+    this.add(this.particles)
 
     // Set Camera position
     this.webGl.camera.position.set(0, 1, 1)
