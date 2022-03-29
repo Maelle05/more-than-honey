@@ -1,6 +1,6 @@
 import {Group} from 'three'
 import WebGl from '../webglManager'
-import Bee from '@/webgl/entities/Bee'
+import Bee from '@/webgl/entities/BlueBee'
 
 export default class OutsideTwoScene extends Group {
   constructor() {
@@ -25,7 +25,7 @@ export default class OutsideTwoScene extends Group {
       const viewGUI = this.debug.ui.addFolder('Point of view')
 
       const camGUI = viewGUI.addFolder('Camera position')
-      camGUI.add(this.webGl.camera.position, 'x', -10, 10).setValue(-2)
+      camGUI.add(this.webGl.camera.position, 'x', -10, 10).setValue(-3.5)
       camGUI.add(this.webGl.camera.position, 'y', -10, 10).setValue(3)
       camGUI.add(this.webGl.camera.position, 'z', -30, 10).setValue(-8)
 
@@ -38,9 +38,12 @@ export default class OutsideTwoScene extends Group {
   }
 
   init() {
-    // Set Camera position
-    this.webGl.camera.position.set(-2, 3, -8)
+    // Set camera & bee position at init
+    this.webGl.camera.position.set(-3.5, 3, -8)
     this.bee.model.position.y = -1.5
+
+    // change glowy effect on this scene
+    this.webGl.postPross.renderer.toneMappingExposure = Math.pow( 0.85, 4.0 )
 
     // Listener
 

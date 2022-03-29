@@ -12,6 +12,12 @@
     "path": "webgl/models/Bee/scene.gltf"
   },
   {
+    "name": "beeBlueModel",
+    "type": "gltfModel",
+    "actingScenes": "outsideTwoScene",
+    "path": "webgl/models/Bee/blueBee.gltf"
+  },
+  {
     "name": "grassNormalTexture",
     "type": "texture",
     "actingScenes": "foxScene beeScene",
