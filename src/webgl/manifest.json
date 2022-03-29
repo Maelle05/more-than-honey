@@ -8,7 +8,7 @@
   {
     "name": "beeModel",
     "type": "gltfModel",
-    "actingScenes": "raceGameScene beeScene",
+    "actingScenes": "raceGameScene beeScene outsideTwoScene",
     "path": "webgl/models/Bee/scene.gltf"
   },
   {

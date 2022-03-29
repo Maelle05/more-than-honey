@@ -76,7 +76,7 @@ export default class RaceGameScene extends Group
     // Set Camera position
     this.webGl.camera.position.set(0, 2.62, -10)
 
-    // Lisener 
+    // Listener
     document.addEventListener('mousemove', this.mouseMovehandle)
 
     // Add models 
