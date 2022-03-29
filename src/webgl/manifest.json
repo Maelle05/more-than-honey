@@ -8,25 +8,25 @@
   {
     "name": "beeModel",
     "type": "gltfModel",
-    "actingScenes": "raceGameScene beeScene outsideTwoScene",
+    "actingScenes": "raceGameScene beeScene",
     "path": "webgl/models/Bee/scene.gltf"
   },
   {
     "name": "beeBlueModel",
     "type": "gltfModel",
-    "actingScenes": "outsideTwoScene",
+    "actingScenes": "raceGameScene outsideTwoScene",
     "path": "webgl/models/Bee/blueBee.gltf"
   },
   {
     "name": "grassNormalTexture",
     "type": "texture",
-    "actingScenes": "foxScene beeScene",
+    "actingScenes": "foxScene beeScene outsideTwoScene",
     "path": "webgl/textures/Grass/normal.jpg"
   },
   {
     "name": "grassColorTexture",
     "type": "texture",
-    "actingScenes": "foxScene beeScene",
+    "actingScenes": "foxScene beeScene outsideTwoScene",
     "path": "webgl/textures/Grass/color.jpg"
   },
   {

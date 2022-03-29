@@ -1,6 +1,6 @@
 import { Group, MathUtils } from 'three'
 import WebGl from '../webglManager'
-import Bee from '../entities/Bee'
+import Bee from '../entities/BlueBee'
 
 export default class RaceGameScene extends Group
 {
@@ -63,11 +63,6 @@ export default class RaceGameScene extends Group
     }
 
     // Add Sky
-    
-    
-
-
-
 
     this.init()
   }
@@ -75,6 +70,7 @@ export default class RaceGameScene extends Group
   init(){
     // Set Camera position
     this.webGl.camera.position.set(0, 2.62, -10)
+    this.webGl.controls.enabled = false
 
     // Listener
     document.addEventListener('mousemove', this.mouseMovehandle)

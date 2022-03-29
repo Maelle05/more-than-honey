@@ -1,6 +1,7 @@
 import { Group } from 'three'
 import Bee from '../entities/Bee'
 import WebGl from '../webglManager'
+import Floor from "@/webgl/entities/Floor";
 
 export default class BeeScene extends Group
 {
@@ -20,6 +21,7 @@ export default class BeeScene extends Group
   setup(){
     // Add Bee
     this.bee = new Bee()
+    this.floor = new Floor()
 
     this.init()
   }
@@ -31,6 +33,7 @@ export default class BeeScene extends Group
     // Set Bee Posistion
     if(this.bee){
       this.add(this.bee.model)
+      this.add(this.floor.mesh)
       this.bee.model.position.set(0, 0, 0)
     }
 

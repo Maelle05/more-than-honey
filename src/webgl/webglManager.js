@@ -42,7 +42,7 @@ export default class WebGl{
     // OrbitControls
     this.controls = new OrbitControls(this.camera, this.canvas)
     this.controls.enableDamping = true
-    this.controls.enabled = true
+    this.controls.enabled = false
 
     // Add Light
     const light = new AmbientLight( 0x404040 );

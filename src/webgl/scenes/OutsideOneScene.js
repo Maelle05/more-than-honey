@@ -34,6 +34,8 @@ export default class OutsideOneScene extends Group
     this.lys.position.y = - 0.15
     this.add(this.lys)
 
+    this.webGl.controls.enabled = true
+
     // Add particles
     this.add(this.particles)
 

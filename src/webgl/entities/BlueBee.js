@@ -38,8 +38,6 @@ export default class BlueBee
     // Actions
     this.animation.actions = {}
 
-    console.log(this.resource.animations, 'animation actions')
-    
     this.animation.actions.idle = this.animation.mixer.clipAction(this.resource.animations[0])
     this.animation.actions.hover = this.animation.mixer.clipAction(this.resource.animations[1])
     this.animation.actions.takeOff = this.animation.mixer.clipAction(this.resource.animations[2])
