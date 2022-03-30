@@ -21,7 +21,7 @@ export default class OutsideOneScene extends Group
       map: {
         with: 595,
         height: 842,
-        rasio : 50,
+        rasio : 5,
       },
       mouse: {
         target: new Vector3(), 
@@ -49,6 +49,7 @@ export default class OutsideOneScene extends Group
 
   init(){
     // Add lys
+    this.lys.children[0].scale.set(1, 1, 1)
     for (let i = 0; i < lysLocation.length; i++) {
       const thislys = this.lys.clone()
       const convertPos = {
@@ -57,7 +58,7 @@ export default class OutsideOneScene extends Group
       }
       thislys.position.z = convertPos.z
       thislys.position.x = convertPos.x
-      thislys.position.y = 0
+      thislys.position.y = 5
       this.add(thislys)
     }
 
@@ -65,7 +66,7 @@ export default class OutsideOneScene extends Group
     // this.add(this.tree.model)
 
     // Add stones
-    this.stone.model.scale.set(0.1, 0.1, 0.1)
+    this.stone.model.scale.set(0.4, 0.4, 0.4)
     for (let i = 0; i < stoneLocation.length; i++) {
       const thisStone = this.stone.model.clone()
       const convertPos = {
@@ -82,14 +83,15 @@ export default class OutsideOneScene extends Group
     // this.add(this.particles)
 
     // Set Camera property
-    this.webGl.camera.position.set(0, 2, (this.property.map.height + 100)/this.property.map.rasio)
+    this.webGl.camera.position.set(0, 20, (this.property.map.height )/this.property.map.rasio)
     this.webGl.controls.enabled = false
+    this.webGl.controls.target = new Vector3(0, -5, 0);
+
 
     // Lisener 
   }
 
   update(){
-    this.webGl.controls.target = new Vector3(0, 1, 0);
     
   }
 

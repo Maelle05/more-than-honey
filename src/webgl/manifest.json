@@ -52,5 +52,11 @@
     "type": "gltfModel",
     "actingScenes": "outsideOneScene",
     "path": "webgl/models/Stone/stone.glb"
+  },
+  {
+    "name": "rucheModel",
+    "type": "gltfModel",
+    "actingScenes": "hiveScene",
+    "path": "webgl/models/Ruche/Ruche.gltf"
   }
 ]
