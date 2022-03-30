@@ -18,7 +18,6 @@ export default class Stone
 
   setModel(){
     this.model = this.resource.scene
-    this.model.scale.set(0.02, 0.02, 0.02)
 
     this.model.traverse((child) =>
     {
