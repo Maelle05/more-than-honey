@@ -2,6 +2,7 @@ import WebGl from '../webglManager';
 
 import { Group } from 'three';
 import Particules from '../shaders/particulesTest';
+import Tree from '../entities/Tree';
 
 export default class OutsideOneScene extends Group
 {
@@ -22,8 +23,8 @@ export default class OutsideOneScene extends Group
 
   setup(){
     this.lys = this.resources.items.lysModel.scene
+    this.tree = new Tree()
     this.particles = new Particules()
-
 
 
     this.init()
@@ -32,15 +33,18 @@ export default class OutsideOneScene extends Group
   init(){
     // Add lys
     this.lys.position.y = - 0.15
-    this.add(this.lys)
+    // this.add(this.lys)
 
-    this.webGl.controls.enabled = true
+    // Add trees
+    this.add(this.tree.model)
+    console.log(this.tree);
 
     // Add particles
     this.add(this.particles)
 
-    // Set Camera position
+    // Set Camera property
     this.webGl.camera.position.set(0, 1, 1)
+    this.webGl.controls.enabled = true
 
     // Lisener 
   }
