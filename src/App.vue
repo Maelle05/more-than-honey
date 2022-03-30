@@ -5,7 +5,6 @@
     <div class="ui">
       <div id="nav">
         <router-link to="/honeyIntro">Honey Intro</router-link> |
-        <router-link to="/loading">Loading</router-link> |
         <router-link to="/hive">Hive</router-link> |
         <router-link to="/outsideOne">Outside one</router-link> |
         <router-link to="/pollenGame">Pollen Game</router-link> |

@@ -32,7 +32,7 @@ export default class WebGl{
     this.world = new RouterScenes()
 
     // Camera
-    this.camera = new PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 100)
+    this.camera = new PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 500)
     this.camera.position.set(6, 5, 0)
     this.scene.add(this.camera)
 
@@ -78,6 +78,8 @@ export default class WebGl{
     {
       this.update()
     })
+
+    // 
   }
 
   resize(){

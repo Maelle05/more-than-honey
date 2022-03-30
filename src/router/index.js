@@ -32,13 +32,6 @@ const routes = [
     }
   },
   {
-    path: '/loading',
-    name: 'loading',
-    component: function () {
-      return import('../views/Loading.vue')
-    }
-  },
-  {
     path: '/hive',
     name: 'hive',
     component: function () {
