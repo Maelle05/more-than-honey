@@ -80,9 +80,7 @@ export default class OutsideTwoScene extends Group {
   }
 
   moveOnScroll() {
-    // console.log("scroll", this.bee)
     this.bee.model.position.z ++
-    console.log('test')
   }
 
   update() {
