@@ -33,7 +33,7 @@ export default class WebGl{
 
     // Camera
     this.camera = new PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 500)
-    this.camera.position.set(6, 5, 0)
+    this.camera.position.set(0, 5, 0)
     this.scene.add(this.camera)
 
     // Debug
@@ -79,7 +79,26 @@ export default class WebGl{
       this.update()
     })
 
-    // 
+    // Keybord control Camera
+    document.addEventListener('keydown', (e) => {
+      switch (e.key) {
+        case 'z':
+          this.camera.position.z += 0.1
+          break;
+        case 's':
+          this.camera.position.z -= 0.1
+          break;
+        case 'q':
+          this.camera.position.x += 0.1
+          break;
+        case 'd':
+          this.camera.position.x -= 0.1
+          break;
+        default:
+          break;
+      }
+      // console.log(this.camera.position);
+    })
   }
 
   resize(){

@@ -54,7 +54,7 @@ export default class OutsideOneScene extends Group
 
     // Set Camera property
     this.webGl.camera.position.set(0, 1, 1)
-    this.webGl.controls.enabled = true
+    this.webGl.controls.enabled = false
 
     // Lisener 
   }
