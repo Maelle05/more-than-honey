@@ -1,10 +1,11 @@
 import WebGl from '../webglManager';
-// import { Flow } from './jsm/modifiers/CurveModifier.js';
+import { Flow } from 'three/examples/jsm/modifiers/CurveModifier.js';
 
 import { Group, Vector3, BoxGeometry, MeshBasicMaterial, Mesh, CatmullRomCurve3, Line, BufferGeometry, LineBasicMaterial} from 'three';
 import Particules from '../shaders/particulesTest';
 import Tree from '../entities/Tree';
 import Stone from '../entities/Stone';
+import Bee from '../entities/BlueBee';
 import stoneLocation from '../elementsLocations/outsideOne/stone.json'
 import lysLocation from '../elementsLocations/outsideOne/lys.json'
 import beePath from '../elementsLocations/outsideOne/beePath.json'
@@ -43,6 +44,7 @@ export default class OutsideOneScene extends Group
     this.lys = this.resources.items.lysModel.scene
     this.tree = new Tree()
     this.stone = new Stone()
+    this.bee = new Bee()
     this.particles = new Particules()
 
     // CURVE HANDLE
@@ -72,13 +74,25 @@ export default class OutsideOneScene extends Group
       new BufferGeometry().setFromPoints( points ),
       new LineBasicMaterial( { color: 0x00ff00 } )
     );
-
     this.scene.add( this.line );
+
+
 
     this.init()
   }
 
   init(){
+    // Add bee
+    // this.bee.model.position.set(this.initialPoints[0].x, this.initialPoints[0].y, this.initialPoints[0].z)
+    // this.bee.model.scale.set(0.1, 0.1, 0.1)
+    // this.bee.model.rotateY( Math.PI );
+
+    console.log(this.curve);
+
+    this.flow = new Flow( this.bee.model );
+    this.flow.updateCurve( 0, this.curve );
+    this.add( this.flow.object3D );
+
     // Add lys
     this.lys.children[0].scale.set(1, 1, 1)
     for (let i = 0; i < lysLocation.length; i++) {
@@ -114,7 +128,7 @@ export default class OutsideOneScene extends Group
     // this.add(this.particles)
 
     // Set Camera property
-    this.webGl.camera.position.set(0, 20, (this.property.map.height )/this.property.map.rasio)
+    this.webGl.camera.position.set(0, 20, (this.property.map.height + 200 )/this.property.map.rasio)
     this.webGl.controls.enabled = false
     this.webGl.controls.target = new Vector3(0, -5, 0);
 
@@ -123,6 +137,12 @@ export default class OutsideOneScene extends Group
   }
 
   update(){
+
+    if ( this.flow ) {
+
+      this.flow.moveAlongCurve( 0.001 );
+
+    }
     
   }
 
