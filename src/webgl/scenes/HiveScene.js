@@ -80,6 +80,11 @@ export default class HiveScene extends Group
     this.add(this.object1, this.object2, this.object3)
 
     this.raycaster = new Raycaster()
+
+
+    this.hive = this.resources.items.hiveModel.scene
+
+    console.log(this.hive)
     
 
     this.init()
@@ -87,7 +92,10 @@ export default class HiveScene extends Group
 
   init(){
     // Set Camera position
-    this.webGl.camera.position.set(0, 1, -10)
+    this.webGl.camera.position.set(0, 4, -50)
+
+    // Add Hive
+    this.add(this.hive)
 
     // Listener
     window.addEventListener("mousemove", (e) => {
@@ -104,7 +112,7 @@ export default class HiveScene extends Group
   }
 
   update(){
-    if(this.points) {
+    if(this.points && this.raycaster) {
       for(const point of this.points)
       {
         this.raycaster.setFromCamera(this.mouse, this.camera)
