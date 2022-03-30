@@ -16,6 +16,9 @@ export default class OutsideTwoScene extends Group {
       height: window.innerHeight,
     }
 
+    this.mouseScrollhandle = this.moveOnScroll.bind(this)
+
+
     // Wait for resources
     this.resources.on(`sourcesReadyoutsideTwo`, () => {
       this.setup()
@@ -28,14 +31,12 @@ export default class OutsideTwoScene extends Group {
     // plane
     this.fakeFloor = new Mesh(
       new CircleGeometry(5, 64),
-      new MeshBasicMaterial({color: 0xC571FF})
+      new MeshBasicMaterial({color: 0x0000ff})
     )
     this.fakeFloor.material.side = DoubleSide
     this.fakeFloor.rotation.x = - Math.PI * 0.5
     this.fakeFloor.position.y = - 5
     this.fakeFloor.position.z =  5
-
-    console.log(this.fakeFloor)
 
     // Debug
     this.debug = this.webGl.debug
@@ -58,13 +59,12 @@ export default class OutsideTwoScene extends Group {
   }
 
   init() {
-    // Set camera & bee position at init
+    // Set parameters of the scene at init
     this.camera.position.set(-3, 3, -8)
-    this.bee.model.position.y = -1.5
-
+    this.bee.model.position.set(0, -1.5, 0)
+    this.webGl.controls.enabled = false
     // change glowy effect on this scene
     this.webGl.postPross.renderer.toneMappingExposure = Math.pow( 0.85, 4.0 )
-    this.webGl.controls.enabled = false
 
     // Listener
     window.addEventListener("mousemove", (e) => {
@@ -72,9 +72,17 @@ export default class OutsideTwoScene extends Group {
       this.mouse.y = -(e.clientY / this.sizes.height) * 2 + 1;
     })
 
+    document.addEventListener('wheel', this.mouseScrollhandle)
+
     // add models
     this.add(this.bee.model)
     this.add(this.fakeFloor)
+  }
+
+  moveOnScroll() {
+    // console.log("scroll", this.bee)
+    this.bee.model.position.z ++
+    console.log('test')
   }
 
   update() {
@@ -83,13 +91,17 @@ export default class OutsideTwoScene extends Group {
       this.bee.update()
 
       // rotate camera with cursor mouse
-      this.camera.position.x = MathUtils.lerp(this.camera.position.x, - this.mouse.x, 0.1)
+      this.camera.position.x = MathUtils.lerp(this.camera.position.x, (this.mouse.x * Math.PI) / 5, 0.1)
+      // this.camera.rotation.y = MathUtils.lerp(this.camera.rotation.y, (this.mouse.x * Math.PI) / 10, 0.1)
 
     }
-
   }
 
   delete() {
-
+    document.removeEventListener('wheel', this.mouseScrollhandle)
+    window.removeEventListener("mousemove", (e) => {
+      this.mouse.x = (e.clientX / this.sizes.width) * 2 - 1;
+      this.mouse.y = -(e.clientY / this.sizes.height) * 2 + 1;
+    })
   }
 }

@@ -68,8 +68,9 @@ export default class RaceGameScene extends Group
   }
 
   init(){
-    // Set Camera position
+    // Set parameters of the scene at init
     this.webGl.camera.position.set(0, 2.62, -10)
+    this.bee.model.position.set(0, 0, 0)
     this.webGl.controls.enabled = false
 
     // Listener
