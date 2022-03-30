@@ -1,11 +1,13 @@
 import WebGl from '../webglManager';
+// import { Flow } from './jsm/modifiers/CurveModifier.js';
 
-import { Group, Vector3 } from 'three';
+import { Group, Vector3, BoxGeometry, MeshBasicMaterial, Mesh, CatmullRomCurve3, Line, BufferGeometry, LineBasicMaterial} from 'three';
 import Particules from '../shaders/particulesTest';
 import Tree from '../entities/Tree';
 import Stone from '../entities/Stone';
 import stoneLocation from '../elementsLocations/outsideOne/stone.json'
 import lysLocation from '../elementsLocations/outsideOne/lys.json'
+import beePath from '../elementsLocations/outsideOne/beePath.json'
 
 export default class OutsideOneScene extends Group
 {
@@ -43,6 +45,35 @@ export default class OutsideOneScene extends Group
     this.stone = new Stone()
     this.particles = new Particules()
 
+    // CURVE HANDLE
+    // extract from .json and change format
+    this.initialPoints = [];
+    for (let i = 0; i < beePath.length; i++) {
+      this.initialPoints.push({x: ( beePath[i].x / this.property.map.rasio ) - this.property.map.with / this.property.map.rasio / 2, y: 1, z: beePath[i].y / this.property.map.rasio })
+    }
+    // create cube for eatch point of the curve
+    this.boxGeometry = new BoxGeometry( 1, 1, 1 );
+		this.boxMaterial = new MeshBasicMaterial({ color: 'red'});
+    this.curveHandles = []
+    for ( const handlePos of this.initialPoints ) {
+      const handle = new Mesh( this.boxGeometry, this.boxMaterial );
+      handle.position.copy( handlePos );
+      this.curveHandles.push( handle );
+      this.scene.add( handle );
+    }
+    // Calculate Smooth curve
+    this.curve = new CatmullRomCurve3(
+      this.curveHandles.map( ( handle ) => handle.position )
+    );
+    this.curve.curveType = 'centripetal';
+    this.curve.closed = false;
+    const points = this.curve.getPoints( 50 );
+    this.line = new Line(
+      new BufferGeometry().setFromPoints( points ),
+      new LineBasicMaterial( { color: 0x00ff00 } )
+    );
+
+    this.scene.add( this.line );
 
     this.init()
   }
