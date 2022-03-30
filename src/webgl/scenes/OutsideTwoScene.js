@@ -1,4 +1,4 @@
-import {CircleGeometry, DoubleSide, Group, MathUtils, Mesh, MeshBasicMaterial, Vector2} from 'three'
+import {CircleGeometry, DoubleSide, Group, MathUtils, Mesh, MeshBasicMaterial, Vector2, Vector3} from 'three'
 import WebGl from '../webglManager'
 import Bee from '@/webgl/entities/BlueBee'
 
@@ -18,7 +18,6 @@ export default class OutsideTwoScene extends Group {
 
     this.mouseScrollhandle = this.moveOnScroll.bind(this)
 
-
     // Wait for resources
     this.resources.on(`sourcesReadyoutsideTwo`, () => {
       this.setup()
@@ -36,7 +35,7 @@ export default class OutsideTwoScene extends Group {
     this.fakeFloor.material.side = DoubleSide
     this.fakeFloor.rotation.x = - Math.PI * 0.5
     this.fakeFloor.position.y = - 5
-    this.fakeFloor.position.z =  5
+    this.fakeFloor.position.z =  100
 
     // Debug
     this.debug = this.webGl.debug
@@ -60,9 +59,12 @@ export default class OutsideTwoScene extends Group {
 
   init() {
     // Set parameters of the scene at init
-    this.camera.position.set(-3, 3, -8)
+    this.camera.position.set(0, 0, -10)
+
     this.bee.model.position.set(0, -1.5, 0)
     this.webGl.controls.enabled = false
+    this.webGl.controls.target = new Vector3(0, 0, 1000)
+
     // change glowy effect on this scene
     this.webGl.postPross.renderer.toneMappingExposure = Math.pow( 0.85, 4.0 )
 
@@ -81,15 +83,18 @@ export default class OutsideTwoScene extends Group {
 
   moveOnScroll() {
     this.bee.model.position.z ++
+    this.camera.position.z ++
+
   }
 
   update() {
+
     if (this.bee) {
       // Update anim bee
       this.bee.update()
 
       // rotate camera with cursor mouse
-      this.camera.position.x = MathUtils.lerp(this.camera.position.x, (this.mouse.x * Math.PI) / 5, 0.1)
+      this.camera.position.x = MathUtils.lerp(this.camera.position.x, (-this.mouse.x * Math.PI) / 5, 0.1)
       // this.camera.rotation.y = MathUtils.lerp(this.camera.rotation.y, (this.mouse.x * Math.PI) / 10, 0.1)
 
     }
