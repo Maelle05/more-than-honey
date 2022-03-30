@@ -40,5 +40,17 @@
     "type": "texture",
     "actingScenes": "outsideOneScene",
     "path": "webgl/particles/3.png"
+  },
+  {
+    "name": "treeModel",
+    "type": "gltfModel",
+    "actingScenes": "outsideOneScene",
+    "path": "webgl/models/Tree/tree.glb"
+  },
+  {
+    "name": "stoneModel",
+    "type": "gltfModel",
+    "actingScenes": "outsideOneScene",
+    "path": "webgl/models/Stone/stone.glb"
   }
 ]
