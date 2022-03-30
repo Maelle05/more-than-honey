@@ -113,7 +113,6 @@ export default class WebGl{
     this.controls.update()
     this.world.update()
     this.postPross.rendererRender()
-    // console.log(this.renderer)
     
   }
 }
