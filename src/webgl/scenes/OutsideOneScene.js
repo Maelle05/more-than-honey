@@ -82,9 +82,9 @@ export default class OutsideOneScene extends Group
 
   init(){
     // Add bee
-    this.beeAdvance = 0
-    this.beePoss = this.curve.getPointAt(this.beeAdvance)
-    this.beePoss2 = this.curve.getPointAt(this.beeAdvance + 0.01)
+    this.beeMove = 0
+    this.beePoss = this.curve.getPointAt(this.beeMove)
+    this.beePoss2 = this.curve.getPointAt(this.beeMove + 0.01)
     this.bee.model.position.copy(this.beePoss)
     this.bee.model.lookAt(this.beePoss2)
     this.bee.model.scale.set(0.1, 0.1, 0.1)
@@ -135,20 +135,20 @@ export default class OutsideOneScene extends Group
     document.addEventListener('keydown', (e) => {
       switch (e.key) {
         case 'ArrowUp':
-          if(this.beeAdvance < 1 ){
-            this.beeAdvance += 0.01
+          if(this.beeMove < 1 ){
+            this.beeMove += 0.01
           }
-          this.beePoss = this.curve.getPointAt(this.beeAdvance)
-          this.beePoss2 = this.curve.getPointAt(this.beeAdvance + 0.01)
+          this.beePoss = this.curve.getPointAt(this.beeMove)
+          this.beePoss2 = this.curve.getPointAt(this.beeMove + 0.01)
           this.bee.model.position.copy(this.beePoss)
           this.bee.model.lookAt(this.beePoss2)
           break;
         case 'ArrowDown':
-          if(this.beeAdvance > 0 ){
-            this.beeAdvance -= 0.01
+          if(this.beeMove > 0 ){
+            this.beeMove -= 0.01
           }
-          this.beePoss = this.curve.getPointAt(this.beeAdvance)
-          this.beePoss2 = this.curve.getPointAt(this.beeAdvance + 0.01)
+          this.beePoss = this.curve.getPointAt(this.beeMove)
+          this.beePoss2 = this.curve.getPointAt(this.beeMove + 0.01)
           this.bee.model.position.copy(this.beePoss)
           this.bee.model.lookAt(this.beePoss2)
           break;
