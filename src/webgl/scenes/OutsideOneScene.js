@@ -87,7 +87,7 @@ export default class OutsideOneScene extends Group
     this.beePoss2 = this.curve.getPointAt(this.beeMove + 0.01)
     this.bee.model.position.copy(this.beePoss)
     this.bee.model.lookAt(this.beePoss2)
-    this.bee.model.scale.set(0.1, 0.1, 0.1)
+    // this.bee.model.scale.set(0.1, 0.1, 0.1)
     this.add(this.bee.model)
 
     // Add lys

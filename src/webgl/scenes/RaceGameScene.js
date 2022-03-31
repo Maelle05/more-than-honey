@@ -1,6 +1,7 @@
 import { Group, MathUtils } from 'three'
 import WebGl from '../webglManager'
 import Bee from '../entities/BlueBee'
+import Listener from '../utils/Listener'
 
 export default class RaceGameScene extends Group
 {
@@ -15,7 +16,7 @@ export default class RaceGameScene extends Group
     this.property = {
       bee: {
         placingHeight: 1.5,
-        limitRightLeft: 3.5,
+        limitRightLeft: 3,
       },
       cursor: {
         current: 0,
@@ -27,8 +28,6 @@ export default class RaceGameScene extends Group
         }
       }
     }
-
-    this.mouseMovehandle = this.handleMoveCursor.bind(this)
 
     // Wait for resources
     this.resources.on(`sourcesReadyraceGame`, () =>
@@ -54,7 +53,7 @@ export default class RaceGameScene extends Group
 
       const beePlacingGUI = viewGUI.addFolder('Bee Placing')
       beePlacingGUI.add(this.property.bee, 'placingHeight', -2, 3, 0.01).name( 'Height' )
-      beePlacingGUI.add(this.property.bee, 'limitRightLeft', -2, 3, 0.01).name( 'Limits Left Right' )
+      beePlacingGUI.add(this.property.bee, 'limitRightLeft', 0, 5, 0.01).name( 'Limits Left Right' )
 
       const gameGUI = this.debug.ui.addFolder('Game')
       gameGUI.add(this.property.game.bee, 'speed', 0, 0.003, 0.0001).name( 'Bee speed' )
@@ -62,7 +61,7 @@ export default class RaceGameScene extends Group
 
     }
 
-    // Add Sky
+    this.listener = new Listener()
 
     this.init()
   }
@@ -74,7 +73,9 @@ export default class RaceGameScene extends Group
     this.webGl.controls.enabled = false
 
     // Listener
-    document.addEventListener('mousemove', this.mouseMovehandle)
+    this.listener.on(`mouse move`, () => {
+      this.property.cursor.target = -this.listener.property.cursor.x * this.property.bee.limitRightLeft
+    })
 
     // Add models 
     this.add(this.bee.model)
@@ -94,22 +95,5 @@ export default class RaceGameScene extends Group
   }
 
   delete(){
-    document.removeEventListener('mousemove', this.mouseMovehandle )
-  }
-
-  handleMoveCursor(e){
-    const windowWidth = window.innerWidth
-    const positionCursorH = e.clientX - (windowWidth / 2) 
-  
-    if(this.bee){
-      const convertX = - (positionCursorH * this.property.bee.limitRightLeft) / (windowWidth/2);
-
-      let posX
-      posX = Math.min(this.property.bee.limitRightLeft, convertX)
-      posX = Math.max(-this.property.bee.limitRightLeft, posX)
-
-      this.property.cursor.target = posX
-
-    }
   }
 }

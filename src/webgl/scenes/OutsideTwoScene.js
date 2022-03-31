@@ -1,6 +1,7 @@
-import {CircleGeometry, DoubleSide, Group, MathUtils, Mesh, MeshBasicMaterial, Vector2, Vector3} from 'three'
+import {CircleGeometry, DoubleSide, Group, MathUtils, Mesh, MeshBasicMaterial, Vector3} from 'three'
 import WebGl from '../webglManager'
 import Bee from '@/webgl/entities/BlueBee'
+import Listener from '../utils/Listener'
 
 export default class OutsideTwoScene extends Group {
   constructor() {
@@ -10,11 +11,7 @@ export default class OutsideTwoScene extends Group {
     this.camera = this.webGl.camera
     this.resources = this.webGl.resources
 
-    this.mouse = new Vector2()
-    this.sizes = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-    }
+    this.sizes = this.webGl.sizes
 
     this.mouseScrollhandle = this.moveOnScroll.bind(this)
 
@@ -68,10 +65,7 @@ export default class OutsideTwoScene extends Group {
     this.webGl.postPross.renderer.toneMappingExposure = Math.pow( 0.85, 4.0 )
 
     // Listener
-    window.addEventListener("mousemove", (e) => {
-      this.mouse.x = (e.clientX / this.sizes.width) * 2 - 1;
-      this.mouse.y = -(e.clientY / this.sizes.height) * 2 + 1;
-    })
+    this.listener = new Listener()
 
     document.addEventListener('wheel', this.mouseScrollhandle)
 
@@ -93,17 +87,13 @@ export default class OutsideTwoScene extends Group {
       this.bee.update()
 
       // rotate camera with cursor mouse
-      this.camera.position.x = MathUtils.lerp(this.camera.position.x, (-this.mouse.x * Math.PI) / 5, 0.1)
-      // this.camera.rotation.y = MathUtils.lerp(this.camera.rotation.y, (this.mouse.x * Math.PI) / 10, 0.1)
+      this.camera.position.x = MathUtils.lerp(this.camera.position.x, (-this.listener.property.cursor.x * Math.PI) / 5, 0.1)
+      // this.camera.rotation.y = MathUtils.lerp(this.camera.rotation.y, (this.listener.property.cursor.x * Math.PI) / 10, 0.1)
 
     }
   }
 
   delete() {
     document.removeEventListener('wheel', this.mouseScrollhandle)
-    window.removeEventListener("mousemove", (e) => {
-      this.mouse.x = (e.clientX / this.sizes.width) * 2 - 1;
-      this.mouse.y = -(e.clientY / this.sizes.height) * 2 + 1;
-    })
   }
 }
