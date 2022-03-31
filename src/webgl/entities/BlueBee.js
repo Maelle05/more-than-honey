@@ -25,7 +25,7 @@ export default class BlueBee
     )
     dummyMesh.name = 1
     this.model.add(dummyMesh)
-    this.model.children[0].scale.set(0.06, 0.06, 0.06)
+    this.model.children[0].scale.setScalar(0.06)
 
     this.model.traverse((child) =>
     {

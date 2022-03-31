@@ -1,6 +1,8 @@
 import {Group, Vector2, Raycaster, Vector3} from 'three'
 import WebGl from '../webglManager'
 import Bee from "@/webgl/entities/BlueBee"
+import { clone as skeletonClone } from 'three/examples/jsm/utils/SkeletonUtils'
+
 
 let hiveInstance = null
 
@@ -89,16 +91,18 @@ export default class HiveScene extends Group {
 
   init() {
     // Set Camera position
-    this.camera.position.set(0, 4, -40)
+    this.camera.position.set(1, 4, -30)
+    
+    this.webGl.controls.target = new Vector3(0, -5, 0);
 
     // Add hive
     this.add(this.hive)
 
+    // Add bee
     this.beesToPoint = []
 
-    // Add bee
     for (let i = 0; i < this.points.length; i++) {
-      const bee = this.bee.model.clone()
+      const bee = skeletonClone(this.bee.model) 
       bee.position.x = this.points[i].position.x
       bee.position.y = this.points[i].position.y
       bee.position.z = this.points[i].position.z
@@ -109,6 +113,7 @@ export default class HiveScene extends Group {
 
       this.add(bee)
     }
+    
 
     // Listener
     window.addEventListener("mousemove", (e) => {
