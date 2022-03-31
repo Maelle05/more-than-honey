@@ -2,6 +2,7 @@ import {Group, Vector2, Raycaster, Vector3} from 'three'
 import WebGl from '../webglManager'
 import Bee from "@/webgl/entities/BlueBee"
 import { clone as skeletonClone } from 'three/examples/jsm/utils/SkeletonUtils'
+import Listener from '../utils/Listener'
 
 
 let hiveInstance = null
@@ -25,7 +26,6 @@ export default class HiveScene extends Group {
     this.raycaster = null
     this.currentIntersect = null
 
-    this.mouse = new Vector2()
     this.sizes = {
       width: window.innerWidth,
       height: window.innerHeight,
@@ -116,10 +116,7 @@ export default class HiveScene extends Group {
     
 
     // Listener
-    window.addEventListener("mousemove", (e) => {
-      this.mouse.x = (e.clientX / this.sizes.width) * 2 - 1;
-      this.mouse.y = -(e.clientY / this.sizes.height) * 2 + 1;
-    })
+    this.listener = new Listener()
 
     window.addEventListener("click", () => {
       if (this.currentIntersect) {
@@ -131,7 +128,7 @@ export default class HiveScene extends Group {
 
   update() {
     if (this.points && this.raycaster) {
-      this.raycaster.setFromCamera(this.mouse, this.camera)
+      this.raycaster.setFromCamera(new Vector2(this.listener.property.cursor.x, this.listener.property.cursor.y), this.camera)
 
 
       // this.intersects = this.raycaster.intersectObjects(this.objectsToTest, true) // objects listed
@@ -176,11 +173,6 @@ export default class HiveScene extends Group {
       if (this.currentIntersect) {
         console.log('click on model')
       }
-    })
-
-    window.removeEventListener("mousemove", (e) => {
-      this.mouse.x = (e.clientX / this.sizes.width) * 2 - 1;
-      this.mouse.y = -(e.clientY / this.sizes.height) * 2 + 1;
     })
   }
 }
