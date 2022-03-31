@@ -1,4 +1,4 @@
-import { Mesh, AnimationMixer } from 'three'
+import {Mesh, AnimationMixer, SphereGeometry, MeshBasicMaterial} from 'three'
 import WebGl from '../webglManager'
 
 export default class BlueBee
@@ -18,7 +18,14 @@ export default class BlueBee
 
   setModel(){
     this.model = this.resource.scene
-    this.model.scale.set(0.06, 0.06, 0.06)
+    // for raycaster
+    const dummyMesh = new Mesh(
+      new SphereGeometry(0.5, 16, 16),
+      new MeshBasicMaterial({opacity: 0, transparent: true})
+    )
+    dummyMesh.name = 1
+    this.model.add(dummyMesh)
+    this.model.children[0].scale.set(0.06, 0.06, 0.06)
 
     this.model.traverse((child) =>
     {
@@ -31,17 +38,17 @@ export default class BlueBee
 
   setAnimation(){
     this.animation = {}
-    
+
     // Mixer
     this.animation.mixer = new AnimationMixer(this.model)
-    
+
     // Actions
     this.animation.actions = {}
 
     this.animation.actions.idle = this.animation.mixer.clipAction(this.resource.animations[0])
     this.animation.actions.hover = this.animation.mixer.clipAction(this.resource.animations[1])
     this.animation.actions.takeOff = this.animation.mixer.clipAction(this.resource.animations[2])
-    
+
     this.animation.actions.current = this.animation.actions.idle
     this.animation.actions.current.play()
 
