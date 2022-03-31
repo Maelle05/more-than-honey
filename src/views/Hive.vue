@@ -33,7 +33,7 @@ export default {
       this.$refs.point2
     ]
 
-    scene.setUpPoints(points)
+    scene.setUpPointsFromDOM(points)
   }
 }
 

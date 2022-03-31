@@ -1,8 +1,8 @@
 import {Group, Vector2, Raycaster, Vector3} from 'three'
+import { clone as skeletonClone } from 'three/examples/jsm/utils/SkeletonUtils'
 import WebGl from '../webglManager'
 import Bee from "@/webgl/entities/BlueBee"
-import { clone as skeletonClone } from 'three/examples/jsm/utils/SkeletonUtils'
-
+import beePositions from '../elementsLocations/hive/beePosition.json'
 
 let hiveInstance = null
 
@@ -36,7 +36,7 @@ export default class HiveScene extends Group {
     })
   }
 
-  setUpPoints(points) {
+  setUpPointsFromDOM(points) {
     this.points = [
       {
         position: new Vector3(-3, 0, 1),
@@ -57,33 +57,39 @@ export default class HiveScene extends Group {
   }
 
   setup() {
-
     this.bee = new Bee()
-
     this.raycaster = new Raycaster()
-
     this.hive = this.resources.items.hiveModel.scene
 
     this.init()
   }
 
   init() {
-    // Set Camera position
+    // Set parameters of the scene at init
     this.camera.position.set(1, 4, -30)
-    
     this.webGl.controls.target = new Vector3(0, -5, 0);
 
     // Add hive
     this.add(this.hive)
 
-    // Add bee
+    // Add bee to point
     for (let i = 0; i < this.points.length; i++) {
+      // skeleton clone instead of usual clone because of rig in model
       const bee = skeletonClone(this.bee.model)
       bee.position.set(this.points[i].position.x, this.points[i].position.y, this.points[i].position.z)
       bee.rotation.y = Math.PI
       bee.children[1].testId = this.points[i].id
 
       this.beesToPoint.push(bee)
+      this.add(bee)
+    }
+
+    // add other bee
+    for (let i = 0; i < beePositions.length; i++) {
+      const bee = skeletonClone(this.bee.model)
+      // TODO change to begin more beautiful
+      bee.position.set(beePositions[i].px, beePositions[i].py, beePositions[i].pz)
+      bee.rotation.y = Math.PI
 
       this.add(bee)
     }

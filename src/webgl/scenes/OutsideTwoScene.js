@@ -60,7 +60,6 @@ export default class OutsideTwoScene extends Group {
   init() {
     // Set parameters of the scene at init
     this.camera.position.set(0, 0, -10)
-
     this.bee.model.position.set(0, -1.5, 0)
     this.webGl.controls.enabled = false
     this.webGl.controls.target = new Vector3(0, 0, 1000)
