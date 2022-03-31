@@ -18,6 +18,7 @@ export default class BlueBee
 
   setModel(){
     this.model = this.resource.scene
+    // for raycaster
     const dummyMesh = new Mesh(
       new SphereGeometry(0.5, 16, 16),
       new MeshBasicMaterial({opacity: 0, transparent: true})

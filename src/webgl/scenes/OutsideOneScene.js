@@ -52,7 +52,7 @@ export default class OutsideOneScene extends Group
     for (let i = 0; i < beePath.length; i++) {
       this.initialPoints.push({x: ( beePath[i].x / this.property.map.ratio ) - this.property.map.with / this.property.map.ratio / 2, y: 1, z: beePath[i].y / this.property.map.ratio })
     }
-    // create cube for eatch point of the curve
+    // create cube for each point of the curve
     this.boxGeometry = new BoxGeometry( 1, 1, 1 );
 		this.boxMaterial = new MeshBasicMaterial({ color: 'red'});
     this.curveHandles = []

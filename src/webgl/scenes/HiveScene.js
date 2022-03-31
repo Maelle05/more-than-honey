@@ -59,26 +59,26 @@ export default class HiveScene extends Group {
 
     this.bee = new Bee()
 
-    this.object1 = new Bee()
-    this.object1.model.position.x = -3
-    this.object1.model.position.z = 1
-    this.object1.model.rotation.y = Math.PI
-    this.object1.model.children[1].testId = 0
-
-
-    this.object2 = new Bee()
-    this.object2.testId = 1
-
-
-    this.object3 = new Bee()
-    this.object3.model.position.x = 2
-    this.object3.model.position.y = 1.5
-    this.object3.model.position.z = 2
-    this.object3.model.children[1].testId = 2
-
-    this.add(this.object1.model, this.object2.model, this.object3.model)
-
-    this.objectsToTest = [this.object1.model, this.object2.model, this.object3.model]
+    // this.object1 = new Bee()
+    // this.object1.model.position.x = -3
+    // this.object1.model.position.z = 1
+    // this.object1.model.rotation.y = Math.PI
+    // this.object1.model.children[1].testId = 0
+    //
+    //
+    // this.object2 = new Bee()
+    // this.object2.testId = 1
+    //
+    //
+    // this.object3 = new Bee()
+    // this.object3.model.position.x = 2
+    // this.object3.model.position.y = 1.5
+    // this.object3.model.position.z = 2
+    // this.object3.model.children[1].testId = 2
+    //
+    // this.add(this.object1.model, this.object2.model, this.object3.model)
+    //
+    // this.objectsToTest = [this.object1.model, this.object2.model, this.object3.model]
 
     this.raycaster = new Raycaster()
 
@@ -94,16 +94,21 @@ export default class HiveScene extends Group {
     // Add hive
     this.add(this.hive)
 
+    this.beesToPoint = []
+
     // Add bee
-    // for (let i = 0; i < this.points.length; i++) {
-    //   const bee = this.bee.model.clone()
-    //   console.log(bee, this.points[i].position.x)
-    //   bee.position.x = this.points[i].position.x
-    //   bee.position.y = this.points[i].position.y
-    //   bee.position.z = this.points[i].position.z
-    //   bee.children[1].testId = this.points[i].id
-    //   this.add(bee)
-    // }
+    for (let i = 0; i < this.points.length; i++) {
+      const bee = this.bee.model.clone()
+      bee.position.x = this.points[i].position.x
+      bee.position.y = this.points[i].position.y
+      bee.position.z = this.points[i].position.z
+      bee.children[1].testId = this.points[i].id
+
+      this.beesToPoint.push(bee)
+      console.log(bee, this.beesToPoint)
+
+      this.add(bee)
+    }
 
     // Listener
     window.addEventListener("mousemove", (e) => {
@@ -124,7 +129,7 @@ export default class HiveScene extends Group {
       this.raycaster.setFromCamera(this.mouse, this.camera)
 
 
-      this.intersects = this.raycaster.intersectObjects(this.objectsToTest, true) // objects listed
+      // this.intersects = this.raycaster.intersectObjects(this.objectsToTest, true) // objects listed
 
       // for (const object of this.objectsToTest) {
       //   object.material.color.set("#C571FF");
@@ -134,30 +139,30 @@ export default class HiveScene extends Group {
       //   intersect.object.material.color.set("#0000ff");
       // }
 
-      if (this.intersects.length) {
-        if (this.currentIntersect) {
-
-          this.points[this.currentIntersect.object.testId].element.classList.add('visible')
-
-          const screenPosition = this.points[this.currentIntersect.object.testId].position.clone()
-          screenPosition.project(this.camera)
-
-          const translateX = screenPosition.x * this.sizes.width * 0.5
-          const translateY = -screenPosition.y * this.sizes.height * 0.5
-          this.points[this.currentIntersect.object.testId].element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`
-
-        }
-        this.currentIntersect = this.intersects[0]
-      } else {
-
-        if (!this.currentIntersect) {
-          for (const point of this.points) {
-            point.element.classList.remove('visible')
-          }
-
-        }
-        this.currentIntersect = null
-      }
+    //   if (this.intersects.length) {
+    //     if (this.currentIntersect) {
+    //
+    //       this.points[this.currentIntersect.object.testId].element.classList.add('visible')
+    //
+    //       const screenPosition = this.points[this.currentIntersect.object.testId].position.clone()
+    //       screenPosition.project(this.camera)
+    //
+    //       const translateX = screenPosition.x * this.sizes.width * 0.5
+    //       const translateY = -screenPosition.y * this.sizes.height * 0.5
+    //       this.points[this.currentIntersect.object.testId].element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`
+    //
+    //     }
+    //     this.currentIntersect = this.intersects[0]
+    //   } else {
+    //
+    //     if (!this.currentIntersect) {
+    //       for (const point of this.points) {
+    //         point.element.classList.remove('visible')
+    //       }
+    //
+    //     }
+    //     this.currentIntersect = null
+    //   }
     }
   }
 
