@@ -17,15 +17,20 @@ export default class EndingScene extends Group
   }
 
   setup(){
-    
+    this.hive = this.resources.items.hiveModel.scene
+
     this.init()
   }
 
   init(){
     // Set Camera position
-    // this.webGl.camera.position.set(0, 2.62, -10)
+    this.webGl.camera.position.set(-15, 0, -40)
 
-    // Lisener 
+    // Listener
+
+    // add models
+    this.add(this.hive)
+
   }
 
   update(){

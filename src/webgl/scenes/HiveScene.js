@@ -89,7 +89,7 @@ export default class HiveScene extends Group {
 
   init() {
     // Set Camera position
-    this.webGl.camera.position.set(0, 4, -40)
+    this.camera.position.set(0, 4, -40)
 
     // Add hive
     this.add(this.hive)
