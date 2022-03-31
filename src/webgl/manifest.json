@@ -14,7 +14,7 @@
   {
     "name": "beeBlueModel",
     "type": "gltfModel",
-    "actingScenes": "raceGameScene outsideTwoScene outsideOneScene",
+    "actingScenes": "hiveScene raceGameScene outsideTwoScene outsideOneScene",
     "path": "webgl/models/Bee/blueBee.gltf"
   },
   {

@@ -1,5 +1,6 @@
 import {Group, Mesh, MeshBasicMaterial, SphereGeometry, Vector2, Raycaster, Vector3} from 'three'
 import WebGl from '../webglManager'
+import Bee from "@/webgl/entities/BlueBee";
 
 let hiveInstance = null
 
@@ -54,13 +55,16 @@ export default class HiveScene extends Group
   }
 
   setup(){
-    this.object1 = new Mesh(
-      new SphereGeometry(0.5, 16, 16),
-      new MeshBasicMaterial({ color: "#C571FF" })
-    )
-    this.object1.position.x = -3;
-    this.object1.position.z = 1;
-    this.object1.name = 1;
+    // this.object1 = new Mesh(
+    //   new SphereGeometry(0.5, 16, 16),
+    //   new MeshBasicMaterial({ color: "#C571FF" })
+    // )
+
+    this.object1 = new Bee()
+    this.object1.model.position.x = -3;
+    this.object1.model.position.z = 1;
+    this.object1.model.rotation.y = Math.PI
+    this.object1.name = "bee";
 
     this.object2 = new Mesh(
       new SphereGeometry(0.5, 16, 16),
@@ -77,22 +81,18 @@ export default class HiveScene extends Group
     this.object3.position.z = 2;
     this.object3.name = 3;
 
-    this.add(this.object1, this.object2, this.object3)
+    this.add(this.object1.model, this.object2, this.object3)
 
     this.raycaster = new Raycaster()
 
-
     this.hive = this.resources.items.hiveModel.scene
-
-    console.log(this.hive)
-    
 
     this.init()
   }
 
   init(){
     // Set Camera position
-    this.webGl.camera.position.set(0, 4, -50)
+    this.webGl.camera.position.set(0, 4, -10)
 
     // Add Hive
     this.add(this.hive)
@@ -119,19 +119,24 @@ export default class HiveScene extends Group
 
         const screenPosition = point.position.clone()
         screenPosition.project(this.camera)
-        const objectsToTest = [this.object1, this.object2, this.object3];
+        const objectsToTest = [this.object1.model.children[0], this.object2, this.object3];
 
-        const intersects = this.raycaster.intersectObjects(objectsToTest); // objects listed
+        // console.log(this.object1, 'bee')
+        console.log(this.scene.children[2])
 
-        for (const object of objectsToTest) {
-          object.material.color.set("#C571FF");
-        }
+        const intersects = this.raycaster.intersectObjects(objectsToTest, true) // objects listed
+        // console.log(objectsToTest)
 
-        for (const intersect of intersects) {
-          intersect.object.material.color.set("#0000ff");
-        }
+        // for (const object of objectsToTest) {
+        //   object.material.color.set("#C571FF");
+        // }
+        //
+        // for (const intersect of intersects) {
+        //   intersect.object.material.color.set("#0000ff");
+        // }
 
         if(intersects.length) {
+          console.log(intersects[0].object.name)
           if(this.currentIntersect) {
 
             if(this.currentIntersect && JSON.stringify(this.currentIntersect.object.position) === JSON.stringify(point.position)) {
