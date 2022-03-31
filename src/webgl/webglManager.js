@@ -1,6 +1,6 @@
 import { Scene, PerspectiveCamera, WebGLRenderer, sRGBEncoding, CineonToneMapping, PCFSoftShadowMap, AmbientLight} from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-
+import Stats from 'stats.js'
 import sources from './manifest.json'
 import Resources from './utils/Resources.js'
 import Debug from './utils/Debug.js'
@@ -37,8 +37,13 @@ export default class WebGl{
     this.scene.add(this.camera)
 
     // Debug
-
-
+    this.stats = new Stats();
+    this.stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+    document.body.appendChild( this.stats.dom );
+  
+    this.stats.dom.style.top = 'auto'
+    this.stats.dom.style.bottom = '0'
+    
     // OrbitControls
     this.controls = new OrbitControls(this.camera, this.canvas)
     this.controls.enableDamping = true
@@ -110,9 +115,11 @@ export default class WebGl{
   }
 
   update(){
+    this.stats.begin();
     this.controls.update()
     this.world.update()
     this.postPross.rendererRender()
+    this.stats.end();
     
   }
 }

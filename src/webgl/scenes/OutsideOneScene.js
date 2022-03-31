@@ -1,5 +1,4 @@
 import WebGl from '../webglManager';
-import { Flow } from 'three/examples/jsm/modifiers/CurveModifier.js';
 
 import { Group, Vector3, BoxGeometry, MeshBasicMaterial, Mesh, CatmullRomCurve3, Line, BufferGeometry, LineBasicMaterial} from 'three';
 import Particules from '../shaders/particulesTest';
@@ -24,7 +23,7 @@ export default class OutsideOneScene extends Group
       map: {
         with: 595,
         height: 842,
-        rasio : 5,
+        ratio : 5,
       },
       mouse: {
         target: new Vector3(), 
@@ -51,7 +50,7 @@ export default class OutsideOneScene extends Group
     // extract from .json and change format
     this.initialPoints = [];
     for (let i = 0; i < beePath.length; i++) {
-      this.initialPoints.push({x: ( beePath[i].x / this.property.map.rasio ) - this.property.map.with / this.property.map.rasio / 2, y: 1, z: beePath[i].y / this.property.map.rasio })
+      this.initialPoints.push({x: ( beePath[i].x / this.property.map.ratio ) - this.property.map.with / this.property.map.ratio / 2, y: 1, z: beePath[i].y / this.property.map.ratio })
     }
     // create cube for eatch point of the curve
     this.boxGeometry = new BoxGeometry( 1, 1, 1 );
@@ -61,7 +60,7 @@ export default class OutsideOneScene extends Group
       const handle = new Mesh( this.boxGeometry, this.boxMaterial );
       handle.position.copy( handlePos );
       this.curveHandles.push( handle );
-      this.scene.add( handle );
+      this.add( handle );
     }
     // Calculate Smooth curve
     this.curve = new CatmullRomCurve3(
@@ -69,12 +68,12 @@ export default class OutsideOneScene extends Group
     );
     this.curve.curveType = 'centripetal';
     this.curve.closed = false;
-    const points = this.curve.getPoints( 50 );
+    this.points = this.curve.getPoints( 50 );
     this.line = new Line(
-      new BufferGeometry().setFromPoints( points ),
+      new BufferGeometry().setFromPoints( this.points ),
       new LineBasicMaterial( { color: 0x00ff00 } )
     );
-    this.scene.add( this.line );
+    this.add( this.line );
 
 
 
@@ -83,23 +82,21 @@ export default class OutsideOneScene extends Group
 
   init(){
     // Add bee
-    // this.bee.model.position.set(this.initialPoints[0].x, this.initialPoints[0].y, this.initialPoints[0].z)
-    // this.bee.model.scale.set(0.1, 0.1, 0.1)
-    // this.bee.model.rotateY( Math.PI );
-
-    console.log(this.curve);
-
-    this.flow = new Flow( this.bee.model );
-    this.flow.updateCurve( 0, this.curve );
-    this.add( this.flow.object3D );
+    this.beeAdvance = 0
+    this.beePoss = this.curve.getPointAt(this.beeAdvance)
+    this.beePoss2 = this.curve.getPointAt(this.beeAdvance + 0.01)
+    this.bee.model.position.copy(this.beePoss)
+    this.bee.model.lookAt(this.beePoss2)
+    this.bee.model.scale.set(0.1, 0.1, 0.1)
+    this.add(this.bee.model)
 
     // Add lys
     this.lys.children[0].scale.set(1, 1, 1)
     for (let i = 0; i < lysLocation.length; i++) {
       const thislys = this.lys.clone()
       const convertPos = {
-        z: lysLocation[i].centerY / this.property.map.rasio,
-        x: (lysLocation[i].centerX / this.property.map.rasio) - this.property.map.with / this.property.map.rasio / 2
+        z: lysLocation[i].centerY / this.property.map.ratio,
+        x: (lysLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
       thislys.position.z = convertPos.z
       thislys.position.x = convertPos.x
@@ -115,8 +112,8 @@ export default class OutsideOneScene extends Group
     for (let i = 0; i < stoneLocation.length; i++) {
       const thisStone = this.stone.model.clone()
       const convertPos = {
-        z: stoneLocation[i].centerY / this.property.map.rasio,
-        x: (stoneLocation[i].centerX / this.property.map.rasio) - this.property.map.with / this.property.map.rasio / 2
+        z: stoneLocation[i].centerY / this.property.map.ratio,
+        x: (stoneLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
       thisStone.position.z = convertPos.z
       thisStone.position.x = convertPos.x
@@ -128,21 +125,40 @@ export default class OutsideOneScene extends Group
     // this.add(this.particles)
 
     // Set Camera property
-    this.webGl.camera.position.set(0, 20, (this.property.map.height + 200 )/this.property.map.rasio)
+    this.webGl.camera.position.set(0, 20, (this.property.map.height + 200 )/this.property.map.ratio)
     this.webGl.controls.enabled = false
     this.webGl.controls.target = new Vector3(0, -5, 0);
 
 
     // Lisener 
+    // Keybord control Camera
+    document.addEventListener('keydown', (e) => {
+      switch (e.key) {
+        case 'ArrowUp':
+          if(this.beeAdvance < 1 ){
+            this.beeAdvance += 0.01
+          }
+          this.beePoss = this.curve.getPointAt(this.beeAdvance)
+          this.beePoss2 = this.curve.getPointAt(this.beeAdvance + 0.01)
+          this.bee.model.position.copy(this.beePoss)
+          this.bee.model.lookAt(this.beePoss2)
+          break;
+        case 'ArrowDown':
+          if(this.beeAdvance > 0 ){
+            this.beeAdvance -= 0.01
+          }
+          this.beePoss = this.curve.getPointAt(this.beeAdvance)
+          this.beePoss2 = this.curve.getPointAt(this.beeAdvance + 0.01)
+          this.bee.model.position.copy(this.beePoss)
+          this.bee.model.lookAt(this.beePoss2)
+          break;
+        default:
+          break;
+      }
+    });
   }
 
   update(){
-
-    if ( this.flow ) {
-
-      this.flow.moveAlongCurve( 0.001 );
-
-    }
     
   }
 
