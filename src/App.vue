@@ -4,32 +4,45 @@
     <div class="point"></div>
     <div class="ui">
       <div id="nav">
-        <router-link to="/honeyIntro">Honey Intro</router-link> |
-        <router-link to="/hive">Hive</router-link> |
-        <router-link to="/outsideOne">Outside one</router-link> |
-        <router-link to="/pollenGame">Pollen Game</router-link> |
-        <router-link to="/outsideTwo">Outside two</router-link> |
-        <router-link to="/raceGame">Race Game</router-link> |
-        <router-link to="/ending">Ending</router-link> |
+        <router-link to="/honeyIntro">Honey Intro</router-link>
+        |
+        <router-link to="/hive">Hive</router-link>
+        |
+        <router-link to="/outsideOne">Outside one</router-link>
+        |
+        <router-link to="/pollenGame">Pollen Game</router-link>
+        |
+        <router-link to="/outsideTwo">Outside two</router-link>
+        |
+        <router-link to="/raceGame">Race Game</router-link>
+        |
+        <router-link to="/ending">Ending</router-link>
+        |
         <router-link to="/credits">Credits</router-link>
       </div>
-      <router-view/>
+      <transition
+          name="fade"
+          mode="out-in"
+      >
+        <router-view/>
+      </transition>
     </div>
   </div>
 </template>
 
 <style lang="scss">
-*{
+* {
   margin: 0;
   padding: 0;
 }
+
 html,
 body {
   overflow: hidden;
 }
 
-#app{
-  canvas.webgl{
+#app {
+  canvas.webgl {
     position: fixed;
     top: 0;
     left: 0;
@@ -37,7 +50,7 @@ body {
     z-index: 0;
   }
 
-  .ui{
+  .ui {
     position: absolute;
     top: 0;
     left: 0;
@@ -47,9 +60,21 @@ body {
       color: aliceblue;
     }
 
-    #nav, a{
+    #nav, a {
       color: powderblue;
     }
+  }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition-duration: 0.3s;
+    transition-property: opacity;
+    transition-timing-function: ease;
+  }
+
+  .fade-enter,
+  .fade-leave-active {
+    opacity: 0
   }
 }
 
@@ -59,9 +84,9 @@ body {
 import * as main from './main'
 
 export default {
-  watch:{
-    $route (to){
-        main.change(to.name)
+  watch: {
+    $route(to) {
+      main.change(to.name)
     }
   }
 }
