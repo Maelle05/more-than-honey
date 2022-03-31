@@ -135,22 +135,15 @@ export default class OutsideOneScene extends Group
     document.addEventListener('keydown', (e) => {
       switch (e.key) {
         case 'ArrowUp':
-          if(this.beeMove < 1 ){
+          if(this.beeMove < 0.95 ){
             this.beeMove += 0.01
           }
           this.beePoss = this.curve.getPointAt(this.beeMove)
-          this.beePoss2 = this.curve.getPointAt(this.beeMove + 0.01)
+          this.beePoss2 = this.curve.getPointAt(this.beeMove + 0.05)
           this.bee.model.position.copy(this.beePoss)
           this.bee.model.lookAt(this.beePoss2)
-          break;
-        case 'ArrowDown':
-          if(this.beeMove > 0 ){
-            this.beeMove -= 0.01
-          }
-          this.beePoss = this.curve.getPointAt(this.beeMove)
-          this.beePoss2 = this.curve.getPointAt(this.beeMove + 0.01)
-          this.bee.model.position.copy(this.beePoss)
-          this.bee.model.lookAt(this.beePoss2)
+          this.webGl.camera.position.set(this.beePoss.x, this.beePoss.y + 1, this.beePoss.z + 30)
+          this.webGl.controls.target = this.beePoss2
           break;
         default:
           break;
