@@ -1,0 +1,12 @@
+// import other scss files
+ @import "src/assets/styles/settings/colors.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  overflow: hidden;
+}
