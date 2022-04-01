@@ -62,7 +62,7 @@ export default class Resources extends EventEmitter {
                   this.sourceLoaded(source, file)
                 }
             )
-            break;
+            break
           case 'texture':
             this.loaders.textureLoader.load(
               source.path,
@@ -71,10 +71,10 @@ export default class Resources extends EventEmitter {
                   this.sourceLoaded(source, file)
                 }
             )
-            break;
+            break
         
           default:
-            break;
+            break
         }
       } else {
         this.checkAllLoad()
@@ -89,7 +89,7 @@ export default class Resources extends EventEmitter {
 
     if(this.loaded === this.toLoad)
     {
-      console.log(`sourcesReady${this.activeSceneName}`);
+      console.log(`sourcesReady${this.activeSceneName}`)
       this.trigger(`sourcesReady${this.activeSceneName}`)
     }
   }

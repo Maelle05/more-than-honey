@@ -67,7 +67,7 @@ export default class OutsideTwoScene extends Group {
     this.listener.on('scroll', ()=>{
       this.bee.model.position.z += this.listener.property.virtualScroll.delta / 100
       this.camera.position.z += this.listener.property.virtualScroll.delta / 100
-      console.log(this.listener.property.virtualScroll.delta);
+      console.log(this.listener.property.virtualScroll.delta)
     })
 
     // add models

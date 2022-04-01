@@ -4,12 +4,7 @@ import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: Home
-  },
+export const routes = [
   {
     path: '/fox',
     name: 'fox',
@@ -25,8 +20,15 @@ const routes = [
     }
   },
   {
+    path: '/',
+    name: 'home',
+    label: 'Home',
+    component: Home
+  },
+  {
     path: '/honeyIntro',
     name: 'honeyIntro',
+    label: 'Honey intro',
     component: function () {
       return import('../views/HoneyIntro.vue')
     }
@@ -34,6 +36,7 @@ const routes = [
   {
     path: '/hive',
     name: 'hive',
+    label: 'Hive',
     component: function () {
       return import('../views/Hive.vue')
     }
@@ -41,6 +44,7 @@ const routes = [
   {
     path: '/outsideOne',
     name: 'outsideOne',
+    label: 'Outside one',
     component: function () {
       return import('../views/OutsideOne.vue')
     }
@@ -48,6 +52,7 @@ const routes = [
   {
     path: '/pollenGame',
     name: 'pollenGame',
+    label: 'Pollen game',
     component: function () {
       return import('../views/PollenGame.vue')
     }
@@ -55,6 +60,7 @@ const routes = [
   {
     path: '/outsideTwo',
     name: 'outsideTwo',
+    label: 'Outside two',
     component: function () {
       return import('../views/OutsideTwo.vue')
     }
@@ -62,6 +68,7 @@ const routes = [
   {
     path: '/raceGame',
     name: 'raceGame',
+    label: 'Race game',
     component: function () {
       return import('../views/RaceGame.vue')
     }
@@ -69,6 +76,7 @@ const routes = [
   {
     path: '/ending',
     name: 'ending',
+    label: 'End',
     component: function () {
       return import('../views/Ending.vue')
     }

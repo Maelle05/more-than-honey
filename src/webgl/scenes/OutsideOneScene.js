@@ -1,15 +1,14 @@
-import WebGl from '../webglManager';
-
-import { Group, Vector3, BoxGeometry, MeshBasicMaterial, Mesh, CatmullRomCurve3, Line, BufferGeometry, LineBasicMaterial} from 'three';
-import Particules from '../shaders/particulesTest';
-import Tree from '../entities/Tree';
-import Stone from '../entities/Stone';
-import Bee from '../entities/BlueBee';
+import WebGl from '../webglManager'
+import { Group, Vector3, BoxGeometry, MeshBasicMaterial, Mesh, CatmullRomCurve3, Line, BufferGeometry, LineBasicMaterial} from 'three'
+import Particules from '../shaders/particulesTest'
+import Tree from '../entities/Tree'
+import Stone from '../entities/Stone'
+import Bee from '../entities/BlueBee'
 import stoneLocation from '../elementsLocations/outsideOne/stone.json'
 import lysLocation from '../elementsLocations/outsideOne/lys.json'
 import beePath from '../elementsLocations/outsideOne/beePath.json'
-import Listener from '../utils/Listener';
-import { MathUtils } from 'three';
+import Listener from '../utils/Listener'
+import { MathUtils } from 'three'
 
 export default class OutsideOneScene extends Group
 {
@@ -64,32 +63,32 @@ export default class OutsideOneScene extends Group
 
     // CURVE HANDLE
     // extract from .json and change format
-    this.initialPoints = [];
+    this.initialPoints = []
     for (let i = 0; i < beePath.length; i++) {
       this.initialPoints.push({x: ( beePath[i].x / this.property.map.ratio ) - this.property.map.with / this.property.map.ratio / 2, y: 1, z: beePath[i].y / this.property.map.ratio })
     }
     // create cube for each point of the curve
-    this.boxGeometry = new BoxGeometry( 0.5, 0.5, 0.5 );
-		this.boxMaterial = new MeshBasicMaterial({ color: 'red'});
+    this.boxGeometry = new BoxGeometry( 0.5, 0.5, 0.5 )
+		this.boxMaterial = new MeshBasicMaterial({ color: 'red'})
     this.curveHandles = []
     for ( const handlePos of this.initialPoints ) {
-      const handle = new Mesh( this.boxGeometry, this.boxMaterial );
-      handle.position.copy( handlePos );
-      this.curveHandles.push( handle );
-      this.add( handle );
+      const handle = new Mesh( this.boxGeometry, this.boxMaterial )
+      handle.position.copy( handlePos )
+      this.curveHandles.push( handle )
+      this.add( handle )
     }
     // Calculate Smooth curve
     this.curve = new CatmullRomCurve3(
       this.curveHandles.map( ( handle ) => handle.position )
-    );
-    this.curve.curveType = 'centripetal';
-    this.curve.closed = false;
-    this.points = this.curve.getPoints( 50 );
+    )
+    this.curve.curveType = 'centripetal'
+    this.curve.closed = false
+    this.points = this.curve.getPoints( 50 )
     this.line = new Line(
       new BufferGeometry().setFromPoints( this.points ),
       new LineBasicMaterial( { color: 0x00ff00 } )
-    );
-    this.add( this.line );
+    )
+    this.add( this.line )
 
 
     this.init()
@@ -142,7 +141,7 @@ export default class OutsideOneScene extends Group
     // Set Camera property
     this.webGl.camera.position.set(0, 20, (this.property.map.height + 200 )/this.property.map.ratio)
     this.webGl.controls.enabled = false
-    this.webGl.controls.target = new Vector3(0, -5, 0);
+    this.webGl.controls.target = new Vector3(0, -5, 0)
 
     // Lisener 
     this.listener.on('scroll', ()=>{
