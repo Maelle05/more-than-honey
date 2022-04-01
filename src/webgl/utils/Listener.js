@@ -1,5 +1,6 @@
 import WebGl from "../webglManager";
 import EventEmitter from "./EventEmitter";
+import VirtualScroll from 'virtual-scroll'
 
 let listenerInstance = null
 
@@ -20,17 +21,29 @@ export default class Listener extends EventEmitter {
         x: null,
         y: null,
       },
-      virtualScroll: null
+      virtualScroll: {
+        state: null,
+        delta: null
+      }
     }
 
     // Add Listener
     document.addEventListener('mousemove', this.mouseMovehandle.bind(this))
+
+    this.scroller = new VirtualScroll()
+    this.scroller.on(this.scrollehandle.bind(this))
   }
 
   mouseMovehandle(e) {
     this.property.cursor.x = (e.clientX / this.sizes.width) * 2 - 1;
     this.property.cursor.y = -(e.clientY / this.sizes.height) * 2 + 1;
     this.trigger(`mouse move`)
+  }
+
+  scrollehandle(event){
+    this.property.virtualScroll.state = event.y
+    this.property.virtualScroll.delta = event.deltaY
+    this.trigger(`scroll`)
   }
 
 

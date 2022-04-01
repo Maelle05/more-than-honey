@@ -8,6 +8,8 @@ import Bee from '../entities/BlueBee';
 import stoneLocation from '../elementsLocations/outsideOne/stone.json'
 import lysLocation from '../elementsLocations/outsideOne/lys.json'
 import beePath from '../elementsLocations/outsideOne/beePath.json'
+import Listener from '../utils/Listener';
+import { MathUtils } from 'three';
 
 export default class OutsideOneScene extends Group
 {
@@ -18,6 +20,7 @@ export default class OutsideOneScene extends Group
     this.renderer = this.webGl.renderer
     this.camera = this.webGl.camera
     this.resources = this.webGl.resources
+    this.time = this.webGl.time
 
     this.property = {
       map: {
@@ -30,6 +33,17 @@ export default class OutsideOneScene extends Group
         mouseX: null,
         mouseY: null
       },
+      moveBee: {
+        curveValue: 0.01,
+        deltaLookAt: 0.002,
+        current: new Vector3(),
+        target: new Vector3(),
+        speed: 0.001
+      },
+      camera: {
+        target : 0,
+        current: 0
+      }
     }
 
     // Wait for resources
@@ -46,6 +60,8 @@ export default class OutsideOneScene extends Group
     this.bee = new Bee()
     this.particles = new Particules()
 
+    this.listener = new Listener()
+
     // CURVE HANDLE
     // extract from .json and change format
     this.initialPoints = [];
@@ -60,7 +76,7 @@ export default class OutsideOneScene extends Group
       const handle = new Mesh( this.boxGeometry, this.boxMaterial );
       handle.position.copy( handlePos );
       this.curveHandles.push( handle );
-      this.add( handle );
+      // this.add( handle );
     }
     // Calculate Smooth curve
     this.curve = new CatmullRomCurve3(
@@ -74,7 +90,6 @@ export default class OutsideOneScene extends Group
       new LineBasicMaterial( { color: 0x00ff00 } )
     );
     this.add( this.line );
-
 
 
     this.init()
@@ -129,30 +144,27 @@ export default class OutsideOneScene extends Group
     this.webGl.controls.enabled = false
     this.webGl.controls.target = new Vector3(0, -5, 0);
 
-
     // Lisener 
-    // Keybord control Camera
-    document.addEventListener('keydown', (e) => {
-      switch (e.key) {
-        case 'ArrowUp':
-          if(this.beeMove < 0.95 ){
-            this.beeMove += 0.01
-          }
-          this.beePoss = this.curve.getPointAt(this.beeMove)
-          this.beePoss2 = this.curve.getPointAt(this.beeMove + 0.05)
-          this.bee.model.position.copy(this.beePoss)
-          this.bee.model.lookAt(this.beePoss2)
-          this.webGl.camera.position.set(this.beePoss.x, this.beePoss.y + 1, this.beePoss.z + 30)
-          this.webGl.controls.target = this.beePoss2
-          break;
-        default:
-          break;
-      }
-    });
+    this.listener.on('scroll', ()=>{
+      this.property.moveBee.curveValue += 0.002
+    })
+
   }
 
   update(){
-    
+    if (this.curve) {
+      this.property.moveBee.target = this.curve.getPointAt(this.property.moveBee.curveValue)
+      this.property.camera.target = this.curve.getPointAt(this.property.moveBee.curveValue + this.property.moveBee.deltaLookAt)
+
+      this.property.moveBee.current.x = MathUtils.damp(this.property.moveBee.current.x, this.property.moveBee.target.x, this.property.moveBee.speed, this.time.delta);
+      this.property.moveBee.current.y = MathUtils.damp(this.property.moveBee.current.y, this.property.moveBee.target.y, this.property.moveBee.speed, this.time.delta);
+      this.property.moveBee.current.z = MathUtils.damp(this.property.moveBee.current.z, this.property.moveBee.target.z, this.property.moveBee.speed, this.time.delta);
+      this.bee.model.position.copy(this.property.moveBee.current)
+      this.bee.model.lookAt(this.property.camera.target)
+
+      this.webGl.camera.position.set(this.property.moveBee.current.x, this.property.moveBee.current.y + 2, this.property.moveBee.current.z + 10)
+      this.webGl.controls.target = this.property.camera.target
+    }
   }
 
   delete(){

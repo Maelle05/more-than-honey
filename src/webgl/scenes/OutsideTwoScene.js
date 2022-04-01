@@ -13,8 +13,6 @@ export default class OutsideTwoScene extends Group {
 
     this.sizes = this.webGl.sizes
 
-    this.mouseScrollhandle = this.moveOnScroll.bind(this)
-
     // Wait for resources
     this.resources.on(`sourcesReadyoutsideTwo`, () => {
       this.setup()
@@ -66,18 +64,15 @@ export default class OutsideTwoScene extends Group {
 
     // Listener
     this.listener = new Listener()
-
-    document.addEventListener('wheel', this.mouseScrollhandle)
+    this.listener.on('scroll', ()=>{
+      this.bee.model.position.z += this.listener.property.virtualScroll.delta / 100
+      this.camera.position.z += this.listener.property.virtualScroll.delta / 100
+      console.log(this.listener.property.virtualScroll.delta);
+    })
 
     // add models
     this.add(this.bee.model)
     this.add(this.fakeFloor)
-  }
-
-  moveOnScroll() {
-    this.bee.model.position.z ++
-    this.camera.position.z ++
-
   }
 
   update() {
@@ -94,6 +89,5 @@ export default class OutsideTwoScene extends Group {
   }
 
   delete() {
-    document.removeEventListener('wheel', this.mouseScrollhandle)
   }
 }
