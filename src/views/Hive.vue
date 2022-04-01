@@ -1,6 +1,7 @@
 <template>
   <div class="hive">
     <h1>This is the hive page</h1>
+    <Button label="Next" to="/outsideOne"/>
     <div ref="point0" class="hive__point p0">
       <div class="label">1</div>
       <div class="text">Mais si tu m'apprivoises, nous aurons besoin l'un de l'autre. Tu seras pour moi unique au monde.
@@ -23,8 +24,13 @@
 
 <script lang="js">
 import HiveScene from "@/webgl/scenes/HiveScene"
+import Button from "@/components/ui/Button";
 
 export default {
+  name: 'Hive',
+  components: {
+    Button
+  },
   mounted() {
     const scene = new HiveScene()
     const points = [
@@ -39,7 +45,7 @@ export default {
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .hive {
   width: 100vw;
   height: 100vh;
@@ -49,7 +55,7 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%);
-    color: white;
+    color: $white;
     text-align: center;
 
     //&:hover {

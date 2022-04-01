@@ -2,18 +2,17 @@
   <div class="home">
     <h1>This is the home page</h1>
 
-    <BaseComponent msg="This is a component"/>
+    <Button to="/honeyIntro" label="Start the experiment"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import BaseComponent from '@/components/BaseComponent'
+import Button from '@/components/ui/Button'
 
 export default {
   name: 'Home',
   components: {
-    BaseComponent
+    Button
   }
 }
 </script>

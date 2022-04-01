@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <canvas class="webgl"/>
-    <div class="point"></div>
     <div class="ui">
       <div id="nav">
         <router-link to="/honeyIntro">Honey Intro</router-link>
@@ -30,17 +29,19 @@
   </div>
 </template>
 
+<script lang="js">
+import * as main from './main'
+
+export default {
+  watch: {
+    $route(to) {
+      main.change(to.name)
+    }
+  }
+}
+</script>
+
 <style lang="scss">
-* {
-  margin: 0;
-  padding: 0;
-}
-
-html,
-body {
-  overflow: hidden;
-}
-
 #app {
   canvas.webgl {
     position: fixed;
@@ -54,7 +55,9 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 8;
+    height: 100vh;
+    width: 100vw;
 
     h1, p {
       color: aliceblue;
@@ -79,15 +82,3 @@ body {
 }
 
 </style>
-
-<script>
-import * as main from './main'
-
-export default {
-  watch: {
-    $route(to) {
-      main.change(to.name)
-    }
-  }
-}
-</script>
