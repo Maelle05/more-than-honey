@@ -61,10 +61,12 @@ export default {
 
     h1, p {
       color: aliceblue;
+      opacity: 0;
     }
 
     #nav, a {
       color: powderblue;
+      opacity: 0;
     }
   }
 

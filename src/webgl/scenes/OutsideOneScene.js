@@ -34,11 +34,11 @@ export default class OutsideOneScene extends Group
         mouseY: null
       },
       moveBee: {
-        curveValue: 0.01,
-        deltaLookAt: 0.002,
-        current: new Vector3(),
+        deltaLookAt: 0.02,
+        speed: 0.001,
         target: new Vector3(),
-        speed: 0.001
+        curveCurrent: 0.05,
+        curveTarget: 0.05,
       },
       camera: {
         target : 0,
@@ -69,14 +69,14 @@ export default class OutsideOneScene extends Group
       this.initialPoints.push({x: ( beePath[i].x / this.property.map.ratio ) - this.property.map.with / this.property.map.ratio / 2, y: 1, z: beePath[i].y / this.property.map.ratio })
     }
     // create cube for each point of the curve
-    this.boxGeometry = new BoxGeometry( 1, 1, 1 );
+    this.boxGeometry = new BoxGeometry( 0.5, 0.5, 0.5 );
 		this.boxMaterial = new MeshBasicMaterial({ color: 'red'});
     this.curveHandles = []
     for ( const handlePos of this.initialPoints ) {
       const handle = new Mesh( this.boxGeometry, this.boxMaterial );
       handle.position.copy( handlePos );
       this.curveHandles.push( handle );
-      // this.add( handle );
+      this.add( handle );
     }
     // Calculate Smooth curve
     this.curve = new CatmullRomCurve3(
@@ -146,24 +146,28 @@ export default class OutsideOneScene extends Group
 
     // Lisener 
     this.listener.on('scroll', ()=>{
-      this.property.moveBee.curveValue += 0.002
+      this.property.moveBee.curveTarget += 0.002
     })
 
   }
 
   update(){
     if (this.curve) {
-      this.property.moveBee.target = this.curve.getPointAt(this.property.moveBee.curveValue)
-      this.property.camera.target = this.curve.getPointAt(this.property.moveBee.curveValue + this.property.moveBee.deltaLookAt)
+      this.property.moveBee.curveCurrent = MathUtils.damp(this.property.moveBee.curveCurrent, this.property.moveBee.curveTarget, this.property.moveBee.speed, this.time.delta)
 
-      this.property.moveBee.current.x = MathUtils.damp(this.property.moveBee.current.x, this.property.moveBee.target.x, this.property.moveBee.speed, this.time.delta);
-      this.property.moveBee.current.y = MathUtils.damp(this.property.moveBee.current.y, this.property.moveBee.target.y, this.property.moveBee.speed, this.time.delta);
-      this.property.moveBee.current.z = MathUtils.damp(this.property.moveBee.current.z, this.property.moveBee.target.z, this.property.moveBee.speed, this.time.delta);
-      this.bee.model.position.copy(this.property.moveBee.current)
+      this.property.moveBee.target = this.curve.getPointAt(this.property.moveBee.curveCurrent)
+      this.property.camera.target = this.curve.getPointAt(this.property.moveBee.curveCurrent + this.property.moveBee.deltaLookAt)
+      
+      this.bee.model.position.set(this.property.moveBee.target.x, this.property.moveBee.target.y - 0.5, this.property.moveBee.target.z )
       this.bee.model.lookAt(this.property.camera.target)
 
-      this.webGl.camera.position.set(this.property.moveBee.current.x, this.property.moveBee.current.y + 2, this.property.moveBee.current.z + 10)
-      this.webGl.controls.target = this.property.camera.target
+      const possCam = this.curve.getPointAt(this.property.moveBee.curveCurrent - 0.05)
+      this.webGl.camera.position.set(possCam.x, possCam.y + 2, possCam.z)
+      this.webGl.controls.target.set(this.property.camera.target.x, this.property.camera.target.y + 1, this.property.camera.target.z )
+    }
+
+    if(this.bee){
+      this.bee.update()
     }
   }
 
