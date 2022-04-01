@@ -37,9 +37,9 @@ export default class WebGl{
     this.scene.add(this.camera)
 
     // Debug
-    this.stats = new Stats();
-    this.stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
-    document.body.appendChild( this.stats.dom );
+    this.stats = new Stats()
+    this.stats.showPanel( 0 ) // 0: fps, 1: ms, 2: mb, 3+: custom
+    document.body.appendChild( this.stats.dom )
   
     this.stats.dom.style.top = 'auto'
     this.stats.dom.style.bottom = '0'
@@ -50,8 +50,8 @@ export default class WebGl{
     this.controls.enabled = false
 
     // Add Light
-    const light = new AmbientLight( 0x404040 );
-    this.scene.add( light );
+    const light = new AmbientLight( 0x404040 )
+    this.scene.add( light )
 
     // Renderer
     this.renderer = new WebGLRenderer({
@@ -89,18 +89,18 @@ export default class WebGl{
       switch (e.key) {
         case 'z':
           this.camera.position.z -= 0.5
-          break;
+          break
         case 's':
           this.camera.position.z += 0.5
-          break;
+          break
         case 'q':
           this.camera.position.x -= 0.5
-          break;
+          break
         case 'd':
           this.camera.position.x += 0.5
-          break;
+          break
         default:
-          break;
+          break
       }
       // console.log(this.camera.position);
     })
@@ -115,11 +115,11 @@ export default class WebGl{
   }
 
   update(){
-    this.stats.begin();
+    this.stats.begin()
     this.controls.update()
     this.world.update()
     this.postPross.rendererRender()
-    this.stats.end();
+    this.stats.end()
     
   }
 }

@@ -1,7 +1,7 @@
 import { Group, MathUtils } from 'three'
 import WebGl from '../webglManager'
-import Bee from '../entities/BlueBee'
 import Listener from '../utils/Listener'
+import Bee from '@/webgl/entities/Bee'
 
 export default class RaceGameScene extends Group
 {
@@ -89,7 +89,7 @@ export default class RaceGameScene extends Group
       // Update hauteur bee
       this.bee.model.position.y = (Math.sin(this.time.elapsed / 700) / 5) - this.property.bee.placingHeight
       
-      this.property.cursor.current = MathUtils.damp(this.property.cursor.current, this.property.cursor.target, this.property.game.bee.speed, this.time.delta);
+      this.property.cursor.current = MathUtils.damp(this.property.cursor.current, this.property.cursor.target, this.property.game.bee.speed, this.time.delta)
       this.bee.model.position.x = this.property.cursor.current
     }
   }

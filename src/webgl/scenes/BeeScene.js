@@ -1,7 +1,7 @@
 import { Group } from 'three'
 import Bee from '../entities/Bee'
 import WebGl from '../webglManager'
-import Floor from "@/webgl/entities/Floor";
+import Floor from "@/webgl/entities/Floor"
 
 export default class BeeScene extends Group
 {

@@ -48,39 +48,39 @@ export default class RouterScenes extends EventEmitter{
       switch (nameScene) {
         case 'fox':
           this.allScenes[nameScene] = new FoxScene()
-          break;
+          break
 
         case 'bee':
           this.allScenes[nameScene] = new BeeScene()
-          break;
+          break
         
         case 'hive':
           this.allScenes[nameScene] = new HiveScene()
-          break;
+          break
         
         case 'outsideOne':
           this.allScenes[nameScene] = new OutsideOneScene()
-          break;
+          break
 
         case 'pollenGame':
           this.allScenes[nameScene] = new PollenGameScene()
-          break;
+          break
         
         case 'outsideTwo':
           this.allScenes[nameScene] = new OutsideTwoScene()
-          break;
+          break
         
         case 'raceGame':
           this.allScenes[nameScene] = new RaceGameScene()
-          break;
+          break
         
         case 'ending':
           this.allScenes[nameScene] = new EndingScene()
-          break;
+          break
       
         default:
           this.allScenes[nameScene] = new BaseScene()
-          break;
+          break
       }
     }
 

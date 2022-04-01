@@ -24,7 +24,7 @@
 
 <script lang="js">
 import HiveScene from "@/webgl/scenes/HiveScene"
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/Button"
 
 export default {
   name: 'Hive',
