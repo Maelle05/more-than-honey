@@ -30,8 +30,6 @@ export default class Particules extends THREE.Group {
     const textureLoader = new THREE.TextureLoader()
     const particleTexture = textureLoader.load('/webgl/particles/smoke_03.png')
 
-    console.log(particleTexture, 'texture')
-
     // Material
     this.particlesMaterial = new THREE.PointsMaterial({
       size: 0.1,

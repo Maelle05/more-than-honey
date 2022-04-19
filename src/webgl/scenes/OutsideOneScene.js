@@ -10,6 +10,7 @@ import lysLocation from '../elementsLocations/outsideOne/lys.json'
 import beePath from '../elementsLocations/outsideOne/beePath.json'
 import Listener from '../utils/Listener'
 import { MathUtils } from 'three'
+import GrassMaterial from '@/webgl/shaders/grassMaterial'
 
 export default class OutsideOneScene extends Group
 {
@@ -63,14 +64,26 @@ export default class OutsideOneScene extends Group
     this.stone = new Stone()
     this.bee = new Bee()
     this.particles = new Particules()
+    this.grass = new GrassMaterial()
 
     this.listener = new Listener()
+
+    this.debug = this.webGl.debug
+    if(this.debug.active) {
+      const elementGUI = this.debug.ui.addFolder('Elements sizes')
+      elementGUI.add(this.lys.children[0].scale, 'x', -5, 5).name('Lyx X').onChange( ( value ) => {
+        this.lys.children[0].scale.x = Number( value )
+        console.log(value)
+      })
+      elementGUI.add(this.lys.children[0].scale, 'y', -5, 5).setValue(0.25).name('Lys Y')
+      elementGUI.add(this.lys.children[0].scale, 'z', -5, 5).setValue(0.25).name('Lys X')
+    }
 
     // CURVE HANDLE
     // extract from .json and change format
     this.initialPoints = []
     for (let i = 0; i < beePath.length; i++) {
-      this.initialPoints.push({x: ( beePath[i].x / this.property.map.ratio ) - this.property.map.with / this.property.map.ratio / 2, y: 1, z: beePath[i].y / this.property.map.ratio })
+      this.initialPoints.push({x: ( beePath[i].x / this.property.map.ratio ) - this.property.map.with / this.property.map.ratio / 2, y: 2.5, z: beePath[i].y / this.property.map.ratio })
     }
     // create cube for each point of the curve
     this.boxGeometry = new BoxGeometry( 0.5, 0.5, 0.5 )
@@ -95,7 +108,6 @@ export default class OutsideOneScene extends Group
     )
     this.add( this.line )
 
-
     this.init()
   }
 
@@ -109,8 +121,12 @@ export default class OutsideOneScene extends Group
     // this.bee.model.scale.set(0.1, 0.1, 0.1)
     this.add(this.bee.model)
 
+    // Add grass
+    this.grass.position.set(0,0, this.property.map.height / this.property.map.ratio)
+    this.add(this.grass)
+
     // Add lys
-    this.lys.children[0].scale.set(1, 1, 1)
+    this.lys.children[0].scale.set(0.25, 0.25, 0.25)
     for (let i = 0; i < lysLocation.length; i++) {
       const thislys = this.lys.clone()
       const convertPos = {
@@ -119,7 +135,7 @@ export default class OutsideOneScene extends Group
       }
       thislys.position.z = convertPos.z
       thislys.position.x = convertPos.x
-      thislys.position.y = 5
+      thislys.position.y = 0
       this.add(thislys)
     }
 
@@ -148,7 +164,7 @@ export default class OutsideOneScene extends Group
     this.webGl.controls.enabled = false
     this.webGl.controls.target = new Vector3(0, -5, 0)
 
-    // Lisener 
+    // Listener
     this.listener.on('scroll', ()=>{
       this.property.moveBee.curveTarget += 0.002
     })
@@ -172,6 +188,10 @@ export default class OutsideOneScene extends Group
 
     if(this.bee){
       this.bee.update()
+    }
+
+    if(this.grass) {
+      this.grass.update()
     }
   }
 
