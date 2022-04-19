@@ -3,6 +3,7 @@ import WebGl from '../webglManager'
 import Bee from '@/webgl/entities/BlueBee'
 import Listener from '../utils/Listener'
 import GrassMaterial from '../shaders/grassMaterial'
+import Particules from '../shaders/particulesTest'
 
 export default class OutsideTwoScene extends Group {
   constructor() {
@@ -23,6 +24,7 @@ export default class OutsideTwoScene extends Group {
   setup() {
     this.bee = new Bee()
     this.grass = new GrassMaterial()
+    this.particles = new Particules()
 
     // Debug
     this.debug = this.webGl.debug
@@ -60,6 +62,9 @@ export default class OutsideTwoScene extends Group {
       this.bee.model.position.z += this.listener.property.virtualScroll.delta / 100
       this.camera.position.z += this.listener.property.virtualScroll.delta / 100
     })
+
+    // Add particles
+    this.add(this.particles)
 
     // add models
     this.add(this.bee.model)
