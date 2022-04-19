@@ -1,7 +1,8 @@
-import {CircleGeometry, DoubleSide, Group, MathUtils, Mesh, MeshBasicMaterial, Vector3} from 'three'
+import {CircleGeometry, DoubleSide, Group, MathUtils, Mesh, MeshBasicMaterial, Vector3, AmbientLight} from 'three'
 import WebGl from '../webglManager'
 import Bee from '@/webgl/entities/BlueBee'
 import Listener from '../utils/Listener'
+import GrassMaterial from '../shaders/grassMaterial'
 
 export default class OutsideTwoScene extends Group {
   constructor() {
@@ -21,16 +22,7 @@ export default class OutsideTwoScene extends Group {
 
   setup() {
     this.bee = new Bee()
-
-    // plane
-    this.fakeFloor = new Mesh(
-      new CircleGeometry(5, 64),
-      new MeshBasicMaterial({color: 0x0000ff})
-    )
-    this.fakeFloor.material.side = DoubleSide
-    this.fakeFloor.rotation.x = - Math.PI * 0.5
-    this.fakeFloor.position.y = - 5
-    this.fakeFloor.position.z =  100
+    this.grass = new GrassMaterial()
 
     // Debug
     this.debug = this.webGl.debug
@@ -54,8 +46,8 @@ export default class OutsideTwoScene extends Group {
 
   init() {
     // Set parameters of the scene at init
-    this.camera.position.set(0, 0, -10)
-    this.bee.model.position.set(0, -1.5, 0)
+    this.camera.position.set(0, 5, -30)
+    this.bee.model.position.set(0, 1.5, 0)
     this.webGl.controls.enabled = false
     this.webGl.controls.target = new Vector3(0, 0, 1000)
 
@@ -67,12 +59,11 @@ export default class OutsideTwoScene extends Group {
     this.listener.on('scroll', ()=>{
       this.bee.model.position.z += this.listener.property.virtualScroll.delta / 100
       this.camera.position.z += this.listener.property.virtualScroll.delta / 100
-      console.log(this.listener.property.virtualScroll.delta)
     })
 
     // add models
     this.add(this.bee.model)
-    this.add(this.fakeFloor)
+    this.add(this.grass)
   }
 
   update() {
@@ -85,6 +76,10 @@ export default class OutsideTwoScene extends Group {
       this.camera.position.x = MathUtils.lerp(this.camera.position.x, (-this.listener.property.cursor.x * Math.PI) / 5, 0.1)
       // this.camera.rotation.y = MathUtils.lerp(this.camera.rotation.y, (this.listener.property.cursor.x * Math.PI) / 10, 0.1)
 
+    }
+
+    if (this.grass) {
+      this.grass.update()
     }
   }
 
