@@ -2,8 +2,10 @@ import {Group, Vector2, Raycaster, Vector3} from 'three'
 import WebGl from '../webglManager'
 import Bee from "@/webgl/entities/BlueBee"
 import { clone as skeletonClone } from 'three/examples/jsm/utils/SkeletonUtils'
+import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils.js'
 import Listener from '../utils/Listener'
 import beePositions from '../elementsLocations/hive/beePosition.json'
+import { AnimationMixer } from 'three'
 
 let hiveInstance = null
 
@@ -23,6 +25,7 @@ export default class HiveScene extends Group {
     this.sizes = this.webGl.sizes
     this.resources = this.webGl.resources
     this.camera = this.webGl.camera
+    this.time = this.webGl.time
 
     this.raycaster = null
     this.currentIntersect = null
@@ -59,6 +62,7 @@ export default class HiveScene extends Group {
     this.bee = new Bee()
     this.raycaster = new Raycaster()
     this.hive = this.resources.items.hiveModel.scene
+    this.mixers = []
 
     this.init()
   }
@@ -66,18 +70,23 @@ export default class HiveScene extends Group {
   init() {
     // Set parameters of the scene at init
     this.camera.position.set(1, 4, -30)
-    this.webGl.controls.target = new Vector3(0, -5, 0)
+    this.webGl.controls.target = new Vector3(0, 0, 0)
 
     // Add hive
     this.add(this.hive)
-
+  
     // Add bee to point
     for (let i = 0; i < this.points.length; i++) {
       // skeleton clone instead of usual clone because of rig in model
       const bee = skeletonClone(this.bee.model)
+      const mixer = new AnimationMixer(bee)
+      mixer.clipAction(this.bee.resource.animations[0]).play()
+
       bee.position.set(this.points[i].position.x, this.points[i].position.y, this.points[i].position.z)
-      bee.rotation.y = Math.PI
+      bee.rotation.y = Math.PI + Math.random()
       bee.children[1].testId = this.points[i].id
+
+      this.mixers.push(mixer)
 
       this.beesToPoint.push(bee)
       this.add(bee)
@@ -105,19 +114,16 @@ export default class HiveScene extends Group {
   }
 
   update() {
+
+    if (this.mixers) {
+      for ( const mixer of this.mixers ) mixer.update( this.time.delta * 0.001 )
+    }
+    
     if (this.points && this.raycaster) {
       this.raycaster.setFromCamera(new Vector2(this.listener.property.cursor.x, this.listener.property.cursor.y), this.camera)
 
       // objects to test with the raycaster
       this.intersects = this.raycaster.intersectObjects(this.beesToPoint, true)
-
-      // for (const object of this.objectsToTest) {
-      //   object.material.color.set("#C571FF");
-      // }
-      //
-      // for (const intersect of intersects) {
-      //   intersect.object.material.color.set("#0000ff");
-      // }
 
       if (this.intersects.length) {
         if (this.currentIntersect) {
