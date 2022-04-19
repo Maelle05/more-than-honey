@@ -4,6 +4,7 @@ import Particules from '../shaders/particulesTest'
 import Tree from '../entities/Tree'
 import Stone from '../entities/Stone'
 import Bee from '../entities/BlueBee'
+import mapSetting from '../elementsLocations/outsideOne/mapSetting.json'
 import stoneLocation from '../elementsLocations/outsideOne/stone.json'
 import lysLocation from '../elementsLocations/outsideOne/lys.json'
 import beePath from '../elementsLocations/outsideOne/beePath.json'
@@ -21,10 +22,14 @@ export default class OutsideOneScene extends Group
     this.resources = this.webGl.resources
     this.time = this.webGl.time
 
+    if(mapSetting[0].left != 0 || mapSetting[0].top != 0){
+      alert('La map n\'a pas les bonnes coordonnées')
+    }
+
     this.property = {
       map: {
-        with: 595,
-        height: 842,
+        with: mapSetting[0].right,
+        height: mapSetting[0].bottom,
         ratio : 5,
       },
       mouse: {
