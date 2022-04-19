@@ -7,7 +7,7 @@ import Debug from './utils/Debug.js'
 import Sizes from './utils/Sizes.js'
 import Time from './utils/Time'
 import RouterScenes from './RouterScenes'
-import Processing from './shaders/postProssesing'
+import Processing from './shaders/bloomEffect'
 
 let webglInstance = null
 
