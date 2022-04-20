@@ -31,7 +31,6 @@ export default class OutsideTwoScene extends Group {
 
     if (this.debug.active) {
       const viewGUI = this.debug.ui.addFolder('Point of view')
-
       const camGUI = viewGUI.addFolder('Camera position')
       // camera position
       camGUI.add(this.camera.position, 'x', -10, 10).setValue(-3)
@@ -41,7 +40,6 @@ export default class OutsideTwoScene extends Group {
       const beeGUI = viewGUI.addFolder('Bee position')
       beeGUI.add(this.bee.model.position, 'y', -3, 2, 0.05).setValue(1.5)
     }
-
 
     this.init()
   }
@@ -63,10 +61,8 @@ export default class OutsideTwoScene extends Group {
       this.camera.position.z += this.listener.property.virtualScroll.delta / 100
     })
 
-    // Add particles
+    // Add elements
     this.add(this.particles)
-
-    // add models
     this.add(this.bee.model)
     this.add(this.grass)
   }
@@ -77,7 +73,7 @@ export default class OutsideTwoScene extends Group {
       // Update anim bee
       this.bee.update()
 
-      // rotate camera with cursor mouse
+      // Rotate camera with cursor mouse
       this.camera.position.x = MathUtils.lerp(this.camera.position.x, (-this.listener.property.cursor.x * Math.PI) / 5, 0.1)
       // this.camera.rotation.y = MathUtils.lerp(this.camera.rotation.y, (this.listener.property.cursor.x * Math.PI) / 10, 0.1)
 
