@@ -2,7 +2,7 @@ import {CircleGeometry, DoubleSide, Group, MathUtils, Mesh, MeshBasicMaterial, V
 import WebGl from '../webglManager'
 import Bee from '@/webgl/entities/BlueBee'
 import Listener from '../utils/Listener'
-import GrassMaterial from '../shaders/grassMaterial'
+import Grass from '../shaders/grass'
 import Particules from '../shaders/particulesTest'
 
 export default class OutsideTwoScene extends Group {
@@ -23,7 +23,7 @@ export default class OutsideTwoScene extends Group {
 
   setup() {
     this.bee = new Bee()
-    this.grass = new GrassMaterial()
+    this.grass = new Grass()
     this.particles = new Particules()
 
     // Debug

@@ -10,7 +10,7 @@ import lysLocation from '../elementsLocations/outsideOne/lys.json'
 import beePath from '../elementsLocations/outsideOne/beePath.json'
 import Listener from '../utils/Listener'
 import { MathUtils } from 'three'
-import GrassMaterial from '@/webgl/shaders/grassMaterial'
+import Grass from '@/webgl/shaders/grass'
 
 export default class OutsideOneScene extends Group
 {
@@ -64,20 +64,20 @@ export default class OutsideOneScene extends Group
     this.stone = new Stone()
     this.bee = new Bee()
     this.particles = new Particules()
-    this.grass = new GrassMaterial()
+    this.grass = new Grass()
 
     this.listener = new Listener()
 
-    this.debug = this.webGl.debug
-    if(this.debug.active) {
-      const elementGUI = this.debug.ui.addFolder('Elements sizes')
-      elementGUI.add(this.lys.children[0].scale, 'x', -5, 5).name('Lyx X').onChange( ( value ) => {
-        this.lys.children[0].scale.x = Number( value )
-        console.log(value)
-      })
-      elementGUI.add(this.lys.children[0].scale, 'y', -5, 5).setValue(0.25).name('Lys Y')
-      elementGUI.add(this.lys.children[0].scale, 'z', -5, 5).setValue(0.25).name('Lys X')
-    }
+    // this.debug = this.webGl.debug
+    // if(this.debug.active) {
+    //   const elementGUI = this.debug.ui.addFolder('Elements sizes')
+    //   elementGUI.add(this.lys.children[0].scale, 'x', -5, 5).name('Lyx X').onChange( ( value ) => {
+    //     this.lys.children[0].scale.x = Number( value )
+    //     console.log(value)
+    //   })
+    //   elementGUI.add(this.lys.children[0].scale, 'y', -5, 5).setValue(0.25).name('Lys Y')
+    //   elementGUI.add(this.lys.children[0].scale, 'z', -5, 5).setValue(0.25).name('Lys X')
+    // }
 
     // CURVE HANDLE
     // extract from .json and change format
@@ -166,7 +166,7 @@ export default class OutsideOneScene extends Group
 
     // Listener
     this.listener.on('scroll', ()=>{
-      this.property.moveBee.curveTarget += 0.002
+      this.property.moveBee.curveTarget += this.listener.property.virtualScroll.delta / 50000
     })
 
   }

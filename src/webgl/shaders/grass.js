@@ -17,7 +17,7 @@ const uniforms = {
   }
 }
 
-export default class GrassMaterial extends Group {
+export default class Grass extends Group {
   constructor() {
     super()
 
