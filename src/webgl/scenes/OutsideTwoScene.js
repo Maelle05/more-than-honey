@@ -86,6 +86,10 @@ export default class OutsideTwoScene extends Group {
     if (this.grass) {
       this.grass.update()
     }
+
+    if (this.particles) {
+      this.particles.update()
+    }
   }
 
   delete() {
