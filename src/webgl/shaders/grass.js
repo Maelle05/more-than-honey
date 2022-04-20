@@ -34,7 +34,7 @@ export default class Grass extends Group {
       side: DoubleSide
     })
 
-    this.instanceNumber = 900000
+    this.instanceNumber = 100000
     this.dummy = new Object3D()
 
     this.setup()
@@ -53,7 +53,7 @@ export default class Grass extends Group {
       this.dummy.position.set(
         (Math.random() - 0.5) * mapSetting[0].right / 5,
         0,
-        (Math.random() - 0.5) * mapSetting[0].right
+        ((Math.random() - 0.5) * mapSetting[0].bottom / 3) - mapSetting[0].bottom / 13
       )
 
       this.dummy.scale.setScalar(0.5 + Math.random() * 1)

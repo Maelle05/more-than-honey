@@ -1,12 +1,12 @@
 import WebGl from '../webglManager'
 import { Group, Vector3, BoxGeometry, MeshBasicMaterial, Mesh, CatmullRomCurve3, Line, BufferGeometry, LineBasicMaterial} from 'three'
 import Particules from '../shaders/particulesTest'
-import Tree from '../entities/Tree'
 import Stone from '../entities/Stone'
 import Bee from '../entities/BlueBee'
 import mapSetting from '../elementsLocations/outsideOne/mapSetting.json'
 import stoneLocation from '../elementsLocations/outsideOne/stone.json'
 import lysLocation from '../elementsLocations/outsideOne/lys.json'
+import treeLocation from '../elementsLocations/outsideOne/tree.json'
 import beePath from '../elementsLocations/outsideOne/beePath.json'
 import Listener from '../utils/Listener'
 import { MathUtils } from 'three'
@@ -61,7 +61,7 @@ export default class OutsideOneScene extends Group
 
   setup(){
     this.lys = this.resources.items.lysModel.scene
-    this.tree = new Tree()
+    this.tree = this.resources.items.treeModel.scene
     this.stone = new Stone()
     this.bee = new Bee()
     this.particles = new Particules()
@@ -94,7 +94,7 @@ export default class OutsideOneScene extends Group
       const handle = new Mesh( this.boxGeometry, this.boxMaterial )
       handle.position.copy( handlePos )
       this.curveHandles.push( handle )
-      this.add( handle )
+      // this.add( handle )
     }
     // Calculate Smooth curve
     this.curve = new CatmullRomCurve3(
@@ -141,10 +141,22 @@ export default class OutsideOneScene extends Group
     }
 
     // Add trees
+    this.tree.children[0].scale.set(0.05, 0.05, 0.05)
+    for (let i = 0; i < treeLocation.length; i++) {
+      const thistree = this.tree.clone()
+      const convertPos = {
+        z: treeLocation[i].centerY / this.property.map.ratio,
+        x: (treeLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
+      }
+      thistree.position.z = convertPos.z
+      thistree.position.x = convertPos.x
+      thistree.position.y = 12
+      this.add(thistree)
+    }
     // this.add(this.tree.model)
 
     // Add stones
-    this.stone.model.scale.set(0.4, 0.4, 0.4)
+    this.stone.model.scale.set(0.7, 0.7, 0.7)
     for (let i = 0; i < stoneLocation.length; i++) {
       const thisStone = this.stone.model.clone()
       const convertPos = {

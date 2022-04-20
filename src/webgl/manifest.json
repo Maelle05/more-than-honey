@@ -45,7 +45,7 @@
     "name": "treeModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene",
-    "path": "webgl/models/Tree/tree.glb"
+    "path": "webgl/models/Tree/tree.gltf"
   },
   {
     "name": "stoneModel",
