@@ -44,6 +44,7 @@ export default class OutsideOneScene extends Group
         target: new Vector3(),
         curveCurrent: 0.05,
         curveTarget: 0.05,
+        baseY: 2.5
       },
       camera: {
         target : 0,
@@ -83,7 +84,7 @@ export default class OutsideOneScene extends Group
     // extract from .json and change format
     this.initialPoints = []
     for (let i = 0; i < beePath.length; i++) {
-      this.initialPoints.push({x: ( beePath[i].x / this.property.map.ratio ) - this.property.map.with / this.property.map.ratio / 2, y: 2.5, z: beePath[i].y / this.property.map.ratio })
+      this.initialPoints.push({x: ( beePath[i].x / this.property.map.ratio ) - this.property.map.with / this.property.map.ratio / 2, y: beePath[i].z ? beePath[i].z : this.property.moveBee.baseY, z: beePath[i].y / this.property.map.ratio })
     }
     // create cube for each point of the curve
     this.boxGeometry = new BoxGeometry( 0.5, 0.5, 0.5 )

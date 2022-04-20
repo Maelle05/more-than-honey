@@ -2,7 +2,7 @@ import {
   DoubleSide,
   InstancedMesh,
   Object3D,
-  PlaneGeometry,
+  ConeGeometry,
   ShaderMaterial,
   Group
 } from 'three'
@@ -34,7 +34,7 @@ export default class Grass extends Group {
       side: DoubleSide
     })
 
-    this.instanceNumber = 90000
+    this.instanceNumber = 900000
     this.dummy = new Object3D()
 
     this.setup()
@@ -42,7 +42,7 @@ export default class Grass extends Group {
 
   setup() {
     // Mesh
-    const geometry = new PlaneGeometry(0.1, 1, 1, 4)
+    const geometry = new ConeGeometry(0.05, 0.6, 2, 1)
     geometry.translate(0, 0.5, 0) // move grass blade geometry lowest point at 0.
 
     const instancedMesh = new InstancedMesh(geometry, this.leavesMaterial, this.instanceNumber)
@@ -66,7 +66,7 @@ export default class Grass extends Group {
 
   update() {
     // Hand a time variable to vertex shader for wind displacement.
-    this.leavesMaterial.uniforms.time.value = this.clock.elapsed / 1000
+    this.leavesMaterial.uniforms.time.value = this.clock.elapsed / 3000
     this.leavesMaterial.uniformsNeedUpdate = true
   }
 }
