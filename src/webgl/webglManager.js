@@ -78,10 +78,12 @@ export default class WebGl{
         '/webgl/textures/Sky/pz.png',
         '/webgl/textures/Sky/nz.png'
     ])
-    // this.scene.background = environmentMapTexture
+    environmentMapTexture.encoding = sRGBEncoding
+    
+    this.scene.background = environmentMapTexture
 
     // Post Prossesing
-    this.postPross = new Processing()
+    // this.postPross = new Processing()
 
     // Resize event
     this.sizes.on('resize', () =>
@@ -129,7 +131,8 @@ export default class WebGl{
     this.stats.begin()
     this.controls.update()
     this.world.update()
-    this.postPross.rendererRender()
+    this.renderer.render(this.scene, this.camera)
+    // this.postPross.rendererRender()
     this.stats.end()
     
   }
