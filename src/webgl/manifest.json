@@ -54,6 +54,12 @@
     "path": "webgl/models/Stone/stone.glb"
   },
   {
+    "name": "bridgeModel",
+    "type": "gltfModel",
+    "actingScenes": "outsideOneScene",
+    "path": "webgl/models/Bridge/bridge.glb"
+  },
+  {
     "name": "daisyModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene",

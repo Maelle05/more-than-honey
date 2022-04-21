@@ -10,6 +10,7 @@ import lysLocation from '../elementsLocations/outsideOne/lys.json'
 import trunkLocation from '../elementsLocations/outsideOne/trunk.json'
 import treeLocation from '../elementsLocations/outsideOne/tree.json'
 import mushroomLocation from '../elementsLocations/outsideOne/mushrooms.json'
+import bridgeLocation from '../elementsLocations/outsideOne/bridge.json'
 import beePath from '../elementsLocations/outsideOne/beePath.json'
 import Listener from '../utils/Listener'
 import { MathUtils } from 'three'
@@ -18,6 +19,7 @@ import Daisy from '@/webgl/entities/Daisy'
 import Trunk from '@/webgl/entities/Trunk'
 import Mushroom from '@/webgl/entities/Mushroom'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
+import Bridge from '@/webgl/entities/Bridge'
 
 export default class OutsideOneScene extends Group
 {
@@ -76,6 +78,7 @@ export default class OutsideOneScene extends Group
     this.daisy = new Daisy()
     this.trunk = new Trunk()
     this.mushroom = new Mushroom()
+    this.bridge = new Bridge()
 
     this.listener = new Listener()
 
@@ -190,7 +193,6 @@ export default class OutsideOneScene extends Group
     }
 
     // Add trunks
-    this.trunk.model.scale.set(0.1, 0.1, 0.1)
     for (let i = 0; i < trunkLocation.length; i++) {
       const thisTrunk = this.trunk.model.clone()
       const convertPos = {
@@ -199,9 +201,21 @@ export default class OutsideOneScene extends Group
       }
       const trunkSize = randomIntFromInterval(0.08,0.15, 0.01)
       thisTrunk.scale.set(trunkSize, trunkSize, trunkSize)
-      thisTrunk.position.set(convertPos.x, 0, convertPos.z)
+      thisTrunk.position.set(convertPos.x, -0.2, convertPos.z)
       thisTrunk.rotation.set(0, Math.random() * 25, 0)
       this.add(thisTrunk)
+    }
+
+    // Add bridge
+    this.bridge.model.scale.set(7, 7, 7)
+    for (let i = 0; i < bridgeLocation.length; i++) {
+      const thisBridge = this.bridge.model.clone()
+      const convertPos = {
+        z: bridgeLocation[i].centerY / this.property.map.ratio,
+        x: (bridgeLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
+      }
+      thisBridge.position.set(convertPos.x, -10, convertPos.z)
+      this.add(thisBridge)
     }
 
     // Add mushroom
