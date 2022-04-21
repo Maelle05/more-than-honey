@@ -179,7 +179,11 @@ export default class OutsideOneScene extends Group
 
     // Listener
     this.listener.on('scroll', ()=>{ 
-      this.property.moveBee.curveTarget += this.listener.property.virtualScroll.delta / 50000
+      const result = this.property.moveBee.curveTarget + this.listener.property.virtualScroll.delta / 50000
+      if (result > 0.05 && result < 0.98) {
+        this.property.moveBee.curveTarget += this.listener.property.virtualScroll.delta / 50000
+      }
+      
     })
 
   }

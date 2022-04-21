@@ -1,4 +1,4 @@
-import { Scene, PerspectiveCamera, CubeTextureLoader, WebGLRenderer, sRGBEncoding, CineonToneMapping, PCFSoftShadowMap, AmbientLight} from 'three'
+import { Scene, PerspectiveCamera, LinearToneMapping, CubeTextureLoader, WebGLRenderer, sRGBEncoding, CineonToneMapping, PCFSoftShadowMap, AmbientLight} from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import Stats from 'stats.js'
 import sources from './manifest.json'

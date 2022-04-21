@@ -30,6 +30,12 @@ export default class Grass extends Group {
     this.camera = this.webGl.camera
     this.clock = this.webGl.time
 
+    this.property = {
+      map: {
+        rasio: 5,
+      }
+    }
+
     this.leavesMaterial = new ShaderMaterial({
       vertexShader,
       fragmentShader,
@@ -53,23 +59,23 @@ export default class Grass extends Group {
 
     // Flor
     this.flor = new Mesh( 
-      new PlaneGeometry( mapSetting[0].right / 5, mapSetting[0].bottom / 5 ),
+      new PlaneGeometry( mapSetting[0].right / this.property.map.rasio, mapSetting[0].bottom / this.property.map.rasio ),
       new MeshBasicMaterial({
         color: 'black',
         side: DoubleSide
       })
     )
     this.flor.name = 'flor'
-    this.flor.translateZ(-mapSetting[0].bottom / 10)
+    this.flor.translateZ(-mapSetting[0].bottom / (this.property.map.rasio * 2))
     this.flor.rotateX(Math.PI/2)
     this.add(this.flor)
 
     // Position and scale the grass blade instances randomly.
     for (let i = 0; i < this.instanceNumber; i++) {
       this.dummy.position.set(
-        (Math.random() - 0.5) * mapSetting[0].right / 5,
+        (Math.random() - 0.5) * mapSetting[0].right / this.property.map.rasio,
         0,
-        (Math.random() - 0.5) * (mapSetting[0].bottom / 5 ) - mapSetting[0].bottom / 10
+        (Math.random() - 0.5) * (mapSetting[0].bottom / this.property.map.rasio ) - mapSetting[0].bottom / (this.property.map.rasio * 2)
       )
 
       this.dummy.scale.setScalar(0.5 + Math.random() * 1)
