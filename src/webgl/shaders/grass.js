@@ -43,7 +43,7 @@ export default class Grass extends Group {
       side: DoubleSide
     })
 
-    this.instanceNumber = 100000
+    this.instanceNumber = 150000
     this.dummy = new Object3D()
 
     this.setup()

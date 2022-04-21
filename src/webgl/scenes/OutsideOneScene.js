@@ -127,7 +127,7 @@ export default class OutsideOneScene extends Group
     this.add(this.grass)
 
     // Add lys
-    this.lys.children[0].scale.set(0.25, 0.25, 0.25)
+    this.lys.children[0].scale.set(0.20, 0.20, 0.20)
     for (let i = 0; i < lysLocation.length; i++) {
       const thislys = this.lys.clone()
       const convertPos = {
@@ -137,6 +137,9 @@ export default class OutsideOneScene extends Group
       thislys.position.z = convertPos.z
       thislys.position.x = convertPos.x
       thislys.position.y = 0
+      thislys.rotation.y = Math.random()
+      thislys.rotation.z = Math.random() / 10
+      thislys.rotation.x = Math.random() / 10
       this.add(thislys)
     }
 
@@ -183,9 +186,7 @@ export default class OutsideOneScene extends Group
       if (result > 0.05 && result < 0.98) {
         this.property.moveBee.curveTarget += this.listener.property.virtualScroll.delta / 50000
       }
-      
     })
-
   }
 
   update(){
