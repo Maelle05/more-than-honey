@@ -107,7 +107,7 @@ export default class OutsideOneScene extends Group
       new BufferGeometry().setFromPoints( this.points ),
       new LineBasicMaterial( { color: 0x00ff00 } )
     )
-    this.add( this.line )
+    // this.add( this.line )
 
     this.init()
   }
@@ -170,7 +170,7 @@ export default class OutsideOneScene extends Group
     }
 
     // Add particles
-    // this.add(this.particles)
+    this.add(this.particles)
 
     // Set Camera property
     this.webGl.camera.position.set(0, 20, (this.property.map.height + 200 )/this.property.map.ratio)
