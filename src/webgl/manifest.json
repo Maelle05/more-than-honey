@@ -54,6 +54,18 @@
     "path": "webgl/models/Stone/stone.glb"
   },
   {
+    "name": "daisyModel",
+    "type": "gltfModel",
+    "actingScenes": "outsideOneScene",
+    "path": "webgl/models/Daisy/daisy.glb"
+  },
+  {
+    "name": "trunkModel",
+    "type": "gltfModel",
+    "actingScenes": "outsideOneScene",
+    "path": "webgl/models/Trunk/trunk.glb"
+  },
+  {
     "name": "hiveModel",
     "type": "gltfModel",
     "actingScenes": "hiveScene endingScene",

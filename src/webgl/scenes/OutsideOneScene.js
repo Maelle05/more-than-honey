@@ -5,12 +5,16 @@ import Stone from '../entities/Stone'
 import Bee from '../entities/BlueBee'
 import mapSetting from '../elementsLocations/outsideOne/mapSetting.json'
 import stoneLocation from '../elementsLocations/outsideOne/stone.json'
+import daisyLocation from '../elementsLocations/outsideOne/daisy.json'
 import lysLocation from '../elementsLocations/outsideOne/lys.json'
+import trunkLocation from '../elementsLocations/outsideOne/trunk.json'
 import treeLocation from '../elementsLocations/outsideOne/tree.json'
 import beePath from '../elementsLocations/outsideOne/beePath.json'
 import Listener from '../utils/Listener'
 import { MathUtils } from 'three'
 import Grass from '@/webgl/shaders/grass'
+import Daisy from '@/webgl/entities/Daisy'
+import Trunk from '@/webgl/entities/Trunk'
 
 export default class OutsideOneScene extends Group
 {
@@ -66,6 +70,8 @@ export default class OutsideOneScene extends Group
     this.bee = new Bee()
     this.particles = new Particules()
     this.grass = new Grass()
+    this.daisy = new Daisy()
+    this.trunk = new Trunk()
 
     this.listener = new Listener()
 
@@ -127,36 +133,30 @@ export default class OutsideOneScene extends Group
     this.add(this.grass)
 
     // Add lys
-    this.lys.children[0].scale.set(0.20, 0.20, 0.20)
+    this.lys.children[0].scale.set(0.15, 0.15, 0.15)
     for (let i = 0; i < lysLocation.length; i++) {
-      const thislys = this.lys.clone()
+      const thisLys = this.lys.clone()
       const convertPos = {
         z: lysLocation[i].centerY / this.property.map.ratio,
         x: (lysLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      thislys.position.z = convertPos.z
-      thislys.position.x = convertPos.x
-      thislys.position.y = 0
-      thislys.rotation.y = Math.random()
-      thislys.rotation.z = Math.random() / 10
-      thislys.rotation.x = Math.random() / 10
-      this.add(thislys)
+      thisLys.position.set(convertPos.x, 0, convertPos.z)
+      thisLys.rotation.set(Math.random() / 10, Math.random(), Math.random() / 10)
+      this.add(thisLys)
     }
 
     // Add trees
     this.tree.children[0].scale.set(0.05, 0.05, 0.05)
     for (let i = 0; i < treeLocation.length; i++) {
-      const thistree = this.tree.clone()
+      const thisTree = this.tree.clone()
       const convertPos = {
         z: treeLocation[i].centerY / this.property.map.ratio,
         x: (treeLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      thistree.position.z = convertPos.z
-      thistree.position.x = convertPos.x
-      thistree.position.y = 12
-      this.add(thistree)
+      thisTree.position.set(convertPos.x, 12, convertPos.z)
+      thisTree.rotation.set(0, Math.random() * 25, Math.random() / 10)
+      this.add(thisTree)
     }
-    // this.add(this.tree.model)
 
     // Add stones
     this.stone.model.scale.set(0.7, 0.7, 0.7)
@@ -166,10 +166,34 @@ export default class OutsideOneScene extends Group
         z: stoneLocation[i].centerY / this.property.map.ratio,
         x: (stoneLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      thisStone.position.z = convertPos.z
-      thisStone.position.x = convertPos.x
-      thisStone.position.y = 0
+      thisStone.position.set(convertPos.x, 0, convertPos.z)
+      thisStone.rotation.set(0, Math.random() * 50, Math.random() / 10)
       this.add(thisStone)
+    }
+
+    // Add daisys
+    this.daisy.model.scale.set(7, 7, 7)
+    for (let i = 0; i < daisyLocation.length; i++) {
+      const thisDaisy = this.daisy.model.clone()
+      const convertPos = {
+        z: daisyLocation[i].centerY / this.property.map.ratio,
+        x: (daisyLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
+      }
+      thisDaisy.position.set(convertPos.x, 0, convertPos.z)
+      this.add(thisDaisy)
+    }
+
+    // Add trunks
+    this.trunk.model.scale.set(0.1, 0.1, 0.1)
+    for (let i = 0; i < trunkLocation.length; i++) {
+      const thisTrunk = this.trunk.model.clone()
+      const convertPos = {
+        z: trunkLocation[i].centerY / this.property.map.ratio,
+        x: (trunkLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
+      }
+      thisTrunk.position.set(convertPos.x, 0, convertPos.z)
+      thisTrunk.rotation.set(0, Math.random() * 25, 0)
+      this.add(thisTrunk)
     }
 
     // Add particles

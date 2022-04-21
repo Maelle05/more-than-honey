@@ -1,7 +1,7 @@
 import {Mesh} from 'three'
 import WebGl from '../webglManager'
 
-export default class Stone {
+export default class Trunk {
   constructor() {
     this.webGl = new WebGl()
     this.scene = this.webGl.scene
@@ -10,7 +10,7 @@ export default class Stone {
     this.debug = this.webGl.debug
 
     // Resource
-    this.resource = this.resources.items.stoneModel
+    this.resource = this.resources.items.trunkModel
 
     this.setModel()
   }
