@@ -17,6 +17,7 @@ import Grass from '@/webgl/shaders/grass'
 import Daisy from '@/webgl/entities/Daisy'
 import Trunk from '@/webgl/entities/Trunk'
 import Mushroom from '@/webgl/entities/Mushroom'
+import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 
 export default class OutsideOneScene extends Group
 {
@@ -149,26 +150,27 @@ export default class OutsideOneScene extends Group
     }
 
     // Add trees
-    this.tree.children[0].scale.set(0.05, 0.05, 0.05)
+    this.tree.children[0].scale.set(0.08, 0.08, 0.08)
     for (let i = 0; i < treeLocation.length; i++) {
       const thisTree = this.tree.clone()
       const convertPos = {
         z: treeLocation[i].centerY / this.property.map.ratio,
         x: (treeLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      thisTree.position.set(convertPos.x, 12, convertPos.z)
+      thisTree.position.set(convertPos.x, 19, convertPos.z)
       thisTree.rotation.set(0, Math.random() * 25, Math.random() / 10)
       this.add(thisTree)
     }
 
     // Add stones
-    this.stone.model.scale.set(0.7, 0.7, 0.7)
     for (let i = 0; i < stoneLocation.length; i++) {
       const thisStone = this.stone.model.clone()
       const convertPos = {
         z: stoneLocation[i].centerY / this.property.map.ratio,
         x: (stoneLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
+      const stoneSize = randomIntFromInterval(0.4,0.8, 0.01)
+      thisStone.scale.set(stoneSize, stoneSize, stoneSize)
       thisStone.position.set(convertPos.x, 0, convertPos.z)
       thisStone.rotation.set(0, Math.random() * 50, Math.random() / 10)
       this.add(thisStone)
@@ -194,19 +196,22 @@ export default class OutsideOneScene extends Group
         z: trunkLocation[i].centerY / this.property.map.ratio,
         x: (trunkLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
+      const trunkSize = randomIntFromInterval(0.08,0.15, 0.01)
+      thisTrunk.scale.set(trunkSize, trunkSize, trunkSize)
       thisTrunk.position.set(convertPos.x, 0, convertPos.z)
       thisTrunk.rotation.set(0, Math.random() * 25, 0)
       this.add(thisTrunk)
     }
 
     // Add mushroom
-    this.mushroom.model.scale.set(0.4, 0.4, 0.4)
     for (let i = 0; i < mushroomLocation.length; i++) {
       const thisMushroom = this.mushroom.model.clone()
       const convertPos = {
         z: mushroomLocation[i].centerY / this.property.map.ratio,
         x: (mushroomLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
+      const mushroomSize = randomIntFromInterval(0.2,0.6, 0.01)
+      thisMushroom.scale.set(mushroomSize, mushroomSize, mushroomSize)
       thisMushroom.position.set(convertPos.x, 0, convertPos.z)
       thisMushroom.rotation.set(0, Math.random() * 25, 0)
       this.add(thisMushroom)
