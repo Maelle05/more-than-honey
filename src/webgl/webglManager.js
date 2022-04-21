@@ -64,13 +64,12 @@ export default class WebGl{
     this.renderer.toneMappingExposure = 1.75
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMap.type = PCFSoftShadowMap
-    // this.renderer.setClearColor('#000000')
+    this.renderer.setClearColor('#011227')
     this.renderer.setSize(this.sizes.width, this.sizes.height)
     this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
 
     // Set Sky
     const cubeTextureLoader = new CubeTextureLoader()
-
     const environmentMapTexture = cubeTextureLoader.load([
         '/webgl/textures/Sky/px.png',
         '/webgl/textures/Sky/nx.png',
@@ -79,8 +78,7 @@ export default class WebGl{
         '/webgl/textures/Sky/pz.png',
         '/webgl/textures/Sky/nz.png'
     ])
-
-    this.scene.background = environmentMapTexture
+    // this.scene.background = environmentMapTexture
 
     // Post Prossesing
     this.postPross = new Processing()
