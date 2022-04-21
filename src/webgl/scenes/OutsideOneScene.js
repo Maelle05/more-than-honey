@@ -1,5 +1,5 @@
 import WebGl from '../webglManager'
-import { Group, Vector3, BoxGeometry, MeshBasicMaterial, Mesh, CatmullRomCurve3, Line, BufferGeometry, LineBasicMaterial} from 'three'
+import { Group, Vector3, DoubleSide, PlaneGeometry, BoxGeometry, MeshBasicMaterial, Mesh, CatmullRomCurve3, Line, BufferGeometry, LineBasicMaterial} from 'three'
 import Particules from '../shaders/particulesTest'
 import Stone from '../entities/Stone'
 import Bee from '../entities/BlueBee'
@@ -178,7 +178,7 @@ export default class OutsideOneScene extends Group
     this.webGl.controls.target = new Vector3(0, -5, 0)
 
     // Listener
-    this.listener.on('scroll', ()=>{
+    this.listener.on('scroll', ()=>{ 
       this.property.moveBee.curveTarget += this.listener.property.virtualScroll.delta / 50000
     })
 

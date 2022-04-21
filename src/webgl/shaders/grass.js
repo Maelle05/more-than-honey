@@ -4,7 +4,10 @@ import {
   Object3D,
   ConeGeometry,
   ShaderMaterial,
-  Group
+  Group,
+  PlaneGeometry,
+  MeshBasicMaterial,
+  Mesh
 } from 'three'
 import WebGl from '../webglManager'
 import vertexShader from './grass/vert.glsl'
@@ -48,12 +51,25 @@ export default class Grass extends Group {
     const instancedMesh = new InstancedMesh(geometry, this.leavesMaterial, this.instanceNumber)
     this.add(instancedMesh)
 
+    // Flor
+    this.flor = new Mesh( 
+      new PlaneGeometry( mapSetting[0].right / 5, mapSetting[0].bottom / 5 ),
+      new MeshBasicMaterial({
+        color: 'black',
+        side: DoubleSide
+      })
+    )
+    this.flor.name = 'flor'
+    this.flor.translateZ(-mapSetting[0].bottom / 10)
+    this.flor.rotateX(Math.PI/2)
+    this.add(this.flor)
+
     // Position and scale the grass blade instances randomly.
     for (let i = 0; i < this.instanceNumber; i++) {
       this.dummy.position.set(
         (Math.random() - 0.5) * mapSetting[0].right / 5,
         0,
-        ((Math.random() - 0.5) * mapSetting[0].bottom / 3) - mapSetting[0].bottom / 13
+        (Math.random() - 0.5) * (mapSetting[0].bottom / 5 ) - mapSetting[0].bottom / 10
       )
 
       this.dummy.scale.setScalar(0.5 + Math.random() * 1)

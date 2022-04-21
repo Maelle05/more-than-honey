@@ -1,4 +1,4 @@
-import { Scene, PerspectiveCamera, WebGLRenderer, sRGBEncoding, CineonToneMapping, PCFSoftShadowMap, AmbientLight} from 'three'
+import { Scene, PerspectiveCamera, CubeTextureLoader, WebGLRenderer, sRGBEncoding, CineonToneMapping, PCFSoftShadowMap, AmbientLight} from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import Stats from 'stats.js'
 import sources from './manifest.json'
@@ -64,13 +64,26 @@ export default class WebGl{
     this.renderer.toneMappingExposure = 1.75
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMap.type = PCFSoftShadowMap
-    this.renderer.setClearColor('#000000')
+    // this.renderer.setClearColor('#000000')
     this.renderer.setSize(this.sizes.width, this.sizes.height)
     this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
 
+    // Set Sky
+    const cubeTextureLoader = new CubeTextureLoader()
+
+    const environmentMapTexture = cubeTextureLoader.load([
+        '/webgl/textures/Sky/px.png',
+        '/webgl/textures/Sky/nx.png',
+        '/webgl/textures/Sky/py.png',
+        '/webgl/textures/Sky/ny.png',
+        '/webgl/textures/Sky/pz.png',
+        '/webgl/textures/Sky/nz.png'
+    ])
+
+    this.scene.background = environmentMapTexture
+
     // Post Prossesing
     this.postPross = new Processing()
-
 
     // Resize event
     this.sizes.on('resize', () =>
