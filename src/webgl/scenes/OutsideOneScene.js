@@ -137,13 +137,14 @@ export default class OutsideOneScene extends Group
     this.add(this.grass)
 
     // Add lys
-    this.lys.children[0].scale.set(0.15, 0.15, 0.15)
     for (let i = 0; i < lysLocation.length; i++) {
       const thisLys = this.lys.clone()
       const convertPos = {
         z: lysLocation[i].centerY / this.property.map.ratio,
         x: (lysLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
+      const lysSize = randomIntFromInterval(0.1,0.25, 0.01)
+      thisLys.children[0].scale.set(lysSize, lysSize, lysSize)
       thisLys.position.set(convertPos.x, 0, convertPos.z)
       thisLys.rotation.set(Math.random() / 10, Math.random(), Math.random() / 10)
       this.add(thisLys)
