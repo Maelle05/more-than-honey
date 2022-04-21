@@ -124,6 +124,7 @@ export default class HiveScene extends Group {
 
       // objects to test with the raycaster
       this.intersects = this.raycaster.intersectObjects(this.beesToPoint, true)
+      // console.log(this.beesToPoint)
 
       if (this.intersects.length) {
         if (this.currentIntersect) {

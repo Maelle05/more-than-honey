@@ -52,7 +52,7 @@ export default class OutsideTwoScene extends Group {
     this.webGl.controls.target = new Vector3(0, 0, 1000)
 
     // change glowy effect on this scene
-    // this.webGl.postPross.renderer.toneMappingExposure = Math.pow( 0.85, 4.0 )
+    // this.webGl.bloom.renderer.toneMappingExposure = Math.pow( 0.85, 4.0 )
 
     // Listener
     this.listener = new Listener()

@@ -1,4 +1,4 @@
-import { Scene, PerspectiveCamera, LinearToneMapping, CubeTextureLoader, WebGLRenderer, sRGBEncoding, CineonToneMapping, PCFSoftShadowMap, AmbientLight} from 'three'
+import { Scene, PerspectiveCamera, ReinhardToneMapping, CubeTextureLoader, WebGLRenderer, sRGBEncoding, PCFSoftShadowMap, AmbientLight} from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import Stats from 'stats.js'
 import sources from './manifest.json'
@@ -7,7 +7,7 @@ import Debug from './utils/Debug.js'
 import Sizes from './utils/Sizes.js'
 import Time from './utils/Time'
 import RouterScenes from './RouterScenes'
-import Processing from './shaders/bloomEffect'
+import Bloom from './shaders/bloom'
 
 let webglInstance = null
 
@@ -49,28 +49,24 @@ export default class WebGl{
     this.controls.enableDamping = true
     this.controls.enabled = false
 
-    // Add Light
-    const light = new AmbientLight( 0x404040 )
-    this.scene.add( light )
-
     // Renderer
     this.renderer = new WebGLRenderer({
         canvas: this.canvas,
-        antialias: true
+        antialias: false
     })
     this.renderer.physicallyCorrectLights = true
     this.renderer.outputEncoding = sRGBEncoding
-    this.renderer.toneMapping = CineonToneMapping
-    this.renderer.toneMappingExposure = 1.75
+    this.renderer.toneMapping = ReinhardToneMapping
+    this.renderer.toneMappingExposure = 1
     this.renderer.shadowMap.enabled = true
-    this.renderer.shadowMap.type = PCFSoftShadowMap
-    this.renderer.setClearColor('#0C0D1D')
+    // this.renderer.shadowMap.type = PCFSoftShadowMap
+    // this.renderer.setClearColor('#0C0D1D')
     this.renderer.setSize(this.sizes.width, this.sizes.height)
     this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
 
     // Set Sky
     const cubeTextureLoader = new CubeTextureLoader()
-    const environmentMapTexture = cubeTextureLoader.load([
+    this.environmentMapTexture = cubeTextureLoader.load([
         '/webgl/textures/Sky/px.png',
         '/webgl/textures/Sky/nx.png',
         '/webgl/textures/Sky/py.png',
@@ -78,12 +74,12 @@ export default class WebGl{
         '/webgl/textures/Sky/pz.png',
         '/webgl/textures/Sky/nz.png'
     ])
-    environmentMapTexture.encoding = sRGBEncoding
-    
-    this.scene.background = environmentMapTexture
+    this.environmentMapTexture.encoding = sRGBEncoding
+
+    this.scene.background = this.environmentMapTexture
 
     // Post Prossesing
-    // this.postPross = new Processing()
+    this.bloom = new Bloom()
 
     // Resize event
     this.sizes.on('resize', () =>
@@ -131,8 +127,8 @@ export default class WebGl{
     this.stats.begin()
     this.controls.update()
     this.world.update()
-    this.renderer.render(this.scene, this.camera)
-    // this.postPross.rendererRender()
+    // this.renderer.render(this.scene, this.camera)
+    this.bloom.update()
     this.stats.end()
     
   }

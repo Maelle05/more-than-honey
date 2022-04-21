@@ -152,6 +152,9 @@ export default class OutsideOneScene extends Group
       thistree.position.x = convertPos.x
       thistree.position.y = 12
       this.add(thistree)
+
+      // add no Bloom
+      // this.webGl.bloom.NoBloomElements.push(thistree)
     }
     // this.add(this.tree.model)
 
@@ -210,6 +213,7 @@ export default class OutsideOneScene extends Group
     if(this.grass) {
       this.grass.update()
     }
+
   }
 
   delete(){
