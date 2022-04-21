@@ -15,7 +15,7 @@
     "name": "beeBlueModel",
     "type": "gltfModel",
     "actingScenes": "hiveScene raceGameScene outsideTwoScene outsideOneScene endingScene",
-    "path": "webgl/models/Bee/blueBee.gltf"
+    "path": "webgl/models/Bee/bee.gltf"
   },
   {
     "name": "grassNormalTexture",
