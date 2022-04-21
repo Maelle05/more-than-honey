@@ -9,12 +9,14 @@ import daisyLocation from '../elementsLocations/outsideOne/daisy.json'
 import lysLocation from '../elementsLocations/outsideOne/lys.json'
 import trunkLocation from '../elementsLocations/outsideOne/trunk.json'
 import treeLocation from '../elementsLocations/outsideOne/tree.json'
+import mushroomLocation from '../elementsLocations/outsideOne/mushrooms.json'
 import beePath from '../elementsLocations/outsideOne/beePath.json'
 import Listener from '../utils/Listener'
 import { MathUtils } from 'three'
 import Grass from '@/webgl/shaders/grass'
 import Daisy from '@/webgl/entities/Daisy'
 import Trunk from '@/webgl/entities/Trunk'
+import Mushroom from '@/webgl/entities/Mushroom'
 
 export default class OutsideOneScene extends Group
 {
@@ -72,6 +74,7 @@ export default class OutsideOneScene extends Group
     this.grass = new Grass()
     this.daisy = new Daisy()
     this.trunk = new Trunk()
+    this.mushroom = new Mushroom()
 
     this.listener = new Listener()
 
@@ -194,6 +197,19 @@ export default class OutsideOneScene extends Group
       thisTrunk.position.set(convertPos.x, 0, convertPos.z)
       thisTrunk.rotation.set(0, Math.random() * 25, 0)
       this.add(thisTrunk)
+    }
+
+    // Add mushroom
+    this.mushroom.model.scale.set(0.4, 0.4, 0.4)
+    for (let i = 0; i < mushroomLocation.length; i++) {
+      const thisMushroom = this.mushroom.model.clone()
+      const convertPos = {
+        z: mushroomLocation[i].centerY / this.property.map.ratio,
+        x: (mushroomLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
+      }
+      thisMushroom.position.set(convertPos.x, 0, convertPos.z)
+      thisMushroom.rotation.set(0, Math.random() * 25, 0)
+      this.add(thisMushroom)
     }
 
     // Add particles

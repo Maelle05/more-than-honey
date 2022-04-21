@@ -66,6 +66,12 @@
     "path": "webgl/models/Trunk/trunk.glb"
   },
   {
+    "name": "mushroomModel",
+    "type": "gltfModel",
+    "actingScenes": "outsideOneScene",
+    "path": "webgl/models/Mushroom/mushroom.glb"
+  },
+  {
     "name": "hiveModel",
     "type": "gltfModel",
     "actingScenes": "hiveScene endingScene",
