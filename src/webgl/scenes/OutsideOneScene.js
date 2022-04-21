@@ -5,12 +5,21 @@ import Stone from '../entities/Stone'
 import Bee from '../entities/BlueBee'
 import mapSetting from '../elementsLocations/outsideOne/mapSetting.json'
 import stoneLocation from '../elementsLocations/outsideOne/stone.json'
+import daisyLocation from '../elementsLocations/outsideOne/daisy.json'
 import lysLocation from '../elementsLocations/outsideOne/lys.json'
+import trunkLocation from '../elementsLocations/outsideOne/trunk.json'
 import treeLocation from '../elementsLocations/outsideOne/tree.json'
+import mushroomLocation from '../elementsLocations/outsideOne/mushrooms.json'
+import bridgeLocation from '../elementsLocations/outsideOne/bridge.json'
 import beePath from '../elementsLocations/outsideOne/beePath.json'
 import Listener from '../utils/Listener'
 import { MathUtils } from 'three'
 import Grass from '@/webgl/shaders/grass'
+import Daisy from '@/webgl/entities/Daisy'
+import Trunk from '@/webgl/entities/Trunk'
+import Mushroom from '@/webgl/entities/Mushroom'
+import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
+import Bridge from '@/webgl/entities/Bridge'
 
 export default class OutsideOneScene extends Group
 {
@@ -66,6 +75,10 @@ export default class OutsideOneScene extends Group
     this.bee = new Bee()
     this.particles = new Particules()
     this.grass = new Grass()
+    this.daisy = new Daisy()
+    this.trunk = new Trunk()
+    this.mushroom = new Mushroom()
+    this.bridge = new Bridge()
 
     this.listener = new Listener()
 
@@ -127,49 +140,99 @@ export default class OutsideOneScene extends Group
     this.add(this.grass)
 
     // Add lys
-    this.lys.children[0].scale.set(0.25, 0.25, 0.25)
     for (let i = 0; i < lysLocation.length; i++) {
-      const thislys = this.lys.clone()
+      const thisLys = this.lys.clone()
       const convertPos = {
         z: lysLocation[i].centerY / this.property.map.ratio,
         x: (lysLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      thislys.position.z = convertPos.z
-      thislys.position.x = convertPos.x
-      thislys.position.y = 0
-      this.add(thislys)
+      const lysSize = randomIntFromInterval(0.1,0.25, 0.01)
+      thisLys.children[0].scale.set(lysSize, lysSize, lysSize)
+      thisLys.position.set(convertPos.x, 0, convertPos.z)
+      thisLys.rotation.set(Math.random() / 10, Math.random(), Math.random() / 10)
+      this.add(thisLys)
     }
 
     // Add trees
-    this.tree.children[0].scale.set(0.05, 0.05, 0.05)
+    this.tree.children[0].scale.set(0.08, 0.08, 0.08)
     for (let i = 0; i < treeLocation.length; i++) {
-      const thistree = this.tree.clone()
+      const thisTree = this.tree.clone()
       const convertPos = {
         z: treeLocation[i].centerY / this.property.map.ratio,
         x: (treeLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      thistree.position.z = convertPos.z
-      thistree.position.x = convertPos.x
-      thistree.position.y = 12
-      this.add(thistree)
-
+      thisTree.position.set(convertPos.x, 19, convertPos.z)
+      thisTree.rotation.set(0, Math.random() * 25, Math.random() / 10)
+      this.add(thisTree)
+      
       // add no Bloom
       // this.webGl.bloom.NoBloomElements.push(thistree)
     }
-    // this.add(this.tree.model)
 
     // Add stones
-    this.stone.model.scale.set(0.7, 0.7, 0.7)
     for (let i = 0; i < stoneLocation.length; i++) {
       const thisStone = this.stone.model.clone()
       const convertPos = {
         z: stoneLocation[i].centerY / this.property.map.ratio,
         x: (stoneLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      thisStone.position.z = convertPos.z
-      thisStone.position.x = convertPos.x
-      thisStone.position.y = 0
+      const stoneSize = randomIntFromInterval(0.4,0.8, 0.01)
+      thisStone.scale.set(stoneSize, stoneSize, stoneSize)
+      thisStone.position.set(convertPos.x, 0, convertPos.z)
+      thisStone.rotation.set(0, Math.random() * 50, Math.random() / 10)
       this.add(thisStone)
+    }
+
+    // Add daisys
+    this.daisy.model.scale.set(7, 7, 7)
+    for (let i = 0; i < daisyLocation.length; i++) {
+      const thisDaisy = this.daisy.model.clone()
+      const convertPos = {
+        z: daisyLocation[i].centerY / this.property.map.ratio,
+        x: (daisyLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
+      }
+      thisDaisy.position.set(convertPos.x, 0, convertPos.z)
+      this.add(thisDaisy)
+    }
+
+    // Add trunks
+    for (let i = 0; i < trunkLocation.length; i++) {
+      const thisTrunk = this.trunk.model.clone()
+      const convertPos = {
+        z: trunkLocation[i].centerY / this.property.map.ratio,
+        x: (trunkLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
+      }
+      const trunkSize = randomIntFromInterval(0.08,0.15, 0.01)
+      thisTrunk.scale.set(trunkSize, trunkSize, trunkSize)
+      thisTrunk.position.set(convertPos.x, -0.2, convertPos.z)
+      thisTrunk.rotation.set(0, Math.random() * 25, 0)
+      this.add(thisTrunk)
+    }
+
+    // Add bridge
+    this.bridge.model.scale.set(7, 7, 7)
+    for (let i = 0; i < bridgeLocation.length; i++) {
+      const thisBridge = this.bridge.model.clone()
+      const convertPos = {
+        z: bridgeLocation[i].centerY / this.property.map.ratio,
+        x: (bridgeLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
+      }
+      thisBridge.position.set(convertPos.x, -10, convertPos.z)
+      this.add(thisBridge)
+    }
+
+    // Add mushroom
+    for (let i = 0; i < mushroomLocation.length; i++) {
+      const thisMushroom = this.mushroom.model.clone()
+      const convertPos = {
+        z: mushroomLocation[i].centerY / this.property.map.ratio,
+        x: (mushroomLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
+      }
+      const mushroomSize = randomIntFromInterval(0.2,0.6, 0.01)
+      thisMushroom.scale.set(mushroomSize, mushroomSize, mushroomSize)
+      thisMushroom.position.set(convertPos.x, 0, convertPos.z)
+      thisMushroom.rotation.set(0, Math.random() * 25, 0)
+      this.add(thisMushroom)
     }
 
     // Add particles
@@ -186,9 +249,7 @@ export default class OutsideOneScene extends Group
       if (result > 0.05 && result < 0.98) {
         this.property.moveBee.curveTarget += this.listener.property.virtualScroll.delta / 50000
       }
-      
     })
-
   }
 
   update(){

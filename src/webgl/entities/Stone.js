@@ -1,9 +1,8 @@
-import { Mesh } from 'three'
+import {Mesh} from 'three'
 import WebGl from '../webglManager'
 
-export default class Stone
-{
-  constructor(){
+export default class Stone {
+  constructor() {
     this.webGl = new WebGl()
     this.scene = this.webGl.scene
     this.resources = this.webGl.resources
@@ -16,20 +15,17 @@ export default class Stone
     this.setModel()
   }
 
-  setModel(){
+  setModel() {
     this.model = this.resource.scene
 
-    this.model.traverse((child) =>
-    {
-        if(child instanceof Mesh)
-        {
-            child.castShadow = true
-        }
+    this.model.traverse((child) => {
+      if (child instanceof Mesh) {
+        child.castShadow = true
+      }
     })
   }
 
-  update()
-  {
-  
+  update() {
+
   }
 }

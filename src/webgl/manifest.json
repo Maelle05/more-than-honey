@@ -15,7 +15,7 @@
     "name": "beeBlueModel",
     "type": "gltfModel",
     "actingScenes": "hiveScene raceGameScene outsideTwoScene outsideOneScene endingScene",
-    "path": "webgl/models/Bee/blueBee.gltf"
+    "path": "webgl/models/Bee/bee.gltf"
   },
   {
     "name": "grassNormalTexture",
@@ -52,6 +52,30 @@
     "type": "gltfModel",
     "actingScenes": "outsideOneScene",
     "path": "webgl/models/Stone/stone.glb"
+  },
+  {
+    "name": "bridgeModel",
+    "type": "gltfModel",
+    "actingScenes": "outsideOneScene",
+    "path": "webgl/models/Bridge/bridge.glb"
+  },
+  {
+    "name": "daisyModel",
+    "type": "gltfModel",
+    "actingScenes": "outsideOneScene",
+    "path": "webgl/models/Daisy/daisy.glb"
+  },
+  {
+    "name": "trunkModel",
+    "type": "gltfModel",
+    "actingScenes": "outsideOneScene",
+    "path": "webgl/models/Trunk/trunk.glb"
+  },
+  {
+    "name": "mushroomModel",
+    "type": "gltfModel",
+    "actingScenes": "outsideOneScene",
+    "path": "webgl/models/Mushroom/mushroom.glb"
   },
   {
     "name": "hiveModel",
