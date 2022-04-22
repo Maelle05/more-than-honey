@@ -15,29 +15,21 @@ let routerScenesInstance = null
 
 export default class RouterScenes extends EventEmitter{
   constructor(){
-
     if(routerScenesInstance){
       return routerScenesInstance
     }
 
     super()
-
     routerScenesInstance = this
-
     this.webGl = new WebGl()
-
     this.allScenes = {}
-
     this.currentRoot = window.location.pathname.replace(/[^\w\s]/gi, '')
     this.currentScene = new BaseScene
-
     this.webGl.scene.add(this.currentScene)
-
   }
 
   rootChange(nameScene){
     this.webGl.scene.remove(this.currentScene)
-
     this.currentScene.delete()
 
     if (this.allScenes[nameScene]){
@@ -85,11 +77,12 @@ export default class RouterScenes extends EventEmitter{
     }
 
     // console.log(this.allScenes);
-    
     this.currentScene = this.allScenes[nameScene]
-
     this.webGl.scene.add(this.currentScene)
-
+    // Remove 'loaded' class if needed
+    if (this.webGl.loader.classList.contains('loaded')) {
+      this.webGl.loader.classList.remove('loaded')
+    }
   }
 
   update(){

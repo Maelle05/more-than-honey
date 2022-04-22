@@ -9,11 +9,18 @@
 <script>
 // @ is an alias to /src
 import Button from '@/components/ui/Button'
+import WebGl from '@/webgl/webglManager'
 
 export default {
   name: 'HoneyIntro',
   components: {
     Button
+  },
+  mounted() {
+    const manager =  new WebGl()
+    setTimeout(() => {
+      manager.loader.classList.add('loaded')
+    }, 500)
   }
 }
 </script>

@@ -12,7 +12,7 @@ export default class OutsideTwoScene extends Group {
     this.scene = this.webGl.scene
     this.camera = this.webGl.camera
     this.resources = this.webGl.resources
-
+    this.loader = this.webGl.loader
     this.sizes = this.webGl.sizes
 
     // Wait for resources
@@ -45,6 +45,10 @@ export default class OutsideTwoScene extends Group {
   }
 
   init() {
+    setTimeout(() => {
+      this.loader.classList.add('loaded')
+    }, 500)
+
     // Set parameters of the scene at init
     this.camera.position.set(0, 5, -30)
     this.bee.model.position.set(0, 1.5, 0)

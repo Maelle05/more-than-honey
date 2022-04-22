@@ -26,6 +26,7 @@ export default class HiveScene extends Group {
     this.resources = this.webGl.resources
     this.camera = this.webGl.camera
     this.time = this.webGl.time
+    this.loader = this.webGl.loader
 
     this.raycaster = null
     this.currentIntersect = null
@@ -68,6 +69,10 @@ export default class HiveScene extends Group {
   }
 
   init() {
+    setTimeout(() => {
+      this.loader.classList.add('loaded')
+    }, 500)
+
     // Set parameters of the scene at init
     this.camera.position.set(1, 4, -30)
     this.webGl.controls.target = new Vector3(0, 0, 0)
@@ -114,7 +119,6 @@ export default class HiveScene extends Group {
   }
 
   update() {
-
     if (this.mixers) {
       for ( const mixer of this.mixers ) mixer.update( this.time.delta * 0.001 )
     }

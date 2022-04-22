@@ -1,5 +1,18 @@
 import WebGl from '../webglManager'
-import { Group, Vector3, DoubleSide, PlaneGeometry, BoxGeometry, MeshBasicMaterial, Mesh, CatmullRomCurve3, Line, BufferGeometry, LineBasicMaterial} from 'three'
+import {
+  Group,
+  Vector3,
+  DoubleSide,
+  PlaneGeometry,
+  BoxGeometry,
+  MeshBasicMaterial,
+  Mesh,
+  CatmullRomCurve3,
+  Line,
+  BufferGeometry,
+  LineBasicMaterial,
+  DefaultLoadingManager
+} from 'three'
 import Particules from '../shaders/particulesTest'
 import Stone from '../entities/Stone'
 import Bee from '../entities/BlueBee'
@@ -31,6 +44,7 @@ export default class OutsideOneScene extends Group
     this.camera = this.webGl.camera
     this.resources = this.webGl.resources
     this.time = this.webGl.time
+    this.loader = this.webGl.loader
 
     if(mapSetting[0].left != 0 || mapSetting[0].top != 0){
       alert('La map n\'a pas les bonnes coordonnées')
@@ -65,6 +79,7 @@ export default class OutsideOneScene extends Group
     this.resources.on(`sourcesReadyoutsideOne`, () =>
     {
       this.setup()
+      // this.loader.classList.add('loaded')
     })
   }
 
@@ -126,6 +141,10 @@ export default class OutsideOneScene extends Group
   }
 
   init(){
+    setTimeout(() => {
+      this.loader.classList.add('loaded')
+    }, 500)
+
     // Add bee
     this.beeMove = 0
     this.beePoss = this.curve.getPointAt(this.beeMove)
@@ -177,7 +196,7 @@ export default class OutsideOneScene extends Group
         z: stoneLocation[i].centerY / this.property.map.ratio,
         x: (stoneLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      const stoneSize = randomIntFromInterval(0.4,0.8, 0.01)
+      const stoneSize = randomIntFromInterval(1.8,2.8, 0.01)
       thisStone.scale.set(stoneSize, stoneSize, stoneSize)
       thisStone.position.set(convertPos.x, 0, convertPos.z)
       thisStone.rotation.set(0, Math.random() * 50, Math.random() / 10)
@@ -267,6 +286,11 @@ export default class OutsideOneScene extends Group
       this.webGl.camera.position.set(possCam.x, possCam.y + 2, possCam.z)
       this.webGl.controls.target.set(this.property.camera.target.x, this.property.camera.target.y + 1, this.property.camera.target.z )
     }
+
+    // Loader
+    // if (this.isLoad) {
+    //   this.loader.classList.add('loaded')
+    // }
 
     if(this.bee){
       this.bee.update()
