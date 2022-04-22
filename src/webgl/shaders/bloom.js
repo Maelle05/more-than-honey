@@ -1,146 +1,88 @@
-
-import WebGl from '../webglManager'
-
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
-import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
-
-import vertexshader from './bloom/vert.glsl'
-import fragmentshader from './bloom/frag.glsl'
-
 import * as THREE from 'three'
+import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer.js'
+import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass.js'
+import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader'
 
-
-
-let processingInstance = null
+import WebGl from "../webglManager"
 
 export default class Bloom {
   constructor(){
-    if(processingInstance){
-      return processingInstance
-    }
+    this.WebGl = new WebGl()
+    this.scene = this.WebGl.scene
+    this.sizes = this.WebGl.sizes
 
-    processingInstance = this
+    this.camera = this.WebGl.camera
+    this.camera.layers.enable(1)
 
-    this.webGl = new WebGl()
-    this.scene = this.webGl.scene
-    this.size = this.webGl.sizes
-
-    this.renderer = this.webGl.renderer
-    this.camera = this.webGl.camera
-
-    // Params
-    this.params = {
+     // Params
+     this.params = {
       exposure: 1,
-      bloomStrength: 5,
+      bloomStrength: 1.5,
       bloomThreshold: 0,
       bloomRadius: 0,
+      rendererBGColor: '#1f1929'
     }
+
+    this.renderer = this.WebGl.renderer
+    this.renderer.toneMappingExposure = Math.pow( 0.9, 4.0 )
+    this.renderer.outputEncoding = THREE.sRGBEncoding
+    this.renderer.setClearColor(this.params.rendererBGColor)
+    this.renderer.autoClear = false
+
+
+    // Light
+    this.scene.add(new THREE.AmbientLight(0xffffff, 0.25))
 
     this.renderScene = new RenderPass( this.scene, this.camera )
 
-    this.initBloom()
+    this.effectFXAA = new ShaderPass( FXAAShader )
+    this.effectFXAA.uniforms.resolution.value.set( 1 / this.sizes.width, 1 / this.sizes.height )
 
-    this.darkMaterial = new THREE.MeshBasicMaterial({color: 0x000000})
-    this.lightMaterial = new THREE.MeshLambertMaterial({color: 0xffff00})
-
-    this.NoBloomElements = []
-
-    this.setup()
-  }
-
-  initBloom(){
-    this.bloomPass = new UnrealBloomPass( new THREE.Vector2( this.size.width, this.size.height ), 1.5, 0.4, 0.85 )
+    this.bloomPass = new UnrealBloomPass( new THREE.Vector2( this.sizes.width, this.sizes.height ), 1.5, 0.4, 0.85 )
     this.bloomPass.threshold = this.params.bloomThreshold
     this.bloomPass.strength = this.params.bloomStrength
     this.bloomPass.radius = this.params.bloomRadius
+    this.bloomPass.renderToScreen = true
 
-    this.bloomComposer = new EffectComposer( this.renderer )
-    this.bloomComposer.renderToScreen = false
-    this.bloomComposer.addPass( this.renderScene )
-    this.bloomComposer.addPass( this.bloomPass )
+    this.composer = new EffectComposer( this.renderer )
+    this.composer.setSize( this.sizes.width, this.sizes.height )
+    this.composer.addPass( this.renderScene )
+    this.composer.addPass( this.effectFXAA )
+    this.composer.addPass( this.bloomPass )
 
-    this.finalPass = new ShaderPass(
-      new THREE.ShaderMaterial( {
-        uniforms: {
-          baseTexture: { value: null },
-          bloomTexture: { value: this.bloomComposer.renderTarget2.texture }
-        },
-        vertexShader: vertexshader,
-        fragmentShader: fragmentshader,
-        defines: {}
-      } ), "baseTexture"
-    )
-    this.finalPass.needsSwap = true
-
-    this.finalComposer = new EffectComposer( this.renderer )
-    this.finalComposer.addPass( this.renderScene )
-    this.finalComposer.addPass( this.finalPass )
-  }
-
-  setup(){
-    // Light
-    // let light = new THREE.DirectionalLight(0xffffff, 1.5)
-    // light.position.setScalar(1)
-    this.scene.add( new THREE.AmbientLight(0xffffff, 0.5))
 
     // Debug
-    this.debug = this.webGl.debug
-    if(this.debug.active)
-    {
+    this.debug = this.WebGl.debug
+    if (this.debug.active) {
       const viewGUI = this.debug.ui.addFolder('Bloom Proprety')
 
-      viewGUI.add( this.params, 'exposure', 0.1, 2 ).onChange( (value) => {
-        this.renderer.toneMappingExposure = Math.pow( value, 4.0 )
+      viewGUI.add(this.params, 'exposure', 0.1, 2).onChange((value) => {
+        this.renderer.toneMappingExposure = Math.pow(value, 4.0)
       })
 
-      viewGUI.add( this.params, 'bloomThreshold', 0.0, 1.0 ).onChange(( value ) => {
-        this.bloomPass.threshold = Number( value )
+      viewGUI.add(this.params, 'bloomThreshold', 0.0, 1.0).onChange((value) => {
+        this.bloomPass.threshold = Number(value)
       })
 
-      viewGUI.add( this.params, 'bloomStrength', 0.0, 10.0 ).onChange( ( value ) => {
-        this.bloomPass.strength = Number( value )
+      viewGUI.add(this.params, 'bloomStrength', 0.0, 3.0).onChange((value) => {
+        this.bloomPass.strength = Number(value)
       })
 
-      viewGUI.add( this.params, 'bloomRadius', 0.0, 1.0 ).step( 0.01 ).onChange( ( value ) => {
-        this.bloomPass.radius = Number( value )
+      viewGUI.add(this.params, 'bloomRadius', 0.0, 1.0).step(0.01).onChange((value) => {
+        this.bloomPass.radius = Number(value)
       })
+
+      const sky = this.debug.ui.addFolder('Sky Proprety')
+      sky.addColor(this.params, 'rendererBGColor')
+
     }
   }
 
   update(){
-    let materials = []
-    let i = 0
-
-    this.scene.background = new THREE.Color(0x000000)
-    this.NoBloomElements.forEach(element => {
-      element.traverse((child) =>
-      {
-          if(child instanceof THREE.Mesh)
-          {
-            materials.push(child.material)
-            child.material = new THREE.Color(0x000000)
-          }
-      })
-    })
-    this.bloomComposer.render()
-
-    this.NoBloomElements.forEach(element => {
-      element.traverse((child) =>
-      {
-          if(child instanceof THREE.Mesh)
-          {
-            child.material = materials[i]
-            i++
-          }
-      })
-    })
-    this.scene.background = this.webGl.environmentMapTexture
-    this.finalComposer.render()
-
-    materials = []
-    i = 0
+    this.renderer.setClearColor(this.params.rendererBGColor)
+    this.renderer.clear()
+    this.composer.render(this.scene, this.camera)
   }
-  
 }

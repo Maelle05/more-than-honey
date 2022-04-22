@@ -7,9 +7,7 @@ import Debug from './utils/Debug.js'
 import Sizes from './utils/Sizes.js'
 import Time from './utils/Time'
 import RouterScenes from './RouterScenes'
-import Bloom from './shaders/bloom'
-import Processing from './shaders/bloomEffect'
-import SelectedBloom from './shaders/selectedBloom'
+import Bloom from './shaders/Bloom'
 
 let webglInstance = null
 
@@ -73,12 +71,10 @@ export default class WebGl{
     ])
     this.environmentMapTexture.encoding = sRGBEncoding
 
-    this.scene.background = this.environmentMapTexture
+    // this.scene.background = this.environmentMapTexture
 
     // Post Prossesing
-    this.thirdBloom = new SelectedBloom()
-    // this.secondBloom = new Bloom()
-    // this.firstBloom = new Processing()
+    this.bloom = new Bloom()
 
     // Resize event
     this.sizes.on('resize', () =>
@@ -134,9 +130,7 @@ export default class WebGl{
     this.world.update()
 
     // this.renderer.render(this.scene, this.camera)
-    // this.secondBloom.update()
-    // this.firstBloom.update()
-    this.thirdBloom.update()
+    this.bloom.update()
 
     this.stats.end()
   }
