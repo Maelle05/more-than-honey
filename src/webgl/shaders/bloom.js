@@ -113,7 +113,7 @@ export default class Bloom {
     let materials = []
     let i = 0
 
-    // this.scene.background = new THREE.Color(0x000000)
+    this.scene.background = new THREE.Color(0x000000)
     this.NoBloomElements.forEach(element => {
       element.traverse((child) =>
       {
@@ -136,7 +136,7 @@ export default class Bloom {
           }
       })
     })
-    // this.scene.background = this.webGl.environmentMapTexture
+    this.scene.background = this.webGl.environmentMapTexture
     this.finalComposer.render()
 
     materials = []

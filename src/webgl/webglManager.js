@@ -8,6 +8,8 @@ import Sizes from './utils/Sizes.js'
 import Time from './utils/Time'
 import RouterScenes from './RouterScenes'
 import Bloom from './shaders/bloom'
+import Processing from './shaders/bloomEffect'
+import SelectedBloom from './shaders/selectedBloom'
 
 let webglInstance = null
 
@@ -54,17 +56,17 @@ export default class WebGl{
     // Renderer
     this.renderer = new WebGLRenderer({
         canvas: this.canvas,
-        antialias: false
+        antialias: true
     })
-    this.renderer.physicallyCorrectLights = true
-    this.renderer.outputEncoding = sRGBEncoding
-    this.renderer.toneMapping = ReinhardToneMapping
-    this.renderer.toneMappingExposure = 1
-    this.renderer.shadowMap.enabled = true
-    // this.renderer.shadowMap.type = PCFSoftShadowMap
-    // this.renderer.setClearColor('#0C0D1D')
     this.renderer.setSize(this.sizes.width, this.sizes.height)
     this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
+
+    this.renderer.toneMappingExposure = Math.pow( 0.9, 4.0 )
+    this.renderer.outputEncoding = sRGBEncoding
+    this.renderer.setClearColor(0x000000)
+
+    // Light
+    this.scene.add(new AmbientLight(0xffffff, 0.25))
 
     // Set Sky
     const cubeTextureLoader = new CubeTextureLoader()
@@ -81,7 +83,9 @@ export default class WebGl{
     this.scene.background = this.environmentMapTexture
 
     // Post Prossesing
-    this.bloom = new Bloom()
+    // this.thirdBloom = new SelectedBloom()
+    // this.secondBloom = new Bloom()
+    this.firstBloom = new Processing()
 
     // Resize event
     this.sizes.on('resize', () =>
@@ -132,11 +136,15 @@ export default class WebGl{
 
   update(){
     this.stats.begin()
+
     this.controls.update()
     this.world.update()
-    this.renderer.render(this.scene, this.camera)
-    // this.bloom.update()
+
+    // this.renderer.render(this.scene, this.camera)
+    // this.secondBloom.update()
+    this.firstBloom.update()
+    // this.thirdBloom.update()
+
     this.stats.end()
-    
   }
 }
