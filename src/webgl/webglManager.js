@@ -31,6 +31,8 @@ export default class WebGl{
     this.scene = new Scene()
     this.world = new RouterScenes()
 
+    this.loader = null
+
     // Camera
     this.camera = new PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 700)
     this.camera.position.set(0, 5, 0)
@@ -115,6 +117,11 @@ export default class WebGl{
     })
   }
 
+  getLoaderRef(loader) {
+    this.loader = loader
+    return this.loader
+  }
+
   resize(){
     this.camera.aspect = this.sizes.width / this.sizes.height
     this.camera.updateProjectionMatrix()
@@ -127,8 +134,8 @@ export default class WebGl{
     this.stats.begin()
     this.controls.update()
     this.world.update()
-    // this.renderer.render(this.scene, this.camera)
-    this.bloom.update()
+    this.renderer.render(this.scene, this.camera)
+    // this.bloom.update()
     this.stats.end()
     
   }

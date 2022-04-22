@@ -1,5 +1,18 @@
 import WebGl from '../webglManager'
-import { Group, Vector3, DoubleSide, PlaneGeometry, BoxGeometry, MeshBasicMaterial, Mesh, CatmullRomCurve3, Line, BufferGeometry, LineBasicMaterial} from 'three'
+import {
+  Group,
+  Vector3,
+  DoubleSide,
+  PlaneGeometry,
+  BoxGeometry,
+  MeshBasicMaterial,
+  Mesh,
+  CatmullRomCurve3,
+  Line,
+  BufferGeometry,
+  LineBasicMaterial,
+  DefaultLoadingManager
+} from 'three'
 import Particules from '../shaders/particulesTest'
 import Stone from '../entities/Stone'
 import Bee from '../entities/BlueBee'
@@ -31,6 +44,7 @@ export default class OutsideOneScene extends Group
     this.camera = this.webGl.camera
     this.resources = this.webGl.resources
     this.time = this.webGl.time
+    this.loader = this.webGl.loader
 
     if(mapSetting[0].left != 0 || mapSetting[0].top != 0){
       alert('La map n\'a pas les bonnes coordonnées')
@@ -65,6 +79,7 @@ export default class OutsideOneScene extends Group
     this.resources.on(`sourcesReadyoutsideOne`, () =>
     {
       this.setup()
+      this.loader.classList.add('loaded')
     })
   }
 

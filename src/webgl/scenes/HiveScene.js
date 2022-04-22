@@ -26,6 +26,7 @@ export default class HiveScene extends Group {
     this.resources = this.webGl.resources
     this.camera = this.webGl.camera
     this.time = this.webGl.time
+    this.loader = this.webGl.loader
 
     this.raycaster = null
     this.currentIntersect = null
@@ -35,6 +36,7 @@ export default class HiveScene extends Group {
     // Wait for resources
     this.resources.on(`sourcesReadyhive`, () => {
       this.setup()
+      this.loader.classList.add('loaded')
     })
   }
 
@@ -114,7 +116,6 @@ export default class HiveScene extends Group {
   }
 
   update() {
-
     if (this.mixers) {
       for ( const mixer of this.mixers ) mixer.update( this.time.delta * 0.001 )
     }

@@ -4,21 +4,23 @@ import router from './router'
 import store from './store'
 
 /**
-* Vue
-*/
+ * Vue
+ */
 
 Vue.config.productionTip = false
 
 new Vue({
   router,
   store,
-  render: function (h) { return h(App) }
+  render: function (h) {
+    return h(App)
+  }
 }).$mount('#app')
 
 
 /**
-* Webgl
-*/
+ * Webgl
+ */
 
 import WebGl from './webgl/webglManager'
 import Root from './webgl/utils/Root'
@@ -27,6 +29,6 @@ new WebGl()
 
 const rootManager = new Root()
 
-export function change(name){
+export function change(name) {
   rootManager.rootChange(name)
 }

@@ -83,7 +83,7 @@ export default class Bloom {
     // Light
     // let light = new THREE.DirectionalLight(0xffffff, 1.5)
     // light.position.setScalar(1)
-    // this.scene.add( new THREE.AmbientLight(0xffffff, 0.5))
+    this.scene.add( new THREE.AmbientLight(0xffffff, 0.5))
 
     // Debug
     this.debug = this.webGl.debug

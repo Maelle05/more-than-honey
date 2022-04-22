@@ -12,12 +12,14 @@ export default class OutsideTwoScene extends Group {
     this.scene = this.webGl.scene
     this.camera = this.webGl.camera
     this.resources = this.webGl.resources
+    this.loader = this.webGl.loader
 
     this.sizes = this.webGl.sizes
 
     // Wait for resources
     this.resources.on(`sourcesReadyoutsideTwo`, () => {
       this.setup()
+      this.loader.classList.add('loaded')
     })
   }
 
