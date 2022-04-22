@@ -63,13 +63,13 @@
     "name": "daisyModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene",
-    "path": "webgl/models/Daisy/daisy.glb"
+    "path": "webgl/models/Daisy/daisy-dan.glb"
   },
   {
     "name": "trunkModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene",
-    "path": "webgl/models/Trunk/trunk.glb"
+    "path": "webgl/models/Trunk/tronc.glb"
   },
   {
     "name": "mushroomModel",

@@ -204,14 +204,14 @@ export default class OutsideOneScene extends Group
     }
 
     // Add daisys
-    this.daisy.model.scale.set(7, 7, 7)
+    this.daisy.model.scale.set(0.7, 0.7, 0.7)
     for (let i = 0; i < daisyLocation.length; i++) {
       const thisDaisy = this.daisy.model.clone()
       const convertPos = {
         z: daisyLocation[i].centerY / this.property.map.ratio,
         x: (daisyLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      thisDaisy.position.set(convertPos.x, 0, convertPos.z)
+      thisDaisy.position.set(convertPos.x, 0.5, convertPos.z)
       this.add(thisDaisy)
     }
 
