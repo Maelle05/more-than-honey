@@ -12,7 +12,6 @@ export default class EndingScene extends Group {
     // Wait for resources
     this.resources.on(`sourcesReadyending`, () => {
       this.setup()
-      this.loader.classList.add('loaded')
     })
   }
 
@@ -23,6 +22,10 @@ export default class EndingScene extends Group {
   }
 
   init() {
+    setTimeout(() => {
+      this.loader.classList.add('loaded')
+    }, 500)
+
     // Set Camera position
     this.webGl.camera.position.set(-15, 0, -40)
 

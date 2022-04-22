@@ -36,7 +36,6 @@ export default class HiveScene extends Group {
     // Wait for resources
     this.resources.on(`sourcesReadyhive`, () => {
       this.setup()
-      this.loader.classList.add('loaded')
     })
   }
 
@@ -70,6 +69,10 @@ export default class HiveScene extends Group {
   }
 
   init() {
+    setTimeout(() => {
+      this.loader.classList.add('loaded')
+    }, 500)
+
     // Set parameters of the scene at init
     this.camera.position.set(1, 4, -30)
     this.webGl.controls.target = new Vector3(0, 0, 0)

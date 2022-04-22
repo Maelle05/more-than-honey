@@ -9,6 +9,12 @@ import WebGl from '@/webgl/webglManager'
 
 export default {
   name: 'Loading',
+  props: {
+    isHome: {
+      required: false,
+      default: false
+    }
+  },
   mounted() {
     const manager =  new WebGl()
     manager.getLoaderRef(this.$refs.loadingScreen)
@@ -27,8 +33,13 @@ export default {
   align-items: center;
   justify-content: center;
   opacity: 1;
-  //transition: 0.3s;
+  visibility: visible;
   z-index: 5;
+}
+
+.loaded {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .lds-ripple {
@@ -78,8 +89,5 @@ export default {
   }
 }
 
-.loaded {
-  opacity: 0;
-  visibility: hidden;
-}
+
 </style>

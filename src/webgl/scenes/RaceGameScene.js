@@ -32,7 +32,6 @@ export default class RaceGameScene extends Group {
     // Wait for resources
     this.resources.on(`sourcesReadyraceGame`, () => {
       this.setup()
-      this.loader.classList.add('loaded')
     })
   }
 
@@ -66,6 +65,10 @@ export default class RaceGameScene extends Group {
   }
 
   init() {
+    setTimeout(() => {
+      this.loader.classList.add('loaded')
+    }, 500)
+
     // Set parameters of the scene at init
     this.webGl.camera.position.set(0, 2.62, -10)
     this.bee.model.position.set(0, 0, 0)

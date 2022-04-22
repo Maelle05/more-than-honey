@@ -26,8 +26,6 @@ export default class RouterScenes extends EventEmitter{
     this.currentRoot = window.location.pathname.replace(/[^\w\s]/gi, '')
     this.currentScene = new BaseScene
     this.webGl.scene.add(this.currentScene)
-    // this.loader = this.webGl.loader
-    // console.log(this.loader)
   }
 
   rootChange(nameScene){

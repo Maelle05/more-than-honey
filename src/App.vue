@@ -3,7 +3,7 @@
     <canvas class="webgl"/>
     <div class="ui">
       <TimelineComponent/>
-      <Loading/>
+      <Loading />
       <transition name="fade" mode="out-in">
         <router-view/>
       </transition>

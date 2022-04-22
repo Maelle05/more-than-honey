@@ -26,7 +26,7 @@ export default class PollenGameScene extends Group {
     // Set Camera position
     // this.webGl.camera.position.set(0, 2.62, -10)
 
-    // Lisener 
+    // Listener
   }
 
   update() {
