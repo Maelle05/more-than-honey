@@ -32,6 +32,9 @@ export default class BlueBee
         if(child instanceof Mesh)
         {
             child.castShadow = true
+            // add Bloom
+            // child.layers.disableAll()
+            child.layers.enable(1)
         }
     })
   }

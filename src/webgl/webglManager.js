@@ -59,13 +59,6 @@ export default class WebGl{
     this.renderer.setSize(this.sizes.width, this.sizes.height)
     this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))
 
-    this.renderer.toneMappingExposure = Math.pow( 0.9, 4.0 )
-    this.renderer.outputEncoding = sRGBEncoding
-    this.renderer.setClearColor(0x000000)
-
-    // Light
-    this.scene.add(new AmbientLight(0xffffff, 0.25))
-
     // Set Sky
     const cubeTextureLoader = new CubeTextureLoader()
     this.environmentMapTexture = cubeTextureLoader.load([
@@ -81,9 +74,9 @@ export default class WebGl{
     this.scene.background = this.environmentMapTexture
 
     // Post Prossesing
-    // this.thirdBloom = new SelectedBloom()
+    this.thirdBloom = new SelectedBloom()
     // this.secondBloom = new Bloom()
-    this.firstBloom = new Processing()
+    // this.firstBloom = new Processing()
 
     // Resize event
     this.sizes.on('resize', () =>
@@ -135,8 +128,8 @@ export default class WebGl{
 
     // this.renderer.render(this.scene, this.camera)
     // this.secondBloom.update()
-    this.firstBloom.update()
-    // this.thirdBloom.update()
+    // this.firstBloom.update()
+    this.thirdBloom.update()
 
     this.stats.end()
   }

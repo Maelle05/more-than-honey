@@ -165,8 +165,9 @@ export default class OutsideOneScene extends Group
       thisTree.rotation.set(0, Math.random() * 25, Math.random() / 10)
       this.add(thisTree)
       
-      // add no Bloom
-      // this.webGl.bloom.NoBloomElements.push(thistree)
+      // add Bloom
+      // thisTree.children[0].layers.disableAll()
+      thisTree.children[0].layers.enable(1)
     }
 
     // Add stones
