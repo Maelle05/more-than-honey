@@ -1,3 +1,4 @@
+
 import WebGl from '../webglManager'
 
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
@@ -80,9 +81,9 @@ export default class Bloom {
 
   setup(){
     // Light
-    let light = new THREE.DirectionalLight(0xffffff, 1.5)
-    light.position.setScalar(1)
-    this.scene.add(light, new THREE.AmbientLight(0xffffff, 0.5))
+    // let light = new THREE.DirectionalLight(0xffffff, 1.5)
+    // light.position.setScalar(1)
+    // this.scene.add( new THREE.AmbientLight(0xffffff, 0.5))
 
     // Debug
     this.debug = this.webGl.debug
@@ -112,7 +113,7 @@ export default class Bloom {
     let materials = []
     let i = 0
 
-    this.scene.background = new THREE.Color(0x000000)
+    // this.scene.background = new THREE.Color(0x000000)
     this.NoBloomElements.forEach(element => {
       element.traverse((child) =>
       {
@@ -135,7 +136,7 @@ export default class Bloom {
           }
       })
     })
-    this.scene.background = this.webGl.environmentMapTexture
+    // this.scene.background = this.webGl.environmentMapTexture
     this.finalComposer.render()
 
     materials = []
