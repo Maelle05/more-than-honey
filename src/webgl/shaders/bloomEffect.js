@@ -3,7 +3,7 @@ import WebGl from '../webglManager'
 import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass.js'
 import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
-import {Vector2} from 'three'
+import {Vector2, AmbientLight, DirectionalLight} from 'three'
 
 
 let processingInstance = null
@@ -44,6 +44,10 @@ export default class Processing {
   }
 
   setup() {
+
+    // Light
+    this.scene.add( new AmbientLight(0xffffff, 0.5))
+
     this.composer.addPass(this.renderScene)
     this.composer.addPass(this.bloomPass)
 
@@ -71,7 +75,7 @@ export default class Processing {
     }
   }
 
-  rendererRender() {
+  update() {
     this.composer.render()
   }
 
