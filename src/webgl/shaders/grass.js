@@ -32,7 +32,7 @@ export default class Grass extends Group {
 
     this.property = {
       map: {
-        rasio: 5,
+        ratio: 5,
       }
     }
 
@@ -43,7 +43,7 @@ export default class Grass extends Group {
       side: DoubleSide
     })
 
-    this.instanceNumber = 150000
+    this.instanceNumber = 160000
     this.dummy = new Object3D()
 
     this.setup()
@@ -57,25 +57,25 @@ export default class Grass extends Group {
     const instancedMesh = new InstancedMesh(geometry, this.leavesMaterial, this.instanceNumber)
     this.add(instancedMesh)
 
-    // Flor
-    this.flor = new Mesh( 
-      new PlaneGeometry( mapSetting[0].right / this.property.map.rasio, mapSetting[0].bottom / this.property.map.rasio ),
+    // Floor
+    this.floor = new Mesh(
+      new PlaneGeometry( mapSetting[0].right / this.property.map.ratio, mapSetting[0].bottom / this.property.map.ratio ),
       new MeshBasicMaterial({
         color: 'black',
         side: DoubleSide
       })
     )
-    this.flor.name = 'flor'
-    this.flor.translateZ(-mapSetting[0].bottom / (this.property.map.rasio * 2))
-    this.flor.rotateX(Math.PI/2)
-    this.add(this.flor)
+    this.floor.name = 'floor'
+    this.floor.translateZ(-mapSetting[0].bottom / (this.property.map.ratio * 2))
+    this.floor.rotateX(Math.PI/2)
+    this.add(this.floor)
 
     // Position and scale the grass blade instances randomly.
     for (let i = 0; i < this.instanceNumber; i++) {
       this.dummy.position.set(
-        (Math.random() - 0.5) * mapSetting[0].right / this.property.map.rasio,
+        (Math.random() - 0.5) * mapSetting[0].right / this.property.map.ratio,
         0,
-        (Math.random() - 0.5) * (mapSetting[0].bottom / this.property.map.rasio ) - mapSetting[0].bottom / (this.property.map.rasio * 2)
+        (Math.random() - 0.5) * (mapSetting[0].bottom / this.property.map.ratio ) - mapSetting[0].bottom / (this.property.map.ratio * 2)
       )
 
       this.dummy.scale.setScalar(0.5 + Math.random() * 1)

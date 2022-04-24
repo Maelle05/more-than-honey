@@ -22,7 +22,7 @@ export default class Bloom {
       bloomStrength: 1.5,
       bloomThreshold: 0,
       bloomRadius: 0,
-      rendererBGColor: '#1f1929'
+      rendererBGColor: '#04060b'
     }
 
     this.renderer = this.WebGl.renderer

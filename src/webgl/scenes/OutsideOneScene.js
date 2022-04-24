@@ -211,6 +211,8 @@ export default class OutsideOneScene extends Group
         z: daisyLocation[i].centerY / this.property.map.ratio,
         x: (daisyLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
+      const daisySize = randomIntFromInterval(0.7,1.5, 0.01)
+      thisDaisy.scale.set(daisySize, daisySize, daisySize)
       thisDaisy.position.set(convertPos.x, 0.5, convertPos.z)
       this.add(thisDaisy)
     }
@@ -222,7 +224,7 @@ export default class OutsideOneScene extends Group
         z: trunkLocation[i].centerY / this.property.map.ratio,
         x: (trunkLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      const trunkSize = randomIntFromInterval(0.08,0.15, 0.01)
+      const trunkSize = randomIntFromInterval(0.08,0.2, 0.01)
       thisTrunk.scale.set(trunkSize, trunkSize, trunkSize)
       thisTrunk.position.set(convertPos.x, -0.2, convertPos.z)
       thisTrunk.rotation.set(0, Math.random() * 25, 0)
@@ -248,7 +250,7 @@ export default class OutsideOneScene extends Group
         z: mushroomLocation[i].centerY / this.property.map.ratio,
         x: (mushroomLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      const mushroomSize = randomIntFromInterval(0.2,0.6, 0.01)
+      const mushroomSize = randomIntFromInterval(0.2,0.5, 0.01)
       thisMushroom.scale.set(mushroomSize, mushroomSize, mushroomSize)
       thisMushroom.position.set(convertPos.x, 0, convertPos.z)
       thisMushroom.rotation.set(0, Math.random() * 25, 0)
