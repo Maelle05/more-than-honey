@@ -63,7 +63,7 @@ export default class Grass extends Group {
     this.floorMaterial = new MeshStandardMaterial({
       color: 'black',
       side: DoubleSide,
-      // wireframe: true
+      wireframe: false
     })
     this.floor = new Mesh(this.floorGeometry, this.floorMaterial)
 
