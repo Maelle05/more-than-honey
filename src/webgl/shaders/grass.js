@@ -119,7 +119,7 @@ export default class Grass extends Group {
   }
 
   update() {
-    // Hand a time variable to vertex shader for wind displacement.
+    // Wind displacement
     this.leavesMaterial.uniforms.time.value = this.clock.elapsed / 5000
     this.leavesMaterial.uniformsNeedUpdate = true
   }
