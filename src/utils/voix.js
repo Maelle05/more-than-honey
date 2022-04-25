@@ -83,8 +83,6 @@ export class AudioClass {
     this.isInit = false
     this.gainNode = null
     this.startInstant = startInstant || false
-
-    console.log(this.url)
   }
 
   init() {

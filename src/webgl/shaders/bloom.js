@@ -58,9 +58,9 @@ export default class Bloom {
     if (this.debug.active) {
       const viewGUI = this.debug.ui.addFolder('Bloom Proprety')
 
-      viewGUI.add(this.params, 'exposure', 0.1, 2).onChange((value) => {
-        this.renderer.toneMappingExposure = Math.pow(value, 4.0)
-      })
+      // viewGUI.add(this.params, 'exposure', 0.1, 2).onChange((value) => {
+      //   this.renderer.toneMappingExposure = Math.pow(value, 4.0)
+      // })
 
       viewGUI.add(this.params, 'bloomThreshold', 0.0, 1.0).onChange((value) => {
         this.bloomPass.threshold = Number(value)

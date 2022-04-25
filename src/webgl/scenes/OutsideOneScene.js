@@ -33,8 +33,6 @@ import Trunk from '@/webgl/entities/Trunk'
 import Mushroom from '@/webgl/entities/Mushroom'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 import Bridge from '@/webgl/entities/Bridge'
-import { AudioClass } from '../../utils/voix'
-import voieIntro from '../../assets/voix/intro.mp3'
 
 export default class OutsideOneScene extends Group
 {
@@ -174,10 +172,7 @@ export default class OutsideOneScene extends Group
       thisTree.position.set(convertPos.x, 19, convertPos.z)
       thisTree.rotation.set(0, Math.random() * 25, Math.random() / 10)
       this.add(thisTree)
-      
-      // add Bloom
-      // thisTree.children[0].layers.disableAll()
-      thisTree.children[0].layers.enable(1)
+
     }
 
     // Add stones
@@ -256,20 +251,14 @@ export default class OutsideOneScene extends Group
     this.webGl.controls.enabled = false
     this.webGl.controls.target = new Vector3(0, -5, 0)
 
+
     // Listener
     this.listener.on('scroll', ()=>{ 
       const result = this.property.moveBee.curveTarget + this.listener.property.virtualScroll.delta / 50000
       if (result > 0.05 && result < 0.98) {
         this.property.moveBee.curveTarget += this.listener.property.virtualScroll.delta / 50000
       }
-      
     })
-    // Voix
-    const url = `${window.location.protocol + '//' + window.location.host}`+voieIntro
-    const voix = new AudioClass(url, true)
-    this.audioPlay = true
-
-    
 
   }
 
