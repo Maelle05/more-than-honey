@@ -31,7 +31,10 @@ export const routes = [
     label: 'Honey intro',
     component: function () {
       return import('../views/HoneyIntro.vue')
-    }
+    },
+    meta: {
+      homePassedRequired: true,
+    },
   },
   {
     path: '/hive',
@@ -39,7 +42,10 @@ export const routes = [
     label: 'Hive',
     component: function () {
       return import('../views/Hive.vue')
-    }
+    },
+    meta: {
+      homePassedRequired: true,
+    },
   },
   {
     path: '/outsideOne',
@@ -47,7 +53,10 @@ export const routes = [
     label: 'Outside one',
     component: function () {
       return import('../views/OutsideOne.vue')
-    }
+    },
+    meta: {
+      homePassedRequired: true,
+    },
   },
   {
     path: '/pollenGame',
@@ -55,7 +64,10 @@ export const routes = [
     label: 'Pollen game',
     component: function () {
       return import('../views/PollenGame.vue')
-    }
+    },
+    meta: {
+      homePassedRequired: true,
+    },
   },
   {
     path: '/outsideTwo',
@@ -63,7 +75,10 @@ export const routes = [
     label: 'Outside two',
     component: function () {
       return import('../views/OutsideTwo.vue')
-    }
+    },
+    meta: {
+      homePassedRequired: true,
+    },
   },
   {
     path: '/raceGame',
@@ -71,7 +86,10 @@ export const routes = [
     label: 'Race game',
     component: function () {
       return import('../views/RaceGame.vue')
-    }
+    },
+    meta: {
+      homePassedRequired: true,
+    },
   },
   {
     path: '/ending',
@@ -79,14 +97,20 @@ export const routes = [
     label: 'End',
     component: function () {
       return import('../views/Ending.vue')
-    }
+    },
+    meta: {
+      homePassedRequired: true,
+    },
   },
   {
     path: '/credits',
     name: 'credits',
     component: function () {
       return import('../views/Credits.vue')
-    }
+    },
+    meta: {
+      homePassedRequired: true,
+    },
   }
 ]
 
@@ -94,6 +118,22 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.homePassedRequired)) {
+    console.log(localStorage.getItem('isHomePassed'))
+    if (localStorage.getItem('isHomePassed') === 'true') {
+      next()
+    } else {
+      next({
+        path: '/',
+      })
+      localStorage.setItem('isHomePassed', true)
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

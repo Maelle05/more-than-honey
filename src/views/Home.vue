@@ -19,7 +19,9 @@ export default {
     const manager =  new WebGl()
     setTimeout(() => {
       manager.loader.classList.add('loaded')
+      localStorage.setItem('isHomePassed', true)
     }, 500)
+    
   }
 }
 </script>

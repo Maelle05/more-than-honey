@@ -17,6 +17,8 @@ new Vue({
   }
 }).$mount('#app')
 
+localStorage.setItem('isHomePassed', false)
+
 
 /**
  * Webgl
@@ -32,3 +34,4 @@ const rootManager = new Root()
 export function change(name) {
   rootManager.rootChange(name)
 }
+
