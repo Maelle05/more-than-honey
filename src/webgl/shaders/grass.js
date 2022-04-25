@@ -5,22 +5,13 @@ import {
   ConeGeometry,
   ShaderMaterial,
   Group,
-  Mesh, MeshStandardMaterial, PlaneGeometry
+  Mesh, MeshStandardMaterial, PlaneGeometry, Vector3
 } from 'three'
 import WebGl from '../webglManager'
 import vertexShader from './grass/vert.glsl'
 import fragmentShader from './grass/frag.glsl'
 import mapSetting from '../elementsLocations/outsideOne/mapSetting.json'
-import simplexNoise from 'simplex-noise'
 import Map from '../elementsLocations/outsideOne/Map.png'
-
-const simplex = new simplexNoise('mama-leo')
-
-const uniforms = {
-  time: {
-    value: 0
-  }
-}
 
 export default class Grass extends Group {
   constructor() {
@@ -38,6 +29,17 @@ export default class Grass extends Group {
       }
     }
 
+    const uniforms = {
+      time: {
+        value: 0
+      },
+      uNoiseTexture: {
+        value: this.webGl.resources.items.noiseTexture
+      },
+      uMinMapBounds: { value : new Vector3()},
+      uMaxMapBounds: { value : new Vector3()}
+    }
+
     this.leavesMaterial = new ShaderMaterial({
       vertexShader,
       fragmentShader,
@@ -48,13 +50,13 @@ export default class Grass extends Group {
     this.instanceNumber = 160000
     this.dummy = new Object3D()
 
-    this.setup()
+      this.setup()
   }
 
   setup() {
     // Mesh
     const geometry = new ConeGeometry(0.05, 0.6, 2, 1)
-    geometry.translate(0, 0.5, 0) // move grass blade geometry lowest point at 0.
+    geometry.translate(0, 0.5, 0) // move grass blade geometry lowest point at 0
 
     this.instancedMesh = new InstancedMesh(geometry, this.leavesMaterial, this.instanceNumber)
 
@@ -63,21 +65,24 @@ export default class Grass extends Group {
     this.floorMaterial = new MeshStandardMaterial({
       color: 'black',
       side: DoubleSide,
-      wireframe: false
+      wireframe: false,
+      displacementMap: this.webGl.resources.items.noiseTexture,
+      displacementScale: 5.20
     })
     this.floor = new Mesh(this.floorGeometry, this.floorMaterial)
 
-    const vertices = this.floorGeometry.getAttribute("position").array
+    this.floorGeometry.computeBoundingBox()
 
-    for (let i = 0; i < vertices.length / 3; i++) {
-      const i3 = i * 3
-      const noise = simplex.noise2D(vertices[i3] * 30, vertices[i3 + 1] * 30) + 0.7
-      vertices[i3 + 2] += noise * 0.9
-    }
+    // add bounding box to debug floor
+    // this.add(new Box3Helper(this.floorGeometry.boundingBox, 0xffffff))
+
+    this.leavesMaterial.uniforms.uMinMapBounds.value.copy(this.floorGeometry.boundingBox.min)
+    this.leavesMaterial.uniforms.uMaxMapBounds.value.copy(this.floorGeometry.boundingBox.max)
 
     this.floor.name = 'floor'
     this.floor.translateZ(-mapSetting[0].bottom / (this.property.map.ratio * 2))
     this.floor.rotateX(Math.PI/2)
+
     this.add(this.floor)
 
     const canvas = document.createElement('canvas')
@@ -89,9 +94,8 @@ export default class Grass extends Group {
       this.ctx.canvas.height = img.height
       this.ctx.drawImage(img, 0, 0)
 
-      // Position and scale the grass blade instances randomly.
+      // Position and scale the grass blade instances randomly
       for (let i = 0; i < this.instanceNumber; i++) {
-      // for (let i = 0; i < 1; i++) {
         const randomX = Math.random() - 0.5
         const randomZ = Math.random() - 0.5
         this.dummy.position.set(
@@ -112,6 +116,7 @@ export default class Grass extends Group {
           this.instancedMesh.setMatrixAt(i, this.dummy.matrix)
         }
       }
+      // Add grass
       this.add(this.instancedMesh)
 
     }, false)
