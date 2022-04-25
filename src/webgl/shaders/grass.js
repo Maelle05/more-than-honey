@@ -60,42 +60,24 @@ export default class Grass extends Group {
     geometry.translate(0, 0.5, 0) // move grass blade geometry lowest point at 0.
 
     const instancedMesh = new InstancedMesh(geometry, this.leavesMaterial, this.instanceNumber)
-    // this.add(instancedMesh)
+    this.add(instancedMesh)
 
     // Floor
     this.floorGeometry = new PlaneGeometry(mapSetting[0].right / this.property.map.ratio, mapSetting[0].bottom / this.property.map.ratio, 32, 32)
     this.floorMaterial = new MeshStandardMaterial({
       color: 'black',
       side: DoubleSide,
-      wireframe: true
+      // wireframe: true
     })
-
     this.floor = new Mesh(this.floorGeometry, this.floorMaterial)
 
-    const vertices = this.floorGeometry.getAttribute("position")
-    this.floorGeometry.verticesNeedUpdate = true
+    const vertices = this.floorGeometry.getAttribute("position").array
 
-    console.log(vertices, 'vertices')
-
-    for (let i = 0; i < vertices.array.length / 3; i++) {
+    for (let i = 0; i < vertices.length / 3; i++) {
       const i3 = i * 3
       const noise = simplex.noise2D(vertices[i3] * 30, vertices[i3 + 1] * 30) + 0.7
-      vertices[i3 + 2] += noise * 0.004
+      vertices[i3 + 2] += noise * 0.9
     }
-
-
-    for (let i = 0; i < vertices.array.length; i++) {
-      let v = new Vector3(
-        i,
-        i + 1,
-        i + 2
-      )
-      console.log(v)
-      v.y = simplex.noise2D(v.x * 0.01, v.y * 0.01) * 30
-      v.y += simplex.noise2D(v.x * 0.03, v.y * 0.03) * 5
-      v.y += simplex.noise2D(v.x * 0.1, v.y * 0.125)
-    }
-
 
     this.floor.name = 'floor'
     this.floor.translateZ(-mapSetting[0].bottom / (this.property.map.ratio * 2))
