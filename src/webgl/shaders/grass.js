@@ -5,15 +5,16 @@ import {
   ConeGeometry,
   ShaderMaterial,
   Group,
-  PlaneGeometry,
-  MeshBasicMaterial,
-  Mesh
+  Mesh, MeshStandardMaterial, PlaneGeometry
 } from 'three'
 import WebGl from '../webglManager'
 import vertexShader from './grass/vert.glsl'
 import fragmentShader from './grass/frag.glsl'
 import mapSetting from '../elementsLocations/outsideOne/mapSetting.json'
+import simplexNoise from 'simplex-noise'
 import Map from '../elementsLocations/outsideOne/Map.png'
+
+const simplex = new simplexNoise('mama-leo')
 
 const uniforms = {
   time: {
@@ -58,13 +59,22 @@ export default class Grass extends Group {
     this.instancedMesh = new InstancedMesh(geometry, this.leavesMaterial, this.instanceNumber)
 
     // Floor
-    this.floor = new Mesh(
-      new PlaneGeometry( mapSetting[0].right / this.property.map.ratio, mapSetting[0].bottom / this.property.map.ratio ),
-      new MeshBasicMaterial({
-        color: 'black',
-        side: DoubleSide
-      })
-    )
+    this.floorGeometry = new PlaneGeometry(mapSetting[0].right / this.property.map.ratio, mapSetting[0].bottom / this.property.map.ratio, 32, 32)
+    this.floorMaterial = new MeshStandardMaterial({
+      color: 'black',
+      side: DoubleSide,
+      wireframe: false
+    })
+    this.floor = new Mesh(this.floorGeometry, this.floorMaterial)
+
+    const vertices = this.floorGeometry.getAttribute("position").array
+
+    for (let i = 0; i < vertices.length / 3; i++) {
+      const i3 = i * 3
+      const noise = simplex.noise2D(vertices[i3] * 30, vertices[i3 + 1] * 30) + 0.7
+      vertices[i3 + 2] += noise * 0.9
+    }
+
     this.floor.name = 'floor'
     this.floor.translateZ(-mapSetting[0].bottom / (this.property.map.ratio * 2))
     this.floor.rotateX(Math.PI/2)
@@ -105,11 +115,11 @@ export default class Grass extends Group {
       this.add(this.instancedMesh)
 
     }, false)
-    
+
   }
 
   update() {
-    // Hand a time variable to vertex shader for wind displacement.
+    // Wind displacement
     this.leavesMaterial.uniforms.time.value = this.clock.elapsed / 5000
     this.leavesMaterial.uniformsNeedUpdate = true
   }
