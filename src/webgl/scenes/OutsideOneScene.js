@@ -168,7 +168,7 @@ export default class OutsideOneScene extends Group
         z: treeLocation[i].centerY / this.property.map.ratio,
         x: (treeLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      thisTree.position.set(convertPos.x, 16.5, convertPos.z)
+      thisTree.position.set(convertPos.x, 16, convertPos.z)
       thisTree.rotation.set(0, Math.random() * 25, Math.random() / 10)
       this.add(thisTree)
 
