@@ -33,8 +33,6 @@ import Trunk from '@/webgl/entities/Trunk'
 import Mushroom from '@/webgl/entities/Mushroom'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 import Bridge from '@/webgl/entities/Bridge'
-import { AudioClass } from '../../utils/voix'
-import voieIntro from '../../assets/voix/intro.mp3'
 
 export default class OutsideOneScene extends Group
 {
@@ -173,10 +171,7 @@ export default class OutsideOneScene extends Group
       thisTree.position.set(convertPos.x, 16.5, convertPos.z)
       thisTree.rotation.set(0, Math.random() * 25, Math.random() / 10)
       this.add(thisTree)
-      
-      // add Bloom
-      // thisTree.children[0].layers.disableAll()
-      thisTree.children[0].layers.enable(1)
+
     }
 
     // Add stones
@@ -255,20 +250,14 @@ export default class OutsideOneScene extends Group
     this.webGl.camera.position.set(0, 20, (this.property.map.height + 200 )/this.property.map.ratio)
     this.webGl.controls.enabled = false
     this.webGl.controls.target = new Vector3(0, -5, 0)
-
+    
     // Listener
     this.listener.on('scroll', ()=>{ 
       const result = this.property.moveBee.curveTarget + this.listener.property.virtualScroll.delta / 50000
       if (result > 0.05 && result < 0.98) {
         this.property.moveBee.curveTarget += this.listener.property.virtualScroll.delta / 50000
       }
-      
     })
-    // Voix
-    const url = `${window.location.protocol + '//' + window.location.host}`+voieIntro
-    const voix = new AudioClass(url, true)
-    this.audioPlay = true
-
 
   }
 
@@ -286,11 +275,6 @@ export default class OutsideOneScene extends Group
       this.webGl.camera.position.set(possCam.x, possCam.y + 2, possCam.z)
       this.webGl.controls.target.set(this.property.camera.target.x, this.property.camera.target.y + 1, this.property.camera.target.z )
     }
-
-    // Loader
-    // if (this.isLoad) {
-    //   this.loader.classList.add('loaded')
-    // }
 
     if(this.bee){
       this.bee.update()

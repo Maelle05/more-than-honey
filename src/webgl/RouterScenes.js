@@ -10,6 +10,8 @@ import OutsideTwoScene from "./scenes/OutsideTwoScene"
 import RaceGameScene from "./scenes/RaceGameScene"
 import EndingScene from "./scenes/HiveEndingScene"
 import EventEmitter from "./utils/EventEmitter"
+import { AudioClass } from "../utils/voix"
+import voieIntro from '../assets/voix/intro.mp3'
 
 let routerScenesInstance = null
 
@@ -25,7 +27,10 @@ export default class RouterScenes extends EventEmitter{
     this.allScenes = {}
     this.currentRoot = window.location.pathname.replace(/[^\w\s]/gi, '')
     this.currentScene = new BaseScene
+    this.resources = this.webGl.resources
     this.webGl.scene.add(this.currentScene)
+
+    this.audioPlay = {}
   }
 
   rootChange(nameScene){
@@ -76,13 +81,47 @@ export default class RouterScenes extends EventEmitter{
       }
     }
 
-    // console.log(this.allScenes);
     this.currentScene = this.allScenes[nameScene]
     this.webGl.scene.add(this.currentScene)
     // Remove 'loaded' class if needed
     if (this.webGl.loader.classList.contains('loaded')) {
       this.webGl.loader.classList.remove('loaded')
     }
+
+    // Voix
+    if (this.voix) {
+      this.voix.stop()
+    }
+    switch (nameScene) {
+      case 'outsideOne':
+        this.url = `${window.location.protocol + '//' + window.location.host}`+voieIntro
+        break
+      case 'outsideTwo':
+        this.url = `${window.location.protocol + '//' + window.location.host}`+voieIntro
+        break
+      default:
+        this.url = null
+        break
+    }
+    if (this.url) {
+      if (this.audioPlay[nameScene]) {
+        setTimeout(() => {
+          this.voix = new AudioClass(this.url, true)
+          this.voix.init()
+        }, 1000)
+      } else {
+        this.resources.on(`sourcesReady${nameScene}`, () =>
+        {
+          this.audioPlay[nameScene] = true
+          setTimeout(() => {
+            this.voix = new AudioClass(this.url, true)
+            this.voix.init()
+          }, 1000)
+        })
+      }
+      
+    }
+    
   }
 
   update(){
