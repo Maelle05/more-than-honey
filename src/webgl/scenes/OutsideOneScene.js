@@ -33,6 +33,8 @@ import Trunk from '@/webgl/entities/Trunk'
 import Mushroom from '@/webgl/entities/Mushroom'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 import Bridge from '@/webgl/entities/Bridge'
+import { AudioClass } from '../../utils/voix'
+import voieIntro from '../../assets/voix/intro.mp3'
 
 export default class OutsideOneScene extends Group
 {
@@ -96,17 +98,6 @@ export default class OutsideOneScene extends Group
     this.bridge = new Bridge()
 
     this.listener = new Listener()
-
-    // this.debug = this.webGl.debug
-    // if(this.debug.active) {
-    //   const elementGUI = this.debug.ui.addFolder('Elements sizes')
-    //   elementGUI.add(this.lys.children[0].scale, 'x', -5, 5).name('Lyx X').onChange( ( value ) => {
-    //     this.lys.children[0].scale.x = Number( value )
-    //     console.log(value)
-    //   })
-    //   elementGUI.add(this.lys.children[0].scale, 'y', -5, 5).setValue(0.25).name('Lys Y')
-    //   elementGUI.add(this.lys.children[0].scale, 'z', -5, 5).setValue(0.25).name('Lys X')
-    // }
 
     // CURVE HANDLE
     // extract from .json and change format
@@ -271,7 +262,15 @@ export default class OutsideOneScene extends Group
       if (result > 0.05 && result < 0.98) {
         this.property.moveBee.curveTarget += this.listener.property.virtualScroll.delta / 50000
       }
+      
     })
+    // Voix
+    const url = `${window.location.protocol + '//' + window.location.host}`+voieIntro
+    const voix = new AudioClass(url, true)
+    this.audioPlay = true
+
+    
+
   }
 
   update(){

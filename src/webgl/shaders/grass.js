@@ -13,7 +13,6 @@ import WebGl from '../webglManager'
 import vertexShader from './grass/vert.glsl'
 import fragmentShader from './grass/frag.glsl'
 import mapSetting from '../elementsLocations/outsideOne/mapSetting.json'
-import mapRGBA from '../elementsLocations/outsideOne/rgba.json'
 import Map from '../elementsLocations/outsideOne/Map.png'
 
 const uniforms = {

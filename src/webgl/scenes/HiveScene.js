@@ -131,7 +131,7 @@ export default class HiveScene extends Group {
       // console.log(this.beesToPoint)
 
       if (this.intersects.length) {
-        if (this.currentIntersect) {
+        if (this.currentIntersect && this.points[this.currentIntersect.object.testId] ) {
 
           this.points[this.currentIntersect.object.testId].element.classList.add('visible')
 
