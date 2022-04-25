@@ -30,6 +30,12 @@
     "path": "webgl/textures/Grass/color.jpg"
   },
   {
+    "name": "noiseTexture",
+    "type": "texture",
+    "actingScenes": "outsideOneScene",
+    "path": "webgl/textures/noiseTexture.png"
+  },
+  {
     "name": "lysModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene",

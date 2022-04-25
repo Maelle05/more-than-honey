@@ -79,7 +79,6 @@ export default class OutsideOneScene extends Group
     this.resources.on(`sourcesReadyoutsideOne`, () =>
     {
       this.setup()
-      // this.loader.classList.add('loaded')
     })
   }
 
@@ -156,7 +155,7 @@ export default class OutsideOneScene extends Group
       }
       const lysSize = randomIntFromInterval(0.1,0.25, 0.01)
       thisLys.children[0].scale.set(lysSize, lysSize, lysSize)
-      thisLys.position.set(convertPos.x, 0, convertPos.z)
+      thisLys.position.set(convertPos.x, -2.5, convertPos.z)
       thisLys.rotation.set(Math.random() / 10, Math.random(), Math.random() / 10)
       this.add(thisLys)
     }
@@ -169,7 +168,7 @@ export default class OutsideOneScene extends Group
         z: treeLocation[i].centerY / this.property.map.ratio,
         x: (treeLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      thisTree.position.set(convertPos.x, 19, convertPos.z)
+      thisTree.position.set(convertPos.x, 16, convertPos.z)
       thisTree.rotation.set(0, Math.random() * 25, Math.random() / 10)
       this.add(thisTree)
 
@@ -184,7 +183,7 @@ export default class OutsideOneScene extends Group
       }
       const stoneSize = randomIntFromInterval(1.8,2.8, 0.01)
       thisStone.scale.set(stoneSize, stoneSize, stoneSize)
-      thisStone.position.set(convertPos.x, 0, convertPos.z)
+      thisStone.position.set(convertPos.x, -3, convertPos.z)
       thisStone.rotation.set(0, Math.random() * 50, Math.random() / 10)
       this.add(thisStone)
     }
@@ -199,7 +198,7 @@ export default class OutsideOneScene extends Group
       }
       const daisySize = randomIntFromInterval(0.7,1.5, 0.01)
       thisDaisy.scale.set(daisySize, daisySize, daisySize)
-      thisDaisy.position.set(convertPos.x, 0.5, convertPos.z)
+      thisDaisy.position.set(convertPos.x, -2.7, convertPos.z)
       this.add(thisDaisy)
     }
 
@@ -212,7 +211,7 @@ export default class OutsideOneScene extends Group
       }
       const trunkSize = randomIntFromInterval(0.08,0.2, 0.01)
       thisTrunk.scale.set(trunkSize, trunkSize, trunkSize)
-      thisTrunk.position.set(convertPos.x, -0.2, convertPos.z)
+      thisTrunk.position.set(convertPos.x, -2.8, convertPos.z)
       thisTrunk.rotation.set(0, Math.random() * 25, 0)
       this.add(thisTrunk)
     }
@@ -225,11 +224,12 @@ export default class OutsideOneScene extends Group
         z: bridgeLocation[i].centerY / this.property.map.ratio,
         x: (bridgeLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      thisBridge.position.set(convertPos.x, -10, convertPos.z)
+      thisBridge.position.set(convertPos.x, -13, convertPos.z)
+      thisBridge.rotation.set(0, Math.PI / 2, 0)
       this.add(thisBridge)
     }
 
-    // Add mushroom
+    // Add mushrooms
     for (let i = 0; i < mushroomLocation.length; i++) {
       const thisMushroom = this.mushroom.model.clone()
       const convertPos = {
@@ -238,7 +238,7 @@ export default class OutsideOneScene extends Group
       }
       const mushroomSize = randomIntFromInterval(0.2,0.5, 0.01)
       thisMushroom.scale.set(mushroomSize, mushroomSize, mushroomSize)
-      thisMushroom.position.set(convertPos.x, 0, convertPos.z)
+      thisMushroom.position.set(convertPos.x, -2.2, convertPos.z)
       thisMushroom.rotation.set(0, Math.random() * 25, 0)
       this.add(thisMushroom)
     }
@@ -250,8 +250,7 @@ export default class OutsideOneScene extends Group
     this.webGl.camera.position.set(0, 20, (this.property.map.height + 200 )/this.property.map.ratio)
     this.webGl.controls.enabled = false
     this.webGl.controls.target = new Vector3(0, -5, 0)
-
-
+    
     // Listener
     this.listener.on('scroll', ()=>{ 
       const result = this.property.moveBee.curveTarget + this.listener.property.virtualScroll.delta / 50000
@@ -276,11 +275,6 @@ export default class OutsideOneScene extends Group
       this.webGl.camera.position.set(possCam.x, possCam.y + 2, possCam.z)
       this.webGl.controls.target.set(this.property.camera.target.x, this.property.camera.target.y + 1, this.property.camera.target.z )
     }
-
-    // Loader
-    // if (this.isLoad) {
-    //   this.loader.classList.add('loaded')
-    // }
 
     if(this.bee){
       this.bee.update()
