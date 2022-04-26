@@ -2,7 +2,6 @@
   <div id="app">
     <canvas class="webgl"/>
     <div class="ui">
-      <TimelineComponent/>
       <Loading />
       <transition name="fade" mode="out-in">
         <router-view/>
@@ -13,12 +12,10 @@
 
 <script lang="js">
 import * as main from './main'
-import TimelineComponent from '@/components/ui/TimelineComponent'
 import Loading from '@/components/ui/Loading'
 
 export default {
   components: {
-    TimelineComponent,
     Loading
   },
   watch: {

@@ -1,17 +1,19 @@
 <template>
   <div class="outsideOne">
-    <h1>Outside one</h1>
+    <TimelineComponent/>
     <Button label="Suivant" to="/PollenGame"/>
   </div>
 </template>
 
 <script>
 import Button from '@/components/ui/Button'
+import TimelineComponent from '@/components/ui/TimelineComponent'
 
 export default {
   name: 'OutsideOne',
   components: {
-    Button
+    Button,
+    TimelineComponent
   }
 }
 </script>

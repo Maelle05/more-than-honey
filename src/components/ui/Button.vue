@@ -28,6 +28,7 @@ export default {
   background: $white;
   border-radius: 8px;
   transition: 0.5s;
+  font-size: 16px;
 
   &:hover {
     background: $hoverGrey;

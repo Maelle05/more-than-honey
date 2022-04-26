@@ -1,7 +1,7 @@
 <template>
   <div class="hive">
-    <h1>This is the hive page</h1>
     <Button label="Suivant" to="/outsideOne"/>
+    <TimelineComponent/>
     <div ref="point0" class="hive__point p0">
       <div class="label">1</div>
       <div class="text">Mais si tu m'apprivoises, nous aurons besoin l'un de l'autre. Tu seras pour moi unique au monde.
@@ -23,12 +23,14 @@
 </template>
 
 <script lang="js">
-import HiveScene from "@/webgl/scenes/HiveScene"
-import Button from "@/components/ui/Button"
+import HiveScene from '@/webgl/scenes/HiveScene'
+import TimelineComponent from '@/components/ui/TimelineComponent'
+import Button from '@/components/ui/Button'
 
 export default {
   name: 'Hive',
   components: {
+    TimelineComponent,
     Button
   },
   mounted() {
