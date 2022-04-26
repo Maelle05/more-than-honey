@@ -1,7 +1,7 @@
 <template>
   <div class="outsideOne">
     <h1>Outside one</h1>
-    <Button label="Next" to="/PollenGame"/>
+    <Button label="Suivant" to="/PollenGame"/>
   </div>
 </template>
 

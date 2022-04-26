@@ -1,7 +1,7 @@
 <template>
   <div class="honeyIntro">
     <h1>Honey Home Intro</h1>
-    <Button to="/hive" label="Next"/>
+    <Button to="/hive" label="Suivant"/>
 
   </div>
 </template>

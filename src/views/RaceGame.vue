@@ -1,7 +1,7 @@
 <template>
   <div class="raceGame">
     <h1>Race Game</h1>
-    <Button label="Next" to="/ending"/>
+    <Button label="Suivant" to="/ending"/>
   </div>
 </template>
 

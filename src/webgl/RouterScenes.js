@@ -11,7 +11,7 @@ import RaceGameScene from "./scenes/RaceGameScene"
 import EndingScene from "./scenes/HiveEndingScene"
 import EventEmitter from "./utils/EventEmitter"
 import { AudioClass } from "../utils/voix"
-import voieIntro from '../assets/voix/intro.mp3'
+import voieIntro from '../assets/voice/intro.mp3'
 
 let routerScenesInstance = null
 

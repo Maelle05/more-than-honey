@@ -1,7 +1,7 @@
 <template>
   <div class="hive">
     <h1>This is the hive page</h1>
-    <Button label="Next" to="/outsideOne"/>
+    <Button label="Suivant" to="/outsideOne"/>
     <div ref="point0" class="hive__point p0">
       <div class="label">1</div>
       <div class="text">Mais si tu m'apprivoises, nous aurons besoin l'un de l'autre. Tu seras pour moi unique au monde.
@@ -74,7 +74,6 @@ export default {
       border-radius: 50%;
       background-color: #00000077;
       color: white;
-      font-family: Arial, Helvetica, sans-serif;
       text-align: center;
       line-height: 40px;
       font-weight: 100;
@@ -92,7 +91,6 @@ export default {
       color: white;
       background-color: #00000077;
       line-height: 1.3em;
-      font-family: Arial, Helvetica, sans-serif;
       font-weight: 100;
       font-size: 16px;
       padding: 10px;
