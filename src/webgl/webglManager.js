@@ -8,6 +8,7 @@ import Sizes from './utils/Sizes.js'
 import Time from './utils/Time'
 import RouterScenes from './RouterScenes'
 import Bloom from './shaders/bloom'
+import { FogExp2 } from 'three'
 
 let webglInstance = null
 
@@ -32,6 +33,9 @@ export default class WebGl{
     this.world = new RouterScenes()
 
     this.loader = null
+
+    // Scene fog
+    this.scene.fog = new FogExp2( 0x04060b, 0.01 )
 
     // Camera
     this.camera = new PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 700)
