@@ -12,8 +12,8 @@ import EndingScene from "./scenes/HiveEndingScene"
 import EventEmitter from "./utils/EventEmitter"
 
 import { AudioClass } from "../utils/voix"
-import voieIntro from '../assets/voix/Intro.mp3'
-import voieChap1I0 from '../assets/voix/Intro.mp3'
+import voieIntro from '../assets/voices/Intro.mp3'
+import voieChap1I0 from '../assets/voices/Intro.mp3'
 
 let routerScenesInstance = null
 

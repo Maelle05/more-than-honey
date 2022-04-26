@@ -1,16 +1,20 @@
 <template>
   <div class="raceGame">
     <h1>Race Game</h1>
-    <Button label="Next" to="/ending"/>
+    <TimelineComponent/>
+    <Button label="Suivant" to="/ending"/>
+
   </div>
 </template>
 
 <script lang="js">
 import Button from '@/components/ui/Button'
+import TimelineComponent from '@/components/ui/TimelineComponent'
 
 export default {
   name: 'RaceGame',
   components: {
+    TimelineComponent,
     Button
   }
 }

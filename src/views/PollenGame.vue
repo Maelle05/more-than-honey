@@ -1,17 +1,20 @@
 <template>
   <div class="pollenGame">
     <h1>Pollen Game</h1>
-    <Button label="Next" to="/outsideTwo"/>
+    <TimelineComponent/>
+    <Button label="Suivant" to="/outsideTwo"/>
   </div>
 </template>
 
 <script lang="js">
 import Button from '@/components/ui/Button'
+import TimelineComponent from '@/components/ui/TimelineComponent'
 import WebGl from '@/webgl/webglManager'
 
 export default {
   name: 'PollenGame',
   components: {
+    TimelineComponent,
     Button
   },
   mounted() {

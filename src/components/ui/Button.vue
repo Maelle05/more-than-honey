@@ -23,14 +23,22 @@ export default {
 <style scoped lang="scss">
 .button {
   position: fixed;
-  bottom: 50px;
-  right: 50px;
+  bottom: 65px;
+  right: 112px;
+  background: $white;
+  border-radius: 8px;
+  transition: 0.5s;
+  font-size: 16px;
+
+  &:hover {
+    background: $hoverGrey;
+  }
 
   a {
-    color: $white;
-    border: 2px solid $white;
-    border-radius: 10px;
-    padding: 10px 20px;
+    color: black;
+    display: block;
+    padding: 15px 24px;
+    font-weight: 600;
   }
 }
 </style>

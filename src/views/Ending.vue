@@ -1,16 +1,19 @@
 <template>
   <div class="ending">
     <h1>Ending</h1>
-    <Button label="Restart" to="/"/>
+    <Button label="Recommencer" to="/"/>
+    <TimelineComponent/>
   </div>
 </template>
 
 <script lang="js">
 import Button from '@/components/ui/Button'
+import TimelineComponent from '@/components/ui/TimelineComponent'
 
 export default {
   name: 'Home',
   components: {
+    TimelineComponent,
     Button
   }
 }
