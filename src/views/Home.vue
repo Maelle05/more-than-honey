@@ -5,7 +5,7 @@
       <img class="logo" src="@/assets/images/logo.svg" alt="white logo of the project 'more than honey'">
       <p class="u-uppercase">Le pouvoir des abeilles</p>
     </div>
-    <Button to="/honeyIntro" label="Commencer l'expérience"/>
+    <Button to="/honeyIntro" label="Commencer l'expérience" is-home-page="true"/>
   </div>
 </template>
 

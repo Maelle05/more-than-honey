@@ -1,5 +1,5 @@
 <template>
-  <div class="button">
+  <div class="button" :class="{'center': isHomePage}">
     <router-link :to=to>{{label}}</router-link>
   </div>
 </template>
@@ -15,6 +15,10 @@ export default {
     label: {
       required: true,
       default: ''
+    },
+    isHomePage: {
+      required: false,
+      default: false
     }
   }
 }
@@ -40,5 +44,11 @@ export default {
     padding: 15px 24px;
     font-weight: 600;
   }
+}
+
+.center {
+  bottom: 11vh;
+  right: 50%;
+  transform: translateX(50%);
 }
 </style>

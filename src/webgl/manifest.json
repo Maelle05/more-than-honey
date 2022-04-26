@@ -15,12 +15,12 @@
     "name": "beeBlueModel",
     "type": "gltfModel",
     "actingScenes": "hiveScene raceGameScene outsideTwoScene outsideOneScene endingScene",
-    "path": "webgl/models/Bee/bee.gltf"
+    "path": "webgl/models/Bee/bee.glb"
   },
   {
     "name": "grassNormalTexture",
     "type": "texture",
-    "actingScenes": "foxScene beeScene outsideTwoScene",
+    "actingScenes": "outsideTwoScene",
     "path": "webgl/textures/Grass/normal.jpg"
   },
   {
@@ -39,7 +39,7 @@
     "name": "lysModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene",
-    "path": "webgl/models/Lys/LYS5.gltf"
+    "path": "webgl/models/Lys/lys.glb"
   },
   {
     "name": "particlesTexture",

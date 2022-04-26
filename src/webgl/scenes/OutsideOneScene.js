@@ -153,10 +153,10 @@ export default class OutsideOneScene extends Group
         z: lysLocation[i].centerY / this.property.map.ratio,
         x: (lysLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      const lysSize = randomIntFromInterval(0.1,0.25, 0.01)
-      thisLys.children[0].scale.set(lysSize, lysSize, lysSize)
-      thisLys.position.set(convertPos.x, -2.5, convertPos.z)
-      thisLys.rotation.set(Math.random() / 10, Math.random(), Math.random() / 10)
+      const lysSize = randomIntFromInterval(0.1,0.20, 0.01)
+      thisLys.scale.set(lysSize, lysSize, lysSize)
+      thisLys.position.set(convertPos.x, -1.5, convertPos.z)
+      thisLys.rotation.set(0, Math.random(), Math.random() / 10)
       this.add(thisLys)
     }
 
@@ -183,7 +183,7 @@ export default class OutsideOneScene extends Group
       }
       const stoneSize = randomIntFromInterval(1.8,2.8, 0.01)
       thisStone.scale.set(stoneSize, stoneSize, stoneSize)
-      thisStone.position.set(convertPos.x, -3, convertPos.z)
+      thisStone.position.set(convertPos.x, -3, convertPos .z)
       thisStone.rotation.set(0, Math.random() * 50, Math.random() / 10)
       this.add(thisStone)
     }
@@ -198,7 +198,7 @@ export default class OutsideOneScene extends Group
       }
       const daisySize = randomIntFromInterval(0.7,1.5, 0.01)
       thisDaisy.scale.set(daisySize, daisySize, daisySize)
-      thisDaisy.position.set(convertPos.x, -2.7, convertPos.z)
+      thisDaisy.position.set(convertPos.x, -3, convertPos.z)
       this.add(thisDaisy)
     }
 
