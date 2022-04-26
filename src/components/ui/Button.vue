@@ -48,7 +48,7 @@ export default {
 
 .center {
   bottom: 11vh;
-  right: 31%;
-  transform: translate(-50%, 0);
+  right: 50%;
+  transform: translateX(50%);
 }
 </style>

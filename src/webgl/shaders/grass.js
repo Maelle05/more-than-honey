@@ -124,7 +124,7 @@ export default class Grass extends Group {
 
   update() {
     // Wind displacement
-    this.leavesMaterial.uniforms.time.value = this.clock.elapsed / 5000
+    this.leavesMaterial.uniforms.time.value = this.clock.elapsed / 3000
     this.leavesMaterial.uniformsNeedUpdate = true
   }
 }
