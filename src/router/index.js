@@ -122,7 +122,6 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.homePassedRequired)) {
-    console.log(localStorage.getItem('isHomePassed'))
     if (localStorage.getItem('isHomePassed') === 'true') {
       next()
     } else {

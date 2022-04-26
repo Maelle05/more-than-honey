@@ -58,26 +58,28 @@ export default class Grass extends Group {
     const geometry = new ConeGeometry(0.05, 0.6, 2, 1)
     geometry.translate(0, 0.5, 0) // move grass blade geometry lowest point at 0
 
-    this.instancedMesh = new InstancedMesh(geometry, this.leavesMaterial, this.instanceNumber)
-
     // Floor
-    this.floorGeometry = new PlaneGeometry(mapSetting[0].right / this.property.map.ratio, mapSetting[0].bottom / this.property.map.ratio, 32, 32)
+    this.floorGeometry = new PlaneGeometry(mapSetting[0].right / this.property.map.ratio, mapSetting[0].bottom / this.property.map.ratio, 68, 68)
     this.floorMaterial = new MeshStandardMaterial({
       color: 'black',
       side: DoubleSide,
       wireframe: false,
       displacementMap: this.webGl.resources.items.noiseTexture,
-      displacementScale: 5.20
+      displacementScale: 5
     })
     this.floor = new Mesh(this.floorGeometry, this.floorMaterial)
 
     this.floorGeometry.computeBoundingBox()
 
-    // add bounding box to debug floor
-    // this.add(new Box3Helper(this.floorGeometry.boundingBox, 0xffffff))
 
     this.leavesMaterial.uniforms.uMinMapBounds.value.copy(this.floorGeometry.boundingBox.min)
     this.leavesMaterial.uniforms.uMaxMapBounds.value.copy(this.floorGeometry.boundingBox.max)
+
+    this.instancedMesh = new InstancedMesh(geometry, this.leavesMaterial, this.instanceNumber)
+
+
+    // add bounding box to debug floor
+    // this.add(new Box3Helper(this.floorGeometry.boundingBox, 0xffffff))
 
     this.floor.name = 'floor'
     this.floor.translateZ(-mapSetting[0].bottom / (this.property.map.ratio * 2))
@@ -98,11 +100,8 @@ export default class Grass extends Group {
       for (let i = 0; i < this.instanceNumber; i++) {
         const randomX = Math.random() - 0.5
         const randomZ = Math.random() - 0.5
-        this.dummy.position.set(
-          (randomX) * mapSetting[0].right / this.property.map.ratio,
-          0,
-          (randomZ) * (mapSetting[0].bottom / this.property.map.ratio ) - mapSetting[0].bottom / (this.property.map.ratio * 2)
-        )
+        this.dummy.position.x = (randomX) * mapSetting[0].right / this.property.map.ratio
+        this.dummy.position.z = (randomZ) * (mapSetting[0].bottom / this.property.map.ratio ) - mapSetting[0].bottom / (this.property.map.ratio * 2)
         const raportX = Math.floor(this.dummy.position.x * this.property.map.ratio + mapSetting[0].right / 2)
         const raportY = Math.floor(this.dummy.position.z * this.property.map.ratio + mapSetting[0].bottom)
         const pixel = this.ctx.getImageData(raportX, raportY, 1, 1)

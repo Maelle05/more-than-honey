@@ -69,7 +69,7 @@
     "name": "daisyModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene",
-    "path": "webgl/models/Daisy/daisy-v2.glb"
+    "path": "webgl/models/Daisy/daisy-v3.glb"
   },
   {
     "name": "trunkModel",

@@ -10,8 +10,10 @@ import OutsideTwoScene from "./scenes/OutsideTwoScene"
 import RaceGameScene from "./scenes/RaceGameScene"
 import EndingScene from "./scenes/HiveEndingScene"
 import EventEmitter from "./utils/EventEmitter"
+
 import { AudioClass } from "../utils/voix"
-import voieIntro from '../assets/voix/intro.mp3'
+import voieIntro from '../assets/voix/Intro.mp3'
+import voieChap1I0 from '../assets/voix/Intro.mp3'
 
 let routerScenesInstance = null
 
@@ -97,7 +99,7 @@ export default class RouterScenes extends EventEmitter{
         this.url = `${window.location.protocol + '//' + window.location.host}`+voieIntro
         break
       case 'outsideTwo':
-        this.url = `${window.location.protocol + '//' + window.location.host}`+voieIntro
+        this.url = `${window.location.protocol + '//' + window.location.host}`+voieChap1I0
         break
       default:
         this.url = null
