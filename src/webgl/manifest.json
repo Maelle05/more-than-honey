@@ -39,7 +39,7 @@
     "name": "lysModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene",
-    "path": "webgl/models/Lys/lys.glb"
+    "path": "webgl/models/Lys/oneLys.glb"
   },
   {
     "name": "particlesTexture",

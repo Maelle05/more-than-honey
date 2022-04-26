@@ -23,6 +23,9 @@ export default {
   margin: 20px auto;
   display: flex;
   justify-content: center;
+  position: fixed;
+  top: 10px;
+  right: 0;
   &__item {
     color: powderblue;
     margin-right: 10px;

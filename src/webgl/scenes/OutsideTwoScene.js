@@ -1,4 +1,8 @@
-import {CircleGeometry, DoubleSide, Group, MathUtils, Mesh, MeshBasicMaterial, Vector3, AmbientLight} from 'three'
+import {
+  Group,
+  MathUtils,
+  Vector3,
+} from 'three'
 import WebGl from '../webglManager'
 import Bee from '@/webgl/entities/BlueBee'
 import Listener from '../utils/Listener'
@@ -69,6 +73,7 @@ export default class OutsideTwoScene extends Group {
     this.add(this.particles)
     this.add(this.bee.model)
     this.add(this.grass)
+
   }
 
   update() {
