@@ -38,7 +38,7 @@ export default class WebGl{
     this.scene.fog = new FogExp2( 0x04060b, 0.01 )
 
     // Camera
-    this.camera = new PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 700)
+    this.camera = new PerspectiveCamera(35, this.sizes.width / this.sizes.height, 1, 700)
     this.camera.position.set(0, 5, 0)
     this.scene.add(this.camera)
 
