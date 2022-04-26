@@ -13,7 +13,7 @@ import {
   LineBasicMaterial,
   DefaultLoadingManager
 } from 'three'
-import Particules from '../shaders/particulesTest'
+import Particules from '../shaders/fireflies'
 import Stone from '../entities/Stone'
 import Bee from '../entities/BlueBee'
 import mapSetting from '../elementsLocations/outsideOne/mapSetting.json'
@@ -282,6 +282,10 @@ export default class OutsideOneScene extends Group
 
     if(this.grass) {
       this.grass.update()
+    }
+
+    if(this.particles) {
+      this.particles.update()
     }
 
   }
