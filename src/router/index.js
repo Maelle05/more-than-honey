@@ -125,9 +125,10 @@ router.beforeEach((to, from, next) => {
     if (localStorage.getItem('isHomePassed') === 'true') {
       next()
     } else {
-      next({
-        path: '/',
-      })
+      // next({
+      //   path: '/',
+      // })
+      next()
       localStorage.setItem('isHomePassed', true)
     }
   } else {
