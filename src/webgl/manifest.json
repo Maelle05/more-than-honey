@@ -81,7 +81,7 @@
     "name": "mushroomModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene",
-    "path": "webgl/models/Mushroom/mushroom_dan.glb"
+    "path": "webgl/models/Mushroom/mushrooms.glb"
   },
   {
     "name": "hiveModel",

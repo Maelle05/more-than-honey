@@ -8,7 +8,7 @@
 
 <script>
 // @ is an alias to /src
-import Button from '@/components/ui/Button'
+import Button from '@/components/ui/PrimaryButton'
 import WebGl from '@/webgl/webglManager'
 
 export default {
