@@ -41,6 +41,8 @@ export default {
       this.$refs.point2
     ]
 
+    console.log(points)
+
     scene.setUpPointsFromDOM(points)
   }
 }

@@ -20,20 +20,19 @@ export default class BlueBee
     this.model = this.resource.scene
     // For raycaster
     const dummyMesh = new Mesh(
-      new SphereGeometry(0.5, 16, 16),
-      new MeshBasicMaterial({opacity: 0, transparent: true})
+      new SphereGeometry(16, 16, 16),
+      new MeshBasicMaterial({color: 0xffaa22})
     )
-    dummyMesh.name = 1
+    dummyMesh.visible = false
+    dummyMesh.name = 'dummy'
     this.model.add(dummyMesh)
-    this.model.children[0].scale.setScalar(0.06)
+    this.model.scale.setScalar(0.06)
 
     this.model.traverse((child) =>
     {
         if(child instanceof Mesh)
         {
             child.castShadow = true
-            // add Bloom
-            // child.layers.disableAll()
             child.layers.enable(1)
         }
     })

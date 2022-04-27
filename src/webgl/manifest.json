@@ -87,6 +87,6 @@
     "name": "hiveModel",
     "type": "gltfModel",
     "actingScenes": "hiveScene endingScene",
-    "path": "webgl/models/Ruche/Ruche.gltf"
+    "path": "webgl/models/Ruche/ruche.glb"
   }
 ]

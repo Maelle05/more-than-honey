@@ -1,11 +1,11 @@
 import {Group, Vector2, Raycaster, Vector3} from 'three'
 import WebGl from '../webglManager'
 import Bee from "@/webgl/entities/BlueBee"
-import { clone as skeletonClone } from 'three/examples/jsm/utils/SkeletonUtils'
+import {clone as skeletonClone} from 'three/examples/jsm/utils/SkeletonUtils'
 import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils.js'
 import Listener from '../utils/Listener'
 import beePositions from '../elementsLocations/hive/beePosition.json'
-import { AnimationMixer } from 'three'
+import {AnimationMixer} from 'three'
 
 let hiveInstance = null
 
@@ -74,35 +74,37 @@ export default class HiveScene extends Group {
     }, 500)
 
     // Set parameters of the scene at init
-    this.camera.position.set(1, 4, -30)
+    this.camera.position.set(3, -2, -35)
     this.webGl.controls.target = new Vector3(0, 0, 0)
 
     // Add hive
     this.add(this.hive)
-  
+
     // Add bee to point
     for (let i = 0; i < this.points.length; i++) {
-      // skeleton clone instead of usual clone because of rig in model
+      // Skeleton clone instead of usual clone because of rig in model
       const bee = skeletonClone(this.bee.model)
-      const mixer = new AnimationMixer(bee)
-      mixer.clipAction(this.bee.resource.animations[0]).play()
-
+      bee.scale.set(0.12,0.12,0.12)
       bee.position.set(this.points[i].position.x, this.points[i].position.y, this.points[i].position.z)
       bee.rotation.y = Math.PI + Math.random()
-      bee.children[1].testId = this.points[i].id
-
-      this.mixers.push(mixer)
+      bee.children[2].testId = this.points[i].id
 
       this.beesToPoint.push(bee)
+
       this.add(bee)
     }
+
 
     // add other bee
     for (let i = 0; i < beePositions.length; i++) {
       const bee = skeletonClone(this.bee.model)
+      const mixer = new AnimationMixer(bee)
+      mixer.clipAction(this.bee.resource.animations[0]).play()
+
       // TODO change to begin more beautiful
       bee.position.set(beePositions[i].px, beePositions[i].py, beePositions[i].pz)
       bee.rotation.y = Math.PI
+      this.mixers.push(mixer)
 
       this.add(bee)
     }
@@ -120,18 +122,17 @@ export default class HiveScene extends Group {
 
   update() {
     if (this.mixers) {
-      for ( const mixer of this.mixers ) mixer.update( this.time.delta * 0.001 )
+      for (const mixer of this.mixers) mixer.update(this.time.delta * 0.001)
     }
-    
+
     if (this.points && this.raycaster) {
       this.raycaster.setFromCamera(new Vector2(this.listener.property.cursor.x, this.listener.property.cursor.y), this.camera)
 
-      // objects to test with the raycaster
-      this.intersects = this.raycaster.intersectObjects(this.beesToPoint, true)
-      // console.log(this.beesToPoint)
+      // Objects to test with the raycaster
+      this.intersects = this.raycaster.intersectObjects(this.beesToPoint)
 
       if (this.intersects.length) {
-        if (this.currentIntersect && this.points[this.currentIntersect.object.testId] ) {
+        if (this.currentIntersect && this.points[this.currentIntersect.object.testId]) {
 
           this.points[this.currentIntersect.object.testId].element.classList.add('visible')
 
