@@ -239,9 +239,9 @@ export default class OutsideOneScene extends Group
         z: mushroomLocation[i].centerY / this.property.map.ratio,
         x: (mushroomLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      const mushroomSize = randomIntFromInterval(0.2,0.5, 0.01)
+      const mushroomSize = randomIntFromInterval(0.4,1.3, 0.01)
       thisMushroom.scale.set(mushroomSize, mushroomSize, mushroomSize)
-      thisMushroom.position.set(convertPos.x, -2.2, convertPos.z)
+      thisMushroom.position.set(convertPos.x, -3.2, convertPos.z)
       thisMushroom.rotation.set(0, Math.random() * 25, 0)
       this.add(thisMushroom)
     }
