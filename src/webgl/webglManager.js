@@ -58,7 +58,8 @@ export default class WebGl{
     // Renderer
     this.renderer = new WebGLRenderer({
         canvas: this.canvas,
-        antialias: true
+        antialias: true,
+        alpha: true
     })
     this.renderer.setSize(this.sizes.width, this.sizes.height)
     this.renderer.setPixelRatio(Math.min(this.sizes.pixelRatio, 2))

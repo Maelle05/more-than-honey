@@ -21,8 +21,10 @@ export default class BlueBee
     // For raycaster
     const dummyMesh = new Mesh(
       new SphereGeometry(0.5, 16, 16),
-      new MeshBasicMaterial({opacity: 0, transparent: true})
+      // new MeshBasicMaterial({opacity: 0, transparent: true})
+      new MeshBasicMaterial()
     )
+    dummyMesh.visible = false
     dummyMesh.name = 1
     this.model.add(dummyMesh)
     this.model.children[0].scale.setScalar(0.06)
