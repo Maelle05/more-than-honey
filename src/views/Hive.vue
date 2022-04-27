@@ -25,7 +25,7 @@
 <script lang="js">
 import HiveScene from '@/webgl/scenes/HiveScene'
 import TimelineComponent from '@/components/ui/TimelineComponent'
-import Button from '@/components/ui/Button'
+import Button from '@/components/ui/PrimaryButton'
 
 export default {
   name: 'Hive',

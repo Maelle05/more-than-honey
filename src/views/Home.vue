@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Button from '@/components/ui/Button'
+import Button from '@/components/ui/PrimaryButton'
 import WebGl from '@/webgl/webglManager'
 
 export default {

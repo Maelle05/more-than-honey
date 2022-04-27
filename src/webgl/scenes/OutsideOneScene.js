@@ -2,8 +2,6 @@ import WebGl from '../webglManager'
 import {
   Group,
   Vector3,
-  DoubleSide,
-  PlaneGeometry,
   BoxGeometry,
   MeshBasicMaterial,
   Mesh,

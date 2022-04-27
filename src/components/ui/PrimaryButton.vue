@@ -6,7 +6,7 @@
 
 <script lang="js">
 export default {
-  name: 'Button',
+  name: 'PrimaryButton',
   props: {
     to: {
       required: true,

@@ -7,7 +7,7 @@
 </template>
 
 <script lang="js">
-import Button from '@/components/ui/Button'
+import Button from '@/components/ui/PrimaryButton'
 import TimelineComponent from '@/components/ui/TimelineComponent'
 import WebGl from '@/webgl/webglManager'
 
