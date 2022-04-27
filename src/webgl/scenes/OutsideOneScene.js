@@ -11,7 +11,7 @@ import {
   Line,
   BufferGeometry,
   LineBasicMaterial,
-  DefaultLoadingManager
+  FogExp2
 } from 'three'
 import Particules from '../shaders/fireflies'
 import Stone from '../entities/Stone'
@@ -132,6 +132,9 @@ export default class OutsideOneScene extends Group
     setTimeout(() => {
       this.loader.classList.add('loaded')
     }, 500)
+
+    this.scene.fog = new FogExp2( 0x04060b, 0.01 )
+
 
     // Add bee
     this.beeMove = 0
