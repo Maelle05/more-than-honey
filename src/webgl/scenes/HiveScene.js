@@ -42,19 +42,46 @@ export default class HiveScene extends Group {
   setUpPointsFromDOM(points) {
     this.points = [
       {
-        position: new Vector3(-3, 0, 1),
+        position: new Vector3(-10, -4, 1),
+        rotation: new Vector3(0, Math.random(), 4.5),
         element: points[0],
         id: 0
       },
       {
-        position: new Vector3(0, 0, 0),
+        position: new Vector3(16, 0, 0),
+        rotation: new Vector3(4.5, Math.random(), 0),
         element: points[1],
         id: 1
       },
       {
-        position: new Vector3(2, 1.5, 2),
+        position: new Vector3(0, 3.5, 2),
+        rotation: new Vector3(4.5, Math.random(), 0),
         element: points[2],
         id: 2
+      },
+      {
+        position: new Vector3(2, -5.5, -2),
+        rotation: new Vector3(4.5, Math.random(), 0),
+        element: points[3],
+        id: 3
+      },
+      {
+        position: new Vector3(-20, -4.5, -2),
+        rotation: new Vector3(4.5, Math.random(), 0),
+        element: points[4],
+        id: 4
+      },
+      {
+        position: new Vector3(2, -2.5, -2),
+        rotation: new Vector3(4.5, Math.random(), 0),
+        element: points[5],
+        id: 5
+      },
+      {
+        position: new Vector3(6, 6.5, 0),
+        rotation: new Vector3(4.5, Math.random(), 0),
+        element: points[6],
+        id: 6
       }
     ]
   }
@@ -87,9 +114,9 @@ export default class HiveScene extends Group {
     for (let i = 0; i < this.points.length; i++) {
       // Skeleton clone instead of usual clone because of rig in model
       const bee = skeletonClone(this.bee.model)
-      bee.scale.set(0.12,0.12,0.12)
+      bee.scale.set(0.13,0.13,0.13)
       bee.position.set(this.points[i].position.x, this.points[i].position.y, this.points[i].position.z)
-      bee.rotation.y = Math.PI + Math.random()
+      bee.rotation.set(this.points[i].rotation.x, this.points[i].rotation.y, this.points[i].rotation.z)
       bee.children[2].testId = this.points[i].id
 
       this.beesToPoint.push(bee)
