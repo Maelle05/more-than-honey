@@ -1,4 +1,4 @@
-import { Scene, PerspectiveCamera, CubeTextureLoader, WebGLRenderer, sRGBEncoding} from 'three'
+import {Scene, PerspectiveCamera, CubeTextureLoader, WebGLRenderer, sRGBEncoding, FogExp2} from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import Stats from 'stats.js'
 import sources from './manifest.json'
@@ -37,6 +37,9 @@ export default class WebGl{
     this.camera = new PerspectiveCamera(35, this.sizes.width / this.sizes.height, 1, 700)
     this.camera.position.set(0, 5, 0)
     this.scene.add(this.camera)
+
+    // Fog
+    this.scene.fog = new FogExp2( 0x04060b, 0.01 )
 
     // Debug
     this.stats = new Stats()

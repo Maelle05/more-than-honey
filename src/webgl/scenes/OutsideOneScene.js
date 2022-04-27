@@ -131,9 +131,6 @@ export default class OutsideOneScene extends Group
       this.loader.classList.add('loaded')
     }, 500)
 
-    this.scene.fog = new FogExp2( 0x04060b, 0.01 )
-
-
     // Add bee
     this.beeMove = 0
     this.beePoss = this.curve.getPointAt(this.beeMove)

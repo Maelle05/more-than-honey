@@ -65,6 +65,9 @@ export default class HiveScene extends Group {
     this.hive = this.resources.items.hiveModel.scene
     this.mixers = []
 
+    // Remove fog
+    this.scene.fog.density = 0
+
     this.init()
   }
 
