@@ -68,7 +68,7 @@
   {
     "name": "daisyModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene",
+    "actingScenes": "outsideOneScene pollenGame",
     "path": "webgl/models/Daisy/daisy-v3.glb"
   },
   {
