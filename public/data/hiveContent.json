@@ -3,42 +3,42 @@
     "name": "La ventileuse",
     "label": "raffraîchit",
     "content": "Maintient la ruche à 35°C maximum. Régule la température, contrôle le taux d’humidité et aére la ruche.",
-    "imgPath": ""
+    "imgPath": "/images/hive/ventileuse-role.svg"
   },
   {
     "name": "La nettoyeuse",
     "label": "nettoie",
     "content": "Entretient les rayons de la ruche et nettoie les cellules. Elle doit aussi réparer ce qui doit l'être.",
-    "imgPath": ""
+    "imgPath": "/images/hive/nettoyeuse-role.svg"
   },
   {
     "name": "La butineuse",
     "label": "récolte",
     "content": "Butiner est une sorte de prime d'ancienneté qui intervient au 21e/35 jours de vie. Ce sont les butineuses qui rapportent le nectar à la ruche.",
-    "imgPath": ""
+    "imgPath": "/images/hive/butineuse-role.svg"
   },
   {
     "name": "La gardienne",
     "label": "défend",
     "content": "Garde la ruche et empêche les rôdeurs et autres pillards attirés par le miel d'y venir.",
-    "imgPath": ""
+    "imgPath": "/images/hive/gardienne-role.svg"
   },
   {
     "name": "L'architecte",
     "label": "construit",
     "content": "Lorsqu’elle cesse de produire de la gelée royale, elle commence à sculpter les rayons de la ruche. On les appelle aussi les abeilles cirières.",
-    "imgPath": ""
+    "imgPath": "/images/hive/architecte-role.svg"
   },
   {
     "name": "La manutentionnaire",
     "label": "récupère le nectar",
     "content": "Faiseuse de miel. Avale le nectar et le fait transiter plusieurs fois entre leur trompe et leur jabot. Elle le transmet à une autre équipe, et ainsi de suite.",
-    "imgPath": ""
+    "imgPath": "/images/hive/manutentionnaire-role.svg"
   },
   {
     "name": "La nourricière",
     "label": "s'occupe du couvain",
     "content": "Nourrissent les jeunes larves et les larves royales. Lors d’une nouvelle volée d'abeilles, celles qui ont alors 6 jours prennent le relais.",
-    "imgPath": ""
+    "imgPath": "/images/hive/nourriciere-role.svg"
   }
 ]

@@ -2,74 +2,14 @@
   <div class="hive">
     <Button label="Suivant" to="/outsideOne"/>
     <TimelineComponent/>
-    <div ref="point0" class="hive__point">
+    <div class="hive__point" v-for="(bee, i) in bees" :key="i" ref="points">
       <div class="pointer"/>
       <div class="text">
         <div class="close"/>
-        <img src="@/assets/images/hive/ventileuse-role.svg" alt="">
-        <h3 class="name">La ventileuse</h3>
-        <p class="label">raffraîchit</p>
-        <p class="content">Maintient la ruche à 35°C maximum.Régule la température, contrôle le taux d’humidité et aére la ruche.</p>
-      </div>
-    </div>
-    <div ref="point1" class="hive__point">
-      <div class="pointer"/>
-      <div class="text">
-        <div class="close"/>
-        <img src="@/assets/images/hive/ventileuse-role.svg" alt="">
-        <h3 class="name">La ventileuse</h3>
-        <p class="label">raffraîchit</p>
-        <p class="content">Maintient la ruche à 35°C maximum.Régule la température, contrôle le taux d’humidité et aére la ruche.</p>
-      </div>
-    </div>
-    <div ref="point2" class="hive__point">
-      <div class="pointer"/>
-      <div class="text">
-        <div class="close"/>
-        <img src="@/assets/images/hive/ventileuse-role.svg" alt="">
-        <h3 class="name">La ventileuse</h3>
-        <p class="label">raffraîchit</p>
-        <p class="content">Maintient la ruche à 35°C maximum.Régule la température, contrôle le taux d’humidité et aére la ruche.</p>
-      </div>
-    </div>
-    <div ref="point3" class="hive__point">
-      <div class="pointer"/>
-      <div class="text">
-        <div class="close"/>
-        <img src="@/assets/images/hive/ventileuse-role.svg" alt="">
-        <h3 class="name">La ventileuse</h3>
-        <p class="label">raffraîchit</p>
-        <p class="content">Maintient la ruche à 35°C maximum.Régule la température, contrôle le taux d’humidité et aére la ruche.</p>
-      </div>
-    </div>
-    <div ref="point4" class="hive__point">
-      <div class="pointer"/>
-      <div class="text">
-        <div class="close"/>
-        <img src="@/assets/images/hive/ventileuse-role.svg" alt="">
-        <h3 class="name">La ventileuse</h3>
-        <p class="label">raffraîchit</p>
-        <p class="content">Maintient la ruche à 35°C maximum.Régule la température, contrôle le taux d’humidité et aére la ruche.</p>
-      </div>
-    </div>
-    <div ref="point5" class="hive__point">
-      <div class="pointer"/>
-      <div class="text">
-        <div class="close"/>
-        <img src="@/assets/images/hive/ventileuse-role.svg" alt="">
-        <h3 class="name">La ventileuse</h3>
-        <p class="label">raffraîchit</p>
-        <p class="content">Maintient la ruche à 35°C maximum.Régule la température, contrôle le taux d’humidité et aére la ruche.</p>
-      </div>
-    </div>
-    <div ref="point6" class="hive__point">
-      <div class="pointer"/>
-      <div class="text">
-        <div class="close"/>
-        <img src="@/assets/images/hive/ventileuse-role.svg" alt="">
-        <h3 class="name">La ventileuse</h3>
-        <p class="label">raffraîchit</p>
-        <p class="content">Maintient la ruche à 35°C maximum.Régule la température, contrôle le taux d’humidité et aére la ruche.</p>
+        <img :src="bee.imgPath" alt="">
+        <h3 class="name">{{bee.name}}</h3>
+        <p class="label">{{bee.label}}</p>
+        <p class="content">{{bee.content}}</p>
       </div>
     </div>
   </div>
@@ -79,6 +19,7 @@
 import HiveScene from '@/webgl/scenes/HiveScene'
 import TimelineComponent from '@/components/ui/TimelineComponent'
 import Button from '@/components/ui/PrimaryButton'
+import JsonBeesContent from '../../public/data/hiveContent.json'
 
 export default {
   name: 'Hive',
@@ -86,19 +27,14 @@ export default {
     TimelineComponent,
     Button
   },
+  data() {
+    return {
+      bees: JsonBeesContent
+    }
+  },
   mounted() {
     const scene = new HiveScene()
-    const points = [
-      this.$refs.point0,
-      this.$refs.point1,
-      this.$refs.point2,
-      this.$refs.point3,
-      this.$refs.point4,
-      this.$refs.point5,
-      this.$refs.point6
-    ]
-
-    scene.setUpPointsFromDOM(points)
+    scene.setUpPointsFromDOM(this.$refs.points)
   }
 }
 
