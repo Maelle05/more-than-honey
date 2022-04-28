@@ -2,7 +2,6 @@ import {Group, Vector2, Raycaster, Vector3} from 'three'
 import WebGl from '../webglManager'
 import Bee from "@/webgl/entities/BlueBee"
 import {clone as skeletonClone} from 'three/examples/jsm/utils/SkeletonUtils'
-import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils.js'
 import Listener from '../utils/Listener'
 import beePositions from '../elementsLocations/hive/beePosition.json'
 import {AnimationMixer} from 'three'
@@ -42,44 +41,44 @@ export default class HiveScene extends Group {
   setUpPointsFromDOM(points) {
     this.points = [
       {
-        position: new Vector3(-10, -4, 1),
-        rotation: new Vector3(0, Math.random(), 4.5),
+        position: new Vector3(-16, -4.5, -23),
+        rotation: new Vector3(0, 2, -0.6),
         element: points[0],
         id: 0
       },
       {
-        position: new Vector3(16, 0, 0),
-        rotation: new Vector3(4.5, Math.random(), 0),
+        position: new Vector3(-2, -7, -23),
+        rotation: new Vector3(0, -2, 0.6),
         element: points[1],
         id: 1
       },
       {
-        position: new Vector3(0, 3.5, 2),
-        rotation: new Vector3(4.5, Math.random(), 0),
+        position: new Vector3(-7.5, 2.5, -23),
+        rotation: new Vector3(0, 2.3, -1),
         element: points[2],
         id: 2
       },
       {
-        position: new Vector3(2, -5.5, -2),
-        rotation: new Vector3(4.5, Math.random(), 0),
+        position: new Vector3(3, -1, -23),
+        rotation: new Vector3(0, 2.4, -0.8),
         element: points[3],
         id: 3
       },
       {
-        position: new Vector3(-20, -4.5, -2),
-        rotation: new Vector3(4.5, Math.random(), 0),
+        position: new Vector3(0, 6.5, -23),
+        rotation: new Vector3(0, 2.3, -1.2),
         element: points[4],
         id: 4
       },
       {
-        position: new Vector3(2, -2.5, -2),
-        rotation: new Vector3(4.5, Math.random(), 0),
+        position: new Vector3(8, 4.5, -23),
+        rotation: new Vector3(0, -1.8, 1),
         element: points[5],
         id: 5
       },
       {
-        position: new Vector3(6, 6.5, 0),
-        rotation: new Vector3(4.5, Math.random(), 0),
+        position: new Vector3(11, -6.5, -23),
+        rotation: new Vector3(0, -1.4, 1),
         element: points[6],
         id: 6
       }
@@ -99,7 +98,7 @@ export default class HiveScene extends Group {
 
   init() {
     // Set parameters of the scene at init
-    this.camera.position.set(3, -2, -35)
+    this.camera.position.set(-7, -2, -55)
     this.webGl.controls.target = new Vector3(0, 0, 0)
 
     // Remove fog
@@ -112,7 +111,7 @@ export default class HiveScene extends Group {
     for (let i = 0; i < this.points.length; i++) {
       // Skeleton clone instead of usual clone because of rig in model
       const bee = skeletonClone(this.bee.model)
-      bee.scale.set(0.13, 0.13, 0.13)
+      bee.scale.set(0.14, 0.14, 0.14)
       bee.position.set(this.points[i].position.x, this.points[i].position.y, this.points[i].position.z)
       bee.rotation.set(this.points[i].rotation.x, this.points[i].rotation.y, this.points[i].rotation.z)
       bee.children[2].testId = this.points[i].id
