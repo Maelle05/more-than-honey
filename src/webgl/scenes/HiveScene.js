@@ -167,7 +167,6 @@ export default class HiveScene extends Group {
 
       // Place point position
       for (const point of this.points) {
-        console.log(point.element)
         const screenPosition = point.position.clone()
         screenPosition.project(this.camera)
 
