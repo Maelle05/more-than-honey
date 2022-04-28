@@ -113,6 +113,11 @@ export default class PollenGameScene extends Group {
       }
     })
 
+    // Game property
+    this.gameProperty = {
+      foraged: []
+    }
+
 
     // End Loader
     setTimeout(()=>{
@@ -127,9 +132,17 @@ export default class PollenGameScene extends Group {
       this.bee.model.position.z = MathUtils.damp(this.bee.model.position.z, this.beeTarget.z, 0.1, .3)
       this.bee.model.position.x = MathUtils.damp(this.bee.model.position.x, this.beeTarget.x, 0.1, .3)
       this.bee.model.position.y = MathUtils.damp(this.bee.model.position.y, this.beeTarget.y, 0.1, .3)
-      if (Math.round(this.bee.model.position.x * 10) / 10 === this.beeTarget.x) {
-        console.log('flower !!')
+      for (let i = 0; i < this.positionDaisys.length; i++) {
+        if (
+        Math.round(this.bee.model.position.x * 10) / 10 === this.positionDaisys[i].x 
+        && Math.round(this.bee.model.position.z * 10) / 10 === this.positionDaisys[i].z
+        && !this.gameProperty.foraged.includes(i)
+        ) {
+          this.gameProperty.foraged.push(i)
+          console.log('flower ' + i )
+        }
       }
+      
     }
 
   }
