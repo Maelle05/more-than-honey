@@ -93,12 +93,12 @@ export default {
       border-radius: 8px;
       padding: 0 10px;
       background-color: #00000077;
-      color: white;
+      color: $white;
       text-align: center;
       font-weight: 100;
       font-size: 14px;
 
-      transform: scale(0, 0);
+      transform: scale(1, 1);
       transition: transform 0.3s;
     }
 
@@ -107,7 +107,7 @@ export default {
       top: 30px;
       left: -160px;
       width: 300px;
-      color: white;
+      color: $white;
       background-color: #00000077;
       line-height: 1.3em;
       font-weight: 100;
@@ -127,7 +127,7 @@ export default {
   }
 
   .visible {
-    .label, .text {
+    .text {
       transform: scale(1, 1);
       transition: transform 0.3s;
     }

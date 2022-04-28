@@ -114,7 +114,7 @@ export default class HiveScene extends Group {
     for (let i = 0; i < this.points.length; i++) {
       // Skeleton clone instead of usual clone because of rig in model
       const bee = skeletonClone(this.bee.model)
-      bee.scale.set(0.13,0.13,0.13)
+      bee.scale.set(0.13, 0.13, 0.13)
       bee.position.set(this.points[i].position.x, this.points[i].position.y, this.points[i].position.z)
       bee.rotation.set(this.points[i].rotation.x, this.points[i].rotation.y, this.points[i].rotation.z)
       bee.children[2].testId = this.points[i].id
@@ -161,22 +161,24 @@ export default class HiveScene extends Group {
       // Objects to test with the raycaster
       this.intersects = this.raycaster.intersectObjects(this.beesToPoint)
 
+      // Place point position
+      for (const point of this.points) {
+        console.log(point.element)
+        const screenPosition = point.position.clone()
+        screenPosition.project(this.camera)
+
+        const translateX = screenPosition.x * this.sizes.width * 0.5
+        const translateY = -screenPosition.y * this.sizes.height * 0.5
+        point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`
+      }
+
+      // Add visible classe when intersect
       if (this.intersects.length) {
-        if (this.currentIntersect && this.points[this.currentIntersect.object.testId]) {
-
-          this.points[this.currentIntersect.object.testId].element.classList.add('visible')
-
-          const screenPosition = this.points[this.currentIntersect.object.testId].position.clone()
-          screenPosition.project(this.camera)
-
-          const translateX = screenPosition.x * this.sizes.width * 0.5
-          const translateY = -screenPosition.y * this.sizes.height * 0.5
-          this.points[this.currentIntersect.object.testId].element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`
-
-        }
         this.currentIntersect = this.intersects[0]
+        if (this.currentIntersect && this.points[this.currentIntersect.object.testId]) {
+          this.points[this.currentIntersect.object.testId].element.classList.add('visible')
+        }
       } else {
-
         if (!this.currentIntersect) {
           for (const point of this.points) {
             point.element.classList.remove('visible')

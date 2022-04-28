@@ -108,7 +108,7 @@ export default class OutsideOneScene extends Group
       const handle = new Mesh( this.boxGeometry, this.boxMaterial )
       handle.position.copy( handlePos )
       this.curveHandles.push( handle )
-      // this.add( handle )
+      // this.add(handle)
     }
     // Calculate Smooth curve
     this.curve = new CatmullRomCurve3(
@@ -127,9 +127,6 @@ export default class OutsideOneScene extends Group
   }
 
   init(){
-    setTimeout(() => {
-      this.loader.classList.add('loaded')
-    }, 500)
 
     // Add bee
     this.beeMove = 0
@@ -257,6 +254,9 @@ export default class OutsideOneScene extends Group
       }
     })
 
+    setTimeout(() => {
+      this.loader.classList.add('loaded')
+    }, 500)
   }
 
   update(){
