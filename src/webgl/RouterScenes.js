@@ -85,6 +85,7 @@ export default class RouterScenes extends EventEmitter{
 
     this.currentScene = this.allScenes[nameScene]
     this.webGl.scene.add(this.currentScene)
+
     // Remove 'loaded' class if needed
     if (this.webGl.loader.classList.contains('loaded')) {
       this.webGl.loader.classList.remove('loaded')

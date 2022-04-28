@@ -1,4 +1,8 @@
-import {Group} from 'three'
+import { MathUtils } from 'three'
+import { Group, Vector2, Raycaster } from 'three'
+import BlueBee from '../entities/BlueBee'
+import DaisyGame from '../entities/DaisyGame'
+import Listener from '../utils/Listener'
 import WebGl from '../webglManager'
 
 export default class PollenGameScene extends Group {
@@ -10,6 +14,30 @@ export default class PollenGameScene extends Group {
     this.camera = this.webGl.camera
     this.loader = this.webGl.loader
 
+
+    this.positionDaisys = [
+      {
+        x: -1,
+        y: 0,
+        z: 0
+      },
+      {
+        x: 1,
+        y: 0,
+        z: 0
+      },
+      {
+        x: 0,
+        y: 0,
+        z: 1
+      },
+      {
+        x: 0,
+        y: 0,
+        z: -1
+      }
+    ]
+
     // Wait for resources
     this.resources.on(`sourcesReadypollenGame`, () => {
       this.setup()
@@ -17,12 +45,25 @@ export default class PollenGameScene extends Group {
   }
 
   setup() {
-    // Remove fog
-    this.scene.fog.density = 0
 
-    this.daisy = this.resources.items.daisyModel
+    // Add daisy to scene
+    this.daisy = new DaisyGame()
+    this.daisyToRecaster = []
 
-    console.log(this.daisy)
+    for (let i = 0; i < this.positionDaisys.length; i++) {
+      const thisDaisy = this.daisy.model.clone()
+      thisDaisy.position.set(this.positionDaisys[i].x, this.positionDaisys[i].y, this.positionDaisys[i].z)
+      this.daisyToRecaster.push(thisDaisy.children[1])
+      this.add(thisDaisy)
+    }
+
+    // Add bee
+    this.bee = new BlueBee()
+
+    // Raycaster
+    this.raycaster = new Raycaster()
+    this.pointer = new Vector2()
+    this.pointer.set(-1,-1)
 
 
     // Debug
@@ -32,19 +73,45 @@ export default class PollenGameScene extends Group {
       const viewGUI = this.debug.ui.addFolder('Pollen Game Property')
       const camGUI = viewGUI.addFolder('Camera position')
       // camera position
-      camGUI.add(this.camera.position, 'x', -10, 10).setValue(-3)
-      camGUI.add(this.camera.position, 'y', -10, 10).setValue(3)
-      camGUI.add(this.camera.position, 'z', -30, 10).setValue(-8)
+      camGUI.add(this.camera.position, 'x', -10, 10).setValue(-4.14)
+      camGUI.add(this.camera.position, 'y', 0, 50).setValue(6.8)
+      camGUI.add(this.camera.position, 'z', -30, 10).setValue(0.56)
     }
 
     this.init()
   }
 
   init() {
+    // Remove fog
+    this.scene.fog.density = 0
+    
     // Set Camera position
-    // this.webGl.camera.position.set(0, 2.62, -10)
+    this.camera.position.set(-4.14, 6.8, 0.56)
+    this.webGl.controls.target.set(0, 0, 0 )
+
+    // Set bee position
+    this.bee.model.position.set(0, 1, -3)
+    this.bee.model.scale.set(0.02, 0.02, 0.02)
+    this.beeTarget = {
+      x: 0,
+      y: 1,
+      z: -3,
+    }
+    this.add(this.bee.model)
 
     // Listener
+    this.listener = new Listener()
+    this.listener.on('mouseClick', ()=>{
+      this.pointer.x = this.listener.property.cursor.x
+      this.pointer.y = this.listener.property.cursor.y
+      this.raycaster.setFromCamera( this.pointer, this.camera )
+      const intersects = this.raycaster.intersectObjects( this.daisyToRecaster )
+      if (intersects.length) {
+        this.beeTarget.z = intersects[0].object.parent.position.z
+        this.beeTarget.x = intersects[0].object.parent.position.x
+        this.beeTarget.y = intersects[0].object.parent.position.y + 0.9
+      }
+    })
 
 
     // End Loader
@@ -55,6 +122,15 @@ export default class PollenGameScene extends Group {
   }
 
   update() {
+    if (this.bee) {
+      this.bee.update()
+      this.bee.model.position.z = MathUtils.damp(this.bee.model.position.z, this.beeTarget.z, 0.1, .3)
+      this.bee.model.position.x = MathUtils.damp(this.bee.model.position.x, this.beeTarget.x, 0.1, .3)
+      this.bee.model.position.y = MathUtils.damp(this.bee.model.position.y, this.beeTarget.y, 0.1, .3)
+      if (Math.round(this.bee.model.position.x * 10) / 10 === this.beeTarget.x) {
+        console.log('flower !!')
+      }
+    }
 
   }
 

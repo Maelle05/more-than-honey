@@ -75,7 +75,7 @@ export default class RaceGameScene extends Group {
     this.webGl.controls.enabled = false
 
     // Listener
-    this.listener.on(`mouse move`, () => {
+    this.listener.on(`mouseMove`, () => {
       this.property.cursor.target = -this.listener.property.cursor.x * this.property.bee.limitRightLeft
     })
 

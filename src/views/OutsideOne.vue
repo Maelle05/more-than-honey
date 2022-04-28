@@ -1,7 +1,7 @@
 <template>
   <div class="outsideOne">
     <TimelineComponent/>
-    <Button label="Suivant" to="/PollenGame"/>
+    <Button label="Suivant" to="/pollenGame"/>
   </div>
 </template>
 

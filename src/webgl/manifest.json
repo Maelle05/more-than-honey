@@ -14,7 +14,7 @@
   {
     "name": "beeBlueModel",
     "type": "gltfModel",
-    "actingScenes": "hiveScene raceGameScene outsideTwoScene outsideOneScene endingScene",
+    "actingScenes": "hiveScene raceGameScene outsideTwoScene outsideOneScene endingScene pollenGameScene",
     "path": "webgl/models/Bee/bee.glb"
   },
   {
@@ -68,7 +68,7 @@
   {
     "name": "daisyModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene pollenGame",
+    "actingScenes": "outsideOneScene pollenGameScene",
     "path": "webgl/models/Daisy/daisy-v3.glb"
   },
   {
