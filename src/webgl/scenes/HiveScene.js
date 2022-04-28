@@ -185,15 +185,16 @@ export default class HiveScene extends Group {
       // Add visible classe when intersect
       if (this.intersects.length) {
         this.currentIntersect = this.intersects[0]
+
         if (this.currentIntersect && this.points[this.currentIntersect.object.testId]) {
           this.points[this.currentIntersect.object.testId].element.classList.add('visible')
         }
       } else {
         if (!this.currentIntersect) {
+          const alreadyIntersected = []
           for (const point of this.points) {
             point.element.classList.remove('visible')
           }
-
         }
         this.currentIntersect = null
       }
