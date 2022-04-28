@@ -128,6 +128,9 @@ export default class OutsideOneScene extends Group
 
   init(){
 
+    // Add fog
+    this.scene.fog.density = 0.01
+
     // Add bee
     this.beeMove = 0
     this.beePoss = this.curve.getPointAt(this.beeMove)

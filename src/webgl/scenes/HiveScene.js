@@ -91,9 +91,6 @@ export default class HiveScene extends Group {
     this.raycaster = new Raycaster()
     this.hive = this.resources.items.hiveModel.scene
     this.mixers = []
-
-    // Remove fog
-    this.scene.fog.density = 0
     
     setTimeout(()=>{
       this.init()
@@ -104,6 +101,9 @@ export default class HiveScene extends Group {
     // Set parameters of the scene at init
     this.camera.position.set(3, -2, -35)
     this.webGl.controls.target = new Vector3(0, 0, 0)
+
+    // Remove fog
+    this.scene.fog.density = 0
 
     // Add hive
     this.add(this.hive)
