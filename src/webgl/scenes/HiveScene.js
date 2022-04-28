@@ -94,15 +94,13 @@ export default class HiveScene extends Group {
 
     // Remove fog
     this.scene.fog.density = 0
-
-    this.init()
+    
+    setTimeout(()=>{
+      this.init()
+    }, 1000)
   }
 
   init() {
-    setTimeout(() => {
-      this.loader.classList.add('loaded')
-    }, 500)
-
     // Set parameters of the scene at init
     this.camera.position.set(3, -2, -35)
     this.webGl.controls.target = new Vector3(0, 0, 0)
@@ -148,6 +146,12 @@ export default class HiveScene extends Group {
       }
     })
 
+
+    // Remove loader
+    setTimeout(() => {
+      this.loader.classList.add('loaded')
+    }, 500)
+
   }
 
   update() {
@@ -155,7 +159,7 @@ export default class HiveScene extends Group {
       for (const mixer of this.mixers) mixer.update(this.time.delta * 0.001)
     }
 
-    if (this.points && this.raycaster) {
+    if (this.points && this.raycaster && this.listener) {
       this.raycaster.setFromCamera(new Vector2(this.listener.property.cursor.x, this.listener.property.cursor.y), this.camera)
 
       // Objects to test with the raycaster
