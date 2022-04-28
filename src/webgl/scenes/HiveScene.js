@@ -111,12 +111,18 @@ export default class HiveScene extends Group {
     for (let i = 0; i < this.points.length; i++) {
       // Skeleton clone instead of usual clone because of rig in model
       const bee = skeletonClone(this.bee.model)
-      bee.scale.set(0.14, 0.14, 0.14)
+      // animation on bee
+      const mixer = new AnimationMixer(bee)
+      setTimeout(() => {
+        mixer.clipAction(this.bee.resource.animations[1]).play()
+      }, Math.random() * 10000)
+      bee.scale.set(0.15, 0.15, 0.15)
       bee.position.set(this.points[i].position.x, this.points[i].position.y, this.points[i].position.z)
       bee.rotation.set(this.points[i].rotation.x, this.points[i].rotation.y, this.points[i].rotation.z)
       bee.children[2].testId = this.points[i].id
 
       this.beesToPoint.push(bee)
+      this.mixers.push(mixer)
 
       this.add(bee)
     }
@@ -124,11 +130,13 @@ export default class HiveScene extends Group {
 
     // add other bee
     for (let i = 0; i < beePositions.length; i++) {
+      // Skeleton clone instead of usual clone because of rig in model
       const bee = skeletonClone(this.bee.model)
+      // animation on bee
       const mixer = new AnimationMixer(bee)
       mixer.clipAction(this.bee.resource.animations[0]).play()
 
-      // TODO change to begin more beautiful
+      bee.scale.set(0.10, 0.10, 0.10)
       bee.position.set(beePositions[i].px, beePositions[i].py, beePositions[i].pz)
       bee.rotation.y = Math.PI
       this.mixers.push(mixer)
