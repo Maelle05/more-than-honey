@@ -5,6 +5,7 @@
     <div ref="point0" class="hive__point">
       <div class="pointer"/>
       <div class="text">
+        <div class="close"/>
         <img src="@/assets/images/hive/ventileuse-role.svg" alt="">
         <h3 class="name">La ventileuse</h3>
         <p class="label">raffraîchit</p>
