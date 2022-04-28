@@ -99,6 +99,7 @@ export default class Resources extends EventEmitter {
     
     if(this.loaded === this.toLoad)
     {
+      console.log(`sourcesReady${this.activeSceneName}`)
       this.trigger(`sourcesReady${this.activeSceneName}`)
     }
   }
