@@ -4,6 +4,10 @@
     <TimelineComponent/>
     <div class="hive__point" v-for="(bee, i) in bees" :key="i" ref="points">
       <div class="pointer"/>
+      <div class="visitedPointer">
+        <img :src="bee.imgPath" class="icon" alt="">
+        {{bee.name}}
+      </div>
       <div class="text">
         <div class="close"/>
         <img :src="bee.imgPath" alt="">
@@ -63,9 +67,25 @@ export default {
       top: 20px;
       left: -60px;
       box-shadow: 0 0 23px 5px $white;
+      z-index: 0;
 
       transform: scale(1, 1);
       transition: transform 0.3s;
+    }
+
+    .visitedPointer {
+      background: $white;
+      color: $black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 13px;
+      border-radius: 16px;
+      display: none;
+
+      .icon {
+        padding-right: 16px;
+      }
     }
 
     .text {
@@ -81,7 +101,7 @@ export default {
       padding: 16px 16px 30px 16px;
       text-align: center;
       border-radius: 16px;
-      z-index: 4;
+      z-index: 15;
 
       transform: scale(0, 0);
       transition: transform 0.3s;
