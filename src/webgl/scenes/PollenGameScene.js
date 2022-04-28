@@ -2,6 +2,7 @@ import { MathUtils } from 'three'
 import { Group, Vector2, Raycaster } from 'three'
 import BlueBee from '../entities/BlueBee'
 import DaisyGame from '../entities/DaisyGame'
+import Grass from '../shaders/grassPollenGame'
 import Listener from '../utils/Listener'
 import WebGl from '../webglManager'
 
@@ -35,6 +36,21 @@ export default class PollenGameScene extends Group {
         x: 0,
         y: 0,
         z: -1
+      },
+      {
+        x: -1.5,
+        y: 0,
+        z: -1.5
+      },
+      {
+        x: -1.5,
+        y: 0,
+        z: 1.5
+      },
+      {
+        x: -1,
+        y: 0,
+        z: 2.5
       }
     ]
 
@@ -59,6 +75,9 @@ export default class PollenGameScene extends Group {
 
     // Add bee
     this.bee = new BlueBee()
+
+    // Add grass
+    this.grass = new Grass()
 
     // Raycaster
     this.raycaster = new Raycaster()
@@ -118,6 +137,11 @@ export default class PollenGameScene extends Group {
       foraged: []
     }
 
+    // Add grass
+    this.grass.position.set(0.4,-0.2,4)
+    this.add(this.grass)
+
+
 
     // End Loader
     setTimeout(()=>{
@@ -129,9 +153,10 @@ export default class PollenGameScene extends Group {
   update() {
     if (this.bee) {
       this.bee.update()
-      this.bee.model.position.z = MathUtils.damp(this.bee.model.position.z, this.beeTarget.z, 0.1, .3)
-      this.bee.model.position.x = MathUtils.damp(this.bee.model.position.x, this.beeTarget.x, 0.1, .3)
-      this.bee.model.position.y = MathUtils.damp(this.bee.model.position.y, this.beeTarget.y, 0.1, .3)
+      this.bee.model.position.z = MathUtils.damp(this.bee.model.position.z, this.beeTarget.z, 0.07, .3)
+      this.bee.model.position.x = MathUtils.damp(this.bee.model.position.x, this.beeTarget.x, 0.07, .3)
+      this.bee.model.position.y = MathUtils.damp(this.bee.model.position.y, this.beeTarget.y, 0.07, .3)
+      this.bee.model.lookAt(this.beeTarget.x, this.beeTarget.y, this.beeTarget.z )
       for (let i = 0; i < this.positionDaisys.length; i++) {
         if (
         Math.round(this.bee.model.position.x * 10) / 10 === this.positionDaisys[i].x 
@@ -143,6 +168,10 @@ export default class PollenGameScene extends Group {
         }
       }
       
+    }
+
+    if(this.grass) {
+      this.grass.update()
     }
 
   }
