@@ -108,7 +108,6 @@ export default {
 .hive {
   width: 100vw;
   height: 100vh;
-  pointer-events: none;
 
   &__point {
     position: absolute;
@@ -119,6 +118,7 @@ export default {
     text-align: center;
 
     .pointer {
+      cursor: pointer;
       height: 32px;
       width: 32px;
       background: $white;
@@ -133,6 +133,7 @@ export default {
     }
 
     .text {
+      pointer-events: none;
       position: absolute;
       top: 30px;
       left: -160px;
