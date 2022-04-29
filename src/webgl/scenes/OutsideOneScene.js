@@ -31,8 +31,6 @@ import Trunk from '@/webgl/entities/Trunk'
 import Mushroom from '@/webgl/entities/Mushroom'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 import Bridge from '@/webgl/entities/Bridge'
-import {clone as skeletonClone} from 'three/examples/jsm/utils/SkeletonUtils'
-import Tree from '@/webgl/entities/Tree'
 
 export default class OutsideOneScene extends Group
 {
