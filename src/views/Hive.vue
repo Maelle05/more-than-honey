@@ -64,8 +64,6 @@ export default {
       background: $white;
       border-radius: 50%;
       position: absolute;
-      //top: 20px;
-      //left: -60px;
       box-shadow: 0 0 23px 5px $white;
       z-index: 0;
       display: none;
