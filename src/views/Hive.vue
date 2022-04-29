@@ -5,7 +5,7 @@
     <div class="hive__point" v-for="(bee, i) in bees" :key="i" ref="points">
       <div class="pointer"/>
       <div class="visitedPointer">
-        <img :src="bee.imgPath" class="icon" alt="">
+        <img :src="bee.imgPath" class="icon" alt="icon of the bee depend on his task">
         {{bee.name}}
       </div>
       <div class="text" :class="bee.style">
