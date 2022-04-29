@@ -20,7 +20,7 @@ export default class BlueBee
     this.model = this.resource.scene
     // For raycaster
     const dummyMesh = new Mesh(
-      new SphereGeometry(12, 16, 16),
+      new SphereGeometry(8, 16, 16),
       new MeshBasicMaterial({color: 0xffaa22})
     )
     dummyMesh.visible = false

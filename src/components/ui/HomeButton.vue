@@ -8,10 +8,7 @@
 
 <script lang="js">
 export default {
-  name: 'HomeButton',
-  mounted() {
-    console.log(this.$route, 'route')
-  }
+  name: 'HomeButton'
 }
 </script>
 

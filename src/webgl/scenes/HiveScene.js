@@ -38,6 +38,10 @@ export default class HiveScene extends Group {
     })
   }
 
+  setUpCursor(cursor) {
+    this.cursor = cursor
+  }
+
   setUpPointsFromDOM(points) {
     this.points = [
       {
@@ -182,18 +186,19 @@ export default class HiveScene extends Group {
         point.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`
       }
 
-      // Add visible classe when intersect
+      // Add visible classe and change cursor when intersect
       if (this.intersects.length) {
         this.currentIntersect = this.intersects[0]
 
         if (this.currentIntersect && this.points[this.currentIntersect.object.testId]) {
           this.points[this.currentIntersect.object.testId].element.classList.add('visible')
+          this.cursor.classList.add('customCursorHover')
         }
       } else {
         if (!this.currentIntersect) {
-          const alreadyIntersected = []
           for (const point of this.points) {
             point.element.classList.remove('visible')
+            this.cursor.classList.remove('customCursorHover')
           }
         }
         this.currentIntersect = null
