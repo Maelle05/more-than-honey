@@ -3,6 +3,7 @@
     <canvas class="webgl"/>
     <div class="ui">
       <Loading />
+      <HomeButton/>
       <transition name="fade" mode="out-in">
         <router-view/>
       </transition>
@@ -13,10 +14,12 @@
 <script lang="js">
 import * as main from './main'
 import Loading from '@/components/ui/Loading'
+import HomeButton from '@/components/ui/HomeButton'
 
 export default {
   components: {
-    Loading
+    Loading,
+    HomeButton
   },
   watch: {
     $route(to) {

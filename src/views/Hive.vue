@@ -1,11 +1,13 @@
 <template>
   <div class="hive">
     <Button label="Suivant" to="/outsideOne"/>
+    <div class="customCursor" ref="cursor"/>
+    <div class="customCursorBorder" ref="cursorBorder"/>
     <TimelineComponent/>
     <div class="hive__point" v-for="(bee, i) in bees" :key="i" ref="points">
       <div class="pointer"/>
       <div class="visitedPointer">
-        <img :src="bee.imgPath" class="icon" alt="">
+        <img :src="bee.imgPath" class="icon" alt="icon of the bee depend on his task">
         {{bee.name}}
       </div>
       <div class="text" :class="bee.style">
@@ -37,17 +39,58 @@ export default {
     }
   },
   mounted() {
+    const cursor = this.$refs.cursor
+    const cursorBorder = this.$refs.cursorBorder
+
+    // send to webgl
     const scene = new HiveScene()
     scene.setUpPointsFromDOM(this.$refs.points)
+    scene.setUpCursor(cursorBorder)
+
+    document.addEventListener('mousemove', function(e){
+      let mouseX = e.clientX
+      let mouseY = e.clientY
+      cursor.style.transform = `translate3d(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%), 0)`
+      cursorBorder.style.transform = `translate3d(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%), 0)`
+    })
   }
 }
 
 </script>
 
 <style lang="scss">
+.customCursor {
+  height: 20px;
+  width: 20px;
+  background: white;
+  border-radius: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: width .3s, height .3s, opacity .3s;
+
+  &Border {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    border: 2px solid transparent;
+    transition: all 200ms ease-out;
+    position: fixed;
+    pointer-events: none;
+    left: 0;
+    top: 0;
+    transform: translate(calc(-50% + 15px), -50%);
+  }
+
+  &Hover {
+    border: 2px solid white !important;
+  }
+}
+
 .hive {
   width: 100vw;
   height: 100vh;
+  cursor: none; // custom cursor
 
   &__point {
     position: absolute;
