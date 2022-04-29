@@ -9,7 +9,7 @@ import {
   Line,
   BufferGeometry,
   LineBasicMaterial,
-  FogExp2
+  FogExp2, AnimationMixer
 } from 'three'
 import Particules from '../shaders/fireflies'
 import Stone from '../entities/Stone'
@@ -31,6 +31,8 @@ import Trunk from '@/webgl/entities/Trunk'
 import Mushroom from '@/webgl/entities/Mushroom'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 import Bridge from '@/webgl/entities/Bridge'
+import {clone as skeletonClone} from 'three/examples/jsm/utils/SkeletonUtils'
+import Tree from '@/webgl/entities/Tree'
 
 export default class OutsideOneScene extends Group
 {
@@ -43,6 +45,8 @@ export default class OutsideOneScene extends Group
     this.resources = this.webGl.resources
     this.time = this.webGl.time
     this.loader = this.webGl.loader
+
+    this.mixer = []
 
     if(mapSetting[0].left != 0 || mapSetting[0].top != 0){
       alert('La map n\'a pas les bonnes coordonnées')
@@ -159,17 +163,25 @@ export default class OutsideOneScene extends Group
     }
 
     // Add trees
-    this.tree.children[0].scale.set(0.08, 0.08, 0.08)
     for (let i = 0; i < treeLocation.length; i++) {
+      // TODO add animation for tree
+      // const thisTree = skeletonClone(this.tree)
+      // console.log(this.tree)
+      // animation
+      // const mixer = new AnimationMixer(thisTree)
+      // mixer.clipAction(this.tree.resource.animations[0]).play()
+
       const thisTree = this.tree.clone()
       const convertPos = {
         z: treeLocation[i].centerY / this.property.map.ratio,
         x: (treeLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      thisTree.position.set(convertPos.x, 16, convertPos.z)
+      const treeSize = randomIntFromInterval(6.5,9.5, 0.01)
+      thisTree.scale.set(treeSize, treeSize, treeSize)
+      thisTree.position.set(convertPos.x, -1.3, convertPos.z)
       thisTree.rotation.set(0, Math.random() * 25, Math.random() / 10)
+      // this.mixers.push(mixer)
       this.add(thisTree)
-
     }
 
     // Add stones
@@ -211,7 +223,7 @@ export default class OutsideOneScene extends Group
       thisTrunk.scale.set(trunkSize, trunkSize, trunkSize)
       thisTrunk.position.set(convertPos.x, -2.8, convertPos.z)
       thisTrunk.rotation.set(0, Math.random() * 25, 0)
-      this.add(thisTrunk)
+      // this.add(thisTrunk)
     }
 
     // Add bridge

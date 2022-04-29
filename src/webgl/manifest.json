@@ -51,7 +51,7 @@
     "name": "treeModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene",
-    "path": "webgl/models/Tree/tree.gltf"
+    "path": "webgl/models/Tree/sakura.glb"
   },
   {
     "name": "stoneModel",
@@ -74,7 +74,7 @@
   {
     "name": "trunkModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene",
+    "actingScenes": "outsideOneSceneNot",
     "path": "webgl/models/Trunk/tronc.glb"
   },
   {
