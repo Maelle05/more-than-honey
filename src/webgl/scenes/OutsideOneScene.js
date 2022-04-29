@@ -62,7 +62,7 @@ export default class OutsideOneScene extends Group
         mouseY: null
       },
       moveBee: {
-        deltaLookAt: 0.02,
+        deltaLookAt: 0.03,
         speed: 0.001,
         target: new Vector3(),
         curveCurrent: 0.05,
@@ -262,7 +262,7 @@ export default class OutsideOneScene extends Group
     // Listener
     this.listener.on('scroll', ()=>{ 
       const result = this.property.moveBee.curveTarget + this.listener.property.virtualScroll.delta / 50000
-      if (result > 0.05 && result < 0.98) {
+      if (result > 0.05 && result < 0.97) {
         this.property.moveBee.curveTarget += this.listener.property.virtualScroll.delta / 50000
       }
     })
@@ -284,7 +284,7 @@ export default class OutsideOneScene extends Group
 
       const possCam = this.curve.getPointAt(this.property.moveBee.curveCurrent - 0.05)
       this.webGl.camera.position.set(possCam.x, possCam.y + 2, possCam.z)
-      this.webGl.controls.target.set(this.property.camera.target.x, this.property.camera.target.y + 1, this.property.camera.target.z )
+      this.webGl.controls.target.set(this.property.camera.target.x, this.property.camera.target.y + 1.5, this.property.camera.target.z )
     }
 
     if(this.bee){

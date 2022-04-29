@@ -2,13 +2,20 @@ import { MathUtils } from 'three'
 import { Group, Vector2, Raycaster } from 'three'
 import BlueBee from '../entities/BlueBee'
 import DaisyGame from '../entities/DaisyGame'
-import Grass from '../shaders/grassPollenGame'
 import Listener from '../utils/Listener'
 import WebGl from '../webglManager'
 
+let gameInstance = null
+
 export default class PollenGameScene extends Group {
   constructor() {
+    if(gameInstance){
+      return gameInstance
+    }
+
     super()
+    gameInstance = this
+
     this.webGl = new WebGl()
     this.scene = this.webGl.scene
     this.resources = this.webGl.resources
@@ -54,10 +61,21 @@ export default class PollenGameScene extends Group {
       }
     ]
 
+    this.gaugeBar
+
     // Wait for resources
     this.resources.on(`sourcesReadypollenGame`, () => {
       this.setup()
     })
+  }
+
+  setDOM(dom){
+    this.gaugeBar = {
+      init: dom,
+      label: dom.getElementsByClassName('label')[0],
+      bar: dom.getElementsByClassName('gauge')[0],
+    }
+
   }
 
   setup() {
@@ -75,9 +93,6 @@ export default class PollenGameScene extends Group {
 
     // Add bee
     this.bee = new BlueBee()
-
-    // Add grass
-    this.grass = new Grass()
 
     // Raycaster
     this.raycaster = new Raycaster()
@@ -137,11 +152,6 @@ export default class PollenGameScene extends Group {
       foraged: []
     }
 
-    // Add grass
-    this.grass.position.set(0.4,-0.2,4)
-    this.add(this.grass)
-
-
 
     // End Loader
     setTimeout(()=>{
@@ -164,16 +174,33 @@ export default class PollenGameScene extends Group {
         && !this.gameProperty.foraged.includes(i)
         ) {
           this.gameProperty.foraged.push(i)
-          console.log('flower ' + i )
+          
+          if (this.gameProperty.foraged.length/this.positionDaisys.length === 1) {
+            this.gaugeBar.bar.style.height = (this.gameProperty.foraged.length/this.positionDaisys.length) * 100 + '%'
+            this.gaugeBar.bar.style.borderRadius = '10px'
+            this.incNbrRec(parseInt(this.gaugeBar.label.innerHTML, 10), Math.round((this.gameProperty.foraged.length/this.positionDaisys.length) * 100))
+            this.gaugeBar.label.style.color = 'white'
+          }else{
+            const result = (this.gameProperty.foraged.length/this.positionDaisys.length) * 100
+            this.gaugeBar.bar.style.height = result + '%'
+            this.gaugeBar.label.style.bottom = (result + 2) + '%'
+            this.incNbrRec(parseInt(this.gaugeBar.label.innerHTML, 10), Math.round(result))
+          }
+          
         }
       }
       
     }
 
-    if(this.grass) {
-      this.grass.update()
-    }
+  }
 
+  incNbrRec(i, endNbr) {
+    if (i <= endNbr) {
+      this.gaugeBar.label.innerHTML = i
+      setTimeout(() => {
+        this.incNbrRec(i + 1, endNbr)
+      }, 100)
+    }
   }
 
   delete() {
