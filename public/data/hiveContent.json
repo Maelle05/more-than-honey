@@ -3,42 +3,49 @@
     "name": "La ventileuse",
     "label": "raffraîchit",
     "content": "Maintient la ruche à 35°C maximum. Régule la température, contrôle le taux d’humidité et aére la ruche.",
-    "imgPath": "/images/hive/ventileuse-role.svg"
+    "imgPath": "/images/hive/ventileuse-role.svg",
+    "style":  "point0"
   },
   {
     "name": "La nettoyeuse",
     "label": "nettoie",
     "content": "Entretient les rayons de la ruche et nettoie les cellules. Elle doit aussi réparer ce qui doit l'être.",
-    "imgPath": "/images/hive/nettoyeuse-role.svg"
+    "imgPath": "/images/hive/nettoyeuse-role.svg",
+    "style": "point1"
   },
   {
     "name": "La butineuse",
     "label": "récolte",
     "content": "Butiner est une sorte de prime d'ancienneté qui intervient au 21e/35 jours de vie. Ce sont les butineuses qui rapportent le nectar à la ruche.",
-    "imgPath": "/images/hive/butineuse-role.svg"
+    "imgPath": "/images/hive/butineuse-role.svg",
+    "style": "point2"
   },
   {
     "name": "La gardienne",
     "label": "défend",
     "content": "Garde la ruche et empêche les rôdeurs et autres pillards attirés par le miel d'y venir.",
-    "imgPath": "/images/hive/gardienne-role.svg"
+    "imgPath": "/images/hive/gardienne-role.svg",
+    "style": "point3"
   },
   {
     "name": "L'architecte",
     "label": "construit",
     "content": "Lorsqu’elle cesse de produire de la gelée royale, elle commence à sculpter les rayons de la ruche. On les appelle aussi les abeilles cirières.",
-    "imgPath": "/images/hive/architecte-role.svg"
+    "imgPath": "/images/hive/architecte-role.svg",
+    "style": "point4"
   },
   {
     "name": "La manutentionnaire",
     "label": "récupère le nectar",
     "content": "Faiseuse de miel. Avale le nectar et le fait transiter plusieurs fois entre leur trompe et leur jabot. Elle le transmet à une autre équipe, et ainsi de suite.",
-    "imgPath": "/images/hive/manutentionnaire-role.svg"
+    "imgPath": "/images/hive/manutentionnaire-role.svg",
+    "style": "point5"
   },
   {
     "name": "La nourricière",
     "label": "s'occupe du couvain",
     "content": "Nourrissent les jeunes larves et les larves royales. Lors d’une nouvelle volée d'abeilles, celles qui ont alors 6 jours prennent le relais.",
-    "imgPath": "/images/hive/nourriciere-role.svg"
+    "imgPath": "/images/hive/nourriciere-role.svg",
+    "style": "point6"
   }
 ]

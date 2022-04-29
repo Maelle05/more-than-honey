@@ -8,7 +8,7 @@
         <img :src="bee.imgPath" class="icon" alt="">
         {{bee.name}}
       </div>
-      <div class="text">
+      <div class="text" :class="bee.style">
         <div class="close"/>
         <img :src="bee.imgPath" alt="">
         <h3 class="name">{{bee.name}}</h3>
@@ -64,10 +64,11 @@ export default {
       background: $white;
       border-radius: 50%;
       position: absolute;
-      top: 20px;
-      left: -60px;
+      //top: 20px;
+      //left: -60px;
       box-shadow: 0 0 23px 5px $white;
       z-index: 0;
+      display: none;
 
       transform: scale(1, 1);
       transition: transform 0.3s;
@@ -88,11 +89,44 @@ export default {
       }
     }
 
+    .point0 {
+      bottom: 60px;
+      right: -160px;
+    }
+
+    .point1 {
+      bottom: 60px;
+      right: -160px;
+    }
+
+    .point2 {
+      top: 60px;
+      right: -160px;
+    }
+
+    .point3 {
+      top: 60px;
+      right: -160px;
+    }
+
+    .point4 {
+      top: 60px;
+      right: -160px;
+    }
+
+    .point5 {
+      top: 60px;
+      right: -160px;
+    }
+
+    .point6 {
+      bottom: 60px;
+      right: -160px;
+    }
+
     .text {
       pointer-events: none;
       position: absolute;
-      top: 30px;
-      left: -160px;
       width: 300px;
       color: $black;
       background-color: $white;

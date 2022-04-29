@@ -141,7 +141,7 @@ export default class HiveScene extends Group {
       bee.rotation.y = Math.PI
       this.mixers.push(mixer)
 
-      this.add(bee)
+      // this.add(bee)
     }
 
     // Listener
