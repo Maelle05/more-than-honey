@@ -221,7 +221,7 @@ export default class OutsideOneScene extends Group
       thisTrunk.scale.set(trunkSize, trunkSize, trunkSize)
       thisTrunk.position.set(convertPos.x, -2.8, convertPos.z)
       thisTrunk.rotation.set(0, Math.random() * 25, 0)
-      this.add(thisTrunk)
+      // this.add(thisTrunk)
     }
 
     // Add bridge
