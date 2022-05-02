@@ -5,20 +5,20 @@ import Home from '../views/Home.vue'
 Vue.use(VueRouter)
 
 export const routes = [
-  {
-    path: '/fox',
-    name: 'fox',
-    component: function () {
-      return import('../views/Fox.vue')
-    }
-  },
-  {
-    path: '/bee',
-    name: 'bee',
-    component: function () {
-      return import('../views/Bee.vue')
-    }
-  },
+  // {
+  //   path: '/fox',
+  //   name: 'fox',
+  //   component: function () {
+  //     return import('../views/Fox.vue')
+  //   }
+  // },
+  // {
+  //   path: '/bee',
+  //   name: 'bee',
+  //   component: function () {
+  //     return import('../views/Bee.vue')
+  //   }
+  // },
   {
     path: '/',
     name: 'home',

@@ -1,0 +1,32 @@
+[
+  {
+    "path": "/hive",
+    "label": "Hive",
+    "iconPath": ""
+  },
+  {
+    "path": "/outsideOne",
+    "label": "Outside one",
+    "iconPath": "/images/timeline/queen.svg"
+  },
+  {
+    "path": "/pollenGame",
+    "label": "Pollen game",
+    "iconPath": "/images/timeline/queen.svg"
+  },
+  {
+    "path": "/outsideTwo",
+    "label": "Outside two",
+    "iconPath": "/images/timeline/queen.svg"
+  },
+  {
+    "path": "/raceGame",
+    "label": "Race game",
+    "iconPath": "/images/timeline/queen.svg"
+  },
+  {
+    "path": "/ending",
+    "label": "Hive ending",
+    "iconPath": ""
+  }
+]
