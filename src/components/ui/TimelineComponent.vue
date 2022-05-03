@@ -6,6 +6,9 @@
     <ul class="timeline__wrapper">
       <router-link class="timeline__item" v-for="path in paths" :key="path.label" :to="path.path">
 <!--        {{route.label}}-->
+        <div class="cursor">
+          <div class="cursor__ball"/>
+        </div>
         <img class="iconImg" :src="path.iconPath" alt="icon of the timeline">
         <div class="line"/>
       </router-link>
@@ -31,10 +34,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.active {
+  .cursor {
+    display: block !important;
+  }
+}
+
 .timeline {
   width: 64px;
   height: 100vh;
-  background: #00000090;
+  background: #00000080;
+  box-shadow: -10px 0px 15px 0px rgba(0,0,0,0.59);
   position: fixed;
   right: 0;
   top: 0;
@@ -44,7 +54,7 @@ export default {
   justify-content: end;
 
   &__wrapper {
-    margin-bottom: 64px;
+    margin-bottom: 50px;
   }
 
   &__item {
@@ -52,6 +62,7 @@ export default {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    position: relative;
 
     &:last-child {
       .line {
@@ -64,6 +75,28 @@ export default {
       background: $white;
       height: calc(60vh / 6);
       margin: 10px 0;
+    }
+
+    .cursor {
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      border: 2px solid $white;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-15%);
+      display: none;
+
+      &__ball {
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        background: $white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
     }
   }
 }

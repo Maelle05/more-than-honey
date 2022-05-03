@@ -117,7 +117,8 @@ export const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  linkExactActiveClass: "active" // active class for *exact* links.
 })
 
 router.beforeEach((to, from, next) => {
