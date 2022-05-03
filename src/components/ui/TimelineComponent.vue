@@ -43,7 +43,7 @@ export default {
 .timeline {
   width: 64px;
   height: 100vh;
-  background: #00000080;
+  background: #00000085;
   box-shadow: -10px 0px 15px 0px rgba(0,0,0,0.59);
   position: fixed;
   right: 0;
