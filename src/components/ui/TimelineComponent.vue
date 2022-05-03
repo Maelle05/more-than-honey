@@ -6,8 +6,7 @@
     <ul class="timeline__wrapper">
       <router-link class="timeline__item" v-for="path in paths" :key="path.label" :to="path.path">
 <!--        {{route.label}}-->
-        <img class="iconImg" v-if="path.iconPath !== ''" :src="path.iconPath" alt="icon of the timeline">
-        <div v-if="path.iconPath === ''"  class="icon"/>
+        <img class="iconImg" :src="path.iconPath" alt="icon of the timeline">
         <div class="line"/>
       </router-link>
     </ul>
@@ -58,14 +57,6 @@ export default {
       .line {
         height: 0;
       }
-    }
-
-    .icon {
-      background: white;
-      height: 8px;
-      width: 8px;
-      border-radius: 50%;
-      box-shadow: 0 0 23px 3px $white;
     }
 
     .line {
