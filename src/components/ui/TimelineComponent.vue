@@ -1,11 +1,13 @@
 <template>
   <div class="timeline">
-    <ul class="timelinee">
-      <router-link class="timelinee__item" v-for="route in routes" :key="route.label" :to="route.path">{{route.label}}</router-link>
-    </ul>
+    <div class="timeline__sound">
+      <img src="/images/timeline/sound.svg" alt="icon to cut or add sound to the experience">
+    </div>
+    <div class="timeline__subtitle">
+      <img src="/images/timeline/subtitles.svg" alt="icon to remove or add subtitle to the experience">
+    </div>
     <ul class="timeline__wrapper">
       <router-link class="timeline__item" v-for="path in paths" :key="path.label" :to="path.path">
-<!--        {{route.label}}-->
         <div class="cursor">
           <div class="cursor__ball"/>
         </div>
@@ -18,14 +20,12 @@
 </template>
 
 <script lang="js">
-import {routes} from '@/router'
 import TimelineContent from '../../../public/data/timelineContent.json'
 
 export default {
   name: 'TimelineComponent',
   data() {
     return {
-      routes: routes,
       paths: TimelineContent
     }
   }
@@ -52,6 +52,13 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: end;
+
+  &__sound, &__subtitle {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5vh;
+    cursor: pointer;
+  }
 
   &__wrapper {
     margin-bottom: 50px;
@@ -98,20 +105,6 @@ export default {
         transform: translate(-50%, -50%);
       }
     }
-  }
-}
-
-.timelinee {
-  margin: 20px auto;
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  top: 10px;
-  right: 100px;
-  &__item {
-    color: powderblue;
-    margin-right: 10px;
-    font-size: 20px;
   }
 }
 </style>
