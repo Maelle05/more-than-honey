@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <canvas class="webgl"/>
-    <div class="ui">
-      <Loading />
+    <MobileVersion class="mobile" v-if="viewportW < 850"/>
+    <div class="ui" v-if="viewportW > 851">
+      <Loading/>
       <HomeButton/>
       <transition name="fade" mode="out-in">
         <router-view/>
@@ -15,11 +16,19 @@
 import * as main from './main'
 import Loading from '@/components/ui/Loading'
 import HomeButton from '@/components/ui/HomeButton'
+import MobileVersion from '@/components/MobileVersion'
 
 export default {
   components: {
+    MobileVersion,
     Loading,
     HomeButton
+  },
+  data() {
+    return {
+      viewportW: window.innerWidth,
+      viewportH: window.innerHeight
+    }
   },
   watch: {
     $route(to) {
@@ -46,6 +55,13 @@ export default {
     z-index: 8;
     height: 100vh;
     width: 100vw;
+  }
+
+  .mobile {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 8;
   }
 
   .fade-enter-active,
