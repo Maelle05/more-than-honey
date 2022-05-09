@@ -1,6 +1,5 @@
 <template>
   <div class="ending">
-    <h1>Ending</h1>
     <Button label="Recommencer" to="/"/>
     <TimelineComponent/>
   </div>
