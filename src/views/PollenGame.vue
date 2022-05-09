@@ -2,8 +2,8 @@
   <div class="pollenGame">
     <TimelineComponent/>
     <Button label="Suivant" to="/outsideTwo"/>
-    <div class="gaugeBar" ref="gaugeBar">
-      <div class="gauge"></div>
+    <div class="jaugeBar" ref="jaugeBar">
+      <div class="jauge"></div>
       <span class="label">0</span>
     </div>
   </div>
@@ -24,7 +24,7 @@ export default {
   mounted() {
     const manager =  new WebGl()
     const webglInstance = new PollenGame()
-    webglInstance.setDOM(this.$refs.gaugeBar)
+    webglInstance.setDOM(this.$refs.jaugeBar)
 
     setTimeout(() => {
       manager.loader.classList.add('loaded')
@@ -36,12 +36,12 @@ export default {
 <style scoped lang="scss">
 .pollenGame{
   position: absolute;
-  .gaugeBar {
+  .jaugeBar {
     background-color: white;
     width: 50px;
     height: 30vh;
     position: absolute;
-    top: 10vh;
+    top: 20vh;
     left: 30px;
     border-radius: 10px;
 
@@ -56,7 +56,7 @@ export default {
       transition-duration: 2s;
     }
 
-    .gauge{
+    .jauge{
       position: absolute;
       border-radius: 0 0 10px 10px;
       background-color: goldenrod;

@@ -61,7 +61,7 @@ export default class PollenGameScene extends Group {
       }
     ]
 
-    this.gaugeBar
+    this.jaugeBar
 
     // Wait for resources
     this.resources.on(`sourcesReadypollenGame`, () => {
@@ -70,10 +70,10 @@ export default class PollenGameScene extends Group {
   }
 
   setDOM(dom){
-    this.gaugeBar = {
+    this.jaugeBar = {
       init: dom,
       label: dom.getElementsByClassName('label')[0],
-      bar: dom.getElementsByClassName('gauge')[0],
+      bar: dom.getElementsByClassName('jauge')[0],
     }
 
   }
@@ -176,15 +176,15 @@ export default class PollenGameScene extends Group {
           this.gameProperty.foraged.push(i)
           
           if (this.gameProperty.foraged.length/this.positionDaisys.length === 1) {
-            this.gaugeBar.bar.style.height = (this.gameProperty.foraged.length/this.positionDaisys.length) * 100 + '%'
-            this.gaugeBar.bar.style.borderRadius = '10px'
-            this.incNbrRec(parseInt(this.gaugeBar.label.innerHTML, 10), Math.round((this.gameProperty.foraged.length/this.positionDaisys.length) * 100))
-            this.gaugeBar.label.style.color = 'white'
+            this.jaugeBar.bar.style.height = (this.gameProperty.foraged.length/this.positionDaisys.length) * 100 + '%'
+            this.jaugeBar.bar.style.borderRadius = '10px'
+            this.incNbrRec(parseInt(this.jaugeBar.label.innerHTML, 10), Math.round((this.gameProperty.foraged.length/this.positionDaisys.length) * 100))
+            this.jaugeBar.label.style.color = 'white'
           }else{
             const result = (this.gameProperty.foraged.length/this.positionDaisys.length) * 100
-            this.gaugeBar.bar.style.height = result + '%'
-            this.gaugeBar.label.style.bottom = (result + 2) + '%'
-            this.incNbrRec(parseInt(this.gaugeBar.label.innerHTML, 10), Math.round(result))
+            this.jaugeBar.bar.style.height = result + '%'
+            this.jaugeBar.label.style.bottom = (result + 2) + '%'
+            this.incNbrRec(parseInt(this.jaugeBar.label.innerHTML, 10), Math.round(result))
           }
           
         }
@@ -196,7 +196,7 @@ export default class PollenGameScene extends Group {
 
   incNbrRec(i, endNbr) {
     if (i <= endNbr) {
-      this.gaugeBar.label.innerHTML = i
+      this.jaugeBar.label.innerHTML = i
       setTimeout(() => {
         this.incNbrRec(i + 1, endNbr)
       }, 100)
