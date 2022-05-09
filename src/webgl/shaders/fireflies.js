@@ -26,13 +26,13 @@ export default class Particules extends THREE.Group {
 
     // Geometry
     this.firefliesGeometry = new THREE.BufferGeometry()
-    this.count = 500
+    this.count = 550
     this.positionArray = new Float32Array(this.count * 3)
     this.scaleArray = new Float32Array(this.count)
 
     for (let i = 0; i < this.count; i++) {
       this.positionArray[i * 3 + 0] = Math.random() * mapSetting[0].right / this.property.map.ratio - (mapSetting[0].right / 2) / this.property.map.ratio
-      this.positionArray[i * 3 + 1] = Math.random() * 1.5 - 0.5
+      this.positionArray[i * 3 + 1] = Math.random() * 11 - 0.5
       this.positionArray[i * 3 + 2] = Math.random() * mapSetting[0].bottom / this.property.map.ratio
       this.scaleArray[i] = Math.random()
     }
@@ -60,9 +60,7 @@ export default class Particules extends THREE.Group {
     // Debug
     if (this.debug.active) {
       const viewGUI = this.debug.ui.addFolder('Fireflies Proprety')
-
       viewGUI.add(this.firefliesMaterial.uniforms.uSize, 'value').min(0).max(1000).step(10).name('firefliesSize')
-
     }
     
 
@@ -73,6 +71,6 @@ export default class Particules extends THREE.Group {
   }
 
   update() {
-    this.firefliesMaterial.uniforms.uTime.value = this.time.elapsed / 500
+    this.firefliesMaterial.uniforms.uTime.value = this.time.elapsed / 400
   }
 }
