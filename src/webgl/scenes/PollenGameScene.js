@@ -60,9 +60,8 @@ export default class PollenGameScene extends Group {
       this.positionDaisys.push({
         x: this.positionDaisys[i].x + randomIntFromInterval(0.6, 2, 0.04),
         y: 0,
-        z: this.positionDaisys[i].z + randomIntFromInterval(-1, 1, 0.04)
+        z: randomIntFromInterval(-2, 2, 0.04)
       })
-      
     }
 
     // Add dasy
@@ -155,9 +154,9 @@ export default class PollenGameScene extends Group {
   update() {
     if (this.bee) {
       this.bee.update()
-      this.bee.model.position.z = MathUtils.damp(this.bee.model.position.z, this.beeTarget.z, 0.07, .6)
-      this.bee.model.position.x = MathUtils.damp(this.bee.model.position.x, this.beeTarget.x, 0.07, .6)
-      this.bee.model.position.y = MathUtils.damp(this.bee.model.position.y, this.beeTarget.y, 0.07, .6)
+      this.bee.model.position.z = MathUtils.damp(this.bee.model.position.z, this.beeTarget.z, 0.07, .8)
+      this.bee.model.position.x = MathUtils.damp(this.bee.model.position.x, this.beeTarget.x, 0.07, .8)
+      this.bee.model.position.y = MathUtils.damp(this.bee.model.position.y, this.beeTarget.y, 0.07, .8)
       this.bee.model.lookAt(this.beeTarget.x, this.beeTarget.y, this.beeTarget.z )
 
       this.camera.position.x = MathUtils.damp(this.camera.position.x, this.gameProperty.camTarget.x, 0.07, .3)
@@ -165,8 +164,8 @@ export default class PollenGameScene extends Group {
 
       for (let i = 0; i < this.positionDaisys.length; i++) {
         if (
-        Math.round(this.bee.model.position.x * 10) / 10 === this.positionDaisys[i].x 
-        && Math.round(this.bee.model.position.z * 10) / 10 === this.positionDaisys[i].z
+        Math.round(this.bee.model.position.x * 10) / 10 === Math.round(this.positionDaisys[i].x * 10) / 10
+        && Math.round(this.bee.model.position.z * 10) / 10 === Math.round(this.positionDaisys[i].z * 10) / 10
         && !this.gameProperty.foraged.includes(i)
         ) {
           this.gameProperty.foraged.push(i)
@@ -183,8 +182,8 @@ export default class PollenGameScene extends Group {
             this.incNbrRec(parseInt(this.jaugeBar.label.innerHTML, 10), Math.round(result))
           }
 
-          this.gameProperty.camTarget.x += 0.7
-          this.gameProperty.controlsTarget.x += 0.7
+          this.gameProperty.camTarget.x += 1.2
+          this.gameProperty.controlsTarget.x += 1.2
           
         }
       }
