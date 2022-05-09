@@ -9,7 +9,6 @@
     </div>
     <ul class="timeline__wrapper">
       <router-link class="timeline__item" v-for="path in paths" :key="path.label" :to="path.path">
-        <p class="label" :class="{label__longue: path.label === 'Pollenisation'}">{{path.label}}</p>
         <div class="cursor">
           <div class="cursor__ball"/>
         </div>
@@ -37,7 +36,7 @@ export default {
 
 <style scoped lang="scss">
 .active {
-  .cursor, .label {
+  .cursor {
     display: block !important;
   }
 }
@@ -92,18 +91,6 @@ export default {
       background: $white;
       height: calc(60vh / 6);
       margin: 10px 0;
-    }
-
-    .label {
-      display: none;
-      position: absolute;
-      color: white;
-      margin-right: 150px;
-      top: -4px;
-
-      &__longue {
-        margin-right: 200px;
-      }
     }
 
     .cursor {
