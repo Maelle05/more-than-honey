@@ -1,5 +1,6 @@
 <template>
   <div class="timeline">
+    <div class="timeline__bg"></div>
     <div class="timeline__sound">
       <img src="/images/timeline/sound.svg" alt="icon to cut or add sound to the experience">
     </div>
@@ -44,8 +45,6 @@ export default {
 .timeline {
   width: 64px;
   height: 100vh;
-  background: #00000085;
-  box-shadow: -10px 0px 15px 0px rgba(0,0,0,0.59);
   position: fixed;
   right: 0;
   top: 0;
@@ -53,6 +52,16 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: end;
+
+  &__bg {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 64px;
+    height: 100vh;
+    background: rgba(26, 26, 26, 0.5);
+    filter: blur(16px);
+  }
 
   &__sound, &__subtitle {
     display: flex;
