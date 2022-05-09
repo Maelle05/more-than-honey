@@ -4,6 +4,7 @@ import BlueBee from '../entities/BlueBee'
 import DaisyGame from '../entities/DaisyGame'
 import Listener from '../utils/Listener'
 import WebGl from '../webglManager'
+import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 
 let gameInstance = null
 
@@ -22,42 +23,12 @@ export default class PollenGameScene extends Group {
     this.camera = this.webGl.camera
     this.loader = this.webGl.loader
 
-
+    this.nbDaisys = 20
     this.positionDaisys = [
       {
-        x: -1,
+        x: -2.5,
         y: 0,
-        z: 0
-      },
-      {
-        x: 1,
-        y: 0,
-        z: 0
-      },
-      {
-        x: 0,
-        y: 0,
-        z: 1
-      },
-      {
-        x: 0,
-        y: 0,
-        z: -1
-      },
-      {
-        x: -1.5,
-        y: 0,
-        z: -1.5
-      },
-      {
-        x: -1.5,
-        y: 0,
-        z: 1.5
-      },
-      {
-        x: -1,
-        y: 0,
-        z: 2.5
+        z: 0.7,
       }
     ]
 
@@ -84,6 +55,17 @@ export default class PollenGameScene extends Group {
     this.daisy = new DaisyGame()
     this.daisyToRecaster = []
 
+    // Random dasy set
+    for (let i = 0; i < this.nbDaisys; i++) {
+      this.positionDaisys.push({
+        x: this.positionDaisys[i].x + randomIntFromInterval(0.6, 2, 0.04),
+        y: 0,
+        z: this.positionDaisys[i].z + randomIntFromInterval(-1, 1, 0.04)
+      })
+      
+    }
+
+    // Add dasy
     for (let i = 0; i < this.positionDaisys.length; i++) {
       const thisDaisy = this.daisy.model.clone()
       thisDaisy.position.set(this.positionDaisys[i].x, this.positionDaisys[i].y, this.positionDaisys[i].z)
@@ -107,9 +89,9 @@ export default class PollenGameScene extends Group {
       const viewGUI = this.debug.ui.addFolder('Pollen Game Property')
       const camGUI = viewGUI.addFolder('Camera position')
       // camera position
-      camGUI.add(this.camera.position, 'x', -10, 10).setValue(-4.14)
-      camGUI.add(this.camera.position, 'y', 0, 50).setValue(6.8)
-      camGUI.add(this.camera.position, 'z', -30, 10).setValue(0.56)
+      camGUI.add(this.camera.position, 'x', -10, 10).setValue(0)
+      camGUI.add(this.camera.position, 'y', 0, 50).setValue(10)
+      camGUI.add(this.camera.position, 'z', -30, 10).setValue(5)
     }
 
     this.init()
@@ -120,16 +102,16 @@ export default class PollenGameScene extends Group {
     this.scene.fog.density = 0
     
     // Set Camera position
-    this.camera.position.set(-4.14, 6.8, 0.56)
+    this.camera.position.set(0, 10, 5)
     this.webGl.controls.target.set(0, 0, 0 )
 
     // Set bee position
-    this.bee.model.position.set(0, 1, -3)
+    this.bee.model.position.set(-4, 1, 0.5)
     this.bee.model.scale.set(0.02, 0.02, 0.02)
     this.beeTarget = {
-      x: 0,
+      x: -3.99,
       y: 1,
-      z: -3,
+      z: 0.5,
     }
     this.add(this.bee.model)
 
@@ -149,7 +131,17 @@ export default class PollenGameScene extends Group {
 
     // Game property
     this.gameProperty = {
-      foraged: []
+      foraged: [],
+      camTarget: {
+        x: 0,
+        y: 10,
+        z: 5
+      },
+      controlsTarget: {
+        x: 0,
+        y: 0,
+        z: 0
+      }
     }
 
 
@@ -163,10 +155,14 @@ export default class PollenGameScene extends Group {
   update() {
     if (this.bee) {
       this.bee.update()
-      this.bee.model.position.z = MathUtils.damp(this.bee.model.position.z, this.beeTarget.z, 0.07, .3)
-      this.bee.model.position.x = MathUtils.damp(this.bee.model.position.x, this.beeTarget.x, 0.07, .3)
-      this.bee.model.position.y = MathUtils.damp(this.bee.model.position.y, this.beeTarget.y, 0.07, .3)
+      this.bee.model.position.z = MathUtils.damp(this.bee.model.position.z, this.beeTarget.z, 0.07, .6)
+      this.bee.model.position.x = MathUtils.damp(this.bee.model.position.x, this.beeTarget.x, 0.07, .6)
+      this.bee.model.position.y = MathUtils.damp(this.bee.model.position.y, this.beeTarget.y, 0.07, .6)
       this.bee.model.lookAt(this.beeTarget.x, this.beeTarget.y, this.beeTarget.z )
+
+      this.camera.position.x = MathUtils.damp(this.camera.position.x, this.gameProperty.camTarget.x, 0.07, .3)
+      this.webGl.controls.target.x = MathUtils.damp(this.webGl.controls.target.x, this.gameProperty.controlsTarget.x, 0.07, .3)
+
       for (let i = 0; i < this.positionDaisys.length; i++) {
         if (
         Math.round(this.bee.model.position.x * 10) / 10 === this.positionDaisys[i].x 
@@ -186,6 +182,9 @@ export default class PollenGameScene extends Group {
             this.jaugeBar.label.style.bottom = (result + 2) + '%'
             this.incNbrRec(parseInt(this.jaugeBar.label.innerHTML, 10), Math.round(result))
           }
+
+          this.gameProperty.camTarget.x += 0.7
+          this.gameProperty.controlsTarget.x += 0.7
           
         }
       }
