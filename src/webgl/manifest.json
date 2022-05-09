@@ -54,6 +54,12 @@
     "path": "webgl/models/Tree/sakura.glb"
   },
   {
+    "name": "nenupharModel",
+    "type": "gltfModel",
+    "actingScenes": "outsideOneScene",
+    "path": "webgl/models/Nenuphar/nenuphar.glb"
+  },
+  {
     "name": "stoneModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene",
@@ -63,7 +69,7 @@
     "name": "bridgeModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene",
-    "path": "webgl/models/Bridge/bridge.glb"
+    "path": "webgl/models/Bridge/bridge-2.glb"
   },
   {
     "name": "daisyModel",

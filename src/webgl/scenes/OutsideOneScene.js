@@ -8,9 +8,7 @@ import {
   CatmullRomCurve3,
   Line,
   BufferGeometry,
-  LineBasicMaterial,
-  FogExp2, AnimationMixer
-} from 'three'
+  LineBasicMaterial} from 'three'
 import Particules from '../shaders/fireflies'
 import Stone from '../entities/Stone'
 import Bee from '../entities/BlueBee'
@@ -20,6 +18,7 @@ import daisyLocation from '../elementsLocations/outsideOne/daisy.json'
 import lysLocation from '../elementsLocations/outsideOne/lys.json'
 import trunkLocation from '../elementsLocations/outsideOne/trunk.json'
 import treeLocation from '../elementsLocations/outsideOne/tree.json'
+import nenupharLocation from '../elementsLocations/outsideOne/nenuphar.json'
 import mushroomLocation from '../elementsLocations/outsideOne/mushrooms.json'
 import bridgeLocation from '../elementsLocations/outsideOne/bridge.json'
 import beePath from '../elementsLocations/outsideOne/beePath.json'
@@ -31,6 +30,7 @@ import Trunk from '@/webgl/entities/Trunk'
 import Mushroom from '@/webgl/entities/Mushroom'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 import Bridge from '@/webgl/entities/Bridge'
+import Nenuphar from '@/webgl/entities/Nenuphar'
 
 export default class OutsideOneScene extends Group
 {
@@ -93,6 +93,7 @@ export default class OutsideOneScene extends Group
     this.trunk = new Trunk()
     this.mushroom = new Mushroom()
     this.bridge = new Bridge()
+    this.nenuphar = new Nenuphar()
 
     this.listener = new Listener()
 
@@ -196,6 +197,20 @@ export default class OutsideOneScene extends Group
       this.add(thisStone)
     }
 
+    // Add nenuphar
+    for (let i = 0; i < nenupharLocation.length; i++) {
+      const thisNenuphar = this.nenuphar.model.clone()
+      const convertPos = {
+        z: nenupharLocation[i].centerY / this.property.map.ratio,
+        x: (nenupharLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
+      }
+      const stoneSize = randomIntFromInterval(0.3,0.5, 0.01)
+      thisNenuphar.scale.set(stoneSize, stoneSize, stoneSize)
+      thisNenuphar.position.set(convertPos.x, -2, convertPos .z)
+      thisNenuphar.rotation.set(0, Math.random() * 50, Math.random() / 10)
+      this.add(thisNenuphar)
+    }
+
     // Add daisys
     this.daisy.model.scale.set(0.7, 0.7, 0.7)
     for (let i = 0; i < daisyLocation.length; i++) {
@@ -225,14 +240,14 @@ export default class OutsideOneScene extends Group
     }
 
     // Add bridge
-    this.bridge.model.scale.set(7, 7, 7)
+    this.bridge.model.scale.set(2.5, 2.5, 2.5)
     for (let i = 0; i < bridgeLocation.length; i++) {
       const thisBridge = this.bridge.model.clone()
       const convertPos = {
         z: bridgeLocation[i].centerY / this.property.map.ratio,
         x: (bridgeLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      thisBridge.position.set(convertPos.x, -13, convertPos.z)
+      thisBridge.position.set(convertPos.x, -3, convertPos.z)
       thisBridge.rotation.set(0, Math.PI / 2, 0)
       this.add(thisBridge)
     }
