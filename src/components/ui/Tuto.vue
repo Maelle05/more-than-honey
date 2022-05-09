@@ -5,7 +5,7 @@
         background="transparent"
         loop
         mode="normal"
-        src="/lottie/scroll.json"
+        :src="path"
         style="width: 320px">
     </lottie-player>
   </div>
@@ -17,21 +17,30 @@ import Listener from '@/webgl/utils/Listener'
 
 export default {
   name: 'Tuto',
+  props: {
+    path: {
+      required: true,
+      default: '/'
+    },
+    listener: {
+      required: true,
+      default: 'mouseClick'
+    }
+  },
   mounted() {
     const listener = new Listener()
-    listener.on('scroll', () => {
-      if(this.$refs.tuto) {
-        this.$refs.tuto.classList.add('hidden')
-      }
-    })
+      listener.on(this.listener, () => {
+        if(this.$refs.tuto) {
+          this.$refs.tuto.classList.add('hidden')
+        }
+      })
   }
-
 }
 </script>
 
 <style scoped lang="scss">
 .tutoScreen {
-  background: #00000090;
+  background: #000000;
   height: 100vh;
   width: 100vw;
   z-index: 5;
@@ -40,11 +49,11 @@ export default {
   justify-content: center;
   position: fixed;
   visibility: visible;
+  opacity: 0.80;
   transition: 1s;
 }
 
 .hidden {
   visibility: hidden;
-  display: none;
 }
 </style>

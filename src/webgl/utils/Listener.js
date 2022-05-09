@@ -56,6 +56,4 @@ export default class Listener extends EventEmitter {
     this.property.virtualScroll.delta = event.deltaY
     this.trigger(`scroll`)
   }
-
-
 }

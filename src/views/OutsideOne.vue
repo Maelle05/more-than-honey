@@ -1,7 +1,7 @@
 <template>
   <div class="outsideOne">
     <TimelineComponent/>
-    <Tuto/>
+    <Tuto path="/lottie/scroll.json" listener="scroll"/>
     <Button label="Suivant" to="/pollenGame"/>
   </div>
 </template>
