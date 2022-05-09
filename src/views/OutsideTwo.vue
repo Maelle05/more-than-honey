@@ -1,6 +1,5 @@
 <template>
   <div class="outsideTwo">
-    <h1>Outside Two</h1>
     <TimelineComponent/>
     <Button label="Suivant" to="/raceGame"/>
   </div>
