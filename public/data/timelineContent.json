@@ -1,32 +1,32 @@
 [
   {
     "path": "/hive",
-    "label": "Hive",
+    "label": "Ruche",
     "iconPath": "/images/timeline/start.svg"
   },
   {
     "path": "/outsideOne",
-    "label": "Outside one",
+    "label": "Reine",
     "iconPath": "/images/timeline/queen.svg"
   },
   {
     "path": "/pollenGame",
-    "label": "Pollen game",
+    "label": "Pollenisation",
     "iconPath": "/images/timeline/flower.svg"
   },
   {
     "path": "/outsideTwo",
-    "label": "Outside two",
+    "label": "Fleurs",
     "iconPath": "/images/timeline/leaf.svg"
   },
   {
     "path": "/raceGame",
-    "label": "Race game",
+    "label": "Course",
     "iconPath": "/images/timeline/hornet.svg"
   },
   {
     "path": "/ending",
-    "label": "Hive ending",
+    "label": "Ruche",
     "iconPath": "/images/timeline/end.svg"
   }
 ]
