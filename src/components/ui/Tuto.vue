@@ -31,6 +31,9 @@ export default {
     const listener = new Listener()
       listener.on(this.listener, () => {
         if(this.$refs.tuto) {
+          if (this.listener === 'mouseClick') {
+            this.$refs.tuto.classList.add('click')
+          }
           this.$refs.tuto.classList.add('hidden')
         }
       })
@@ -50,7 +53,11 @@ export default {
   position: fixed;
   visibility: visible;
   opacity: 0.80;
-  transition: 1s;
+  transition: 0.8s;
+}
+
+.click {
+  transition: 0s !important;
 }
 
 .hidden {
