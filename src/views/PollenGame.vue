@@ -6,7 +6,7 @@
     <div class="chrono">
       <p>00</p>
     </div>
-    <div class="loaderPollen">
+    <div class="loaderPollen hidden">
       <p>00</p>
     </div>
   </div>
@@ -40,6 +40,10 @@ export default {
 
 <style scoped lang="scss">
 .pollenGame{
+  width: 100%;
+  height: 100%;
+  cursor: none;
+  
   .chrono {
     position: absolute;
     right: 110px;
@@ -51,11 +55,11 @@ export default {
     position: absolute;
     background-color: red;
     opacity: 1;
-    // transition: opacity .3s;
+    transition: opacity .3s;
 
-    // &&__hidden{
-    //   opacity: 0;
-    // }
+    &.hidden{
+      opacity: 0;
+    }
   }
 }
 

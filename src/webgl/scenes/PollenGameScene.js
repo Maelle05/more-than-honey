@@ -66,7 +66,7 @@ export default class PollenGameScene extends Group {
     for (let i = 0; i < this.nbDaisys; i++) {
       this.positionDaisys.push({
         // x: randomIntFromInterval(-2, 30, 0.5),
-        x: this.positionDaisys[i].x + randomIntFromInterval(0.2, 1.6, 0.04),
+        x: this.positionDaisys[i].x + randomIntFromInterval(0.4, 1.6, 0.04),
         y: 0,
         z: randomIntFromInterval(-2.5, 2.5, 0.04)
       })
@@ -138,6 +138,8 @@ export default class PollenGameScene extends Group {
       if (event.code === 'Space') {
         this.gameProperty.spaceIsPress = false
         this.gameProperty.beeCanMouve = true
+
+        this.loaderPollen.div.classList.add('hidden')
       }
     }, false)
 
@@ -149,6 +151,7 @@ export default class PollenGameScene extends Group {
       beeCanMouve: true,
       spaceIsPress: false,
       durationGame: 130,
+      currentLoadPollen: new Array(this.nbDaisys + 1),
     }
 
 
@@ -189,16 +192,35 @@ export default class PollenGameScene extends Group {
         && this.bee.model.position.x < (Math.round(this.positionDaisys[i].x * 10) / 10) + 0.2
         && this.bee.model.position.z > (Math.round(this.positionDaisys[i].z * 10) / 10) - 0
         && this.bee.model.position.z < (Math.round(this.positionDaisys[i].z * 10) / 10) + 0.4
+        && this.gameProperty.spaceIsPress
         ) {
+          this.gameProperty.beeCanMouve = false
+          this.loaderPollen.div.classList.remove('hidden')
           this.loaderPollen.div.style.left = this.listener.property.cursorOnWind.x + 'px'
           this.loaderPollen.div.style.top = this.listener.property.cursorOnWind.y + 'px'
-          
-          if (!this.gameProperty.foraged.includes(i) && this.gameProperty.spaceIsPress) {
-            this.gameProperty.beeCanMouve = false
-            console.log(i)
+
+          if (this.gameProperty.currentLoadPollen[i]) {
+            if (this.gameProperty.currentLoadPollen[i] === 150 ) {
+              if (this.gameProperty.foraged.includes(i)) {
+                this.loaderPollen.label.innerHTML = 'Pollenisé !'
+              } else {
+                this.gameProperty.foraged.push(i)
+              }
+            } else {
+              this.gameProperty.currentLoadPollen[i]++
+            }
+            
+          } else {
+            this.gameProperty.currentLoadPollen[i] = 1
           }
+
+          !this.gameProperty.foraged.includes(i) ? this.loaderPollen.label.innerHTML = this.gameProperty.currentLoadPollen[i] : ''
+
+          
+          
         }
       }
+
     }
   }
 
