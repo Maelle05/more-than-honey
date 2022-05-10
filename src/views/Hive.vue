@@ -40,12 +40,12 @@ export default {
     const cursor = this.$refs.cursor
     const cursorBorder = this.$refs.cursorBorder
 
-    // send to webgl
+    // Send to webgl
     const scene = new HiveScene()
     scene.setUpPointsFromDOM(this.$refs.points)
     scene.setUpCursor(cursorBorder)
 
-    document.addEventListener('mousemove', function(e){
+    document.addEventListener('mousemove', (e) => {
       let mouseX = e.clientX
       let mouseY = e.clientY
       cursor.style.transform = `translate3d(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%), 0)`

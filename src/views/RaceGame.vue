@@ -2,7 +2,6 @@
   <div class="raceGame">
     <TimelineComponent/>
     <Button label="Suivant" to="/ending"/>
-
   </div>
 </template>
 
@@ -20,5 +19,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.raceGame {
+  cursor: none;
+  height: 100vh;
+  width: 100vw;
+}
 </style>
