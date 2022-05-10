@@ -1,7 +1,7 @@
 <template>
   <div class="pollenGame">
     <TimelineComponent/>
-    <Tuto path="/lottie/clic.json" listener="mouseClick"/>
+    <!-- <Tuto path="/lottie/clic.json" listener="mouseClick"/> -->
     <Button label="Suivant" to="/outsideTwo"/>
     <div class="jaugeBar" ref="jaugeBar">
       <div class="jauge"></div>
@@ -15,14 +15,14 @@ import PollenGame from '@/webgl/scenes/PollenGameScene'
 import Button from '@/components/ui/PrimaryButton'
 import TimelineComponent from '@/components/ui/TimelineComponent'
 import WebGl from '@/webgl/webglManager'
-import Tuto from '@/components/ui/Tuto'
+// import Tuto from '@/components/ui/Tuto'
 
 export default {
   name: 'PollenGame',
   components: {
     TimelineComponent,
     Button,
-    Tuto
+    // Tuto
   },
   mounted() {
     const manager =  new WebGl()
