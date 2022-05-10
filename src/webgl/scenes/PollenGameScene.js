@@ -35,7 +35,7 @@ export default class PollenGameScene extends Group {
     ]
     this.cursor = new Vector2()
 
-    this.jaugeBar
+    this.chrono
 
     // Wait for resources
     this.resources.on(`sourcesReadypollenGame`, () => {
@@ -44,10 +44,9 @@ export default class PollenGameScene extends Group {
   }
 
   setDOM(dom){
-    this.jaugeBar = {
-      init: dom,
-      label: dom.getElementsByClassName('label')[0],
-      bar: dom.getElementsByClassName('jauge')[0],
+    this.chrono = {
+      div: dom.getElementsByClassName('chrono')[0],
+      label: dom.querySelector('.chrono p')
     }
   }
 
@@ -124,12 +123,9 @@ export default class PollenGameScene extends Group {
     // Game property
     this.gameProperty = {
       foraged: [],
-      camTarget: new Vector3(20, 10, 5),
-      controlsTarget: {
-        x: 20,
-        y: 0,
-        z: 0
-      }
+      camTarget: new Vector3(this.positionDaisys[this.positionDaisys.length-1].x, 10, 5),
+      controlsTarget: new Vector3(this.positionDaisys[this.positionDaisys.length-1].x, 0, 0),
+      durationGame: 60,
     }
 
 
@@ -137,18 +133,22 @@ export default class PollenGameScene extends Group {
     setTimeout(()=>{
       this.loader.classList.add('loaded')
     }, 500)
+
     
     // Mouve Camera
     gsap.to(this.camera.position, {
-      duration: 40, 
+      duration: this.gameProperty.durationGame, 
       x: this.gameProperty.camTarget.x, 
       ease: "power1.in", 
     })
     gsap.to(this.webGl.controls.target, {
-      duration: 40, 
+      duration: this.gameProperty.durationGame, 
       x: this.gameProperty.controlsTarget.x, 
       ease: "power1.in", 
     })
+
+    // Start chrono
+    this.setChrono(this.gameProperty.durationGame, 0)
   }
 
   update() {
@@ -179,12 +179,12 @@ export default class PollenGameScene extends Group {
 
   }
 
-  incNbrRec(i, endNbr) {
-    if (i <= endNbr) {
-      this.jaugeBar.label.innerHTML = i
+  setChrono(i, endNbr) {
+    if (i >= endNbr) {
+      this.chrono.label.innerHTML = i
       setTimeout(() => {
-        this.incNbrRec(i + 1, endNbr)
-      }, 100)
+        this.setChrono(i - 1, endNbr)
+      }, 1000)
     }
   }
 
