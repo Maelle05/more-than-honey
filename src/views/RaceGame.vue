@@ -19,5 +19,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.raceGame {
+  cursor: none;
+  height: 100vh;
+  width: 100vw;
+}
 </style>
