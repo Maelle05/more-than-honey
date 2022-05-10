@@ -7,12 +7,7 @@
     <Tuto path="/lottie/hover.json" listener="mouseMove"/>
     <div class="hive__point" v-for="(bee, i) in bees" :key="i" ref="points">
       <div class="pointer"/>
-      <div class="visitedPointer">
-        <img :src="bee.imgPath" class="icon" alt="icon of the bee depend on his task">
-        {{bee.name}}
-      </div>
       <div class="text" :class="bee.style">
-        <div class="close"/>
         <img :src="bee.imgPath" alt="">
         <h3 class="name">{{bee.name}}</h3>
         <p class="label">{{bee.label}}</p>
@@ -118,21 +113,6 @@ export default {
       transition: transform 0.3s;
     }
 
-    .visitedPointer {
-      background: $white;
-      color: $black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 3px 13px;
-      border-radius: 16px;
-      display: none;
-
-      .icon {
-        padding-right: 16px;
-      }
-    }
-
     .point0 {
       bottom: 60px;
       right: -160px;
@@ -183,16 +163,6 @@ export default {
 
       transform: scale(0, 0);
       transition: transform 0.3s;
-
-      .close {
-        position: absolute;
-        right: 24px;
-        top: 24px;
-        width: 16px;
-        height: 3px;
-        border-radius: 2px;
-        background: $blueGreen;
-      }
 
       .name {
         font-size: 16px;
