@@ -6,6 +6,9 @@
     <div class="chrono">
       <p>00</p>
     </div>
+    <div class="loaderPollen">
+      <p>00</p>
+    </div>
   </div>
 </template>
 
@@ -42,6 +45,17 @@ export default {
     right: 110px;
     top: 64px;
     background-color: red;
+  }
+
+  .loaderPollen {
+    position: absolute;
+    background-color: red;
+    opacity: 1;
+    // transition: opacity .3s;
+
+    // &&__hidden{
+    //   opacity: 0;
+    // }
   }
 }
 

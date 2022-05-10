@@ -17,6 +17,10 @@ export default class Listener extends EventEmitter {
     this.sizes = this.webgl.sizes
 
     this.property = {
+      cursorOnWind: {
+        x: null,
+        y: null,
+      },
       cursor: {
         x: null,
         y: null,
@@ -40,6 +44,8 @@ export default class Listener extends EventEmitter {
   }
 
   mouseMovehandle(e) {
+    this.property.cursorOnWind.x = e.clientX
+    this.property.cursorOnWind.y = e.clientY
     this.property.cursor.x = (e.clientX / this.sizes.width) * 2 - 1
     this.property.cursor.y = -(e.clientY / this.sizes.height) * 2 + 1
     this.trigger(`mouseMove`)

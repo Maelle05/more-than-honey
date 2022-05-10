@@ -35,7 +35,9 @@ export default class PollenGameScene extends Group {
     ]
     this.cursor = new Vector2()
 
+    // UI
     this.chrono
+    this.loaderPollen
 
     // Wait for resources
     this.resources.on(`sourcesReadypollenGame`, () => {
@@ -47,6 +49,11 @@ export default class PollenGameScene extends Group {
     this.chrono = {
       div: dom.getElementsByClassName('chrono')[0],
       label: dom.querySelector('.chrono p')
+    }
+
+    this.loaderPollen = {
+      div: dom.getElementsByClassName('loaderPollen')[0],
+      label: dom.querySelector('.loaderPollen p')
     }
   }
 
@@ -112,20 +119,36 @@ export default class PollenGameScene extends Group {
     // Listener
     this.listener = new Listener()
     this.listener.on('mouseMove', ()=>{
-      this.cursor.x = this.listener.property.cursor.x
-      this.cursor.y = this.listener.property.cursor.y
+      if (this.gameProperty.beeCanMouve) {
+        this.cursor.x = this.listener.property.cursor.x
+        this.cursor.y = this.listener.property.cursor.y
 
-      this.beeTarget.x = this.cursor.x * 3 + this.camera.position.x
-      this.beeTarget.z = - this.cursor.y * 3
-      this.beeTarget.y = 1
+        this.beeTarget.x = this.cursor.x * 3 + this.camera.position.x
+        this.beeTarget.z = - this.cursor.y * 3
+        this.beeTarget.y = 1
+      }
     })
+
+    document.addEventListener('keydown', (event) => {
+      if (event.code === 'Space') {
+        this.gameProperty.spaceIsPress = true
+      }
+    }, false)
+    document.addEventListener('keyup', (event) => {
+      if (event.code === 'Space') {
+        this.gameProperty.spaceIsPress = false
+        this.gameProperty.beeCanMouve = true
+      }
+    }, false)
 
     // Game property
     this.gameProperty = {
       foraged: [],
       camTarget: new Vector3(this.positionDaisys[this.positionDaisys.length-1].x, 10, 5),
       controlsTarget: new Vector3(this.positionDaisys[this.positionDaisys.length-1].x, 0, 0),
-      durationGame: 60,
+      beeCanMouve: true,
+      spaceIsPress: false,
+      durationGame: 130,
     }
 
 
@@ -167,16 +190,16 @@ export default class PollenGameScene extends Group {
         && this.bee.model.position.z > (Math.round(this.positionDaisys[i].z * 10) / 10) - 0
         && this.bee.model.position.z < (Math.round(this.positionDaisys[i].z * 10) / 10) + 0.4
         ) {
-
-          if (!this.gameProperty.foraged.includes(i)) {
-            this.gameProperty.foraged.push(i)
-            console.log(this.gameProperty.foraged)
+          this.loaderPollen.div.style.left = this.listener.property.cursorOnWind.x + 'px'
+          this.loaderPollen.div.style.top = this.listener.property.cursorOnWind.y + 'px'
+          
+          if (!this.gameProperty.foraged.includes(i) && this.gameProperty.spaceIsPress) {
+            this.gameProperty.beeCanMouve = false
+            console.log(i)
           }
         }
       }
-      
     }
-
   }
 
   setChrono(i, endNbr) {
