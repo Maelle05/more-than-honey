@@ -16,7 +16,7 @@ export default class RaceGameScene extends Group {
     this.property = {
       bee: {
         placingHeight: 1.5,
-        limitRightLeft: 8
+        limitRightLeft: 5
       },
       cursor: {
         currentX: 0,
