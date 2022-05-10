@@ -63,7 +63,6 @@ export default class PollenGameScene extends Group {
   }
 
   setup() {
-
     // Add daisy to scene
     this.daisy = new DaisyGame()
 
@@ -87,6 +86,13 @@ export default class PollenGameScene extends Group {
     // Add bee
     this.bee = new BlueBee()
 
+
+    // Add butterflies BOT
+    const nbBot = 1
+    this.butterflies = []
+    for (let i = 0; i < nbBot; i++) {
+      this.butterflies.push(new Butterflie())
+    }
 
     // Debug
     this.debug = this.webGl.debug
@@ -242,5 +248,12 @@ export default class PollenGameScene extends Group {
 
   delete() {
 
+  }
+}
+
+
+class Butterflie {
+  constructor(){
+    console.log('Butterflie')
   }
 }
