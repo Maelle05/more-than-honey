@@ -1,11 +1,10 @@
 <template>
-  <div class="pollenGame">
+  <div class="pollenGame" ref="pollenGameUI" >
     <TimelineComponent/>
-    <Tuto path="/lottie/clic.json" listener="mouseClick"/>
+    <!-- <Tuto path="/lottie/clic.json" listener="mouseClick"/> -->
     <Button label="Suivant" to="/outsideTwo"/>
-    <div class="jaugeBar" ref="jaugeBar">
-      <div class="jauge"></div>
-      <span class="label">0</span>
+    <div class="chrono">
+      <p>00</p>
     </div>
   </div>
 </template>
@@ -15,19 +14,19 @@ import PollenGame from '@/webgl/scenes/PollenGameScene'
 import Button from '@/components/ui/PrimaryButton'
 import TimelineComponent from '@/components/ui/TimelineComponent'
 import WebGl from '@/webgl/webglManager'
-import Tuto from '@/components/ui/Tuto'
+// import Tuto from '@/components/ui/Tuto'
 
 export default {
   name: 'PollenGame',
   components: {
     TimelineComponent,
     Button,
-    Tuto
+    // Tuto
   },
   mounted() {
     const manager =  new WebGl()
     const webglInstance = new PollenGame()
-    webglInstance.setDOM(this.$refs.jaugeBar)
+    webglInstance.setDOM(this.$refs.pollenGameUI)
 
     setTimeout(() => {
       manager.loader.classList.add('loaded')
@@ -38,37 +37,11 @@ export default {
 
 <style scoped lang="scss">
 .pollenGame{
-  position: absolute;
-  .jaugeBar {
-    background-color: white;
-    width: 50px;
-    height: 30vh;
+  .chrono {
     position: absolute;
-    top: 20vh;
-    left: 30px;
-    border-radius: 10px;
-
-    .label{
-      position: absolute;
-      bottom: 2%;
-      color: black;
-      display: block;
-      width: 100%;
-      text-align: center;
-      transition-property: bottom color;
-      transition-duration: 2s;
-    }
-
-    .jauge{
-      position: absolute;
-      border-radius: 0 0 10px 10px;
-      background-color: goldenrod;
-      width: 100%;
-      height: 0%;
-      bottom: 0;
-      transition-property: height border-radius;
-      transition-duration: 2s;
-    }
+    right: 110px;
+    top: 64px;
+    background-color: red;
   }
 }
 

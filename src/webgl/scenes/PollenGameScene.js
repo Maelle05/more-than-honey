@@ -5,6 +5,8 @@ import DaisyGame from '../entities/DaisyGame'
 import Listener from '../utils/Listener'
 import WebGl from '../webglManager'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
+import { Vector3 } from 'three'
+import gsap from 'gsap'
 
 let gameInstance = null
 
@@ -23,16 +25,17 @@ export default class PollenGameScene extends Group {
     this.camera = this.webGl.camera
     this.loader = this.webGl.loader
 
-    this.nbDaisys = 20
+    this.nbDaisys = 50
     this.positionDaisys = [
       {
-        x: -2.5,
+        x: -3.5,
         y: 0,
         z: 0.7,
       }
     ]
+    this.cursor = new Vector2()
 
-    this.jaugeBar
+    this.chrono
 
     // Wait for resources
     this.resources.on(`sourcesReadypollenGame`, () => {
@@ -41,26 +44,24 @@ export default class PollenGameScene extends Group {
   }
 
   setDOM(dom){
-    this.jaugeBar = {
-      init: dom,
-      label: dom.getElementsByClassName('label')[0],
-      bar: dom.getElementsByClassName('jauge')[0],
+    this.chrono = {
+      div: dom.getElementsByClassName('chrono')[0],
+      label: dom.querySelector('.chrono p')
     }
-
   }
 
   setup() {
 
     // Add daisy to scene
     this.daisy = new DaisyGame()
-    this.daisyToRecaster = []
 
     // Random dasy set
     for (let i = 0; i < this.nbDaisys; i++) {
       this.positionDaisys.push({
-        x: this.positionDaisys[i].x + randomIntFromInterval(0.6, 2, 0.04),
+        // x: randomIntFromInterval(-2, 30, 0.5),
+        x: this.positionDaisys[i].x + randomIntFromInterval(0.2, 1.6, 0.04),
         y: 0,
-        z: randomIntFromInterval(-2, 2, 0.04)
+        z: randomIntFromInterval(-2.5, 2.5, 0.04)
       })
     }
 
@@ -68,17 +69,11 @@ export default class PollenGameScene extends Group {
     for (let i = 0; i < this.positionDaisys.length; i++) {
       const thisDaisy = this.daisy.model.clone()
       thisDaisy.position.set(this.positionDaisys[i].x, this.positionDaisys[i].y, this.positionDaisys[i].z)
-      this.daisyToRecaster.push(thisDaisy.children[1])
       this.add(thisDaisy)
     }
 
     // Add bee
     this.bee = new BlueBee()
-
-    // Raycaster
-    this.raycaster = new Raycaster()
-    this.pointer = new Vector2()
-    this.pointer.set(-1,-1)
 
 
     // Debug
@@ -116,31 +111,21 @@ export default class PollenGameScene extends Group {
 
     // Listener
     this.listener = new Listener()
-    this.listener.on('mouseClick', ()=>{
-      this.pointer.x = this.listener.property.cursor.x
-      this.pointer.y = this.listener.property.cursor.y
-      this.raycaster.setFromCamera( this.pointer, this.camera )
-      const intersects = this.raycaster.intersectObjects( this.daisyToRecaster )
-      if (intersects.length) {
-        this.beeTarget.z = intersects[0].object.parent.position.z
-        this.beeTarget.x = intersects[0].object.parent.position.x
-        this.beeTarget.y = intersects[0].object.parent.position.y + 0.9
-      }
+    this.listener.on('mouseMove', ()=>{
+      this.cursor.x = this.listener.property.cursor.x
+      this.cursor.y = this.listener.property.cursor.y
+
+      this.beeTarget.x = this.cursor.x * 3 + this.camera.position.x
+      this.beeTarget.z = - this.cursor.y * 3
+      this.beeTarget.y = 1
     })
 
     // Game property
     this.gameProperty = {
       foraged: [],
-      camTarget: {
-        x: 0,
-        y: 10,
-        z: 5
-      },
-      controlsTarget: {
-        x: 0,
-        y: 0,
-        z: 0
-      }
+      camTarget: new Vector3(this.positionDaisys[this.positionDaisys.length-1].x, 10, 5),
+      controlsTarget: new Vector3(this.positionDaisys[this.positionDaisys.length-1].x, 0, 0),
+      durationGame: 60,
     }
 
 
@@ -148,43 +133,45 @@ export default class PollenGameScene extends Group {
     setTimeout(()=>{
       this.loader.classList.add('loaded')
     }, 500)
+
     
+    // Mouve Camera
+    gsap.to(this.camera.position, {
+      duration: this.gameProperty.durationGame, 
+      x: this.gameProperty.camTarget.x, 
+      ease: "power1.in", 
+    })
+    gsap.to(this.webGl.controls.target, {
+      duration: this.gameProperty.durationGame, 
+      x: this.gameProperty.controlsTarget.x, 
+      ease: "power1.in", 
+    })
+
+    // Start chrono
+    this.setChrono(this.gameProperty.durationGame, 0)
   }
 
   update() {
     if (this.bee) {
+
+      // Mouve Bee
       this.bee.update()
       this.bee.model.position.z = MathUtils.damp(this.bee.model.position.z, this.beeTarget.z, 0.07, .8)
       this.bee.model.position.x = MathUtils.damp(this.bee.model.position.x, this.beeTarget.x, 0.07, .8)
-      this.bee.model.position.y = MathUtils.damp(this.bee.model.position.y, this.beeTarget.y, 0.07, .8)
       this.bee.model.lookAt(this.beeTarget.x, this.beeTarget.y, this.beeTarget.z )
-
-      this.camera.position.x = MathUtils.damp(this.camera.position.x, this.gameProperty.camTarget.x, 0.07, .3)
-      this.webGl.controls.target.x = MathUtils.damp(this.webGl.controls.target.x, this.gameProperty.controlsTarget.x, 0.07, .3)
 
       for (let i = 0; i < this.positionDaisys.length; i++) {
         if (
-        Math.round(this.bee.model.position.x * 10) / 10 === Math.round(this.positionDaisys[i].x * 10) / 10
-        && Math.round(this.bee.model.position.z * 10) / 10 === Math.round(this.positionDaisys[i].z * 10) / 10
-        && !this.gameProperty.foraged.includes(i)
+        this.bee.model.position.x > (Math.round(this.positionDaisys[i].x * 10) / 10) - 0.2
+        && this.bee.model.position.x < (Math.round(this.positionDaisys[i].x * 10) / 10) + 0.2
+        && this.bee.model.position.z > (Math.round(this.positionDaisys[i].z * 10) / 10) - 0
+        && this.bee.model.position.z < (Math.round(this.positionDaisys[i].z * 10) / 10) + 0.4
         ) {
-          this.gameProperty.foraged.push(i)
-          
-          if (this.gameProperty.foraged.length/this.positionDaisys.length === 1) {
-            this.jaugeBar.bar.style.height = (this.gameProperty.foraged.length/this.positionDaisys.length) * 100 + '%'
-            this.jaugeBar.bar.style.borderRadius = '10px'
-            this.incNbrRec(parseInt(this.jaugeBar.label.innerHTML, 10), Math.round((this.gameProperty.foraged.length/this.positionDaisys.length) * 100))
-            this.jaugeBar.label.style.color = 'white'
-          }else{
-            const result = (this.gameProperty.foraged.length/this.positionDaisys.length) * 100
-            this.jaugeBar.bar.style.height = result + '%'
-            this.jaugeBar.label.style.bottom = (result + 2) + '%'
-            this.incNbrRec(parseInt(this.jaugeBar.label.innerHTML, 10), Math.round(result))
-          }
 
-          this.gameProperty.camTarget.x += 1.2
-          this.gameProperty.controlsTarget.x += 1.2
-          
+          if (!this.gameProperty.foraged.includes(i)) {
+            this.gameProperty.foraged.push(i)
+            console.log(this.gameProperty.foraged)
+          }
         }
       }
       
@@ -192,12 +179,12 @@ export default class PollenGameScene extends Group {
 
   }
 
-  incNbrRec(i, endNbr) {
-    if (i <= endNbr) {
-      this.jaugeBar.label.innerHTML = i
+  setChrono(i, endNbr) {
+    if (i >= endNbr) {
+      this.chrono.label.innerHTML = i
       setTimeout(() => {
-        this.incNbrRec(i + 1, endNbr)
-      }, 100)
+        this.setChrono(i - 1, endNbr)
+      }, 1000)
     }
   }
 
