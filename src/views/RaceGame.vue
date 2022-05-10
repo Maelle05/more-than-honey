@@ -2,7 +2,6 @@
   <div class="raceGame">
     <TimelineComponent/>
     <Button label="Suivant" to="/ending"/>
-
   </div>
 </template>
 
