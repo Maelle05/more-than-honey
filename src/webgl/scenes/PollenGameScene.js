@@ -51,6 +51,11 @@ export default class PollenGameScene extends Group {
       label: dom.querySelector('.chrono p')
     }
 
+    this.domCount = {
+      div: dom.getElementsByClassName('count')[0],
+      label: dom.querySelector('.count p')
+    }
+
     this.loaderPollen = {
       div: dom.getElementsByClassName('loaderPollen')[0],
       label: dom.querySelector('.loaderPollen p')
@@ -220,6 +225,8 @@ export default class PollenGameScene extends Group {
           
         }
       }
+
+      this.domCount.label.innerHTML = this.gameProperty.foraged.length + ' fleurs pollinisées'
 
     }
   }
