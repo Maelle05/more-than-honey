@@ -53,7 +53,7 @@ export default class RaceGameScene extends Group {
 
       const beePlacingGUI = viewGUI.addFolder('Bee Placing')
       beePlacingGUI.add(this.property.bee, 'placingHeight', -2, 3, 0.01).name('Height')
-      beePlacingGUI.add(this.property.bee, 'limitRightLeft', 0, 5, 0.01).name('Limits Left Right')
+      beePlacingGUI.add(this.property.bee, 'limitRightLeft', 0, 5, 0.01).name('Limits left and right')
 
       const gameGUI = this.debug.ui.addFolder('Game')
       gameGUI.add(this.property.game.bee, 'speed', 0, 0.003, 0.0001).name('Bee speed')
