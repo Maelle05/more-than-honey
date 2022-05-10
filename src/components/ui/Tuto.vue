@@ -57,7 +57,7 @@ export default {
 }
 
 .click {
-  transition: 0s !important;
+  transition: 0.1s !important;
 }
 
 .hidden {
