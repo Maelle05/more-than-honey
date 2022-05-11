@@ -18,6 +18,12 @@
     "path": "webgl/models/Bee/bee.glb"
   },
   {
+    "name": "queenModel",
+    "type": "gltfModel",
+    "actingScenes": "outsideOneScene raceGameScene",
+    "path": "webgl/models/Queen/queen.glb"
+  },
+  {
     "name": "grassNormalTexture",
     "type": "texture",
     "actingScenes": "outsideTwoScene",
