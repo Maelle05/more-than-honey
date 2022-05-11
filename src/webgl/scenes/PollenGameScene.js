@@ -7,6 +7,9 @@ import WebGl from '../webglManager'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 import { Vector3 } from 'three'
 import gsap from 'gsap'
+import { BoxGeometry } from 'three'
+import { MeshBasicMaterial } from 'three'
+import { Mesh } from 'three'
 
 let gameInstance = null
 
@@ -88,10 +91,10 @@ export default class PollenGameScene extends Group {
 
 
     // Add butterflies BOT
-    const nbBot = 1
+    const nbBot = 5
     this.butterflies = []
     for (let i = 0; i < nbBot; i++) {
-      this.butterflies.push(new Butterflie())
+      this.butterflies.push(new Butterflie(this.scene, this.positionDaisys))
     }
 
     // Debug
@@ -253,7 +256,44 @@ export default class PollenGameScene extends Group {
 
 
 class Butterflie {
-  constructor(){
-    console.log('Butterflie')
+  constructor(scene, posDaisy){
+    // console.log('Butterflie')
+    this.scene = scene
+    this.posDaisy = posDaisy
+
+    // Model
+    this.geometry = new BoxGeometry( 0.4, 0.4, 0.4 )
+    this.material = new MeshBasicMaterial( {color: 0x00ff00} )
+    this.cube = new Mesh( this.geometry, this.material )
+    
+
+    // GET is Target points
+    this.targetStep = 0
+    this.targetPoints = []
+    for (let i = 0; i < 4; i++) {
+      this.targetPoints.push(this.posDaisy[randomIntFromInterval(0, this.posDaisy.length - 1, 1)])
+    }
+
+    // Init pos
+    this.cube.position.set(this.targetPoints[this.targetPoints.length-1].x, this.targetPoints[this.targetPoints.length-1].y + 1.5, this.targetPoints[this.targetPoints.length-1].z)
+    this.scene.add( this.cube )
+    
+    this.goToTarget()
+  }
+
+  goToTarget(){
+    console.log(this.targetStep, this.targetPoints)
+    gsap.to(this.cube.position, {
+      duration: 10, 
+      x: this.targetPoints[this.targetStep].x, 
+      z: this.targetPoints[this.targetStep].z,
+      ease: "none", 
+    }).then(()=> {
+      this.targetStep < this.targetPoints.length - 1 ? this.targetStep++ : this.targetStep = 0
+      setTimeout(()=>{
+        this.goToTarget()
+      }, 2000)
+      
+    })
   }
 }
