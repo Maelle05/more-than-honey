@@ -128,6 +128,8 @@ export default class RaceGameScene extends Group {
       duration: this.property.game.duration,
       z: -(this.property.map.height / this.property.map.ratio) / 1.2,
       ease: "power1.in",
+    }).then(() => {
+      console.log('finish')
     })
 
     this.add(this.groundGroup)
