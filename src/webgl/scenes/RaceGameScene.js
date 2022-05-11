@@ -2,6 +2,8 @@ import {Group, MathUtils} from 'three'
 import WebGl from '../webglManager'
 import Listener from '../utils/Listener'
 import BlueBee from '@/webgl/entities/BlueBee'
+import Grass from '@/webgl/shaders/grass'
+import mapSetting from '@/webgl/elementsLocations/outsideOne/mapSetting.json'
 
 export default class RaceGameScene extends Group {
   constructor() {
@@ -14,6 +16,11 @@ export default class RaceGameScene extends Group {
 
     // Game properties
     this.property = {
+      map: {
+        with: mapSetting[0].right,
+        height: mapSetting[0].bottom,
+        ratio : 5,
+      },
       bee: {
         placingHeight: 1.5,
         limitRightLeft: 5
@@ -40,6 +47,7 @@ export default class RaceGameScene extends Group {
   setup() {
     // Add Bee
     this.bee = new BlueBee()
+    this.grass = new Grass()
 
     // Debug
     this.debug = this.webGl.debug
@@ -73,8 +81,8 @@ export default class RaceGameScene extends Group {
     // Set parameters of the scene at init
     // this.webGl.camera.position.set(0, 2.62, -10)
     this.webGl.camera.position.set(0, 0, -10)
-
-    this.bee.model.position.set(0, 0, 0)
+    this.grass.position.set(0,-5, this.property.map.height / this.property.map.ratio)
+    this.bee.model.position.set(0, 1.5, 0)
     this.bee.model.rotation.set(0, 6.3, 0)
     this.webGl.controls.enabled = false
 
@@ -86,6 +94,7 @@ export default class RaceGameScene extends Group {
 
     // Add models 
     this.add(this.bee.model)
+    this.add(this.grass)
   }
 
   update() {

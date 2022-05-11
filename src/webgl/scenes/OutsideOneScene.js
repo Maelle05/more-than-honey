@@ -130,7 +130,6 @@ export default class OutsideOneScene extends Group
   }
 
   init(){
-
     // Add fog
     this.scene.fog.density = 0.01
 
