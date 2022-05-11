@@ -91,7 +91,7 @@ export default class PollenGameScene extends Group {
 
 
     // Add butterflies BOT
-    const nbBot = 5
+    const nbBot = 10
     this.butterflies = []
     for (let i = 0; i < nbBot; i++) {
       this.butterflies.push(new Butterflie(this.scene, this.positionDaisys))
@@ -137,7 +137,7 @@ export default class PollenGameScene extends Group {
         this.cursor.x = this.listener.property.cursor.x
         this.cursor.y = this.listener.property.cursor.y
 
-        this.beeTarget.x = this.cursor.x * 3 + this.camera.position.x
+        this.beeTarget.x = this.cursor.x * 4 + this.camera.position.x
         this.beeTarget.z = - this.cursor.y * 3
         this.beeTarget.y = 1
       }
@@ -229,9 +229,6 @@ export default class PollenGameScene extends Group {
           }
 
           !this.gameProperty.foraged.includes(i) ? this.loaderPollen.label.innerHTML = this.gameProperty.currentLoadPollen[i] : ''
-
-          
-          
         }
       }
 
@@ -257,7 +254,7 @@ export default class PollenGameScene extends Group {
 
 class Butterflie {
   constructor(scene, posDaisy){
-    // console.log('Butterflie')
+    console.log('Butterflie')
     this.scene = scene
     this.posDaisy = posDaisy
 
@@ -271,22 +268,28 @@ class Butterflie {
     this.targetStep = 0
     this.targetPoints = []
     for (let i = 0; i < 4; i++) {
-      this.targetPoints.push(this.posDaisy[randomIntFromInterval(0, this.posDaisy.length - 1, 1)])
+      if(!this.targetPoints.length){
+        this.targetPoints.push(randomIntFromInterval(6, this.posDaisy.length - 8, 1))
+      } else {
+        this.targetPoints.push(randomIntFromInterval(this.targetPoints[0] - 6 , this.targetPoints[0] + 8 , 1))
+      }
     }
 
     // Init pos
-    this.cube.position.set(this.targetPoints[this.targetPoints.length-1].x, this.targetPoints[this.targetPoints.length-1].y + 1.5, this.targetPoints[this.targetPoints.length-1].z)
+    this.cube.position.set(this.posDaisy[this.targetPoints[this.targetPoints.length-1]].x, this.posDaisy[this.targetPoints[this.targetPoints.length-1]].y + 1.5, this.posDaisy[this.targetPoints[this.targetPoints.length-1]].z)
     this.scene.add( this.cube )
     
-    this.goToTarget()
+    setTimeout(()=>{
+      this.goToTarget()
+    }, randomIntFromInterval(0, 2000, 1) )
+    
   }
 
   goToTarget(){
-    console.log(this.targetStep, this.targetPoints)
     gsap.to(this.cube.position, {
       duration: 10, 
-      x: this.targetPoints[this.targetStep].x, 
-      z: this.targetPoints[this.targetStep].z,
+      x: this.posDaisy[this.targetPoints[this.targetStep]].x, 
+      z: this.posDaisy[this.targetPoints[this.targetStep]].z,
       ease: "none", 
     }).then(()=> {
       this.targetStep < this.targetPoints.length - 1 ? this.targetStep++ : this.targetStep = 0
