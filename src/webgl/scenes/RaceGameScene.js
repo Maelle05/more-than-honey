@@ -38,11 +38,11 @@ export default class RaceGameScene extends Group {
       },
       game: {
         bee: {
-          speed: 0.001
+          speed: 0.01
         },
-        duration: 12,
+        duration: 10,
         obstacle: {
-          number: 7
+          number: 12
         }
       }
     }
@@ -78,7 +78,6 @@ export default class RaceGameScene extends Group {
 
       const gameGUI = this.debug.ui.addFolder('Game')
       gameGUI.add(this.property.game.bee, 'speed', 0, 0.003, 0.0001).name('Bee speed')
-
     }
 
     this.listener = new Listener()
@@ -93,11 +92,13 @@ export default class RaceGameScene extends Group {
 
     // Set parameters of the scene at init
     this.camera.position.set(0, 0, -10)
-    this.grass.position.set(0,-5, this.property.map.height / this.property.map.ratio)
+    this.webGl.controls.enabled = false
+
+    // Models position at init
     this.bee.model.position.set(0, 1.5, 0)
     this.bee.model.rotation.set(0, 6.3, 0)
     this.hornet.model.position.set(4, -1.5, -2)
-    this.webGl.controls.enabled = false
+    this.grass.position.set(0,-5, this.property.map.height / this.property.map.ratio)
 
     // Portal
     this.portal.position.set(0, 0, 50)
@@ -117,7 +118,7 @@ export default class RaceGameScene extends Group {
     this.portals = []
     for (let i = 0; i < this.property.game.obstacle.number; i++) {
       const thisPortal = this.portal.clone()
-      thisPortal.position.set(randomIntFromInterval(-4,4, 1), randomIntFromInterval(-1.5,1.2, 1), randomIntFromInterval(40,(this.property.map.height / this.property.map.ratio) / 1.2, 5))
+      thisPortal.position.set(randomIntFromInterval(-4,4, 1), randomIntFromInterval(-1.5,1.2, 1), randomIntFromInterval(25,(this.property.map.height / this.property.map.ratio) / 1.2, 5))
       this.portals.push(thisPortal)
     }
     this.groundGroup.add(...this.portals)
@@ -125,11 +126,20 @@ export default class RaceGameScene extends Group {
 
     // Move ground
     gsap.to(this.groundGroup.position, {
+      delay: 2,
       duration: this.property.game.duration,
       z: -(this.property.map.height / this.property.map.ratio) / 1.2,
       ease: "power1.in",
     }).then(() => {
-      console.log('finish')
+      console.log('game finished !')
+    })
+
+    // Hornet go back
+    gsap.to(this.hornet.model.position, {
+      delay: 3,
+      duration: 2,
+      z: -8,
+      ease: "power1.in",
     })
 
     this.add(this.groundGroup)
@@ -154,6 +164,14 @@ export default class RaceGameScene extends Group {
         this.groundGroup.localToWorld(worldPosition)
         if(this.bee.model.position.distanceTo(worldPosition) <= 1) {
           portal.visible = false
+          gsap.to(this.hornet.model.position, {
+            duration: 2,
+            repeat: 1,
+            yoyo: true,
+            z: -2,
+            ease: "power1.in",
+          })
+          // this.property.game.bee.speed = 0.001
         }
       }
 
