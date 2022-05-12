@@ -24,7 +24,7 @@ export default class RaceGameScene extends Group {
       map: {
         with: mapSetting[0].right,
         height: mapSetting[0].bottom,
-        ratio : 5,
+        ratio: 5,
       },
       bee: {
         placingHeight: 1.5,
@@ -41,7 +41,7 @@ export default class RaceGameScene extends Group {
         bee: {
           speed: 0.01
         },
-        duration: 10,
+        duration: 10000, // ms
         obstacle: {
           number: 12
         }
@@ -60,9 +60,10 @@ export default class RaceGameScene extends Group {
     this.hornet = new Queen()
     this.grass = new Grass()
     this.tree = this.resources.items.treeModel.scene
-    this.portal = new Mesh(new SphereGeometry( 1, 32, 16 ), new MeshBasicMaterial( { color: 0xff0000 } ) )
+    this.portal = new Mesh(new SphereGeometry(1, 32, 16), new MeshBasicMaterial({color: 0xff0000}))
 
     this.groundGroup = new Group()
+    this.allGrounds = new Group()
 
     // Debug
     this.debug = this.webGl.debug
@@ -89,7 +90,7 @@ export default class RaceGameScene extends Group {
 
   init() {
     setTimeout(() => {
-      this.loader.classList.add('loaded')
+    this.loader.classList.add('loaded')
     }, 500)
 
     // Set fog
@@ -109,7 +110,7 @@ export default class RaceGameScene extends Group {
     this.bee.model.position.set(0, 1.5, 0)
     this.bee.model.rotation.set(0, 6.3, 0)
     this.hornet.model.position.set(4, -1.5, -2)
-    this.grass.position.set(0,-5, this.property.map.height / this.property.map.ratio)
+    this.grass.position.set(0, -5, this.property.map.height / this.property.map.ratio)
 
     // Portal
     this.portal.position.set(0, 0, 50)
@@ -121,7 +122,7 @@ export default class RaceGameScene extends Group {
         z: treeLocation[i].centerY / this.property.map.ratio,
         x: (treeLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      const treeSize = randomIntFromInterval(6.5,9.5, 0.01)
+      const treeSize = randomIntFromInterval(6.5, 9.5, 0.01)
       thisTree.scale.set(treeSize, treeSize, treeSize)
       thisTree.position.set(convertPos.x, -4, convertPos.z)
       thisTree.rotation.set(0, Math.random() * 25, Math.random() / 10)
@@ -137,22 +138,17 @@ export default class RaceGameScene extends Group {
     this.portals = []
     for (let i = 0; i < this.property.game.obstacle.number; i++) {
       const thisPortal = this.portal.clone()
-      thisPortal.position.set(randomIntFromInterval(-4,4, 1), randomIntFromInterval(-1.5,1.2, 1), randomIntFromInterval(15,(this.property.map.height / this.property.map.ratio) / 1.2, 5))
+      thisPortal.position.set(randomIntFromInterval(-4, 4, 1), randomIntFromInterval(-1.5, 1.2, 1), randomIntFromInterval(15, (this.property.map.height / this.property.map.ratio) / 1.2, 5))
       this.portals.push(thisPortal)
     }
     this.groundGroup.add(...this.portals)
 
-    // Move ground
-    gsap.to(this.groundGroup.position, {
-      delay: 2,
-      duration: this.property.game.duration,
-      z: -(this.property.map.height / this.property.map.ratio) / 1.2,
-      ease: "power1.in",
-    }).then(() => {
-      console.log('game finished !')
-    })
+    this.secondGroundGroup = this.groundGroup.clone()
+    this.secondGroundGroup.position.set(0, 0, this.property.map.height / this.property.map.ratio)
 
-    // Hornet go back
+    this.allGrounds.add(this.groundGroup, this.secondGroundGroup)
+
+    // Hornet go back after the game is started
     gsap.to(this.hornet.model.position, {
       delay: 3,
       duration: 2,
@@ -160,15 +156,76 @@ export default class RaceGameScene extends Group {
       ease: "power1.in",
     })
 
-    this.add(this.groundGroup)
+    this.add(this.allGrounds)
+
+    // Move ground
+    const numberOfTour = 5
+    let step = 0
+    const groundToMove = [
+      this.groundGroup,
+      this.secondGroundGroup,
+    ]
+
+    // const moveGround = () => {
+    //   gsap.to(this.allGrounds.position, {
+    //     duration: 3,
+    //     z: -(this.property.map.height / this.property.map.ratio) * step,
+    //     ease: "none",
+    //   })
+    // }
+    //
+    // const replaceGround = () => {
+    //   let indexResult = step % 2 === 0 ? 0 : 1
+    //   groundToMove[indexResult].position.z = groundToMove[indexResult].position.z + (this.property.map.height / this.property.map.ratio)
+    // }
+    //
+    // const manageGround = () => {
+    //   while (step < numberOfTour) {
+    //     moveGround()
+    //     console.log(step)
+    //
+    //     step++
+    //     if (step > 2) {
+    //       replaceGround()
+    //     }
+    //   }
+    // }
+    //  manageGround()
+
+
+    const replaceGround = () => {
+      let indexResult = step % 2 === 0 ? 1 : 0
+      groundToMove[indexResult].position.z = groundToMove[indexResult].position.z + (this.property.map.height / this.property.map.ratio) * 2
+
+    }
+    const moveGround = () => {
+      step++
+
+      gsap.to(this.allGrounds.position, {
+        duration: 3,
+        z: (-(this.property.map.height / this.property.map.ratio) + 2) * step, // + 2 to see the bee
+        ease: "none",
+      }).then(() => {
+        if(step < numberOfTour - 1) {
+          replaceGround()
+        }
+        if (step < numberOfTour) {
+          moveGround()
+        } else {
+          console.log('the game is finished !')
+        }
+      })
+    }
+
+    moveGround()
   }
 
   update() {
-    if(this.grass) {
+    if (this.grass) {
       this.grass.update()
     }
 
-    if(this.hornet) {
+    if (this.hornet) {
       this.hornet.update()
     }
 
@@ -177,10 +234,10 @@ export default class RaceGameScene extends Group {
       this.bee.update()
 
       // Check collision between bee and portals
-      for(const portal of this.portals) {
+      for (const portal of this.portals) {
         const worldPosition = portal.position.clone()
         this.groundGroup.localToWorld(worldPosition)
-        if(this.bee.model.position.distanceTo(worldPosition) <= 1) {
+        if (this.bee.model.position.distanceTo(worldPosition) <= 1) {
           portal.visible = false
           gsap.to(this.hornet.model.position, {
             duration: 2.5,
