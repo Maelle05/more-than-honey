@@ -65,6 +65,8 @@ export default class PollenGameScene extends Group {
     }
 
     this.startPopUp = dom.getElementsByClassName('popUpIntro')[0]
+
+    this.lottieLose = dom.getElementsByClassName('lottieLoseForaged')[0]
   }
 
   setup() {
@@ -206,14 +208,10 @@ export default class PollenGameScene extends Group {
         && this.bee.model.position.z > (Math.round(this.butterflies[i].mesh.position.z * 10) / 10) - 0
         && this.bee.model.position.z < (Math.round(this.butterflies[i].mesh.position.z * 10) / 10) + this.butterflies[i].mesh.scale.x) {
           if (this.gameProperty.lastIntersectBB != this.butterflies[i].mesh.name) {
-            console.log(this.butterflies[i].mesh.name)
-            this.gameProperty.foraged.shift()
-            this.gameProperty.lastIntersectBB = this.butterflies[i].mesh.name
+            this.loseForaged(i)
           }
-          
         }
       }
-      
     }
   }
 
@@ -222,7 +220,7 @@ export default class PollenGameScene extends Group {
 
 
     // Set Camera position
-    this.camera.position.set(-12, 0, 0)
+    this.camera.position.set(-9, 2, 0)
     this.webGl.controls.target.set(15, 0, 0 )
 
     gsap.to(this.camera.position, {
@@ -230,6 +228,7 @@ export default class PollenGameScene extends Group {
       y: 10,
       z: 5,
       duration: cinematiqueTime,
+      delay: 0.7,
       ease: 'none'
     })
 
@@ -238,13 +237,11 @@ export default class PollenGameScene extends Group {
       y: 0,
       z: 0,
       duration: cinematiqueTime,
+      delay: 0.7,
       ease: 'none'
-    })
-
-    
-    setTimeout(() => {
+    }).then(()=>{
       this.startPopUp.classList.remove('hidden')
-    }, cinematiqueTime * 1000 + 500)
+    })
   }
 
   playGame(){
@@ -301,6 +298,16 @@ export default class PollenGameScene extends Group {
         this.setChrono(i - 1, endNbr)
       }, 1000)
     }
+  }
+
+  loseForaged(i) {
+    this.lottieLose.classList.remove('hidden')
+    this.gameProperty.foraged.shift()
+    this.gameProperty.lastIntersectBB = this.butterflies[i].mesh.name
+    setTimeout(()=>{
+      this.lottieLose.classList.add('hidden')
+      this.gameProperty.lastIntersectBB = ''
+    }, 2500) 
   }
 
   delete() {

@@ -49,6 +49,16 @@
     <div class="count">
       <p></p>
     </div>
+    <div class="lottieLoseForaged hidden">
+      <lottie-player
+        autoplay
+        background="transparent"
+        loop
+        mode="normal"
+        src="/lottie/pollenGame/LostFlower.json"
+        style="width: 320px">
+    </lottie-player>
+    </div>
   </div>
 </template>
 
@@ -57,7 +67,7 @@ import PollenGame from '@/webgl/scenes/PollenGameScene'
 import Button from '@/components/ui/PrimaryButton'
 import TimelineComponent from '@/components/ui/TimelineComponent'
 import WebGl from '@/webgl/webglManager'
-// import Tuto from '@/components/ui/Tuto'
+import '@lottiefiles/lottie-player'
 
 export default {
   name: 'PollenGame',
@@ -111,7 +121,7 @@ export default {
 
     &.hidden{
       opacity: 0;
-      pointer-events: none;
+      display: none;
     }
 
     span {
@@ -165,6 +175,12 @@ export default {
 
     &.hidden{
       opacity: 0;
+    }
+  }
+
+  .lottieLoseForaged {
+    &.hidden{
+      display: none;
     }
   }
 }
