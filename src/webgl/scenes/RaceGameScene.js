@@ -1,9 +1,12 @@
-import {Group, MathUtils} from 'three'
+import {Group, MathUtils, Mesh, MeshBasicMaterial, SphereGeometry} from 'three'
 import WebGl from '../webglManager'
 import Listener from '../utils/Listener'
 import BlueBee from '@/webgl/entities/BlueBee'
 import Grass from '@/webgl/shaders/grass'
 import mapSetting from '@/webgl/elementsLocations/outsideOne/mapSetting.json'
+import gsap from 'gsap'
+import Queen from '@/webgl/entities/Queen'
+import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 
 export default class RaceGameScene extends Group {
   constructor() {
@@ -13,6 +16,7 @@ export default class RaceGameScene extends Group {
     this.resources = this.webGl.resources
     this.time = this.webGl.time
     this.loader = this.webGl.loader
+    this.camera = this.webGl.camera
 
     // Game properties
     this.property = {
@@ -23,7 +27,8 @@ export default class RaceGameScene extends Group {
       },
       bee: {
         placingHeight: 1.5,
-        limitRightLeft: 5
+        limitRightLeft: 5,
+        maxZ: 1.5
       },
       cursor: {
         currentX: 0,
@@ -34,6 +39,10 @@ export default class RaceGameScene extends Group {
       game: {
         bee: {
           speed: 0.001
+        },
+        duration: 12,
+        obstacle: {
+          number: 7
         }
       }
     }
@@ -45,9 +54,13 @@ export default class RaceGameScene extends Group {
   }
 
   setup() {
-    // Add Bee
+    // Import model
     this.bee = new BlueBee()
+    this.hornet = new Queen()
     this.grass = new Grass()
+    this.portal = new Mesh(new SphereGeometry( 1, 32, 16 ), new MeshBasicMaterial( { color: 0xff0000 } ) )
+
+    this.groundGroup = new Group()
 
     // Debug
     this.debug = this.webGl.debug
@@ -79,12 +92,15 @@ export default class RaceGameScene extends Group {
     }, 500)
 
     // Set parameters of the scene at init
-    // this.webGl.camera.position.set(0, 2.62, -10)
-    this.webGl.camera.position.set(0, 0, -10)
+    this.camera.position.set(0, 0, -10)
     this.grass.position.set(0,-5, this.property.map.height / this.property.map.ratio)
     this.bee.model.position.set(0, 1.5, 0)
     this.bee.model.rotation.set(0, 6.3, 0)
+    this.hornet.model.position.set(4, -1.5, -2)
     this.webGl.controls.enabled = false
+
+    // Portal
+    this.portal.position.set(0, 0, 50)
 
     // Listener
     this.listener.on(`mouseMove`, () => {
@@ -94,20 +110,65 @@ export default class RaceGameScene extends Group {
 
     // Add models 
     this.add(this.bee.model)
-    this.add(this.grass)
+    this.add(this.hornet.model)
+
+    this.groundGroup.add(this.grass)
+
+    this.portals = []
+    for (let i = 0; i < this.property.game.obstacle.number; i++) {
+      const thisPortal = this.portal.clone()
+      thisPortal.position.set(randomIntFromInterval(-4,4, 1), randomIntFromInterval(-1.5,1.2, 1), randomIntFromInterval(40,(this.property.map.height / this.property.map.ratio) / 1.2, 5))
+      this.portals.push(thisPortal)
+    }
+    this.groundGroup.add(...this.portals)
+
+
+    // Move ground
+    gsap.to(this.groundGroup.position, {
+      duration: this.property.game.duration,
+      z: -(this.property.map.height / this.property.map.ratio) / 1.2,
+      ease: "power1.in",
+    }).then(() => {
+      console.log('finish')
+    })
+
+    this.add(this.groundGroup)
   }
 
   update() {
+    if(this.grass) {
+      this.grass.update()
+    }
+
+    if(this.hornet) {
+      this.hornet.update()
+    }
+
     if (this.bee) {
       // Update anim bee
       this.bee.update()
+
+      // Check collision between bee and portals
+      for(const portal of this.portals) {
+        const worldPosition = portal.position.clone()
+        this.groundGroup.localToWorld(worldPosition)
+        if(this.bee.model.position.distanceTo(worldPosition) <= 1) {
+          portal.visible = false
+        }
+      }
 
       // Update height
       this.property.cursor.currentX = MathUtils.damp(this.property.cursor.currentX, this.property.cursor.targetX, this.property.game.bee.speed, this.time.delta)
       this.property.cursor.currentY = MathUtils.damp(this.property.cursor.targetY, this.property.cursor.currentY, this.property.game.bee.speed, this.time.delta / 5)
 
+      // Bee position
       this.bee.model.position.x = this.property.cursor.currentX
       this.bee.model.position.y = -this.property.cursor.currentY - this.property.bee.placingHeight / 3
+
+      // Hornet position
+      this.hornet.model.position.y = (Math.sin(this.time.elapsed / 700) / 5) - this.property.bee.placingHeight
+      // this.hornet.model.position.x = (Math.sin(this.time.elapsed / 200) / 3)
+      // this.hornet.model.position.z = (Math.sin(this.time.elapsed / 1100) * 10) - this.property.bee.maxZ
     }
   }
 
