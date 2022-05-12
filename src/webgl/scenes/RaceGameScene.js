@@ -203,7 +203,7 @@ export default class RaceGameScene extends Group {
 
       gsap.to(this.allGrounds.position, {
         duration: 3,
-        z: (-(this.property.map.height / this.property.map.ratio) + 2) * step, // + 2 to see the bee
+        z: (-(this.property.map.height / this.property.map.ratio) + 2) * step, // + 2 to see the bee at the end
         ease: "none",
       }).then(() => {
         if(step < numberOfTour - 1) {
