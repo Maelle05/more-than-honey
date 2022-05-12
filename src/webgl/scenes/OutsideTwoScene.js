@@ -6,7 +6,7 @@ import {
 import WebGl from '../webglManager'
 import Bee from '@/webgl/entities/BlueBee'
 import Listener from '../utils/Listener'
-import Grass from '../shaders/grass'
+import Grass from '../shaders/grass/grass'
 import Particules from '../shaders/fireflies'
 
 export default class OutsideTwoScene extends Group {

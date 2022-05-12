@@ -2,12 +2,18 @@ import {Group, MathUtils, Mesh, MeshBasicMaterial, SphereGeometry} from 'three'
 import WebGl from '../webglManager'
 import Listener from '../utils/Listener'
 import BlueBee from '@/webgl/entities/BlueBee'
-import Grass from '@/webgl/shaders/grass'
 import mapSetting from '@/webgl/elementsLocations/outsideOne/mapSetting.json'
 import gsap from 'gsap'
 import Queen from '@/webgl/entities/Queen'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 import treeLocation from '@/webgl/elementsLocations/raceGame/tree-race.json'
+import lysLocation from '@/webgl/elementsLocations/raceGame/lys-race.json'
+import daisyLocation from '@/webgl/elementsLocations/raceGame/daisy-race.json'
+import stoneLocation from '@/webgl/elementsLocations/raceGame/stone-race.json'
+import Daisy from '@/webgl/entities/Daisy'
+import Stone from '@/webgl/entities/Stone'
+import OnlyGrass from '@/webgl/shaders/grass/onlyGrass'
+import Grass from '@/webgl/shaders/grass/grass'
 
 export default class RaceGameScene extends Group {
   constructor() {
@@ -41,7 +47,7 @@ export default class RaceGameScene extends Group {
         bee: {
           speed: 0.01
         },
-        duration: 10000, // ms
+        duration: 10000, // in ms
         obstacle: {
           number: 12
         }
@@ -59,7 +65,10 @@ export default class RaceGameScene extends Group {
     this.bee = new BlueBee()
     this.hornet = new Queen()
     this.grass = new Grass()
+    this.daisy = new Daisy()
+    this.stone = new Stone()
     this.tree = this.resources.items.treeModel.scene
+    this.lys = this.resources.items.lysModel.scene
     this.portal = new Mesh(new SphereGeometry(1, 32, 16), new MeshBasicMaterial({color: 0xff0000}))
 
     this.groundGroup = new Group()
@@ -94,7 +103,7 @@ export default class RaceGameScene extends Group {
     }, 500)
 
     // Set fog
-    this.scene.fog.density = 0.045
+    this.scene.fog.density = 0.03
 
     // Set parameters of the scene at init
     this.camera.position.set(0, 0, -10)
@@ -127,6 +136,47 @@ export default class RaceGameScene extends Group {
       thisTree.position.set(convertPos.x, -4, convertPos.z)
       thisTree.rotation.set(0, Math.random() * 25, Math.random() / 10)
       this.groundGroup.add(thisTree)
+    }
+
+    // Add stones
+    for (let i = 0; i < stoneLocation.length; i++) {
+      const thisStone = this.stone.model.clone()
+      const convertPos = {
+        z: stoneLocation[i].centerY / this.property.map.ratio,
+        x: (stoneLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
+      }
+      const stoneSize = randomIntFromInterval(0.8,1.8, 0.01)
+      thisStone.scale.set(stoneSize, stoneSize, stoneSize)
+      thisStone.position.set(convertPos.x, -5, convertPos .z)
+      thisStone.rotation.set(0, Math.random() * 50, Math.random() / 10)
+      this.groundGroup.add(thisStone)
+    }
+
+    // Add lys
+    for (let i = 0; i < lysLocation.length; i++) {
+      const thisLys = this.lys.clone()
+      const convertPos = {
+        z: lysLocation[i].centerY / this.property.map.ratio,
+        x: (lysLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
+      }
+      const lysSize = randomIntFromInterval(0.05,0.1, 0.01)
+      thisLys.scale.set(lysSize, lysSize, lysSize)
+      thisLys.position.set(convertPos.x, -4, convertPos.z)
+      thisLys.rotation.set(0, Math.random(), Math.random() / 10)
+      this.groundGroup.add(thisLys)
+    }
+
+    // Add daisy
+    for (let i = 0; i < daisyLocation.length; i++) {
+      const thisDaisy = this.daisy.model.clone()
+      const convertPos = {
+        z: daisyLocation[i].centerY / this.property.map.ratio,
+        x: (daisyLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
+      }
+      const daisySize = randomIntFromInterval(0.5,1, 0.01)
+      thisDaisy.scale.set(daisySize, daisySize, daisySize)
+      thisDaisy.position.set(convertPos.x, -5, convertPos.z)
+      this.groundGroup.add(thisDaisy)
     }
 
     // Add models 
@@ -174,9 +224,8 @@ export default class RaceGameScene extends Group {
     }
     const moveGround = () => {
       step++
-
       gsap.to(this.allGrounds.position, {
-        duration: 4,
+        duration: (numberOfSteps + 2) - step,
         z: (-(this.property.map.height / this.property.map.ratio) + 2) * step, // + 2 to see the bee at the end
         ease: "none",
       }).then(() => {

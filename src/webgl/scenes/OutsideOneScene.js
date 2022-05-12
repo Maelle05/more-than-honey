@@ -16,7 +16,6 @@ import mapSetting from '../elementsLocations/outsideOne/mapSetting.json'
 import stoneLocation from '../elementsLocations/outsideOne/stone.json'
 import daisyLocation from '../elementsLocations/outsideOne/daisy.json'
 import lysLocation from '../elementsLocations/outsideOne/lys.json'
-import trunkLocation from '../elementsLocations/outsideOne/trunk.json'
 import treeLocation from '../elementsLocations/outsideOne/tree.json'
 import nenupharLocation from '../elementsLocations/outsideOne/nenuphar.json'
 import mushroomLocation from '../elementsLocations/outsideOne/mushrooms.json'
@@ -24,7 +23,7 @@ import bridgeLocation from '../elementsLocations/outsideOne/bridge.json'
 import beePath from '../elementsLocations/outsideOne/beePath.json'
 import Listener from '../utils/Listener'
 import { MathUtils } from 'three'
-import Grass from '@/webgl/shaders/grass'
+import Grass from '@/webgl/shaders/grass/grass'
 import Daisy from '@/webgl/entities/Daisy'
 import Trunk from '@/webgl/entities/Trunk'
 import Mushroom from '@/webgl/entities/Mushroom'
@@ -211,7 +210,6 @@ export default class OutsideOneScene extends Group
     }
 
     // Add daisys
-    this.daisy.model.scale.set(0.7, 0.7, 0.7)
     for (let i = 0; i < daisyLocation.length; i++) {
       const thisDaisy = this.daisy.model.clone()
       const convertPos = {
@@ -222,20 +220,6 @@ export default class OutsideOneScene extends Group
       thisDaisy.scale.set(daisySize, daisySize, daisySize)
       thisDaisy.position.set(convertPos.x, -3, convertPos.z)
       this.add(thisDaisy)
-    }
-
-    // Add trunks
-    for (let i = 0; i < trunkLocation.length; i++) {
-      const thisTrunk = this.trunk.model.clone()
-      const convertPos = {
-        z: trunkLocation[i].centerY / this.property.map.ratio,
-        x: (trunkLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
-      }
-      const trunkSize = randomIntFromInterval(0.08,0.2, 0.01)
-      thisTrunk.scale.set(trunkSize, trunkSize, trunkSize)
-      thisTrunk.position.set(convertPos.x, -2.8, convertPos.z)
-      thisTrunk.rotation.set(0, Math.random() * 25, 0)
-      // this.add(thisTrunk)
     }
 
     // Add bridge
