@@ -89,14 +89,6 @@ export default class PollenGameScene extends Group {
     // Add bee
     this.bee = new BlueBee()
 
-
-    // Add butterflies BOT
-    const nbBot = 10
-    this.butterflies = []
-    for (let i = 0; i < nbBot; i++) {
-      this.butterflies.push(new Butterflie(this.scene, this.positionDaisys))
-    }
-
     // Debug
     this.debug = this.webGl.debug
 
@@ -130,33 +122,6 @@ export default class PollenGameScene extends Group {
     }
     this.add(this.bee.model)
 
-    // Listener
-    this.listener = new Listener()
-    this.listener.on('mouseMove', ()=>{
-      if (this.gameProperty.beeCanMouve) {
-        this.cursor.x = this.listener.property.cursor.x
-        this.cursor.y = this.listener.property.cursor.y
-
-        this.beeTarget.x = this.cursor.x * 4 + this.camera.position.x
-        this.beeTarget.z = - this.cursor.y * 3
-        this.beeTarget.y = 1
-      }
-    })
-
-    document.addEventListener('keydown', (event) => {
-      if (event.code === 'Space') {
-        this.gameProperty.spaceIsPress = true
-      }
-    }, false)
-    document.addEventListener('keyup', (event) => {
-      if (event.code === 'Space') {
-        this.gameProperty.spaceIsPress = false
-        this.gameProperty.beeCanMouve = true
-
-        this.loaderPollen.div.classList.add('hidden')
-      }
-    }, false)
-
     // Game property
     this.gameProperty = {
       foraged: [],
@@ -166,7 +131,10 @@ export default class PollenGameScene extends Group {
       spaceIsPress: false,
       durationGame: 130,
       currentLoadPollen: new Array(this.nbDaisys + 1),
+      lastIntersectBB: ''
     }
+
+    this.gamePlayed = false
 
 
     // End Loader
@@ -174,26 +142,10 @@ export default class PollenGameScene extends Group {
       this.loader.classList.add('loaded')
     }, 500)
 
-    
-    // Mouve Camera
-    gsap.to(this.camera.position, {
-      duration: this.gameProperty.durationGame, 
-      x: this.gameProperty.camTarget.x, 
-      ease: "power1.in", 
-    })
-    gsap.to(this.webGl.controls.target, {
-      duration: this.gameProperty.durationGame, 
-      x: this.gameProperty.controlsTarget.x, 
-      ease: "power1.in", 
-    })
-
-    // Start chrono
-    this.setChrono(this.gameProperty.durationGame, 0)
   }
 
   update() {
-    if (this.bee) {
-
+    if (this.bee && this.gamePlayed) {
       // Mouve Bee
       this.bee.update()
       this.bee.model.position.z = MathUtils.damp(this.bee.model.position.z, this.beeTarget.z, 0.07, .8)
@@ -235,6 +187,81 @@ export default class PollenGameScene extends Group {
       this.domCount.label.innerHTML = this.gameProperty.foraged.length + ' fleurs pollinisées'
 
     }
+
+    if (this.bee && !this.gamePlayed){
+      this.bee.update()
+      this.bee.model.lookAt(this.beeTarget.x, this.beeTarget.y, this.beeTarget.z )
+    }
+
+    if(this.butterflies){
+      for (let i = 0; i < this.butterflies.length; i++) {
+        if (this.bee.model.position.x > (Math.round(this.butterflies[i].mesh.position.x * 10) / 10) - this.butterflies[i].mesh.scale.x
+        && this.bee.model.position.x < (Math.round(this.butterflies[i].mesh.position.x * 10) / 10) + this.butterflies[i].mesh.scale.x
+        && this.bee.model.position.z > (Math.round(this.butterflies[i].mesh.position.z * 10) / 10) - 0
+        && this.bee.model.position.z < (Math.round(this.butterflies[i].mesh.position.z * 10) / 10) + this.butterflies[i].mesh.scale.x) {
+          if (this.gameProperty.lastIntersectBB != this.butterflies[i].mesh.name) {
+            console.log(this.butterflies[i].mesh.name)
+            this.gameProperty.foraged.shift()
+            this.gameProperty.lastIntersectBB = this.butterflies[i].mesh.name
+          }
+          
+        }
+      }
+      
+    }
+  }
+
+  playGame(){
+    // Add butterflies BOT
+    const nbBot = 10
+    this.butterflies = []
+    for (let i = 0; i < nbBot; i++) {
+      this.butterflies.push(new Butterflie(this, this.positionDaisys, i))
+    }
+
+    // Listener
+    this.listener = new Listener()
+    this.listener.on('mouseMove', ()=>{
+      if (this.gameProperty.beeCanMouve) {
+        this.cursor.x = this.listener.property.cursor.x
+        this.cursor.y = this.listener.property.cursor.y
+
+        this.beeTarget.x = this.cursor.x * 4 + this.camera.position.x
+        this.beeTarget.z = - this.cursor.y * 3
+        this.beeTarget.y = 1
+      }
+    })
+
+    document.addEventListener('keydown', (event) => {
+      if (event.code === 'Space') {
+        this.gameProperty.spaceIsPress = true
+      }
+    }, false)
+    document.addEventListener('keyup', (event) => {
+      if (event.code === 'Space') {
+        this.gameProperty.spaceIsPress = false
+        this.gameProperty.beeCanMouve = true
+
+        this.loaderPollen.div.classList.add('hidden')
+      }
+    }, false)
+
+    this.gamePlayed = true
+
+    // Mouve Camera
+    gsap.to(this.camera.position, {
+      duration: this.gameProperty.durationGame, 
+      x: this.gameProperty.camTarget.x, 
+      ease: "power1.in", 
+    })
+    gsap.to(this.webGl.controls.target, {
+      duration: this.gameProperty.durationGame, 
+      x: this.gameProperty.controlsTarget.x, 
+      ease: "power1.in", 
+    })
+
+    // Start chrono
+    this.setChrono(this.gameProperty.durationGame, 0)
   }
 
   setChrono(i, endNbr) {
@@ -253,16 +280,18 @@ export default class PollenGameScene extends Group {
 
 
 class Butterflie {
-  constructor(scene, posDaisy){
-    console.log('Butterflie')
-    this.scene = scene
+  constructor(group, posDaisy, id){
+    // console.log('Butterflie')
+    this.scene = group
     this.posDaisy = posDaisy
 
     // Model
-    this.geometry = new BoxGeometry( 0.4, 0.4, 0.4 )
+    this.geometry = new BoxGeometry( 1, 1, 1 )
     this.material = new MeshBasicMaterial( {color: 0x00ff00} )
-    this.cube = new Mesh( this.geometry, this.material )
-    
+    this.mesh = new Mesh( this.geometry, this.material )
+    const size = randomIntFromInterval(0.2, 0.4, 0.05)
+    this.mesh.scale.set(size, size, size)
+    this.mesh.name = 'BOT' + id
 
     // GET is Target points
     this.targetStep = 0
@@ -276,8 +305,8 @@ class Butterflie {
     }
 
     // Init pos
-    this.cube.position.set(this.posDaisy[this.targetPoints[this.targetPoints.length-1]].x, this.posDaisy[this.targetPoints[this.targetPoints.length-1]].y + 1.5, this.posDaisy[this.targetPoints[this.targetPoints.length-1]].z)
-    this.scene.add( this.cube )
+    this.mesh.position.set(this.posDaisy[this.targetPoints[this.targetPoints.length-1]].x, this.posDaisy[this.targetPoints[this.targetPoints.length-1]].y + 1, this.posDaisy[this.targetPoints[this.targetPoints.length-1]].z)
+    this.scene.add( this.mesh )
     
     setTimeout(()=>{
       this.goToTarget()
@@ -286,7 +315,7 @@ class Butterflie {
   }
 
   goToTarget(){
-    gsap.to(this.cube.position, {
+    gsap.to(this.mesh.position, {
       duration: 10, 
       x: this.posDaisy[this.targetPoints[this.targetStep]].x, 
       z: this.posDaisy[this.targetPoints[this.targetStep]].z,
