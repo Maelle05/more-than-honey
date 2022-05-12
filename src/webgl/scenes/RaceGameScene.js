@@ -159,39 +159,13 @@ export default class RaceGameScene extends Group {
     this.add(this.allGrounds)
 
     // Move ground
-    const numberOfTour = 5
+    const numberOfSteps = 5
     let step = 0
+    // Ground in the group of this.allGround
     const groundToMove = [
       this.groundGroup,
-      this.secondGroundGroup,
+      this.secondGroundGroup
     ]
-
-    // const moveGround = () => {
-    //   gsap.to(this.allGrounds.position, {
-    //     duration: 3,
-    //     z: -(this.property.map.height / this.property.map.ratio) * step,
-    //     ease: "none",
-    //   })
-    // }
-    //
-    // const replaceGround = () => {
-    //   let indexResult = step % 2 === 0 ? 0 : 1
-    //   groundToMove[indexResult].position.z = groundToMove[indexResult].position.z + (this.property.map.height / this.property.map.ratio)
-    // }
-    //
-    // const manageGround = () => {
-    //   while (step < numberOfTour) {
-    //     moveGround()
-    //     console.log(step)
-    //
-    //     step++
-    //     if (step > 2) {
-    //       replaceGround()
-    //     }
-    //   }
-    // }
-    //  manageGround()
-
 
     const replaceGround = () => {
       let indexResult = step % 2 === 0 ? 1 : 0
@@ -202,14 +176,14 @@ export default class RaceGameScene extends Group {
       step++
 
       gsap.to(this.allGrounds.position, {
-        duration: 3,
+        duration: 4,
         z: (-(this.property.map.height / this.property.map.ratio) + 2) * step, // + 2 to see the bee at the end
         ease: "none",
       }).then(() => {
-        if(step < numberOfTour - 1) {
+        if(step < numberOfSteps - 1) {
           replaceGround()
         }
-        if (step < numberOfTour) {
+        if (step < numberOfSteps) {
           moveGround()
         } else {
           console.log('the game is finished !')
