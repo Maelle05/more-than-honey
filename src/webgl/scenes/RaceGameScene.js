@@ -92,6 +92,9 @@ export default class RaceGameScene extends Group {
       this.loader.classList.add('loaded')
     }, 500)
 
+    // Set fog
+    this.scene.fog.density = 0.045
+
     // Set parameters of the scene at init
     this.camera.position.set(0, 0, -10)
     this.webGl.controls.enabled = false
