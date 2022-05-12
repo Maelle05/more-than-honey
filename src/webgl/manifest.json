@@ -44,7 +44,7 @@
   {
     "name": "lysModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene",
+    "actingScenes": "outsideOneScene raceGameScene",
     "path": "webgl/models/Lys/oneLys.glb"
   },
   {
@@ -68,7 +68,7 @@
   {
     "name": "stoneModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene",
+    "actingScenes": "outsideOneScene raceGameScene",
     "path": "webgl/models/Stone/stone.glb"
   },
   {
@@ -80,7 +80,7 @@
   {
     "name": "daisyModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene pollenGameScene",
+    "actingScenes": "outsideOneScene pollenGameScene raceGameScene",
     "path": "webgl/models/Daisy/daisy-v3.glb"
   },
   {

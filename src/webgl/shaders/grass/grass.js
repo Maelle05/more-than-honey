@@ -7,11 +7,11 @@ import {
   Group,
   Mesh, MeshStandardMaterial, PlaneGeometry, Vector3
 } from 'three'
-import WebGl from '../webglManager'
-import vertexShader from './grass/vert.glsl'
-import fragmentShader from './grass/frag.glsl'
-import mapSetting from '../elementsLocations/outsideOne/mapSetting.json'
-import Map from '../elementsLocations/outsideOne/Map.png'
+import WebGl from '../../webglManager'
+import vertexShader from './glsl/vert.glsl'
+import fragmentShader from './glsl/frag.glsl'
+import mapSetting from '../../elementsLocations/outsideOne/mapSetting.json'
+import Map from '../../elementsLocations/outsideOne/Map.png'
 
 export default class Grass extends Group {
   constructor() {
@@ -50,7 +50,7 @@ export default class Grass extends Group {
     this.instanceNumber = 160000
     this.dummy = new Object3D()
 
-      this.setup()
+    this.setup()
   }
 
   setup() {
