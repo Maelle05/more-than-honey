@@ -2,7 +2,7 @@
   <div class="pollenGame" ref="pollenGameUI" >
     <TimelineComponent/>
     <!-- <Button label="Suivant" to="/outsideTwo"/> -->
-    <div class="popUpIntro" ref="popUpIntro">
+    <div class="popUpIntro hidden" ref="popUpIntro">
       <p>Le jeu du pollen</p>
       <span>L’objectif est de <b> polliniser </b> un maximum de <br> fleurs dans le temps imparti.</span>
       <svg width="58" height="32" viewBox="0 0 58 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -110,7 +110,8 @@ export default {
     }
 
     &.hidden{
-      display: none;
+      opacity: 0;
+      pointer-events: none;
     }
 
     span {

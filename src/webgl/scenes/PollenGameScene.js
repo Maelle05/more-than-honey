@@ -63,6 +63,8 @@ export default class PollenGameScene extends Group {
       div: dom.getElementsByClassName('loaderPollen')[0],
       label: dom.querySelector('.loaderPollen p')
     }
+
+    this.startPopUp = dom.getElementsByClassName('popUpIntro')[0]
   }
 
   setup() {
@@ -107,10 +109,6 @@ export default class PollenGameScene extends Group {
   init() {
     // Remove fog
     this.scene.fog.density = 0
-    
-    // Set Camera position
-    this.camera.position.set(0, 10, 5)
-    this.webGl.controls.target.set(0, 0, 0 )
 
     // Set bee position
     this.bee.model.position.set(-4, 1, 0.5)
@@ -121,6 +119,13 @@ export default class PollenGameScene extends Group {
       z: 0.5,
     }
     this.add(this.bee.model)
+
+    // Add butterflies BOT
+    const nbBot = 10
+    this.butterflies = []
+    for (let i = 0; i < nbBot; i++) {
+      this.butterflies.push(new Butterflie(this, this.positionDaisys, i))
+    }
 
     // Game property
     this.gameProperty = {
@@ -142,6 +147,7 @@ export default class PollenGameScene extends Group {
       this.loader.classList.add('loaded')
     }, 500)
 
+    this.initAnim()
   }
 
   update() {
@@ -211,13 +217,37 @@ export default class PollenGameScene extends Group {
     }
   }
 
+  initAnim(){
+    const cinematiqueTime = 5
+
+
+    // Set Camera position
+    this.camera.position.set(-12, 0, 0)
+    this.webGl.controls.target.set(15, 0, 0 )
+
+    gsap.to(this.camera.position, {
+      x: 0,
+      y: 10,
+      z: 5,
+      duration: cinematiqueTime,
+      ease: 'none'
+    })
+
+    gsap.to(this.webGl.controls.target, {
+      x: 0,
+      y: 0,
+      z: 0,
+      duration: cinematiqueTime,
+      ease: 'none'
+    })
+
+    
+    setTimeout(() => {
+      this.startPopUp.classList.remove('hidden')
+    }, cinematiqueTime * 1000 + 500)
+  }
+
   playGame(){
-    // Add butterflies BOT
-    const nbBot = 10
-    this.butterflies = []
-    for (let i = 0; i < nbBot; i++) {
-      this.butterflies.push(new Butterflie(this, this.positionDaisys, i))
-    }
 
     // Listener
     this.listener = new Listener()
