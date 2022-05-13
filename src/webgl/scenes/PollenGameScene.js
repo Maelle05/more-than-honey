@@ -142,7 +142,7 @@ export default class PollenGameScene extends Group {
 
 
     // Remove fog
-    this.scene.fog.density = 0
+    this.scene.fog.density = 0.03
 
     // Set bee position
     this.bee.model.position.set(-4, 1, 0.5)
