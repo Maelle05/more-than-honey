@@ -31,7 +31,7 @@ export default class PollenGameScene extends Group {
 
     this.PostPros =  new Bloom()
 
-    this.nbDaisys = 70
+    this.nbDaisys = 50
     this.positionDaisys = [
       {
         x: -3.5,
@@ -91,6 +91,7 @@ export default class PollenGameScene extends Group {
     for (let i = 0; i < this.positionDaisys.length; i++) {
       const thisDaisy = this.daisy.model.clone()
       thisDaisy.position.set(this.positionDaisys[i].x, this.positionDaisys[i].y, this.positionDaisys[i].z)
+      thisDaisy.rotation.y = randomIntFromInterval(0, 1, 0.002)
       this.addPollenOnDaisy(thisDaisy)
       this.daisys.push(thisDaisy)
       this.add(thisDaisy)
