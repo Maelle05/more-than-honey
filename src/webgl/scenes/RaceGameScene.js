@@ -25,7 +25,7 @@ export default class RaceGameScene extends Group {
     this.loader = this.webGl.loader
     this.camera = this.webGl.camera
 
-    // Game properties
+    // game properties
     this.property = {
       map: {
         with: mapSetting[0].right,
@@ -88,7 +88,7 @@ export default class RaceGameScene extends Group {
       beePlacingGUI.add(this.property.bee, 'placingHeight', -2, 3, 0.01).name('Height')
       beePlacingGUI.add(this.property.bee, 'limitRightLeft', 0, 5, 0.01).name('Limits left and right')
 
-      const gameGUI = this.debug.ui.addFolder('Game')
+      const gameGUI = this.debug.ui.addFolder('game')
       gameGUI.add(this.property.game.bee, 'speed', 0, 0.003, 0.0001).name('Bee speed')
     }
 

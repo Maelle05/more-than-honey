@@ -32,7 +32,7 @@ export default {
     font-size: 16px;
     display: block;
     padding: 15px 24px;
-    font-weight: 600;
+    font-weight: 500;
     font-family: 'RoadRage', sans-serif;
   }
   &:hover {

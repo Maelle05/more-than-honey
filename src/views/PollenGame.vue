@@ -4,7 +4,7 @@
     <Popup class="popupPollen hidden" ref="popUpIntro" title="Le jeu du pollen" label-button="Commencer à jouer"
            @action-on-click="startGame">
       <p>L’objectif est de <strong> polliniser </strong> un maximum de fleurs dans le temps imparti.</p>
-      <lottie-player autoplay background="transparent" loop mode="normal" src="/lottie/pollenGame/DeplacementPop.json"
+      <lottie-player autoplay background="transparent" loop mode="normal" src="/lottie/game/DeplacementPop.json"
                      style="width: 90px"></lottie-player>
       <p><strong>Déplacez-vous</strong> vers les fleurs grâce à votre <b>souris</b></p>
       <p class="popupPollen__element u-uppercase espace">Espace</p>
