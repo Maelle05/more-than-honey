@@ -74,7 +74,7 @@
   {
     "name": "bridgeModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene",
+    "actingScenes": "outsideOneScene pollenGameScene",
     "path": "webgl/models/Bridge/bridge-2.glb"
   },
   {

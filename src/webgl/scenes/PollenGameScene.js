@@ -97,14 +97,17 @@ export default class PollenGameScene extends Group {
       this.add(thisDaisy)
     }
 
-    // Add bee
+    // bee
     this.bee = new BlueBee()
 
-    // Add Grass
+    // Grass
     this.grass = new Grass(this.nbDaisys + 20, 60, 400000)
 
-    // Add Tree
+    // Tree
     this.tree = this.resources.items.treeModel.scene
+
+    // Bridge
+    this.bridge = this.resources.items.bridgeModel.scene
 
     // Debug
     this.debug = this.webGl.debug
@@ -156,17 +159,25 @@ export default class PollenGameScene extends Group {
     this.add(this.grass)
 
     // Add Trees
-    const nbTrees = 10
+    const nbTrees = 25
     for (let i = 0; i <= nbTrees; i++) {
       const thisTree = this.tree.clone()
       thisTree.position.set(
-        randomIntFromInterval(-3, this.gameProperty.camTarget.x, 0.5),
+        randomIntFromInterval(-3, this.gameProperty.camTarget.x + 10, 0.5),
         0.5,
-        i > nbTrees/4 ? randomIntFromInterval(-3, -12, 0.5) : randomIntFromInterval(7, 17, 0.5)
+        i > nbTrees/4 ? randomIntFromInterval(-3.5, -25, 0.5) : randomIntFromInterval(14, 20, 0.5)
       )
       thisTree.scale.set(3, 3, 3)
+      thisTree.rotation.y = randomIntFromInterval(0, 1, 0.02)
       this.add(thisTree)
     }
+
+    // Add Bridge
+    this.bridge.position.x = this.gameProperty.camTarget.x + 8
+    this.bridge.position.y = 0.4
+    this.bridge.rotation.y = 0.7
+    this.add(this.bridge)
+    
 
     // Add butterflies BOT
     const nbBot = 10
@@ -367,7 +378,7 @@ export default class PollenGameScene extends Group {
     gsap.to(this.PostPros.vignettePass.uniforms.uIntensity, {
       value: 0.6,
       duration: 2.5,
-      ease: CustomEase.create("custom", "M0,0,C0,0,0.01,0.133,0.032,0.236,0.037,0.261,0.058,0.319,0.07,0.34,0.077,0.355,0.167,0.538,0.246,0.32,0.272,0.248,0.282,0.16,0.362,0.122,0.448,0.08,0.446,0.228,0.528,0.224,0.692,0.214,1,0,1,0")
+      ease: CustomEase.create("custom", "M0,0,C0,0,0.01,0.133,0.032,0.236,0.037,0.261,0.058,0.319,0.07,0.34,0.077,0.355,0.167,0.538,0.246,0.32,0.272,0.248,0.282,0.16,0.362,0.122,0.448,0.08,0.584,0.184,0.672,0.196,0.876,0.223,1,0,1,0")
     })
     setTimeout( ()=>{
       this.lottieLose.classList.add('hidden')
