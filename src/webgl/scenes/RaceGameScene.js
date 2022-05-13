@@ -12,8 +12,7 @@ import daisyLocation from '@/webgl/elementsLocations/raceGame/daisy-race.json'
 import stoneLocation from '@/webgl/elementsLocations/raceGame/stone-race.json'
 import Daisy from '@/webgl/entities/Daisy'
 import Stone from '@/webgl/entities/Stone'
-import OnlyGrass from '@/webgl/shaders/grass/onlyGrass'
-import Grass from '@/webgl/shaders/grass/grass'
+import Grass from '@/webgl/shaders/grass/PollenGameGrass'
 
 export default class RaceGameScene extends Group {
   constructor() {
@@ -64,7 +63,7 @@ export default class RaceGameScene extends Group {
     // Import models
     this.bee = new BlueBee()
     this.hornet = new Queen()
-    this.grass = new Grass()
+    this.grass = new Grass(this.property.map.with / this.property.map.ratio, this.property.map.height / 2.5, 500000)
     this.daisy = new Daisy()
     this.stone = new Stone()
     this.tree = this.resources.items.treeModel.scene
@@ -103,7 +102,7 @@ export default class RaceGameScene extends Group {
     }, 500)
 
     // Set fog
-    this.scene.fog.density = 0.03
+    // this.scene.fog.density = 0.03
 
     // Set parameters of the scene at init
     this.camera.position.set(0, 0, -10)

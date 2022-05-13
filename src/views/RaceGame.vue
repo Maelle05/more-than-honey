@@ -12,7 +12,7 @@
       <p><strong>Atteignez la ruche </strong>avant que le frelon ne vous <strong>rattrape</strong> !</p>
     </Popup>
 
-    <Popup class="popupRace" ref="popupOutro" label-button="Envie de rejouer ?" path="/ending"
+    <Popup class="popupRace hidden" ref="popupOutro" label-button="Envie de rejouer ?" path="/ending"
            @action-on-click="reStart">
       <h2 class="popupRace__title u-uppercase">Bravo</h2>
       <p>Vous avez réussi à finir la course sans que le frelon vous rattrape</p>
