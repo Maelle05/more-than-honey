@@ -9,6 +9,7 @@ import gsap from 'gsap'
 import { MeshBasicMaterial, Mesh, BoxGeometry, Vector3 } from 'three'
 import Bloom from '../shaders/bloom'
 import { CustomEase } from 'gsap/all'
+import Grass from '../shaders/grass/PollenGameGrass'
 
 let gameInstance = null
 
@@ -29,7 +30,7 @@ export default class PollenGameScene extends Group {
 
     this.PostPros =  new Bloom()
 
-    this.nbDaisys = 50
+    this.nbDaisys = 70
     this.positionDaisys = [
       {
         x: -3.5,
@@ -80,7 +81,7 @@ export default class PollenGameScene extends Group {
         // x: randomIntFromInterval(-2, 30, 0.5),
         x: this.positionDaisys[i].x + randomIntFromInterval(0.4, 1.6, 0.04),
         y: 0,
-        z: randomIntFromInterval(-2.5, 2.5, 0.04)
+        z: randomIntFromInterval(-3.5, 3.5, 0.04)
       })
     }
 
@@ -93,6 +94,9 @@ export default class PollenGameScene extends Group {
 
     // Add bee
     this.bee = new BlueBee()
+
+    // Add Grass
+    this.grass = new Grass(this.nbDaisys + 20, 60, 200000)
 
     // Debug
     this.debug = this.webGl.debug
@@ -122,6 +126,10 @@ export default class PollenGameScene extends Group {
       z: 0.5,
     }
     this.add(this.bee.model)
+
+    // Add grass
+    this.grass.position.set(this.nbDaisys / 2, 0, 0)
+    this.add(this.grass)
 
     // Add butterflies BOT
     const nbBot = 10
@@ -214,6 +222,10 @@ export default class PollenGameScene extends Group {
         }
       }
     }
+
+    if(this.grass){
+      this.grass.update()
+    }
   }
 
   initAnim(){
@@ -227,7 +239,7 @@ export default class PollenGameScene extends Group {
     gsap.to(this.camera.position, {
       x: 0,
       y: 10,
-      z: 5,
+      z: 10,
       duration: cinematiqueTime,
       delay: 0.7,
       ease: 'none'
@@ -310,7 +322,7 @@ export default class PollenGameScene extends Group {
     this.gameProperty.lastIntersectBB = this.butterflies[i].mesh.name
     gsap.registerPlugin(CustomEase)
     gsap.to(this.PostPros.vignettePass.uniforms.uIntensity, {
-      value: 0.4,
+      value: 0.6,
       duration: 2.5,
       ease: CustomEase.create("custom", "M0,0,C0,0,0.01,0.133,0.032,0.236,0.037,0.261,0.058,0.319,0.07,0.34,0.077,0.355,0.167,0.538,0.246,0.32,0.272,0.248,0.282,0.16,0.362,0.122,0.448,0.08,0.446,0.228,0.528,0.224,0.692,0.214,1,0,1,0")
     })
