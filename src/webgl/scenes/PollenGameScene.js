@@ -280,7 +280,7 @@ export default class PollenGameScene extends Group {
   }
 
   initAnim(){
-    const cinematiqueTime = 20
+    const cinematiqueTime = 5
 
 
     // Set Camera position
@@ -431,6 +431,33 @@ export default class PollenGameScene extends Group {
       // console.log(pollenMesh.material)
       daisy.add(pollenMesh)
     }
+  }
+
+  reStart(){
+    this.endPopUp.classList.add('hidden')
+    this.bee.model.position.set(-4, 1, 0.5)
+    this.camera.position.set(0, 10, 10)
+    this.webGl.controls.target.set(0, 0, 0 )
+    this.gameProperty.foraged = []
+
+    // Mouve Camera
+    gsap.to(this.camera.position, {
+      duration: this.gameProperty.durationGame, 
+      x: this.gameProperty.camTarget.x, 
+      ease: "power1.in", 
+    })
+    gsap.to(this.webGl.controls.target, {
+      duration: this.gameProperty.durationGame, 
+      x: this.gameProperty.controlsTarget.x, 
+      ease: "power1.in", 
+    }).then(()=>{
+      this.endPopUp.querySelector('p').innerHTML = this.gameProperty.foraged.length + ' fleurs viennent d’être pollinisées'
+      this.endPopUp.classList.remove('hidden')
+    })
+
+    // Start chrono
+    this.setChrono(this.gameProperty.durationGame, 0)
+
   }
 
   delete() {

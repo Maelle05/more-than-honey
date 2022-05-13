@@ -77,7 +77,7 @@ export default {
       }
     },
     reStart() {
-      console.log('rejouer :)')
+      this.webglInstance.reStart()
     }
   },
 
