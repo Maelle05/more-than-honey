@@ -1,18 +1,17 @@
 <template>
   <div class="honeyIntro">
-    <Button to="/hive" label="Suivant"/>
+    <TimelineComponent/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import Button from '@/components/ui/PrimaryButton'
 import WebGl from '@/webgl/webglManager'
+import TimelineComponent from '@/components/ui/TimelineComponent'
 
 export default {
   name: 'HoneyIntro',
   components: {
-    Button
+    TimelineComponent
   },
   mounted() {
     const manager =  new WebGl()

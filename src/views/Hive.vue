@@ -1,10 +1,9 @@
 <template>
   <div class="hive">
-    <Button label="Suivant" to="/outsideOne"/>
     <div class="customCursor" ref="cursor"/>
     <div class="customCursorBorder" ref="cursorBorder"/>
     <TimelineComponent/>
-    <Tuto path="/lottie/hover.json" listener="mouseMove"/>
+    <Tuto path="/lottie/UI/hover.json" listener="mouseMove"/>
     <div class="hive__point" v-for="(bee, i) in bees" :key="i" ref="points">
       <div class="pointer"/>
       <div class="text" :class="bee.style">
@@ -20,7 +19,6 @@
 <script lang="js">
 import HiveScene from '@/webgl/scenes/HiveScene'
 import TimelineComponent from '@/components/ui/TimelineComponent'
-import Button from '@/components/ui/PrimaryButton'
 import JsonBeesContent from '../../public/data/hiveContent.json'
 import Tuto from '@/components/ui/Tuto'
 
@@ -28,7 +26,6 @@ export default {
   name: 'Hive',
   components: {
     TimelineComponent,
-    Button,
     Tuto
   },
   data() {

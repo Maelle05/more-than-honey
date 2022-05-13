@@ -26,27 +26,26 @@ export default {
 
 <style scoped lang="scss">
 .button {
-  position: fixed;
-  bottom: 65px;
-  right: 112px;
-  background: $white;
-  border-radius: 8px;
-  transition: 0.5s;
-  font-size: 16px;
-
-  &:hover {
-    background: $hoverGrey;
-  }
-
   a {
-    color: black;
+    color: $blueGreen;
+    text-transform: uppercase;
+    font-size: 16px;
     display: block;
     padding: 15px 24px;
     font-weight: 600;
+    font-family: 'RoadRage', sans-serif;
+  }
+  &:hover {
+    //background: $hoverGrey;
   }
 }
 
 .center {
+  position: fixed;
+  background: $white;
+  border-radius: 8px;
+  transition: 0.5s;
+  font-size: 16px;
   bottom: 11vh;
   right: 50%;
   transform: translateX(50%);
