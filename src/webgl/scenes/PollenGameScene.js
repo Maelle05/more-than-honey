@@ -133,7 +133,7 @@ export default class PollenGameScene extends Group {
       controlsTarget: new Vector3(this.positionDaisys[this.positionDaisys.length-1].x, 0, 0),
       beeCanMouve: true,
       spaceIsPress: false,
-      durationGame: 30,
+      durationGame: 130,
       currentLoadPollen: new Array(this.nbDaisys + 1),
       lastIntersectBB: '',
       cursorIsInvert: false
@@ -355,12 +355,15 @@ export default class PollenGameScene extends Group {
     })
 
     // Start chrono
+    this.chrono.div.classList.remove('hidden')
     this.setChrono(this.gameProperty.durationGame, 0)
   }
 
   setChrono(i, endNbr) {
     if (i >= endNbr) {
-      this.chrono.label.innerHTML = i
+      const min = '0' + Math.floor(i/60)
+      const sec = i%60 < 10 ? '0'+ i%60 : i%60
+      this.chrono.label.innerHTML = min + ' : ' + sec
       setTimeout(() => {
         this.setChrono(i - 1, endNbr)
       }, 1000)
@@ -439,6 +442,7 @@ export default class PollenGameScene extends Group {
     this.camera.position.set(0, 10, 10)
     this.webGl.controls.target.set(0, 0, 0 )
     this.gameProperty.foraged = []
+    this.gameProperty.durationGame = 130
 
     // Mouve Camera
     gsap.to(this.camera.position, {
@@ -455,7 +459,8 @@ export default class PollenGameScene extends Group {
       this.endPopUp.classList.remove('hidden')
     })
 
-    // Start chrono
+    // Start chron
+    this.chrono.div.classList.remove('hidden')
     this.setChrono(this.gameProperty.durationGame, 0)
 
   }
