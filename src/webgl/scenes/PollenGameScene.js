@@ -147,7 +147,8 @@ export default class PollenGameScene extends Group {
       spaceIsPress: false,
       durationGame: 130,
       currentLoadPollen: new Array(this.nbDaisys + 1),
-      lastIntersectBB: ''
+      lastIntersectBB: '',
+      cursorIsInvert: false
     }
 
     this.gamePlayed = false
@@ -267,7 +268,7 @@ export default class PollenGameScene extends Group {
         this.cursor.y = this.listener.property.cursor.y
 
         this.beeTarget.x = this.cursor.x * 4 + this.camera.position.x
-        this.beeTarget.z = - this.cursor.y * 3
+        this.beeTarget.z = this.gameProperty.cursorIsInvert ? this.cursor.y * 4 : - this.cursor.y * 4
         this.beeTarget.y = 1
       }
     })
@@ -318,6 +319,10 @@ export default class PollenGameScene extends Group {
       this.lottieLose.classList.remove('hidden')
       this.gameProperty.foraged.shift()
     }
+    this.gameProperty.cursorIsInvert = !this.gameProperty.cursorIsInvert
+    setTimeout(()=>{
+      this.gameProperty.cursorIsInvert = !this.gameProperty.cursorIsInvert
+    }, 5000)
     
     this.gameProperty.lastIntersectBB = this.butterflies[i].mesh.name
     gsap.registerPlugin(CustomEase)
