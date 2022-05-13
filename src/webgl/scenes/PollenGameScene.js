@@ -66,7 +66,7 @@ export default class PollenGameScene extends Group {
       label: dom.querySelector('.loaderPollen p')
     }
 
-    this.startPopUp = dom.getElementsByClassName('popUpIntro')[0]
+    this.startPopUp = dom.getElementsByClassName('popupPollen')[0]
 
     this.lottieLose = dom.getElementsByClassName('lottieLoseForaged')[0]
   }
