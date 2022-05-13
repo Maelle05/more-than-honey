@@ -5,11 +5,10 @@ import DaisyGame from '../entities/DaisyGame'
 import Listener from '../utils/Listener'
 import WebGl from '../webglManager'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
-import { Vector3 } from 'three'
 import gsap from 'gsap'
-import { BoxGeometry } from 'three'
-import { MeshBasicMaterial } from 'three'
-import { Mesh } from 'three'
+import { MeshBasicMaterial, Mesh, BoxGeometry, Vector3 } from 'three'
+import Bloom from '../shaders/bloom'
+import { CustomEase } from 'gsap/all'
 
 let gameInstance = null
 
@@ -27,6 +26,8 @@ export default class PollenGameScene extends Group {
     this.resources = this.webGl.resources
     this.camera = this.webGl.camera
     this.loader = this.webGl.loader
+
+    this.PostPros =  new Bloom()
 
     this.nbDaisys = 50
     this.positionDaisys = [
@@ -301,12 +302,22 @@ export default class PollenGameScene extends Group {
   }
 
   loseForaged(i) {
-    this.lottieLose.classList.remove('hidden')
-    this.gameProperty.foraged.shift()
+    if (this.gameProperty.foraged.length) {
+      this.lottieLose.classList.remove('hidden')
+      this.gameProperty.foraged.shift()
+    }
+    
     this.gameProperty.lastIntersectBB = this.butterflies[i].mesh.name
-    setTimeout(()=>{
+    gsap.registerPlugin(CustomEase)
+    gsap.to(this.PostPros.vignettePass.uniforms.uIntensity, {
+      value: 0.4,
+      duration: 2.5,
+      ease: CustomEase.create("custom", "M0,0,C0,0,0.01,0.133,0.032,0.236,0.037,0.261,0.058,0.319,0.07,0.34,0.077,0.355,0.167,0.538,0.246,0.32,0.272,0.248,0.282,0.16,0.362,0.122,0.448,0.08,0.446,0.228,0.528,0.224,0.692,0.214,1,0,1,0")
+    })
+    setTimeout( ()=>{
       this.lottieLose.classList.add('hidden')
       this.gameProperty.lastIntersectBB = ''
+      this.PostPros.vignettePass.uniforms.uIntensity.value = 0
     }, 2500) 
   }
 
