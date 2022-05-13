@@ -106,7 +106,6 @@ export default class Grass extends Group {
       color: 'black',
       side: DoubleSide,
       wireframe: false,
-      displacementMap: this.webGl.resources.items.noiseTexture,
       displacementScale: 5
     })
     this.floor = new Mesh(this.floorGeometry, this.floorMaterial)
@@ -149,7 +148,7 @@ export default class Grass extends Group {
 
   update() {
     // Wind effect
-    this.leavesMaterial.uniforms.time.value = this.clock.elapsed / 3000
+    this.leavesMaterial.uniforms.time.value = this.clock.elapsed / 6000
     this.leavesMaterial.uniformsNeedUpdate = true
   }
 }

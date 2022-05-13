@@ -10,6 +10,7 @@ import { MeshBasicMaterial, Mesh, BoxGeometry, Vector3 } from 'three'
 import Bloom from '../shaders/bloom'
 import { CustomEase } from 'gsap/all'
 import Grass from '../shaders/grass/PollenGameGrass'
+import { SphereGeometry } from 'three'
 
 let gameInstance = null
 
@@ -30,7 +31,7 @@ export default class PollenGameScene extends Group {
 
     this.PostPros =  new Bloom()
 
-    this.nbDaisys = 70
+    this.nbDaisys = 50
     this.positionDaisys = [
       {
         x: -3.5,
@@ -86,9 +87,13 @@ export default class PollenGameScene extends Group {
     }
 
     // Add dasy
+    this.daisys = []
     for (let i = 0; i < this.positionDaisys.length; i++) {
       const thisDaisy = this.daisy.model.clone()
       thisDaisy.position.set(this.positionDaisys[i].x, this.positionDaisys[i].y, this.positionDaisys[i].z)
+      thisDaisy.rotation.y = randomIntFromInterval(0, 1, 0.002)
+      this.addPollenOnDaisy(thisDaisy)
+      this.daisys.push(thisDaisy)
       this.add(thisDaisy)
     }
 
@@ -96,7 +101,7 @@ export default class PollenGameScene extends Group {
     this.bee = new BlueBee()
 
     // Add Grass
-    this.grass = new Grass(this.nbDaisys + 20, 60, 200000)
+    this.grass = new Grass(this.nbDaisys + 20, 60, 400000)
 
     // Debug
     this.debug = this.webGl.debug
@@ -147,7 +152,8 @@ export default class PollenGameScene extends Group {
       spaceIsPress: false,
       durationGame: 130,
       currentLoadPollen: new Array(this.nbDaisys + 1),
-      lastIntersectBB: ''
+      lastIntersectBB: '',
+      cursorIsInvert: false
     }
 
     this.gamePlayed = false
@@ -226,6 +232,22 @@ export default class PollenGameScene extends Group {
     if(this.grass){
       this.grass.update()
     }
+
+    if (this.gameProperty) {
+      this.gameProperty.currentLoadPollen.forEach((currentLoadPollen, index) => {
+        if(currentLoadPollen === 150){
+          this.daisys[index].children.forEach(children => {
+            if (children.name === 'Pollen' && children.material.opacity != 0) {
+              gsap.to(children.material, {
+                opacity: 0,
+                duration: 0.5,
+              })
+            }
+          })
+        }
+      })
+      
+    }
   }
 
   initAnim(){
@@ -267,7 +289,7 @@ export default class PollenGameScene extends Group {
         this.cursor.y = this.listener.property.cursor.y
 
         this.beeTarget.x = this.cursor.x * 4 + this.camera.position.x
-        this.beeTarget.z = - this.cursor.y * 3
+        this.beeTarget.z = this.gameProperty.cursorIsInvert ? this.cursor.y * 4 : - this.cursor.y * 4
         this.beeTarget.y = 1
       }
     })
@@ -318,6 +340,10 @@ export default class PollenGameScene extends Group {
       this.lottieLose.classList.remove('hidden')
       this.gameProperty.foraged.shift()
     }
+    this.gameProperty.cursorIsInvert = !this.gameProperty.cursorIsInvert
+    setTimeout(()=>{
+      this.gameProperty.cursorIsInvert = !this.gameProperty.cursorIsInvert
+    }, 5000)
     
     this.gameProperty.lastIntersectBB = this.butterflies[i].mesh.name
     gsap.registerPlugin(CustomEase)
@@ -331,6 +357,48 @@ export default class PollenGameScene extends Group {
       this.gameProperty.lastIntersectBB = ''
       this.PostPros.vignettePass.uniforms.uIntensity.value = 0
     }, 2500) 
+  }
+
+  addPollenOnDaisy(daisy){
+    const nbPollen = 3
+    const allPollens = []
+
+    for (let i = 0; i <= nbPollen; i++) {
+      const geometry = new SphereGeometry( 0.3, 7, 6 )
+      const material = new MeshBasicMaterial( {color: 0x72F8F0, transparent: true} )
+      const pollenMesh = new Mesh( geometry, material )
+      pollenMesh.name = 'Pollen'
+
+      const rendomSize = randomIntFromInterval(0.1, 0.2, 0.005)
+      
+      pollenMesh.scale.set(rendomSize, rendomSize, rendomSize)
+      pollenMesh.position.y = 1.3
+      pollenMesh.position.z = randomIntFromInterval(-0.3, 0.3, 0.002)
+      pollenMesh.position.x = randomIntFromInterval(-0.3, 0.3, 0.002)
+
+      const duration = randomIntFromInterval(0.8, 3.2, 0.001)
+
+      gsap.to(pollenMesh.position, {
+        y: randomIntFromInterval(1.3, 2.2, 0.005),
+        duration: duration,
+        stagger: {
+          each: 0,
+          repeat: -1
+        }
+      })
+
+      gsap.to(pollenMesh.material, {
+        opacity: 0,
+        duration: duration,
+        stagger: {
+          each: 0,
+          repeat: -1
+        }
+      })
+
+      // console.log(pollenMesh.material)
+      daisy.add(pollenMesh)
+    }
   }
 
   delete() {
