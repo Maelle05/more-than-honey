@@ -14,9 +14,18 @@ import Daisy from '@/webgl/entities/Daisy'
 import Stone from '@/webgl/entities/Stone'
 import Grass from '@/webgl/shaders/grass/PollenGameGrass'
 
+let raceGameInstance = null
+
 export default class RaceGameScene extends Group {
   constructor() {
     super()
+
+    if(raceGameInstance) {
+      return raceGameInstance
+    }
+
+    raceGameInstance = this
+
     this.webGl = new WebGl()
     this.scene = this.webGl.scene
     this.resources = this.webGl.resources
@@ -57,6 +66,11 @@ export default class RaceGameScene extends Group {
     this.resources.on(`sourcesReadyraceGame`, () => {
       this.setup()
     })
+  }
+
+  setupPopups(start, end) {
+    this.popupStart = start
+    this.popupEnd = end
   }
 
   setup() {
@@ -234,7 +248,7 @@ export default class RaceGameScene extends Group {
         if (step < numberOfSteps) {
           moveGround()
         } else {
-          console.log('the game is finished !')
+          this.popupEnd.classList.remove('hidden')
         }
       })
     }
