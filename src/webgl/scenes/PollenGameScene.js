@@ -103,6 +103,9 @@ export default class PollenGameScene extends Group {
     // Add Grass
     this.grass = new Grass(this.nbDaisys + 20, 60, 400000)
 
+    // Add Tree
+    this.tree = this.resources.items.treeModel.scene
+
     // Debug
     this.debug = this.webGl.debug
 
@@ -119,6 +122,22 @@ export default class PollenGameScene extends Group {
   }
 
   init() {
+    // Game property
+    this.gameProperty = {
+      foraged: [],
+      camTarget: new Vector3(this.positionDaisys[this.positionDaisys.length-1].x, 10, 5),
+      controlsTarget: new Vector3(this.positionDaisys[this.positionDaisys.length-1].x, 0, 0),
+      beeCanMouve: true,
+      spaceIsPress: false,
+      durationGame: 130,
+      currentLoadPollen: new Array(this.nbDaisys + 1),
+      lastIntersectBB: '',
+      cursorIsInvert: false
+    }
+
+    this.gamePlayed = false
+
+
     // Remove fog
     this.scene.fog.density = 0
 
@@ -136,27 +155,25 @@ export default class PollenGameScene extends Group {
     this.grass.position.set(this.nbDaisys / 2, 0, 0)
     this.add(this.grass)
 
+    // Add Trees
+    const nbTrees = 10
+    for (let i = 0; i <= nbTrees; i++) {
+      const thisTree = this.tree.clone()
+      thisTree.position.set(
+        randomIntFromInterval(-3, this.gameProperty.camTarget.x, 0.5),
+        0.5,
+        i > nbTrees/4 ? randomIntFromInterval(-3, -12, 0.5) : randomIntFromInterval(7, 17, 0.5)
+      )
+      thisTree.scale.set(3, 3, 3)
+      this.add(thisTree)
+    }
+
     // Add butterflies BOT
     const nbBot = 10
     this.butterflies = []
     for (let i = 0; i < nbBot; i++) {
       this.butterflies.push(new Butterflie(this, this.positionDaisys, i))
     }
-
-    // Game property
-    this.gameProperty = {
-      foraged: [],
-      camTarget: new Vector3(this.positionDaisys[this.positionDaisys.length-1].x, 10, 5),
-      controlsTarget: new Vector3(this.positionDaisys[this.positionDaisys.length-1].x, 0, 0),
-      beeCanMouve: true,
-      spaceIsPress: false,
-      durationGame: 130,
-      currentLoadPollen: new Array(this.nbDaisys + 1),
-      lastIntersectBB: '',
-      cursorIsInvert: false
-    }
-
-    this.gamePlayed = false
 
 
     // End Loader
@@ -251,7 +268,7 @@ export default class PollenGameScene extends Group {
   }
 
   initAnim(){
-    const cinematiqueTime = 5
+    const cinematiqueTime = 20
 
 
     // Set Camera position

@@ -56,7 +56,7 @@
   {
     "name": "treeModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene raceGameScene outsideTwoScene",
+    "actingScenes": "outsideOneScene raceGameScene outsideTwoScene pollenGameScene",
     "path": "webgl/models/Tree/sakura.glb"
   },
   {
