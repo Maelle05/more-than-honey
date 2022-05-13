@@ -16,7 +16,7 @@
         <img class="popupPollen__icon" src="/images/popup/smile.svg" alt="blue smiley"></p>
     </Popup>
 
-    <Popup class="popupPollen hidden" ref="popUpOutro" label-button="Envie de rejouer ?" path="/outsideTwo" @action-on-click="reStart">
+    <Popup class="popUpOutro hidden" ref="popUpOutro" label-button="Envie de rejouer ?" path="/outsideTwo" @action-on-click="reStart">
       <h2 class="popupPollen__title u-uppercase">Merci</h2>
       <p>XX fleurs<b></b> viennent d’être pollinisées</p>
       <img class="popupPollen__element" src="/images/popup/flower.svg" alt="blue smiley">

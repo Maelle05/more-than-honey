@@ -68,6 +68,7 @@ export default class PollenGameScene extends Group {
     }
 
     this.startPopUp = dom.getElementsByClassName('popupPollen')[0]
+    this.endPopUp = dom.getElementsByClassName('popUpOutro')[0]
 
     this.lottieLose = dom.getElementsByClassName('lottieLoseForaged')[0]
   }
@@ -132,7 +133,7 @@ export default class PollenGameScene extends Group {
       controlsTarget: new Vector3(this.positionDaisys[this.positionDaisys.length-1].x, 0, 0),
       beeCanMouve: true,
       spaceIsPress: false,
-      durationGame: 130,
+      durationGame: 30,
       currentLoadPollen: new Array(this.nbDaisys + 1),
       lastIntersectBB: '',
       cursorIsInvert: false
@@ -348,6 +349,9 @@ export default class PollenGameScene extends Group {
       duration: this.gameProperty.durationGame, 
       x: this.gameProperty.controlsTarget.x, 
       ease: "power1.in", 
+    }).then(()=>{
+      this.endPopUp.querySelector('p').innerHTML = this.gameProperty.foraged.length + ' fleurs viennent d’être pollinisées'
+      this.endPopUp.classList.remove('hidden')
     })
 
     // Start chrono
