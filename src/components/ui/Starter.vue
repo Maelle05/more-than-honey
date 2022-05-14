@@ -24,13 +24,16 @@ export default {
   },
   methods: {
     startLottieAnimation(){
-      console.log('Start Lottie')
+      console.log('321')
       const player = document.querySelector('.lottie123')
-      document.querySelector('.starter').classList.remove('hidden')
+      const container = document.querySelector('.tutoScreen.starter')
+      console.log(container)
+      container.classList.remove('hidden')
       player.play()
-      setTimeout(()=>{
-        document.querySelector('.starter').classList.add('hidden')
-      }, 3500)
+      player.addEventListener('complete', function(){
+        player.stop()
+        container.classList.add('hidden')
+      })
     }
   }
 }
@@ -56,6 +59,6 @@ export default {
 }
 
 .hidden {
-  visibility: hidden;
+  display: none;
 }
 </style>

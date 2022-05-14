@@ -88,7 +88,10 @@ export default {
       }
     },
     reStart() {
+      this.$refs.popUpOutro.$el.classList.add('hidden')
+      Starter.methods.startLottieAnimation()
       this.webglInstance.reStart()
+      
     }
   },
 

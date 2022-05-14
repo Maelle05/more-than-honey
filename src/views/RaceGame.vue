@@ -43,11 +43,18 @@ export default {
   mounted() {
     const scene = new RaceGameScene()
     scene.setupPopups(this.$refs.popupIntro.$el, this.$refs.popupOutro.$el)
+
+    // 🐝  En attendant
+    Starter.methods.startLottieAnimation()
   },
   methods: {
     startGame() {
       if (this.$refs.popupIntro) {
         this.$refs.popupIntro.$el.classList.add('hidden')
+
+        // 🐝 Il faudrat que tu utilises ca :)🐝
+        // Starter.methods.startLottieAnimation()
+
         // this.$refs.starter.$el.classList.remove('hidden')
         // setTimeout(() => {
         //     this.$refs.starter.$el.classList.add('hidden')

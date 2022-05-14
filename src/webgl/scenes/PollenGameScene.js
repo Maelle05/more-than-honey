@@ -133,7 +133,7 @@ export default class PollenGameScene extends Group {
       controlsTarget: new Vector3(this.positionDaisys[this.positionDaisys.length-1].x, 0, 0),
       beeCanMouve: true,
       spaceIsPress: false,
-      durationGame: 130,
+      durationGame: 20,
       currentLoadPollen: new Array(this.nbDaisys + 1),
       lastIntersectBB: '',
       cursorIsInvert: false
@@ -317,7 +317,7 @@ export default class PollenGameScene extends Group {
         this.cursor.x = this.listener.property.cursor.x
         this.cursor.y = this.listener.property.cursor.y
 
-        this.beeTarget.x = this.cursor.x * 4 + this.camera.position.x
+        this.beeTarget.x = this.cursor.x * 6 + this.camera.position.x
         this.beeTarget.z = this.gameProperty.cursorIsInvert ? this.cursor.y * 4 : - this.cursor.y * 4
         this.beeTarget.y = 1
       }
@@ -378,7 +378,7 @@ export default class PollenGameScene extends Group {
     this.gameProperty.cursorIsInvert = !this.gameProperty.cursorIsInvert
     setTimeout(()=>{
       this.gameProperty.cursorIsInvert = !this.gameProperty.cursorIsInvert
-    }, 5000)
+    }, 3000)
     
     this.gameProperty.lastIntersectBB = this.butterflies[i].mesh.name
     gsap.registerPlugin(CustomEase)
@@ -438,30 +438,37 @@ export default class PollenGameScene extends Group {
 
   reStart(){
     this.endPopUp.classList.add('hidden')
-    this.bee.model.position.set(-4, 1, 0.5)
+    this.gameProperty.beeCanMouve = false
     this.camera.position.set(0, 10, 10)
     this.webGl.controls.target.set(0, 0, 0 )
     this.gameProperty.foraged = []
-    this.gameProperty.durationGame = 130
+    this.gameProperty.durationGame = 20
+    this.gameProperty.currentLoadPollen = []
+    this.bee.model.position.set(-4, 1, 0.5)
 
-    // Mouve Camera
-    gsap.to(this.camera.position, {
-      duration: this.gameProperty.durationGame, 
-      x: this.gameProperty.camTarget.x, 
-      ease: "power1.in", 
-    })
-    gsap.to(this.webGl.controls.target, {
-      duration: this.gameProperty.durationGame, 
-      x: this.gameProperty.controlsTarget.x, 
-      ease: "power1.in", 
-    }).then(()=>{
-      this.endPopUp.querySelector('p').innerHTML = this.gameProperty.foraged.length + ' fleurs viennent d’être pollinisées'
-      this.endPopUp.classList.remove('hidden')
-    })
+    setTimeout(()=>{
+      this.gameProperty.beeCanMouve = true
 
-    // Start chron
-    this.chrono.div.classList.remove('hidden')
-    this.setChrono(this.gameProperty.durationGame, 0)
+      // Mouve Camera
+      gsap.to(this.camera.position, {
+        duration: this.gameProperty.durationGame, 
+        x: this.gameProperty.camTarget.x, 
+        ease: "power1.in", 
+      })
+      gsap.to(this.webGl.controls.target, {
+        duration: this.gameProperty.durationGame, 
+        x: this.gameProperty.controlsTarget.x, 
+        ease: "power1.in", 
+      }).then(()=>{
+        this.endPopUp.querySelector('p').innerHTML = this.gameProperty.foraged.length + ' fleurs viennent d’être pollinisées'
+        this.endPopUp.classList.remove('hidden')
+      })
+
+      // Start chron
+      this.chrono.div.classList.remove('hidden')
+      this.setChrono(this.gameProperty.durationGame, 0)
+    }, 3500)
+    
 
   }
 
