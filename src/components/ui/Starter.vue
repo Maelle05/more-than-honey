@@ -27,6 +27,7 @@ export default {
       const player = document.querySelector('.lottie123')
       const container = document.querySelector('.tutoScreen.starter')
       container.classList.remove('hidden')
+      console.log('123')
       player.play()
       player.addEventListener('complete', function(){
         player.stop()

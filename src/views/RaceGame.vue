@@ -45,7 +45,10 @@ export default {
     scene.setupPopups(this.$refs.popupIntro.$el, this.$refs.popupOutro.$el)
 
     // 🐝  En attendant
-    Starter.methods.startLottieAnimation()
+    setTimeout(()=>{
+      Starter.methods.startLottieAnimation()
+    }, 1000)
+    
   },
   methods: {
     startGame() {
@@ -54,6 +57,8 @@ export default {
 
         // 🐝 Il faudrat que tu utilises ca :)🐝
         // Starter.methods.startLottieAnimation()
+
+
 
         // this.$refs.starter.$el.classList.remove('hidden')
         // setTimeout(() => {
