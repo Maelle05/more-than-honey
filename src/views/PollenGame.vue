@@ -38,7 +38,8 @@
     <div class="loaderPollen hidden">
       <p></p>
     </div>
-    <div class="count">
+    <div class="count hidden">
+      <img src="/images/pollenGame/flower.png" alt="" srcset="">
       <p></p>
     </div>
     <div class="lottieLoseForaged hidden">
@@ -173,6 +174,23 @@ export default {
     left: 110px;
     bottom: 64px;
     color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'RoadRage', sans-serif;
+    font-size: 40px;
+
+    img {
+      width: 60px;
+      height: 60px;
+      margin-right: 15px;
+    }
+
+    &.hidden{
+      display: none;
+    }
   }
 
   .loaderPollen {

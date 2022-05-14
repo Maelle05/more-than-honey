@@ -133,7 +133,7 @@ export default class PollenGameScene extends Group {
       controlsTarget: new Vector3(this.positionDaisys[this.positionDaisys.length-1].x, 0, 0),
       beeCanMouve: true,
       spaceIsPress: false,
-      durationGame: 20,
+      durationGame: 70,
       currentLoadPollen: new Array(this.nbDaisys + 1),
       lastIntersectBB: '',
       cursorIsInvert: false,
@@ -241,7 +241,7 @@ export default class PollenGameScene extends Group {
         }
       }
 
-      this.domCount.label.innerHTML = this.gameProperty.foraged.length + ' fleurs pollinisées'
+      this.domCount.label.innerHTML = this.gameProperty.foraged.length
 
     }
 
@@ -363,6 +363,8 @@ export default class PollenGameScene extends Group {
     // Start chrono
     this.chrono.div.classList.remove('hidden')
     this.setChrono(this.gameProperty.durationGame, 0)
+
+    this.domCount.div.classList.remove('hidden')
   }
 
   setChrono(i, endNbr) {
@@ -448,7 +450,7 @@ export default class PollenGameScene extends Group {
     this.camera.position.set(0, 10, 10)
     this.webGl.controls.target.set(0, 0, 0 )
     this.gameProperty.foraged = []
-    this.gameProperty.durationGame = 20
+    this.gameProperty.durationGame = 70
     this.gameProperty.currentLoadPollen = []
     this.bee.model.position.set(-4, 1, 0.5)
     this.bee.model.lookAt(1, 0, 1)
@@ -477,8 +479,6 @@ export default class PollenGameScene extends Group {
       this.chrono.div.classList.remove('hidden')
       this.setChrono(this.gameProperty.durationGame, 0)
     }, 3500)
-    
-
   }
 
   delete() {
