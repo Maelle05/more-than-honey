@@ -6,6 +6,7 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader'
 
 import WebGl from "../webglManager"
+import RouterScenes from '../RouterScenes'
 
 let postprosInstance = null
 
@@ -83,12 +84,22 @@ export default class Bloom {
       }`,
     })
 
+    this.routerScenes = new RouterScenes()
+
     this.composer = new EffectComposer(this.renderer)
     this.composer.setSize(this.sizes.width, this.sizes.height)
     this.composer.addPass(this.renderScene)
     this.composer.addPass(this.effectFXAA)
     this.composer.addPass(this.bloomPass)
-    this.composer.addPass(this.vignettePass)
+
+    this.composerGame = new EffectComposer(this.renderer)
+    this.composerGame.setSize(this.sizes.width, this.sizes.height)
+    this.composerGame.addPass(this.renderScene)
+    this.composerGame.addPass(this.effectFXAA)
+    this.composerGame.addPass(this.bloomPass)
+    this.composerGame.addPass(this.vignettePass)
+
+    
 
 
     // Debug
@@ -123,6 +134,10 @@ export default class Bloom {
   update() {
     this.renderer.setClearColor(this.params.rendererBGColor)
     this.renderer.clear()
-    this.composer.render(this.scene, this.camera)
+    if (this.routerScenes.currentRoot === "pollenGame" || this.routerScenes.currentRoot === "raceGame") {
+      this.composerGame.render(this.scene, this.camera)
+    } else {
+      this.composer.render(this.scene, this.camera)
+    }
   }
 }

@@ -38,6 +38,7 @@ export default class RouterScenes extends EventEmitter{
   rootChange(nameScene){
     this.webGl.scene.remove(this.currentScene)
     this.currentScene.delete()
+    this.currentRoot = window.location.pathname.replace(/[^\w\s]/gi, '')
 
     if (this.allScenes[nameScene]){
       this.allScenes[nameScene].init()
