@@ -136,7 +136,8 @@ export default class PollenGameScene extends Group {
       durationGame: 20,
       currentLoadPollen: new Array(this.nbDaisys + 1),
       lastIntersectBB: '',
-      cursorIsInvert: false
+      cursorIsInvert: false,
+      isFinish: false
     }
 
     this.gamePlayed = false
@@ -200,9 +201,12 @@ export default class PollenGameScene extends Group {
     if (this.bee && this.gamePlayed) {
       // Mouve Bee
       this.bee.update()
-      this.bee.model.position.z = MathUtils.damp(this.bee.model.position.z, this.beeTarget.z, 0.07, .8)
-      this.bee.model.position.x = MathUtils.damp(this.bee.model.position.x, this.beeTarget.x, 0.07, .8)
-      this.bee.model.lookAt(this.beeTarget.x, this.beeTarget.y, this.beeTarget.z )
+      if (this.gameProperty.beeCanMouve) {
+        this.bee.model.position.z = MathUtils.damp(this.bee.model.position.z, this.beeTarget.z, 0.07, .8)
+        this.bee.model.position.x = MathUtils.damp(this.bee.model.position.x, this.beeTarget.x, 0.07, .8)
+        this.bee.model.lookAt(this.beeTarget.x, this.beeTarget.y, this.beeTarget.z )
+      }
+      
 
       for (let i = 0; i < this.positionDaisys.length; i++) {
         if (
@@ -211,6 +215,7 @@ export default class PollenGameScene extends Group {
         && this.bee.model.position.z > (Math.round(this.positionDaisys[i].z * 10) / 10) - 0
         && this.bee.model.position.z < (Math.round(this.positionDaisys[i].z * 10) / 10) + 0.4
         && this.gameProperty.spaceIsPress
+        && !this.gameProperty.isFinish
         ) {
           this.gameProperty.beeCanMouve = false
           this.loaderPollen.div.classList.remove('hidden')
@@ -350,6 +355,7 @@ export default class PollenGameScene extends Group {
       x: this.gameProperty.controlsTarget.x, 
       ease: "power1.in", 
     }).then(()=>{
+      this.gameProperty.isFinish = true
       this.endPopUp.querySelector('p').innerHTML = this.gameProperty.foraged.length + ' fleurs viennent d’être pollinisées'
       this.endPopUp.classList.remove('hidden')
     })
@@ -371,7 +377,7 @@ export default class PollenGameScene extends Group {
   }
 
   loseForaged(i) {
-    if (this.gameProperty.foraged.length) {
+    if (this.gameProperty.foraged.length && !this.gameProperty.isFinish) {
       this.lottieLose.classList.remove('hidden')
       this.gameProperty.foraged.shift()
     }
@@ -445,9 +451,11 @@ export default class PollenGameScene extends Group {
     this.gameProperty.durationGame = 20
     this.gameProperty.currentLoadPollen = []
     this.bee.model.position.set(-4, 1, 0.5)
+    this.bee.model.lookAt(1, 0, 1)
 
     setTimeout(()=>{
       this.gameProperty.beeCanMouve = true
+      this.gameProperty.isFinish = false
 
       // Mouve Camera
       gsap.to(this.camera.position, {
@@ -460,6 +468,7 @@ export default class PollenGameScene extends Group {
         x: this.gameProperty.controlsTarget.x, 
         ease: "power1.in", 
       }).then(()=>{
+        this.gameProperty.isFinish = true
         this.endPopUp.querySelector('p').innerHTML = this.gameProperty.foraged.length + ' fleurs viennent d’être pollinisées'
         this.endPopUp.classList.remove('hidden')
       })

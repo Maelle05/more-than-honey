@@ -24,10 +24,8 @@ export default {
   },
   methods: {
     startLottieAnimation(){
-      console.log('321')
       const player = document.querySelector('.lottie123')
       const container = document.querySelector('.tutoScreen.starter')
-      console.log(container)
       container.classList.remove('hidden')
       player.play()
       player.addEventListener('complete', function(){
