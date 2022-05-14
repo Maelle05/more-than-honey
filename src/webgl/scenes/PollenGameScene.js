@@ -64,6 +64,7 @@ export default class PollenGameScene extends Group {
 
     this.loaderPollen = {
       div: dom.getElementsByClassName('loaderPollen')[0],
+      flowers: dom.querySelectorAll('.loaderPollen .loaderSpinner div'),
       label: dom.querySelector('.loaderPollen p')
     }
 
@@ -223,10 +224,8 @@ export default class PollenGameScene extends Group {
           this.loaderPollen.div.style.top = this.listener.property.cursorOnWind.y + 'px'
 
           if (this.gameProperty.currentLoadPollen[i]) {
-            if (this.gameProperty.currentLoadPollen[i] === 150 ) {
-              if (this.gameProperty.foraged.includes(i)) {
-                this.loaderPollen.label.innerHTML = 'Pollenisé !'
-              } else {
+            if (this.gameProperty.currentLoadPollen[i] === 58 ) {
+              if (!this.gameProperty.foraged.includes(i)) {
                 this.gameProperty.foraged.push(i)
               }
             } else {
@@ -237,7 +236,58 @@ export default class PollenGameScene extends Group {
             this.gameProperty.currentLoadPollen[i] = 1
           }
 
-          !this.gameProperty.foraged.includes(i) ? this.loaderPollen.label.innerHTML = this.gameProperty.currentLoadPollen[i] : ''
+          if(!this.gameProperty.foraged.includes(i)){
+            if (this.gameProperty.currentLoadPollen[i] < 5) {
+              this.loaderPollen.flowers.forEach((flower)=>{
+                flower.style.opacity = 0.2
+              })
+            } else if (this.gameProperty.currentLoadPollen[i] < 10) {
+              this.loaderPollen.flowers.forEach((flower, index)=>{
+                index === 0 ? flower.style.opacity = 1 : flower.style.opacity = 0.2
+              })
+            } else if (this.gameProperty.currentLoadPollen[i] < 15) {
+              this.loaderPollen.flowers.forEach((flower, index)=>{
+                index <= 1 ? flower.style.opacity = 1 : flower.style.opacity = 0.2
+              })
+            } else if (this.gameProperty.currentLoadPollen[i] < 20) {
+              this.loaderPollen.flowers.forEach((flower, index)=>{
+                index <= 2 ? flower.style.opacity = 1 : flower.style.opacity = 0.2
+              })
+            } else if (this.gameProperty.currentLoadPollen[i] < 25) {
+              this.loaderPollen.flowers.forEach((flower, index)=>{
+                index <= 3 ? flower.style.opacity = 1 : flower.style.opacity = 0.2
+              })
+            } else if (this.gameProperty.currentLoadPollen[i] < 30) {
+              this.loaderPollen.flowers.forEach((flower, index)=>{
+                index <= 4 ? flower.style.opacity = 1 : flower.style.opacity = 0.2
+              })
+            } else if (this.gameProperty.currentLoadPollen[i] < 35) {
+              this.loaderPollen.flowers.forEach((flower, index)=>{
+                index <= 5 ? flower.style.opacity = 1 : flower.style.opacity = 0.2
+              })
+            } else if (this.gameProperty.currentLoadPollen[i] < 40) {
+              this.loaderPollen.flowers.forEach((flower, index)=>{
+                index <= 6 ? flower.style.opacity = 1 : flower.style.opacity = 0.2
+              })
+            } else if (this.gameProperty.currentLoadPollen[i] < 45) {
+              this.loaderPollen.flowers.forEach((flower, index)=>{
+                index <= 7 ? flower.style.opacity = 1 : flower.style.opacity = 0.2
+              })
+            } else if (this.gameProperty.currentLoadPollen[i] < 50) {
+              this.loaderPollen.flowers.forEach((flower, index)=>{
+                index <= 9 ? flower.style.opacity = 1 : flower.style.opacity = 0.2
+              })
+            } else if (this.gameProperty.currentLoadPollen[i] < 55) {
+              this.loaderPollen.flowers.forEach((flower, index)=>{
+                index <= 10 ? flower.style.opacity = 1 : flower.style.opacity = 0.2
+              })
+            } else if (this.gameProperty.currentLoadPollen[i] === 58) {
+              this.loaderPollen.flowers.forEach((flower, index)=>{
+                index <= 11 ? flower.style.opacity = 1 : flower.style.opacity = 0.2
+              })
+            }
+          }
+
         }
       }
 
@@ -269,7 +319,7 @@ export default class PollenGameScene extends Group {
 
     if (this.gameProperty) {
       this.gameProperty.currentLoadPollen.forEach((currentLoadPollen, index) => {
-        if(currentLoadPollen === 150){
+        if(currentLoadPollen === 58){
           this.daisys[index].children.forEach(children => {
             if (children.name === 'Pollen' && children.material.opacity != 0) {
               gsap.to(children.material, {

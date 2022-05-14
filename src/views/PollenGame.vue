@@ -36,6 +36,7 @@
       <p></p>
     </div>
     <div class="loaderPollen hidden">
+      <div class="loaderSpinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
       <p></p>
     </div>
     <div class="count hidden">
@@ -195,9 +196,40 @@ export default {
 
   .loaderPollen {
     position: absolute;
-    background-color: red;
     opacity: 1;
     transition: opacity .3s;
+
+    .loaderSpinner {
+      transform: translate(-30px, -16px);
+      display: inline-block;
+      position: relative;
+      width: 40px;
+      height: 10px;
+      transform-origin: -30px -10px;
+
+      div{
+        transform-origin: 30px 10px;
+
+        &:after{
+          content: " ";
+          display: block;
+          position: absolute;
+          top: 3px;
+          left: 37px;
+          width: 17px;
+          height: 10px;
+          border-radius: 50%;
+          background: #72F8F0;
+          transition-duration: .3;
+        }
+      }
+    }
+
+    @for $i from 1 through 12 {
+      .loaderSpinner div:nth-child(#{$i}) {
+        transform: rotate(calc($i * 30) + deg);
+      }
+    }
 
     &.hidden {
       opacity: 0;
