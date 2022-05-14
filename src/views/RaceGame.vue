@@ -1,6 +1,7 @@
 <template>
   <div class="raceGame">
     <TimelineComponent/>
+    <Starter ref="starter"/>
     <Popup class="popupRace hidden" ref="popupIntro" title="Course poursuite" label-button="Commencer à jouer"
            @action-on-click="startGame">
       <p>Votre but est de <strong> fuir le plus rapidement possible </strong> pour vous protéger du <strong>frelon
@@ -18,7 +19,8 @@
       <p>Vous avez réussi à finir la course sans que le frelon vous rattrape</p>
       <img class="popupRace__element" src="/images/popup/plume.svg" alt="plume">
       <h2 class="popupRace__title">Le saviez-vous ?</h2>
-      <p>Cela fait environ 30 ans que les populations d’abeilles diminuent en France. <br>Importé involontairement en 2004,
+      <p>Cela fait environ 30 ans que les populations d’abeilles diminuent en France. <br>Importé involontairement en
+        2004,
         le frelon asiatique est aujourd’hui capable de décimer des colonies en un temps record.</p>
     </Popup>
   </div>
@@ -28,17 +30,28 @@
 import TimelineComponent from '@/components/ui/TimelineComponent'
 import Popup from '@/components/ui/Popup'
 import '@lottiefiles/lottie-player'
+import RaceGameScene from '@/webgl/scenes/RaceGameScene'
+import Starter from '@/components/ui/Starter'
 
 export default {
   name: 'RaceGame',
   components: {
     TimelineComponent,
-    Popup
+    Popup,
+    Starter
+  },
+  mounted() {
+    const scene = new RaceGameScene()
+    scene.setupPopups(this.$refs.popupIntro.$el, this.$refs.popupOutro.$el)
   },
   methods: {
     startGame() {
       if (this.$refs.popupIntro) {
         this.$refs.popupIntro.$el.classList.add('hidden')
+        // this.$refs.starter.$el.classList.remove('hidden')
+        // setTimeout(() => {
+        //     this.$refs.starter.$el.classList.add('hidden')
+        // }, 3100)
       }
       console.log('start game !')
     },
@@ -51,7 +64,7 @@ export default {
 
 <style scoped lang="scss">
 .raceGame {
-  cursor: none;
+  //cursor: none;
   height: 100vh;
   width: 100vw;
   display: flex;
