@@ -1,11 +1,12 @@
 <template>
-  <div class="tutoScreen" ref="starter">
+  <div class="tutoScreen hidden starter" ref="starter">
     <lottie-player
-        autoplay
         background="transparent"
         mode="normal"
         src="/lottie/game/321.json"
-        style="width: 320px">
+        style="width: 320px"
+        class="lottie123"
+        >
     </lottie-player>
   </div>
 </template>
@@ -13,24 +14,31 @@
 <script lang="js">
 import '@lottiefiles/lottie-player'
 
+
 export default {
   name: 'Starter',
-  mounted() {
-    setTimeout(() => {
-      this.$refs.starter.classList.add('hidden')
-    }, 3200)
+  mounted(){
+    // setTimeout(() => {
+    //   this.$refs.starter.classList.add('hidden')
+    // }, 3200)
   },
   methods: {
-    // startLottieAnimation() {
-    //   this.$emit('start-lottie-animation')
-    // }
+    startLottieAnimation(){
+      console.log('Start Lottie')
+      const player = document.querySelector('.lottie123')
+      document.querySelector('.starter').classList.remove('hidden')
+      player.play()
+      setTimeout(()=>{
+        document.querySelector('.starter').classList.add('hidden')
+      }, 3500)
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
 .tutoScreen {
-  background: #000000;
+  // background: #000000;
   height: 100vh;
   width: 100vw;
   z-index: 5;
@@ -39,7 +47,7 @@ export default {
   justify-content: center;
   position: fixed;
   visibility: visible;
-  opacity: 0.80;
+  opacity: 1;
   transition: 0.8s;
 }
 

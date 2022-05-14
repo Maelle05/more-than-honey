@@ -16,6 +16,8 @@
         <img class="popupPollen__icon" src="/images/popup/smile.svg" alt="blue smiley"></p>
     </Popup>
 
+    <Starter ref="starter"/>
+
     <Popup class="popUpOutro hidden" ref="popUpOutro" label-button="Envie de rejouer ?" path="/outsideTwo" @action-on-click="reStart">
       <h2 class="popupPollen__title u-uppercase">Merci</h2>
       <p>XX fleurs<b></b> viennent d’être pollinisées</p>
@@ -58,12 +60,14 @@ import TimelineComponent from '@/components/ui/TimelineComponent'
 import WebGl from '@/webgl/webglManager'
 import '@lottiefiles/lottie-player'
 import Popup from '@/components/ui/Popup'
+import Starter from '@/components/ui/Starter'
 
 export default {
   name: 'PollenGame',
   components: {
     Popup,
-    TimelineComponent
+    TimelineComponent,
+    Starter
   },
   mounted() {
     const manager = new WebGl()
@@ -79,7 +83,8 @@ export default {
     startGame() {
       if (this.$refs.popUpIntro) {
         this.$refs.popUpIntro.$el.classList.add('hidden')
-        this.webglInstance.playGame()
+        Starter.methods.startLottieAnimation()
+        setTimeout(() => this.webglInstance.playGame() , 3500)
       }
     },
     reStart() {
