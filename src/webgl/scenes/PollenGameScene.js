@@ -144,7 +144,7 @@ export default class PollenGameScene extends Group {
     this.gamePlayed = false
 
 
-    // Remove fog
+    // Change fog
     this.scene.fog.density = 0.03
 
     // Set bee position
@@ -200,7 +200,7 @@ export default class PollenGameScene extends Group {
 
   update() {
     if (this.bee && this.gamePlayed) {
-      // Mouve Bee
+      // Move Bee
       this.bee.update()
       if (this.gameProperty.beeCanMouve) {
         this.bee.model.position.z = MathUtils.damp(this.bee.model.position.z, this.beeTarget.z, 0.07, .8)
@@ -394,7 +394,7 @@ export default class PollenGameScene extends Group {
 
     this.gamePlayed = true
 
-    // Mouve Camera
+    // Move Camera
     gsap.to(this.camera.position, {
       duration: this.gameProperty.durationGame, 
       x: this.gameProperty.camTarget.x, 
@@ -509,7 +509,7 @@ export default class PollenGameScene extends Group {
       this.gameProperty.beeCanMouve = true
       this.gameProperty.isFinish = false
 
-      // Mouve Camera
+      // Move Camera
       gsap.to(this.camera.position, {
         duration: this.gameProperty.durationGame, 
         x: this.gameProperty.camTarget.x, 

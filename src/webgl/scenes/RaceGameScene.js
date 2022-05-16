@@ -20,7 +20,7 @@ export default class RaceGameScene extends Group {
   constructor() {
     super()
 
-    if(raceGameInstance) {
+    if (raceGameInstance) {
       return raceGameInstance
     }
 
@@ -33,7 +33,7 @@ export default class RaceGameScene extends Group {
     this.loader = this.webGl.loader
     this.camera = this.webGl.camera
 
-    // game properties
+    // Game properties
     this.property = {
       map: {
         with: mapSetting[0].right,
@@ -42,7 +42,7 @@ export default class RaceGameScene extends Group {
       },
       bee: {
         placingHeight: 1.5,
-        limitRightLeft: 5,
+        limitRightLeft: 4,
         maxZ: 1.5
       },
       cursor: {
@@ -112,11 +112,13 @@ export default class RaceGameScene extends Group {
 
   init() {
     setTimeout(() => {
-    this.loader.classList.add('loaded')
+      this.loader.classList.add('loaded')
     }, 500)
 
     // Set fog
-    // this.scene.fog.density = 0.03
+    this.scene.fog.density = 0.009
+
+    this.gamePlayed = false
 
     // Set parameters of the scene at init
     this.camera.position.set(0, 0, -10)
@@ -129,7 +131,7 @@ export default class RaceGameScene extends Group {
     })
 
     // Models position at init
-    this.bee.model.position.set(0, 1.5, 0)
+    this.bee.model.position.set(0, 0, 0)
     this.bee.model.rotation.set(0, 6.3, 0)
     this.hornet.model.position.set(4, -1.5, -2)
     this.grass.position.set(0, -5, this.property.map.height / this.property.map.ratio)
@@ -158,9 +160,9 @@ export default class RaceGameScene extends Group {
         z: stoneLocation[i].centerY / this.property.map.ratio,
         x: (stoneLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      const stoneSize = randomIntFromInterval(0.8,1.8, 0.01)
+      const stoneSize = randomIntFromInterval(0.8, 1.8, 0.01)
       thisStone.scale.set(stoneSize, stoneSize, stoneSize)
-      thisStone.position.set(convertPos.x, -5, convertPos .z)
+      thisStone.position.set(convertPos.x, -5, convertPos.z)
       thisStone.rotation.set(0, Math.random() * 50, Math.random() / 10)
       this.groundGroup.add(thisStone)
     }
@@ -172,7 +174,7 @@ export default class RaceGameScene extends Group {
         z: lysLocation[i].centerY / this.property.map.ratio,
         x: (lysLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      const lysSize = randomIntFromInterval(0.05,0.1, 0.01)
+      const lysSize = randomIntFromInterval(0.05, 0.1, 0.01)
       thisLys.scale.set(lysSize, lysSize, lysSize)
       thisLys.position.set(convertPos.x, -4, convertPos.z)
       thisLys.rotation.set(0, Math.random(), Math.random() / 10)
@@ -186,7 +188,7 @@ export default class RaceGameScene extends Group {
         z: daisyLocation[i].centerY / this.property.map.ratio,
         x: (daisyLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      const daisySize = randomIntFromInterval(0.5,1, 0.01)
+      const daisySize = randomIntFromInterval(0.5, 1, 0.01)
       thisDaisy.scale.set(daisySize, daisySize, daisySize)
       thisDaisy.position.set(convertPos.x, -5, convertPos.z)
       this.groundGroup.add(thisDaisy)
@@ -220,10 +222,12 @@ export default class RaceGameScene extends Group {
     })
 
     this.add(this.allGrounds)
+  }
 
-    // Move ground
+  playGame() {
     const numberOfSteps = 5
     let step = 0
+
     // Ground in the group of this.allGround
     const groundToMove = [
       this.groundGroup,
@@ -233,16 +237,18 @@ export default class RaceGameScene extends Group {
     const replaceGround = () => {
       let indexResult = step % 2 === 0 ? 1 : 0
       groundToMove[indexResult].position.z = groundToMove[indexResult].position.z + (this.property.map.height / this.property.map.ratio) * 2
-
     }
+
+    this.gamePlayed = true
+
     const moveGround = () => {
       step++
       gsap.to(this.allGrounds.position, {
-        duration: (numberOfSteps + 2) - step,
+        duration: (numberOfSteps + 4) - step,
         z: (-(this.property.map.height / this.property.map.ratio) + 2) * step, // + 2 to see the bee at the end
         ease: "none",
       }).then(() => {
-        if(step < numberOfSteps - 1) {
+        if (step < numberOfSteps - 1) {
           replaceGround()
         }
         if (step < numberOfSteps) {
@@ -256,6 +262,14 @@ export default class RaceGameScene extends Group {
     moveGround()
   }
 
+  reStartGame() {
+    // this.grass.position.set(0, -5, this.property.map.height / this.property.map.ratio)
+    // this.secondGroundGroup.position.set(0, 0, this.property.map.height / this.property.map.ratio)
+
+    // this.playGame()
+    console.log('WIP marche pas')
+  }
+
   update() {
     if (this.grass) {
       this.grass.update()
@@ -265,7 +279,7 @@ export default class RaceGameScene extends Group {
       this.hornet.update()
     }
 
-    if (this.bee) {
+    if (this.bee && this.gamePlayed) {
       // Update anim bee
       this.bee.update()
 

@@ -2,7 +2,7 @@
   <div class="raceGame">
     <TimelineComponent/>
     <Starter ref="starter"/>
-    <Popup class="popupRace hidden" ref="popupIntro" title="Course poursuite" label-button="Commencer à jouer"
+    <Popup class="popupRace" ref="popupIntro" title="Course poursuite" label-button="Commencer à jouer"
            @action-on-click="startGame">
       <p>Votre but est de <strong> fuir le plus rapidement possible </strong> pour vous protéger du <strong>frelon
         asiatique</strong>.</p>
@@ -41,34 +41,23 @@ export default {
     Starter
   },
   mounted() {
-    const scene = new RaceGameScene()
-    scene.setupPopups(this.$refs.popupIntro.$el, this.$refs.popupOutro.$el)
-
-    // 🐝  En attendant
-    setTimeout(()=>{
-      Starter.methods.startLottieAnimation()
-    }, 1000)
-    
+    this.webGLInstance = new RaceGameScene()
+    this.webGLInstance.setupPopups(this.$refs.popupIntro.$el, this.$refs.popupOutro.$el)
   },
   methods: {
     startGame() {
       if (this.$refs.popupIntro) {
         this.$refs.popupIntro.$el.classList.add('hidden')
 
-        // 🐝 Il faudrat que tu utilises ca :)🐝
-        // Starter.methods.startLottieAnimation()
+        Starter.methods.startLottieAnimation()
+        setTimeout(() => this.webGLInstance.playGame(), 3500)
 
-
-
-        // this.$refs.starter.$el.classList.remove('hidden')
-        // setTimeout(() => {
-        //     this.$refs.starter.$el.classList.add('hidden')
-        // }, 3100)
       }
-      console.log('start game !')
     },
     reStart() {
-      console.log('rejouer !')
+      this.$refs.popupOutro.$el.classList.add('hidden')
+      Starter.methods.startLottieAnimation()
+      setTimeout(() => this.webGLInstance.reStartGame(), 3500)
     }
   }
 }
@@ -76,7 +65,6 @@ export default {
 
 <style scoped lang="scss">
 .raceGame {
-  //cursor: none;
   height: 100vh;
   width: 100vw;
   display: flex;

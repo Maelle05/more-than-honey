@@ -1,5 +1,5 @@
 <template>
-  <div class="tutoScreen hidden starter" ref="starter">
+  <div class="starterScreen hidden" ref="starter">
     <lottie-player
         background="transparent"
         mode="normal"
@@ -17,17 +17,11 @@ import '@lottiefiles/lottie-player'
 
 export default {
   name: 'Starter',
-  mounted(){
-    // setTimeout(() => {
-    //   this.$refs.starter.classList.add('hidden')
-    // }, 3200)
-  },
   methods: {
     startLottieAnimation(){
       const player = document.querySelector('.lottie123')
-      const container = document.querySelector('.tutoScreen.starter')
+      const container = document.querySelector('.starterScreen')
       container.classList.remove('hidden')
-      console.log('123')
       player.play()
       player.addEventListener('complete', function(){
         player.stop()
@@ -39,8 +33,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.tutoScreen {
-  // background: #000000;
+.starterScreen {
   height: 100vh;
   width: 100vw;
   z-index: 5;
@@ -49,12 +42,7 @@ export default {
   justify-content: center;
   position: fixed;
   visibility: visible;
-  opacity: 1;
   transition: 0.8s;
-}
-
-.click {
-  transition: 0.1s !important;
 }
 
 .hidden {
