@@ -21,6 +21,7 @@ import nenupharLocation from '../elementsLocations/outsideOne/nenuphar.json'
 import mushroomLocation from '../elementsLocations/outsideOne/mushrooms.json'
 import bridgeLocation from '../elementsLocations/outsideOne/bridge.json'
 import beePath from '../elementsLocations/outsideOne/beePath.json'
+import QueenPath from '../elementsLocations/outsideOne/QweenPath.json'
 import Listener from '../utils/Listener'
 import { MathUtils } from 'three'
 import Grass from '@/webgl/shaders/grass/grass'
@@ -30,6 +31,8 @@ import Mushroom from '@/webgl/entities/Mushroom'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 import Bridge from '@/webgl/entities/Bridge'
 import Nenuphar from '@/webgl/entities/Nenuphar'
+import Queen from '../entities/Queen'
+import gsap from 'gsap/all'
 
 export default class OutsideOneScene extends Group
 {
@@ -86,6 +89,7 @@ export default class OutsideOneScene extends Group
     this.tree = this.resources.items.treeModel.scene
     this.stone = new Stone()
     this.bee = new Bee()
+    this.queen = new Queen()
     this.particles = new Particules()
     this.grass = new Grass()
     this.daisy = new Daisy()
@@ -125,6 +129,34 @@ export default class OutsideOneScene extends Group
     )
     // this.add( this.line )
 
+
+    // Queen Path
+    // extract from .json and change format
+    this.QueenInitialPoints = []
+    for (let i = 0; i < QueenPath.length; i++) {
+      this.QueenInitialPoints.push({x: ( QueenPath[i].x / this.property.map.ratio ) - this.property.map.with / this.property.map.ratio / 2, y: QueenPath[i].z ? QueenPath[i].z : 4, z: QueenPath[i].y / this.property.map.ratio })
+    }
+    this.QueenCurveHandles = []
+    for ( const handlePos of this.QueenInitialPoints ) {
+      const handle = new Mesh( this.boxGeometry, this.boxMaterial )
+      handle.position.copy( handlePos )
+      this.QueenCurveHandles.push( handle )
+      // this.add(handle)
+    }
+    // Calculate Smooth curve
+    this.QueenCurve = new CatmullRomCurve3(
+      this.QueenCurveHandles.map( ( handle ) => handle.position )
+    )
+    this.QueenCurve.curveType = 'centripetal'
+    this.QueenCurve.closed = true
+    this.QueenPoints = this.QueenCurve.getPoints( 50 )
+    this.QueenLine = new Line(
+      new BufferGeometry().setFromPoints( this.QueenPoints ),
+      new LineBasicMaterial( { color: 0x00ff00 } )
+    )
+    this.add( this.QueenLine )
+
+
     this.init()
   }
 
@@ -140,6 +172,15 @@ export default class OutsideOneScene extends Group
     this.bee.model.lookAt(this.beePoss2)
     // this.bee.model.scale.set(0.1, 0.1, 0.1)
     this.add(this.bee.model)
+
+    // Add Queen
+    // console.log(this.queen)
+    this.queen.model.rotation.set(0, Math.PI, 0)
+    this.queen.model.scale.set(0.07, 0.07, 0.07)
+    this.queen.model.position.copy(this.QueenCurve.getPointAt(0))
+    this.add(this.queen.model)
+
+
 
     // Add grass
     this.grass.position.set(0,0, this.property.map.height / this.property.map.ratio)
@@ -295,6 +336,11 @@ export default class OutsideOneScene extends Group
 
     if(this.particles) {
       this.particles.update()
+    }
+
+    if (this.queen) {
+      this.queen.update()
+      this.queen.model.position.copy(this.QueenCurve.getPointAt((this.time.elapsed / 2000) % 1 ))
     }
 
   }
