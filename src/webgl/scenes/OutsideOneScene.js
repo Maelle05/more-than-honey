@@ -61,11 +61,11 @@ export default class OutsideOneScene extends Group
         mouseY: null
       },
       moveBee: {
-        deltaLookAt: 0.03,
-        speed: 0.001,
+        deltaLookAt: 0.007,
+        speed: 0.0005,
         target: new Vector3(),
-        curveCurrent: 0.05,
-        curveTarget: 0.05,
+        curveCurrent: 0.03,
+        curveTarget: 0.03,
         baseY: 2.5
       },
       camera: {
@@ -152,7 +152,7 @@ export default class OutsideOneScene extends Group
         z: lysLocation[i].centerY / this.property.map.ratio,
         x: (lysLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      const lysSize = randomIntFromInterval(0.1,0.20, 0.01)
+      const lysSize = randomIntFromInterval(0.05,0.13, 0.01)
       thisLys.scale.set(lysSize, lysSize, lysSize)
       thisLys.position.set(convertPos.x, -1.5, convertPos.z)
       thisLys.rotation.set(0, Math.random(), Math.random() / 10)
@@ -223,15 +223,15 @@ export default class OutsideOneScene extends Group
     }
 
     // Add bridge
-    this.bridge.model.scale.set(2.5, 2.5, 2.5)
+    this.bridge.model.scale.set(2.3, 2.3, 2.3)
     for (let i = 0; i < bridgeLocation.length; i++) {
       const thisBridge = this.bridge.model.clone()
       const convertPos = {
         z: bridgeLocation[i].centerY / this.property.map.ratio,
         x: (bridgeLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
       }
-      thisBridge.position.set(convertPos.x, -3, convertPos.z)
-      thisBridge.rotation.set(0, Math.PI / 2, 0)
+      thisBridge.position.set(convertPos.x, -2.7, convertPos.z)
+      thisBridge.rotation.set(0, Math.PI, 0)
       this.add(thisBridge)
     }
 
@@ -259,9 +259,9 @@ export default class OutsideOneScene extends Group
     
     // Listener
     this.listener.on('scroll', ()=>{ 
-      const result = this.property.moveBee.curveTarget + this.listener.property.virtualScroll.delta / 50000
-      if (result > 0.05 && result < 0.97) {
-        this.property.moveBee.curveTarget += this.listener.property.virtualScroll.delta / 50000
+      const result = this.property.moveBee.curveTarget + this.listener.property.virtualScroll.delta / 90000
+      if (result > 0.03 && result < 0.98) {
+        this.property.moveBee.curveTarget += this.listener.property.virtualScroll.delta / 90000
       }
     })
 
@@ -280,9 +280,9 @@ export default class OutsideOneScene extends Group
       this.bee.model.position.set(this.property.moveBee.target.x, this.property.moveBee.target.y - 0.5, this.property.moveBee.target.z )
       this.bee.model.lookAt(this.property.camera.target)
 
-      const possCam = this.curve.getPointAt(this.property.moveBee.curveCurrent - 0.05)
-      this.webGl.camera.position.set(possCam.x, possCam.y + 2, possCam.z)
-      this.webGl.controls.target.set(this.property.camera.target.x, this.property.camera.target.y + 1.5, this.property.camera.target.z )
+      const possCam = this.curve.getPointAt(this.property.moveBee.curveCurrent - 0.03)
+      this.webGl.camera.position.set(possCam.x, possCam.y + 1, possCam.z)
+      this.webGl.controls.target.set(this.property.camera.target.x, this.property.camera.target.y + 0.3, this.property.camera.target.z )
     }
 
     if(this.bee){
