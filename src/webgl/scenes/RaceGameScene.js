@@ -13,6 +13,8 @@ import stoneLocation from '@/webgl/elementsLocations/raceGame/stone-race.json'
 import Daisy from '@/webgl/entities/Daisy'
 import Stone from '@/webgl/entities/Stone'
 import Grass from '@/webgl/shaders/grass/PollenGameGrass'
+import Bloom from '@/webgl/shaders/bloom'
+import {customEase} from '@/webgl/utils/CustomEase'
 
 let raceGameInstance = null
 
@@ -32,6 +34,8 @@ export default class RaceGameScene extends Group {
     this.time = this.webGl.time
     this.loader = this.webGl.loader
     this.camera = this.webGl.camera
+
+    this.postProcessing = new Bloom()
 
     // Game properties
     this.property = {
@@ -270,6 +274,32 @@ export default class RaceGameScene extends Group {
     console.log('WIP marche pas')
   }
 
+  hurtingPortal() {
+    // if the bee hurt portal -> the hornet come closer
+    gsap.to(this.hornet.model.position, {
+      duration: 0.5,
+      z: 2,
+      ease: "power1.in",
+    })
+
+    // Red appear on screen
+    gsap.to(this.postProcessing.vignettePass.uniforms.uIntensity, {
+      value: 0.6,
+      duration: 1.5,
+      ease: customEase
+    })
+
+    // Go back to normal after 2.5s
+    setTimeout( ()=>{
+      gsap.to(this.hornet.model.position, {
+        duration: 0.5,
+        z: -2,
+        ease: "power1.out",
+      })
+      this.postProcessing.vignettePass.uniforms.uIntensity.value = 0
+    }, 2500)
+  }
+
   update() {
     if (this.grass) {
       this.grass.update()
@@ -289,13 +319,7 @@ export default class RaceGameScene extends Group {
         this.groundGroup.localToWorld(worldPosition)
         if (this.bee.model.position.distanceTo(worldPosition) <= 1) {
           portal.visible = false
-          gsap.to(this.hornet.model.position, {
-            duration: 2.5,
-            repeat: 1,
-            yoyo: true,
-            z: 2,
-            ease: "power1.in",
-          })
+          this.hurtingPortal()
         }
       }
 

@@ -56,6 +56,7 @@ export default class Bloom {
     this.bloomPass.radius = this.params.bloomRadius
     this.bloomPass.renderToScreen = true
 
+    // for the red vignette when user hurt butterflies or protal during game
     this.vignettePass = new ShaderPass({
       uniforms: {
         tDiffuse: { value: null },
