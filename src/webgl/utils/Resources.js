@@ -1,6 +1,9 @@
+/* eslint-disable no-case-declarations */
 import { TextureLoader } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import EventEmitter from './EventEmitter.js'
+
+import { AudioClass } from "@/utils/voice"
 
 let resourcesInstance = null
 
@@ -72,7 +75,12 @@ export default class Resources extends EventEmitter {
                 }
             )
             break
-        
+          case 'sound':
+              const sound = new AudioClass(source.path)
+              sound.on(`soundLoad`, () => {
+                this.sourceLoaded(source, sound)
+              })
+              break
           default:
             break
         }
@@ -109,6 +117,7 @@ export default class Resources extends EventEmitter {
     this.sceneItems = []
     this.toLoad = null
     this.loaded = 0
+    
 
     this.checkSceneItems(this.activeSceneName)
   }

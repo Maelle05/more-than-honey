@@ -1,3 +1,4 @@
+import EventEmitter from '../webgl/utils/EventEmitter'
 import text from './text.json'
 
 export class SlideSubtitle {
@@ -74,15 +75,20 @@ export class SlideSubtitle {
   }
 }
 
-export class AudioClass {
-  constructor(url, startInstant) {
+export class AudioClass extends EventEmitter{
+  constructor(url) {
+    super()
+
     this.url = url
     this.contexteAudio = new AudioContext()
     this.yodelBuffer = null
     this.source = null
     this.isInit = false
     this.gainNode = null
-    this.startInstant = startInstant || false
+
+    this.type = 'audio'
+
+    this.init()
   }
 
   init() {
@@ -95,7 +101,7 @@ export class AudioClass {
       .then(audioBuffer => {
         this.yodelBuffer = audioBuffer
         this.isInit = true
-        if (this.startInstant) this.start()
+        this.trigger(`soundLoad`)
       })
   }
 

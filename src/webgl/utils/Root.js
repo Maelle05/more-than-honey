@@ -17,6 +17,13 @@ export default class Root {
 
       this.routerScenes.rootChange(this.currentPath)
 
+      const resourcesKeys = Object.keys(this.resources.items)
+      for (let i = 0; i < resourcesKeys.length; i++) {
+        if (this.resources.items[resourcesKeys[i]].type === 'audio') {
+          this.resources.items[resourcesKeys[i]].stop()
+        }
+      }
+
       if (!this.resourcesCall.includes(this.currentPath)) {
         this.resourcesCall = this.resourcesCall + ` ${this.currentPath}`
         this.resources.rootChange(this.currentPath)

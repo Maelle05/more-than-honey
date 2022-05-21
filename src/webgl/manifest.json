@@ -100,5 +100,23 @@
     "type": "gltfModel",
     "actingScenes": "hiveScene endingScene",
     "path": "webgl/models/Ruche/ruche.glb"
+  },
+  {
+    "name": "BgMusicSound",
+    "type": "sound",
+    "actingScenes": "outsideOneScene",
+    "path": "/voices/outsideOne/bg.mp3"
+  },
+  {
+    "name": "ChapOneTowSound",
+    "type": "sound",
+    "actingScenes": "outsideOneScene",
+    "path": "/voices/outsideOne/Chap1-2.mp3"
+  },
+  {
+    "name": "ChapOneThreeSound",
+    "type": "sound",
+    "actingScenes": "outsideOneScene",
+    "path": "/voices/outsideOne/Chap1-3.mp3"
   }
 ]

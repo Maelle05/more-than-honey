@@ -33,8 +33,6 @@ import Bridge from '@/webgl/entities/Bridge'
 import Nenuphar from '@/webgl/entities/Nenuphar'
 import Queen from '../entities/Queen'
 
-import { AudioClass } from "@/utils/voice"
-
 export default class OutsideOneScene extends Group
 {
   constructor(){
@@ -77,6 +75,7 @@ export default class OutsideOneScene extends Group
         current: 0
       }
     }
+    
 
     // Wait for resources
     this.resources.on(`sourcesReadyoutsideOne`, () =>
@@ -100,6 +99,11 @@ export default class OutsideOneScene extends Group
     this.nenuphar = new Nenuphar()
 
     this.listener = new Listener()
+
+    // Sound
+    this.backgroundMusic = this.resources.items.BgMusicSound
+    this.voice = this.resources.items.ChapOneTowSound
+    this.voiceReine = this.resources.items.ChapOneThreeSound
 
     // CURVE HANDLE
     // extract from .json and change format
@@ -300,8 +304,20 @@ export default class OutsideOneScene extends Group
     this.webGl.controls.target = new Vector3(0, -5, 0)
     
     // Listener
+    let voiceInitStart = false
+    let voiceReineStart = false
     this.listener.on('scroll', ()=>{ 
       const result = this.property.moveBee.curveTarget - this.listener.property.virtualScroll.delta / 90000
+      if (voiceInitStart === false) {
+        voiceInitStart = true
+        setTimeout(() => {
+          this.voice.start()
+        }, 1000)
+      }
+      if (voiceReineStart === false && result > 0.97) {
+        voiceReineStart = true
+        this.voiceReine.start()
+      }
       if (result > 0.03 && result < 0.98) {
         this.property.moveBee.curveTarget -= this.listener.property.virtualScroll.delta / 90000
       }
@@ -310,6 +326,10 @@ export default class OutsideOneScene extends Group
     setTimeout(() => {
       this.loader.classList.add('loaded')
     }, 500)
+
+    // Init Sounds
+    this.backgroundMusic.start()
+    
   }
 
   update(){
