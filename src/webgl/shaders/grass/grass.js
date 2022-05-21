@@ -10,7 +10,7 @@ import {
 import WebGl from '../../webglManager'
 import vertexShader from './glsl/vert.glsl'
 import fragmentShader from './glsl/frag.glsl'
-import mapSetting from '../../elementsLocations/outsideOne/mapSetting.json'
+import mapSetting from '../../elementsLocations/mapSetting.json'
 import Map from '../../elementsLocations/outsideOne/Map.png'
 
 export default class Grass extends Group {
