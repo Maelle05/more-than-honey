@@ -4,9 +4,6 @@
     <div class="timeline__sound">
       <img src="/images/timeline/sound.svg" alt="icon to cut or add sound to the experience">
     </div>
-    <div class="timeline__subtitle">
-      <img src="/images/timeline/subtitles.svg" alt="icon to remove or add subtitle to the experience">
-    </div>
     <ul class="timeline__wrapper">
       <router-link class="timeline__item" v-for="path in paths" :key="path.label" :to="path.path">
         <div class="cursor">
