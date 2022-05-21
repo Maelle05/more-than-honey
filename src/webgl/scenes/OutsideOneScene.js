@@ -154,7 +154,7 @@ export default class OutsideOneScene extends Group
       new BufferGeometry().setFromPoints( this.QueenPoints ),
       new LineBasicMaterial( { color: 0x00ff00 } )
     )
-    this.add( this.QueenLine )
+    // this.add( this.QueenLine )
 
 
     this.init()
@@ -170,7 +170,7 @@ export default class OutsideOneScene extends Group
     this.beePoss2 = this.curve.getPointAt(this.beeMove + 0.01)
     this.bee.model.position.copy(this.beePoss)
     this.bee.model.lookAt(this.beePoss2)
-    // this.bee.model.scale.set(0.1, 0.1, 0.1)
+    this.bee.model.scale.set(0.04, 0.04, 0.04)
     this.add(this.bee.model)
 
     // Add Queen
@@ -340,7 +340,7 @@ export default class OutsideOneScene extends Group
 
     if (this.queen) {
       this.queen.update()
-      this.queen.model.position.copy(this.QueenCurve.getPointAt((this.time.elapsed / 2000) % 1 ))
+      this.queen.model.position.copy(this.QueenCurve.getPointAt((this.time.elapsed / 3000) % 1 ))
     }
 
   }
