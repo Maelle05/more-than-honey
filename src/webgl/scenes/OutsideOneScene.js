@@ -32,7 +32,8 @@ import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 import Bridge from '@/webgl/entities/Bridge'
 import Nenuphar from '@/webgl/entities/Nenuphar'
 import Queen from '../entities/Queen'
-import gsap from 'gsap/all'
+
+import { AudioClass } from "@/utils/voice"
 
 export default class OutsideOneScene extends Group
 {

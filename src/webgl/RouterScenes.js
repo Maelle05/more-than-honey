@@ -11,10 +11,6 @@ import RaceGameScene from "./scenes/RaceGameScene"
 import EndingScene from "./scenes/HiveEndingScene"
 import EventEmitter from "./utils/EventEmitter"
 
-import { AudioClass } from "@/utils/voice"
-import voiceIntro from '../assets/voices/intro.mp3'
-import voiceChap1I0 from '../assets/voices/chap1-0.mp3'
-
 let routerScenesInstance = null
 
 export default class RouterScenes extends EventEmitter{
@@ -90,39 +86,6 @@ export default class RouterScenes extends EventEmitter{
     // Remove 'loaded' class if needed
     if (this.webGl.loader.classList.contains('loaded')) {
       this.webGl.loader.classList.remove('loaded')
-    }
-
-    // Voice
-    if (this.voice) {
-      this.voice.stop()
-    }
-    switch (nameScene) {
-      case 'outsideOne':
-        this.url = `${window.location.protocol + '//' + window.location.host}`+voiceIntro
-        break
-      case 'outsideTwo':
-        this.url = `${window.location.protocol + '//' + window.location.host}`+voiceChap1I0
-        break
-      default:
-        this.url = null
-        break
-    }
-    if (this.url) {
-      if (this.audioPlay[nameScene]) {
-        setTimeout(() => {
-          this.voice = new AudioClass(this.url, true)
-          this.voice.init()
-        }, 1000)
-      } else {
-        this.resources.on(`sourcesReady${nameScene}`, () =>
-        {
-          this.audioPlay[nameScene] = true
-          setTimeout(() => {
-            this.voice = new AudioClass(this.url, true)
-            this.voice.init()
-          }, 1000)
-        })
-      }
     }
   }
 
