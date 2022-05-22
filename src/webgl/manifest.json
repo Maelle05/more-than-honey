@@ -44,7 +44,7 @@
   {
     "name": "lysModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene raceGameScene",
+    "actingScenes": "outsideOneScene raceGameScene pollenGameScene",
     "path": "webgl/models/Lys/oneLys.glb"
   },
   {
@@ -86,13 +86,13 @@
   {
     "name": "trunkModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneSceneNot",
+    "actingScenes": "outsideOneSceneNon ",
     "path": "webgl/models/Trunk/tronc.glb"
   },
   {
     "name": "mushroomModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene",
+    "actingScenes": "outsideOneScene pollenGameScene",
     "path": "webgl/models/Mushroom/mushrooms.glb"
   },
   {

@@ -112,6 +112,12 @@ export default class PollenGameScene extends Group {
     // Tree
     this.tree = this.resources.items.treeModel.scene
 
+    // Mushroom
+    this.mushroom = this.resources.items.mushroomModel.scene
+
+    // Lys
+    this.lys = this.resources.items.lysModel.scene
+
     // Bridge
     this.bridge = this.resources.items.bridgeModel.scene
 
@@ -177,6 +183,34 @@ export default class PollenGameScene extends Group {
       thisTree.scale.set(3, 3, 3)
       thisTree.rotation.y = randomIntFromInterval(0, 1, 0.02)
       this.add(thisTree)
+    }
+
+    // Add mushroom
+    const nbMushroom = 25
+    for (let i = 0; i <= nbMushroom; i++) {
+      const thisMushroom = this.mushroom.clone()
+      thisMushroom.position.set(
+        randomIntFromInterval(-3, this.gameProperty.camTarget.x + 3, 0.5),
+        0.3,
+        i > nbMushroom/4 ? randomIntFromInterval(-2, -15, 0.5) : randomIntFromInterval(3.5, 10, 0.5)
+      )
+      thisMushroom.scale.set(0.5, 0.5, 0.5)
+      thisMushroom.rotation.y = randomIntFromInterval(0, 1, 0.02)
+      this.add(thisMushroom)
+    }
+
+    // Add Lys
+    const nbLys = 25
+    for (let i = 0; i <= nbLys; i++) {
+      const thisLys = this.lys.clone()
+      thisLys.position.set(
+        randomIntFromInterval(-3, this.gameProperty.camTarget.x + 3, 0.5),
+        0.7,
+        i > nbLys/4 ? randomIntFromInterval(-2, -15, 0.5) : randomIntFromInterval(3, 10, 0.5)
+      )
+      thisLys.scale.set(0.07, 0.07, 0.07)
+      thisLys.rotation.y = randomIntFromInterval(0, 1, 0.02)
+      this.add(thisLys)
     }
 
     // Add Bridge
