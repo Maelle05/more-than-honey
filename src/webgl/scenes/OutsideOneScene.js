@@ -312,6 +312,7 @@ export default class OutsideOneScene extends Group
       if (voiceInitStart === false) {
         voiceInitStart = true
         setTimeout(() => {
+          this.voice.fade(0, 0.6, .3)
           this.voice.play()
           this.resources.on(`soundChapOneTowSoundFinished`, ()=>{
             voiceReineCanStart = true
@@ -320,6 +321,7 @@ export default class OutsideOneScene extends Group
       }
       if (voiceReineStart === false && result > 0.97 && voiceReineCanStart) {
         voiceReineStart = true
+        this.voiceReine.fade(0, 0.6, .3)
         this.voiceReine.play()
       }
       if (result > 0.03 && result < 0.98) {
@@ -333,6 +335,7 @@ export default class OutsideOneScene extends Group
 
     // Init Sounds
     setTimeout(() => {
+      this.backgroundMusic.fade(0, 0.3, .3)
       this.backgroundMusic.play()
     }, 50)
     

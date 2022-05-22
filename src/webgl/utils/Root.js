@@ -20,7 +20,10 @@ export default class Root {
       const resourcesKeys = Object.keys(this.resources.items)
       for (let i = 0; i < resourcesKeys.length; i++) {
         if (this.resources.items[resourcesKeys[i]]._sounds) {
-          this.resources.items[resourcesKeys[i]].stop()
+          this.resources.items[resourcesKeys[i]].fade(this.resources.items[resourcesKeys[i]]._volume, 0, .3)
+          setTimeout(()=>{
+            this.resources.items[resourcesKeys[i]].stop()
+          }, 300)
         }
       }
       setTimeout(()=>{
