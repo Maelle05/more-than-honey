@@ -22,18 +22,21 @@ export default class EndingScene extends Group {
   }
 
   init() {
-    setTimeout(() => {
-      this.loader.classList.add('loaded')
-    }, 500)
+    // Remove fog
+    this.scene.fog.density = 0
 
     // Set Camera position
     this.webGl.camera.position.set(-15, 0, -40)
+    this.webGl.controls.target.set(0, 0, 0)
 
     // Listener
 
     // add models
     this.add(this.hive)
 
+    setTimeout(() => {
+      this.loader.classList.add('loaded')
+    }, 500)
   }
 
   update() {
