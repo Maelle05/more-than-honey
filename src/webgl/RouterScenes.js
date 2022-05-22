@@ -1,8 +1,6 @@
 import WebGl from "./webglManager"
 
 import BaseScene from "./scenes/BaseScene"
-import FoxScene from "./scenes/FoxScene"
-import BeeScene from "./scenes/BeeScene"
 import HiveScene from "./scenes/HiveScene"
 import OutsideOneScene from "./scenes/OutsideOneScene"
 import PollenGameScene from "./scenes/PollenGameScene"
@@ -41,15 +39,7 @@ export default class RouterScenes extends EventEmitter{
     }
     
     if (!this.allScenes[nameScene]) {
-      switch (nameScene) {
-        case 'fox':
-          this.allScenes[nameScene] = new FoxScene()
-          break
-
-        case 'bee':
-          this.allScenes[nameScene] = new BeeScene()
-          break
-        
+      switch (nameScene) {   
         case 'hive':
           this.allScenes[nameScene] = new HiveScene()
           break
