@@ -80,7 +80,7 @@ export default class RaceGameScene extends Group {
     // Import models
     this.bee = new BlueBee()
     this.hornet = new Queen()
-    this.grass = new Grass(this.property.map.with / this.property.map.ratio, this.property.map.height / 2.5, 500000)
+    this.grass = new Grass(this.property.map.with / this.property.map.ratio, this.property.map.height / this.property.map.ratio, 500000)
     this.portal = new Mesh(new SphereGeometry(1, 32, 16), new MeshBasicMaterial({color: 0xff0000}))
 
     this.groundGroup = new Group()
@@ -131,7 +131,7 @@ export default class RaceGameScene extends Group {
     this.bee.model.position.set(0, 0, 0)
     this.bee.model.rotation.set(0, 6.3, 0)
     this.hornet.model.position.set(4, -1.5, -2)
-    this.grass.position.set(0, -5, this.property.map.height / this.property.map.ratio)
+    this.grass.position.set(0, -5, this.property.map.height / this.property.map.ratio / 2)
     this.gamePlayed = false
 
     // Portal
