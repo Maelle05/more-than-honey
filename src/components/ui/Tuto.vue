@@ -53,7 +53,7 @@ export default {
   position: fixed;
   visibility: visible;
   opacity: 0.80;
-  transition: 0.8s;
+  transition: opacity .8s;
 }
 
 .click {
@@ -61,6 +61,7 @@ export default {
 }
 
 .hidden {
-  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 </style>

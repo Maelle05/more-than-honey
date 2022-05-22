@@ -60,6 +60,11 @@ export default class Listener extends EventEmitter {
   scrollehandle(event){
     this.property.virtualScroll.state = event.y
     this.property.virtualScroll.delta = event.deltaY
+    if (event.deltaY > 0) {
+      this.trigger(`scrollToBottom`)
+    } else {
+      this.trigger(`scrollToTop`)
+    }
     this.trigger(`scroll`)
   }
 }

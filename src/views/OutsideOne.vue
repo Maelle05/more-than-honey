@@ -1,7 +1,7 @@
 <template>
   <div class="outsideOne">
     <TimelineComponent/>
-    <Tuto path="/lottie/UI/scroll.json" listener="scroll"/>
+    <Tuto path="/lottie/UI/scroll.json" listener="scrollToTop"/>
   </div>
 </template>
 
