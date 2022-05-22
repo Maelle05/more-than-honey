@@ -104,7 +104,7 @@
   {
     "name": "BgMusicSound",
     "type": "sound",
-    "actingScenes": "outsideOneScene",
+    "actingScenes": "outsideOneScene pollenGameScene",
     "path": "/voices/outsideOne/bg.mp3"
   },
   {

@@ -219,7 +219,7 @@ export default {
           width: 17px;
           height: 10px;
           border-radius: 50%;
-          background: #72F8F0;
+          background: #64dbd3;
           transition-duration: .3;
         }
       }

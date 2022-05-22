@@ -78,6 +78,9 @@ export default class PollenGameScene extends Group {
     // Add daisy to scene
     this.daisy = new DaisyGame()
 
+    // Sound
+    this.backgroundMusic = this.resources.items.BgMusicSound
+
     // Random dasy set
     for (let i = 0; i < this.nbDaisys; i++) {
       this.positionDaisys.push({
@@ -336,6 +339,11 @@ export default class PollenGameScene extends Group {
 
   initAnim(){
     const cinematiqueTime = 5
+    
+    // Init Sounds
+    setTimeout(() => {
+      this.backgroundMusic.start()
+    }, 50)
 
 
     // Set Camera position

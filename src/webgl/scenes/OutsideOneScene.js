@@ -328,7 +328,10 @@ export default class OutsideOneScene extends Group
     }, 500)
 
     // Init Sounds
-    this.backgroundMusic.start()
+    setTimeout(() => {
+      this.backgroundMusic.start()
+    }, 50)
+    
     
   }
 
