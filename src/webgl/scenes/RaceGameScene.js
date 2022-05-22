@@ -2,7 +2,7 @@ import {Group, MathUtils, Mesh, MeshBasicMaterial, SphereGeometry} from 'three'
 import WebGl from '../webglManager'
 import Listener from '../utils/Listener'
 import BlueBee from '@/webgl/entities/BlueBee'
-import mapSetting from '@/webgl/elementsLocations/outsideOne/mapSetting.json'
+import mapSetting from '@/webgl/elementsLocations/mapSetting.json'
 import gsap from 'gsap'
 import Queen from '@/webgl/entities/Queen'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
@@ -10,9 +10,10 @@ import treeLocation from '@/webgl/elementsLocations/raceGame/tree-race.json'
 import lysLocation from '@/webgl/elementsLocations/raceGame/lys-race.json'
 import daisyLocation from '@/webgl/elementsLocations/raceGame/daisy-race.json'
 import stoneLocation from '@/webgl/elementsLocations/raceGame/stone-race.json'
-import Daisy from '@/webgl/entities/Daisy'
-import Stone from '@/webgl/entities/Stone'
 import Grass from '@/webgl/shaders/grass/PollenGameGrass'
+import Bloom from '@/webgl/shaders/bloom'
+import {customEase} from '@/webgl/utils/CustomEase'
+import {addDaisys, addLys, addStones, addTrees} from '@/webgl/elementsLoop/AddElements'
 
 let raceGameInstance = null
 
@@ -32,6 +33,8 @@ export default class RaceGameScene extends Group {
     this.time = this.webGl.time
     this.loader = this.webGl.loader
     this.camera = this.webGl.camera
+
+    this.postProcessing = new Bloom()
 
     // Game properties
     this.property = {
@@ -78,10 +81,6 @@ export default class RaceGameScene extends Group {
     this.bee = new BlueBee()
     this.hornet = new Queen()
     this.grass = new Grass(this.property.map.with / this.property.map.ratio, this.property.map.height / 2.5, 500000)
-    this.daisy = new Daisy()
-    this.stone = new Stone()
-    this.tree = this.resources.items.treeModel.scene
-    this.lys = this.resources.items.lysModel.scene
     this.portal = new Mesh(new SphereGeometry(1, 32, 16), new MeshBasicMaterial({color: 0xff0000}))
 
     this.groundGroup = new Group()
@@ -118,8 +117,6 @@ export default class RaceGameScene extends Group {
     // Set fog
     this.scene.fog.density = 0.009
 
-    this.gamePlayed = false
-
     // Set parameters of the scene at init
     this.camera.position.set(0, 0, -10)
     this.webGl.controls.enabled = false
@@ -130,88 +127,21 @@ export default class RaceGameScene extends Group {
       this.property.cursor.targetY = -this.listener.property.cursor.y * this.property.bee.placingHeight
     })
 
-    // Models position at init
+    // Elements position and state at init
     this.bee.model.position.set(0, 0, 0)
     this.bee.model.rotation.set(0, 6.3, 0)
     this.hornet.model.position.set(4, -1.5, -2)
     this.grass.position.set(0, -5, this.property.map.height / this.property.map.ratio)
+    this.gamePlayed = false
 
     // Portal
     this.portal.position.set(0, 0, 50)
-
-    // Add trees
-    for (let i = 0; i < treeLocation.length; i++) {
-      const thisTree = this.tree.clone()
-      const convertPos = {
-        z: treeLocation[i].centerY / this.property.map.ratio,
-        x: (treeLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
-      }
-      const treeSize = randomIntFromInterval(6.5, 9.5, 0.01)
-      thisTree.scale.set(treeSize, treeSize, treeSize)
-      thisTree.position.set(convertPos.x, -4, convertPos.z)
-      thisTree.rotation.set(0, Math.random() * 25, Math.random() / 10)
-      this.groundGroup.add(thisTree)
-    }
-
-    // Add stones
-    for (let i = 0; i < stoneLocation.length; i++) {
-      const thisStone = this.stone.model.clone()
-      const convertPos = {
-        z: stoneLocation[i].centerY / this.property.map.ratio,
-        x: (stoneLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
-      }
-      const stoneSize = randomIntFromInterval(0.8, 1.8, 0.01)
-      thisStone.scale.set(stoneSize, stoneSize, stoneSize)
-      thisStone.position.set(convertPos.x, -5, convertPos.z)
-      thisStone.rotation.set(0, Math.random() * 50, Math.random() / 10)
-      this.groundGroup.add(thisStone)
-    }
-
-    // Add lys
-    for (let i = 0; i < lysLocation.length; i++) {
-      const thisLys = this.lys.clone()
-      const convertPos = {
-        z: lysLocation[i].centerY / this.property.map.ratio,
-        x: (lysLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
-      }
-      const lysSize = randomIntFromInterval(0.05, 0.1, 0.01)
-      thisLys.scale.set(lysSize, lysSize, lysSize)
-      thisLys.position.set(convertPos.x, -4, convertPos.z)
-      thisLys.rotation.set(0, Math.random(), Math.random() / 10)
-      this.groundGroup.add(thisLys)
-    }
-
-    // Add daisy
-    for (let i = 0; i < daisyLocation.length; i++) {
-      const thisDaisy = this.daisy.model.clone()
-      const convertPos = {
-        z: daisyLocation[i].centerY / this.property.map.ratio,
-        x: (daisyLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
-      }
-      const daisySize = randomIntFromInterval(0.5, 1, 0.01)
-      thisDaisy.scale.set(daisySize, daisySize, daisySize)
-      thisDaisy.position.set(convertPos.x, -5, convertPos.z)
-      this.groundGroup.add(thisDaisy)
-    }
-
-    // Add models 
-    this.add(this.bee.model)
-    this.add(this.hornet.model)
-
-    this.groundGroup.add(this.grass)
-
     this.portals = []
     for (let i = 0; i < this.property.game.obstacle.number; i++) {
       const thisPortal = this.portal.clone()
       thisPortal.position.set(randomIntFromInterval(-4, 4, 1), randomIntFromInterval(-1.5, 1.2, 1), randomIntFromInterval(15, (this.property.map.height / this.property.map.ratio) / 1.2, 5))
       this.portals.push(thisPortal)
     }
-    this.groundGroup.add(...this.portals)
-
-    this.secondGroundGroup = this.groundGroup.clone()
-    this.secondGroundGroup.position.set(0, 0, this.property.map.height / this.property.map.ratio)
-
-    this.allGrounds.add(this.groundGroup, this.secondGroundGroup)
 
     // Hornet go back after the game is started
     gsap.to(this.hornet.model.position, {
@@ -220,6 +150,23 @@ export default class RaceGameScene extends Group {
       z: -8,
       ease: "power1.in",
     })
+
+    // Add elements from map
+    addDaisys(daisyLocation, this.groundGroup, this.resources.items.daisyModel.scene)
+    addLys(lysLocation, this.groundGroup, this.resources.items.lysModel.scene)
+    addStones(stoneLocation, this.groundGroup, this.resources.items.stoneModel.scene)
+    addTrees(treeLocation, this.groundGroup, this.resources.items.treeModel.scene)
+
+    // Add models
+    this.add(this.bee.model)
+    this.add(this.hornet.model)
+
+    this.groundGroup.add(...this.portals)
+    this.groundGroup.add(this.grass)
+
+    this.secondGroundGroup = this.groundGroup.clone()
+    this.secondGroundGroup.position.set(0, 0, this.property.map.height / this.property.map.ratio)
+    this.allGrounds.add(this.groundGroup, this.secondGroundGroup)
 
     this.add(this.allGrounds)
   }
@@ -270,6 +217,32 @@ export default class RaceGameScene extends Group {
     console.log('WIP marche pas')
   }
 
+  hurtingPortal() {
+    // if the bee hurt portal -> the hornet come closer
+    gsap.to(this.hornet.model.position, {
+      duration: 0.5,
+      z: 2,
+      ease: "power1.in",
+    })
+
+    // Red appear on screen
+    gsap.to(this.postProcessing.vignettePass.uniforms.uIntensity, {
+      value: 0.6,
+      duration: 1.5,
+      ease: customEase
+    })
+
+    // Go back to normal after 2.5s
+    setTimeout( ()=>{
+      gsap.to(this.hornet.model.position, {
+        duration: 0.5,
+        z: -2,
+        ease: "power1.out",
+      })
+      this.postProcessing.vignettePass.uniforms.uIntensity.value = 0
+    }, 2500)
+  }
+
   update() {
     if (this.grass) {
       this.grass.update()
@@ -289,13 +262,7 @@ export default class RaceGameScene extends Group {
         this.groundGroup.localToWorld(worldPosition)
         if (this.bee.model.position.distanceTo(worldPosition) <= 1) {
           portal.visible = false
-          gsap.to(this.hornet.model.position, {
-            duration: 2.5,
-            repeat: 1,
-            yoyo: true,
-            z: 2,
-            ease: "power1.in",
-          })
+          this.hurtingPortal()
         }
       }
 

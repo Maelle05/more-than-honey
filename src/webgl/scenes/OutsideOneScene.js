@@ -12,7 +12,7 @@ import {
 import Particules from '../shaders/fireflies'
 import Stone from '../entities/Stone'
 import Bee from '../entities/BlueBee'
-import mapSetting from '../elementsLocations/outsideOne/mapSetting.json'
+import mapSetting from '../elementsLocations/mapSetting.json'
 import stoneLocation from '../elementsLocations/outsideOne/stone.json'
 import daisyLocation from '../elementsLocations/outsideOne/daisy.json'
 import lysLocation from '../elementsLocations/outsideOne/lys.json'

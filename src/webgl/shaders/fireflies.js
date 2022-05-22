@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import WebGl from '../webglManager'
-import mapSetting from '../elementsLocations/outsideOne/mapSetting.json'
+import mapSetting from '../elementsLocations/mapSetting.json'
 import firefliesVertexShader from './fireflies/vert.glsl'
 import firefliesFragmentShader from './fireflies/frag.glsl'
 

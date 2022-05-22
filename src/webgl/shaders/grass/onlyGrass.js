@@ -12,7 +12,7 @@ import {
 import WebGl from '@/webgl/webglManager'
 import vertexShader from './glsl/vert.glsl'
 import fragmentShader from './glsl/frag.glsl'
-import mapSetting from '../../elementsLocations/outsideOne/mapSetting.json'
+import mapSetting from '../../elementsLocations/mapSetting.json'
 
 export default class Grass extends Group {
   constructor() {
