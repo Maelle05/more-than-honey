@@ -80,6 +80,7 @@ export default class PollenGameScene extends Group {
 
     // Sound
     this.backgroundMusic = this.resources.items.BgMusicSound
+    this.voiceIntro = this.resources.items.ChapTwoOneSound
 
     // Random dasy set
     for (let i = 0; i < this.nbDaisys; i++) {
@@ -338,12 +339,15 @@ export default class PollenGameScene extends Group {
   }
 
   initAnim(){
-    const cinematiqueTime = 5
-    
+    const cinematiqueTime = 15
+
     // Init Sounds
     setTimeout(() => {
       this.backgroundMusic.start()
     }, 50)
+    setTimeout(()=>{
+      this.voiceIntro.start()
+    }, 1000)
 
 
     // Set Camera position

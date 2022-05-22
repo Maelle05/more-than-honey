@@ -23,11 +23,12 @@ export default class Root {
           this.resources.items[resourcesKeys[i]].stop()
         }
       }
-
-      if (!this.resourcesCall.includes(this.currentPath)) {
-        this.resourcesCall = this.resourcesCall + ` ${this.currentPath}`
-        this.resources.rootChange(this.currentPath)
-      }
+      setTimeout(()=>{
+        if (!this.resourcesCall.includes(this.currentPath)) {
+          this.resourcesCall = this.resourcesCall + ` ${this.currentPath}`
+          this.resources.rootChange(this.currentPath)
+        }
+      }, 500)
 
     }
   }

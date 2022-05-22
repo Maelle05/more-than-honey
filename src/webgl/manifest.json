@@ -118,5 +118,11 @@
     "type": "sound",
     "actingScenes": "outsideOneScene",
     "path": "/voices/outsideOne/Chap1-3.mp3"
+  },
+  {
+    "name": "ChapTwoOneSound",
+    "type": "sound",
+    "actingScenes": "pollenGameScene",
+    "path": "/voices/pollenGame/Chap2-1.wav"
   }
 ]
