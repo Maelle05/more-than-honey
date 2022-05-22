@@ -28,7 +28,7 @@ export default class Root {
           this.resourcesCall = this.resourcesCall + ` ${this.currentPath}`
           this.resources.rootChange(this.currentPath)
         }
-      }, 500)
+      }, 1000)
 
     }
   }

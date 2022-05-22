@@ -66,7 +66,7 @@ svg {
   flex-direction: column;
   opacity: 1;
   visibility: visible;
-  z-index: 5;
+  z-index: 6;
 
   .headphones {
     position: absolute;

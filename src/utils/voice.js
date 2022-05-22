@@ -129,7 +129,11 @@ export class AudioClass extends EventEmitter{
       this.gainNode.gain.exponentialRampToValueAtTime(0.001, this.contexteAudio.currentTime + 1)
 
       setTimeout(
-        () => this.source.stop()
+        () => { 
+          if (this.source) {
+            this.source.stop() 
+          }
+        }
         , 2000
       )
     }

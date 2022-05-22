@@ -252,9 +252,12 @@ export default class RaceGameScene extends Group {
       this.hornet.update()
     }
 
-    if (this.bee && this.gamePlayed) {
+    if (this.bee) {
       // Update anim bee
       this.bee.update()
+    }
+
+    if (this.bee && this.gamePlayed) {
 
       // Check collision between bee and portals
       for (const portal of this.portals) {
