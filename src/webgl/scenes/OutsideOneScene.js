@@ -311,12 +311,12 @@ export default class OutsideOneScene extends Group
       if (voiceInitStart === false) {
         voiceInitStart = true
         setTimeout(() => {
-          this.voice.start()
+          this.voice.play()
         }, 1000)
       }
       if (voiceReineStart === false && result > 0.97) {
         voiceReineStart = true
-        this.voiceReine.start()
+        this.voiceReine.play()
       }
       if (result > 0.03 && result < 0.98) {
         this.property.moveBee.curveTarget -= this.listener.property.virtualScroll.delta / 90000
@@ -329,7 +329,7 @@ export default class OutsideOneScene extends Group
 
     // Init Sounds
     setTimeout(() => {
-      this.backgroundMusic.start()
+      this.backgroundMusic.play()
     }, 50)
     
     

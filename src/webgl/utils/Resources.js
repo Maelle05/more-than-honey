@@ -4,6 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import EventEmitter from './EventEmitter.js'
 
 import { AudioClass } from "@/utils/voice"
+import {Howl, Howler} from 'howler'
 
 let resourcesInstance = null
 
@@ -76,9 +77,15 @@ export default class Resources extends EventEmitter {
             )
             break
           case 'sound':
-              const sound = new AudioClass(source.path)
-              sound.on(`soundLoad`, () => {
-                this.sourceLoaded(source, sound)
+              const sound = new Howl({
+                src: [source.path],
+                autoplay: false,
+                loop: source.loop,
+                volume: source.volume,
+                onload: () => { this.sourceLoaded(source, sound)},
+                onend: () => {
+                  console.log( source.name + ' finished!')
+                }
               })
               break
           default:

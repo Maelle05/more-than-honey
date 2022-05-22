@@ -377,10 +377,10 @@ export default class PollenGameScene extends Group {
 
     // Init Sounds
     setTimeout(() => {
-      this.backgroundMusic.start()
+      this.backgroundMusic.play()
     }, 50)
     setTimeout(()=>{
-      this.voiceIntro.start()
+      this.voiceIntro.play()
     }, 1000)
 
 

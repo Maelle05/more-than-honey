@@ -98,24 +98,32 @@
   {
     "name": "BgMusicSound",
     "type": "sound",
+    "volume": 0.3,
+    "loop": true,
     "actingScenes": "outsideOneScene pollenGameScene",
     "path": "/voices/outsideOne/bg.mp3"
   },
   {
     "name": "ChapOneTowSound",
     "type": "sound",
+    "volume": 0.6,
+    "loop": false,
     "actingScenes": "outsideOneScene",
     "path": "/voices/outsideOne/Chap1-2.mp3"
   },
   {
     "name": "ChapOneThreeSound",
     "type": "sound",
+    "volume": 0.6,
+    "loop": false,
     "actingScenes": "outsideOneScene",
     "path": "/voices/outsideOne/Chap1-3.mp3"
   },
   {
     "name": "ChapTwoOneSound",
     "type": "sound",
+    "volume": 0.6,
+    "loop": false,
     "actingScenes": "pollenGameScene",
     "path": "/voices/pollenGame/Chap2-1.wav"
   }

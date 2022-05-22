@@ -13,6 +13,7 @@
     "eslint": "^8.14.0",
     "eslint-plugin-vue": "^8.7.1",
     "gsap": "^3.9.1",
+    "howler": "^2.2.3",
     "lil-gui": "^0.16.0",
     "simplex-noise": "^3.0.1",
     "stats.js": "^0.17.0",
