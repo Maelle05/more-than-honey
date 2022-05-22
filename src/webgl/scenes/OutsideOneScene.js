@@ -305,6 +305,7 @@ export default class OutsideOneScene extends Group
     
     // Listener
     let voiceInitStart = false
+    let voiceReineCanStart = false
     let voiceReineStart = false
     this.listener.on('scroll', ()=>{ 
       const result = this.property.moveBee.curveTarget - this.listener.property.virtualScroll.delta / 90000
@@ -312,9 +313,12 @@ export default class OutsideOneScene extends Group
         voiceInitStart = true
         setTimeout(() => {
           this.voice.play()
+          this.resources.on(`soundChapOneTowSoundFinished`, ()=>{
+            voiceReineCanStart = true
+          })
         }, 1000)
       }
-      if (voiceReineStart === false && result > 0.97) {
+      if (voiceReineStart === false && result > 0.97 && voiceReineCanStart) {
         voiceReineStart = true
         this.voiceReine.play()
       }
@@ -332,7 +336,9 @@ export default class OutsideOneScene extends Group
       this.backgroundMusic.play()
     }, 50)
     
-    
+    this.resources.on(`soundChapOneThreeSoundFinished`, ()=>{
+      console.log('Scene suivente débloquer')
+    })
   }
 
   update(){

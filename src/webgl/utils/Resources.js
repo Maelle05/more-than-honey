@@ -84,7 +84,8 @@ export default class Resources extends EventEmitter {
                 volume: source.volume,
                 onload: () => { this.sourceLoaded(source, sound)},
                 onend: () => {
-                  console.log( source.name + ' finished!')
+                  this.trigger(`sound${source.name}Finished`)
+                  // console.log(`sound${source.name}Finished`)
                 }
               })
               break
