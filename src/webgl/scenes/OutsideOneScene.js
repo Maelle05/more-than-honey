@@ -32,6 +32,9 @@ import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 import Bridge from '@/webgl/entities/Bridge'
 import Nenuphar from '@/webgl/entities/Nenuphar'
 import Queen from '../entities/Queen'
+import { SphereGeometry } from 'three'
+import gsap, { CustomEase, SlowMo } from 'gsap/all'
+import { Back, Bounce, Circ, Elastic, Power0, Power3 } from 'gsap'
 
 export default class OutsideOneScene extends Group
 {
@@ -296,7 +299,15 @@ export default class OutsideOneScene extends Group
     }
 
     // Add particles
+    this.particles.position.x -= 1
     this.add(this.particles)
+
+    // Add Pheromone
+    const nbPheromone = 20
+    this.pheromones = []
+    for (let i = 0; i < nbPheromone; i++) {
+      this.pheromones.push(new Pheromone(i, this.queen.model, this))
+    }
 
     // Set Camera property
     this.webGl.camera.position.set(0, 20, (this.property.map.height + 200 )/this.property.map.ratio)
@@ -373,12 +384,69 @@ export default class OutsideOneScene extends Group
 
     if (this.queen) {
       this.queen.update()
-      this.queen.model.position.copy(this.QueenCurve.getPointAt((this.time.elapsed / 3000) % 1 ))
+      this.queen.model.position.copy(this.QueenCurve.getPointAt((this.time.elapsed / 3500) % 1 ))
+      this.pheromones.forEach(pheromone => {
+        pheromone.updateQueenPos(this.queen.model.position)
+      })
     }
 
   }
 
   delete(){
     
+  }
+}
+
+export class Pheromone {
+  constructor(id, queen, group){
+    this.scene = group
+    this.initPos = queen.position
+
+    // Model
+    this.geometry = new SphereGeometry(0.6, 16, 16),
+    this.material = new MeshBasicMaterial( {color: '#8A2BE2'} )
+    this.material.transparent = true 
+    this.mesh = new Mesh( this.geometry, this.material )
+    const size = randomIntFromInterval(0.05, 0.2, 0.05)
+    this.mesh.scale.set(size, size, size)
+    this.mesh.name = 'Pheromone' + id
+
+    this.mesh.position.copy(this.initPos)
+
+    this.scene.add(this.mesh)
+
+    this.goTo(this.initPos)
+
+    this.init()
+    
+  }
+
+  init(){
+    gsap.to(this.mesh.material, {
+      opacity: 0,
+      duration: randomIntFromInterval(1, 3, 0.1),
+      ease: CustomEase.create("custom", "M0,0,C0,0,0.005,0.125,0.02,0.199,0.033,0.268,0.047,0.314,0.075,0.379,0.102,0.446,0.247,0.65,0.3,0.7,0.362,0.758,0.425,0.8,0.5,0.8,0.602,0.8,0.647,0.756,0.7,0.7,0.75,0.646,0.89,0.462,0.922,0.382,0.945,0.323,0.976,0.245,0.98,0.2,0.99,0.082,1,0,1,0"),
+      stagger: {
+        each: 0,
+        repeat: -1
+      },
+    })
+  }
+
+  updateQueenPos(pos){
+    this.initPos = pos
+  }
+
+  goTo(){
+    gsap.to(this.mesh.position, {
+      x: this.initPos.x + randomIntFromInterval(-0.5, 0.5, 0.1),
+      y: this.initPos.y + randomIntFromInterval(-0.5, 0.5, 0.1),
+      z: this.initPos.z + randomIntFromInterval(-0.5, 0.5, 0.1),
+      duration: randomIntFromInterval(0, 2, 0.1),
+      ease: Power0.easeNone,
+      onComplete: () => {
+        this.goTo(this.initPos)
+      }
+    })
   }
 }
