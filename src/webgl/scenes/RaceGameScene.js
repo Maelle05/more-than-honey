@@ -146,7 +146,7 @@ export default class RaceGameScene extends Group {
 
     // Add elements from map
     addDaisys(daisyLocation, this.groundGroup, this.resources.items.daisyModel.scene)
-    addLys(lysLocation, this.groundGroup, this.resources.items.lysModel.scene)
+    addLys(lysLocation, this.groundGroup, this.resources.items.lysModel.scene, false)
     addStones(stoneLocation, this.groundGroup, this.resources.items.stoneModel.scene)
     addTrees(treeLocation, this.groundGroup, this.resources.items.treeModel.scene)
 

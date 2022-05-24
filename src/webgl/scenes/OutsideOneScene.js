@@ -10,7 +10,6 @@ import {
   BufferGeometry,
   LineBasicMaterial} from 'three'
 import Particules from '../shaders/fireflies'
-import Stone from '../entities/Stone'
 import Bee from '../entities/BlueBee'
 import mapSetting from '../elementsLocations/mapSetting.json'
 import stoneLocation from '../elementsLocations/outsideOne/stone.json'
@@ -25,16 +24,20 @@ import QueenPath from '../elementsLocations/outsideOne/QweenPath.json'
 import Listener from '../utils/Listener'
 import { MathUtils } from 'three'
 import Grass from '@/webgl/shaders/grass/grass'
-import Daisy from '@/webgl/entities/Daisy'
-import Trunk from '@/webgl/entities/Trunk'
-import Mushroom from '@/webgl/entities/Mushroom'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
-import Bridge from '@/webgl/entities/Bridge'
-import Nenuphar from '@/webgl/entities/Nenuphar'
 import Queen from '../entities/Queen'
 import { SphereGeometry } from 'three'
-import gsap, { CustomEase, SlowMo } from 'gsap/all'
-import { Back, Bounce, Circ, Elastic, Power0, Power3 } from 'gsap'
+import gsap, { CustomEase } from 'gsap/all'
+import { Power0 } from 'gsap'
+import {
+  addBridge,
+  addDaisys,
+  addLys,
+  addMushrooms,
+  addNenuphar,
+  addStones,
+  addTrees
+} from '@/webgl/elementsLoop/AddElements'
 
 export default class OutsideOneScene extends Group
 {
@@ -88,18 +91,10 @@ export default class OutsideOneScene extends Group
   }
 
   setup(){
-    this.lys = this.resources.items.lysModel.scene
-    this.tree = this.resources.items.treeModel.scene
-    this.stone = new Stone()
     this.bee = new Bee()
     this.queen = new Queen()
     this.particles = new Particules()
     this.grass = new Grass()
-    this.daisy = new Daisy()
-    this.trunk = new Trunk()
-    this.mushroom = new Mushroom()
-    this.bridge = new Bridge()
-    this.nenuphar = new Nenuphar()
 
     this.listener = new Listener()
 
@@ -163,8 +158,6 @@ export default class OutsideOneScene extends Group
       new LineBasicMaterial( { color: 0x00ff00 } )
     )
     // this.add( this.QueenLine )
-
-
     this.init()
   }
 
@@ -182,121 +175,24 @@ export default class OutsideOneScene extends Group
     this.add(this.bee.model)
 
     // Add Queen
-    // console.log(this.queen)
     this.queen.model.rotation.set(0, Math.PI, 0)
     this.queen.model.scale.set(0.07, 0.07, 0.07)
     this.queen.model.position.copy(this.QueenCurve.getPointAt(0))
     this.add(this.queen.model)
 
-
-
     // Add grass
     this.grass.position.set(0,0, this.property.map.height / this.property.map.ratio)
     this.add(this.grass)
 
-    // Add lys
-    for (let i = 0; i < lysLocation.length; i++) {
-      const thisLys = this.lys.clone()
-      const convertPos = {
-        z: lysLocation[i].centerY / this.property.map.ratio,
-        x: (lysLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
-      }
-      const lysSize = randomIntFromInterval(0.05,0.13, 0.01)
-      thisLys.scale.set(lysSize, lysSize, lysSize)
-      thisLys.position.set(convertPos.x, -1.5, convertPos.z)
-      thisLys.rotation.set(0, Math.random(), Math.random() / 10)
-      this.add(thisLys)
-    }
 
-    // Add trees
-    for (let i = 0; i < treeLocation.length; i++) {
-      // TODO add animation for tree
-      // const thisTree = skeletonClone(this.tree)
-      // console.log(this.tree)
-      // animation
-      // const mixer = new AnimationMixer(thisTree)
-      // mixer.clipAction(this.tree.resource.animations[0]).play()
-
-      const thisTree = this.tree.clone()
-      const convertPos = {
-        z: treeLocation[i].centerY / this.property.map.ratio,
-        x: (treeLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
-      }
-      const treeSize = randomIntFromInterval(6.5,9.5, 0.01)
-      thisTree.scale.set(treeSize, treeSize, treeSize)
-      thisTree.position.set(convertPos.x, -1.3, convertPos.z)
-      thisTree.rotation.set(0, Math.random() * 25, Math.random() / 10)
-      // this.mixers.push(mixer)
-      this.add(thisTree)
-    }
-
-    // Add stones
-    for (let i = 0; i < stoneLocation.length; i++) {
-      const thisStone = this.stone.model.clone()
-      const convertPos = {
-        z: stoneLocation[i].centerY / this.property.map.ratio,
-        x: (stoneLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
-      }
-      const stoneSize = randomIntFromInterval(1.8,2.8, 0.01)
-      thisStone.scale.set(stoneSize, stoneSize, stoneSize)
-      thisStone.position.set(convertPos.x, -3, convertPos .z)
-      thisStone.rotation.set(0, Math.random() * 50, Math.random() / 10)
-      this.add(thisStone)
-    }
-
-    // Add nenuphar
-    for (let i = 0; i < nenupharLocation.length; i++) {
-      const thisNenuphar = this.nenuphar.model.clone()
-      const convertPos = {
-        z: nenupharLocation[i].centerY / this.property.map.ratio,
-        x: (nenupharLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
-      }
-      const stoneSize = randomIntFromInterval(0.3,0.5, 0.01)
-      thisNenuphar.scale.set(stoneSize, stoneSize, stoneSize)
-      thisNenuphar.position.set(convertPos.x, -2, convertPos .z)
-      thisNenuphar.rotation.set(0, Math.random() * 50, Math.random() / 10)
-      this.add(thisNenuphar)
-    }
-
-    // Add daisys
-    for (let i = 0; i < daisyLocation.length; i++) {
-      const thisDaisy = this.daisy.model.clone()
-      const convertPos = {
-        z: daisyLocation[i].centerY / this.property.map.ratio,
-        x: (daisyLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
-      }
-      const daisySize = randomIntFromInterval(0.7,1.5, 0.01)
-      thisDaisy.scale.set(daisySize, daisySize, daisySize)
-      thisDaisy.position.set(convertPos.x, -3, convertPos.z)
-      this.add(thisDaisy)
-    }
-
-    // Add bridge
-    this.bridge.model.scale.set(2.3, 2.3, 2.3)
-    for (let i = 0; i < bridgeLocation.length; i++) {
-      const thisBridge = this.bridge.model.clone()
-      const convertPos = {
-        z: bridgeLocation[i].centerY / this.property.map.ratio,
-        x: (bridgeLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
-      }
-      thisBridge.position.set(convertPos.x, -2.7, convertPos.z)
-      thisBridge.rotation.set(0, Math.PI, 0)
-      this.add(thisBridge)
-    }
-
-    // Add mushrooms
-    for (let i = 0; i < mushroomLocation.length; i++) {
-      const thisMushroom = this.mushroom.model.clone()
-      const convertPos = {
-        z: mushroomLocation[i].centerY / this.property.map.ratio,
-        x: (mushroomLocation[i].centerX / this.property.map.ratio) - this.property.map.with / this.property.map.ratio / 2
-      }
-      const mushroomSize = randomIntFromInterval(0.4,1.3, 0.01)
-      thisMushroom.scale.set(mushroomSize, mushroomSize, mushroomSize)
-      thisMushroom.position.set(convertPos.x, -3.2, convertPos.z)
-      thisMushroom.rotation.set(0, Math.random() * 25, 0)
-      this.add(thisMushroom)
-    }
+    // Add elements from map
+    addLys(lysLocation, this, this.resources.items.lysModel.scene, true)
+    addTrees(treeLocation, this, this.resources.items.treeModel.scene, true)
+    addStones(stoneLocation, this, this.resources.items.stoneModel.scene, true)
+    addDaisys(daisyLocation, this, this.resources.items.daisyModel.scene, true)
+    addMushrooms(mushroomLocation, this, this.resources.items.mushroomModel.scene)
+    addNenuphar(nenupharLocation, this, this.resources.items.nenupharModel.scene)
+    addBridge(bridgeLocation, this, this.resources.items.bridgeModel.scene)
 
     // Add particles
     this.particles.position.x -= 1
@@ -412,9 +308,7 @@ export class Pheromone {
     this.mesh.name = 'Pheromone' + id
 
     this.mesh.position.copy(this.initPos)
-
     this.scene.add(this.mesh)
-
     this.goTo(this.initPos)
 
     this.init()
