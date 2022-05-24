@@ -45,6 +45,6 @@ export default class Queen {
   }
 
   update() {
-    this.animation.mixer.update(this.time.delta * 0.002)
+    this.animation.mixer.update(this.time.delta * 0.001)
   }
 }

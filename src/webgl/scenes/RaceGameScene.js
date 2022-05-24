@@ -1,4 +1,11 @@
-import {Group, MathUtils, Mesh, MeshBasicMaterial, SphereGeometry} from 'three'
+import {
+  DoubleSide,
+  Group,
+  MathUtils,
+  Mesh,
+  MeshStandardMaterial,
+  PlaneBufferGeometry,
+} from 'three'
 import WebGl from '../webglManager'
 import Listener from '../utils/Listener'
 import BlueBee from '@/webgl/entities/BlueBee'
@@ -81,8 +88,27 @@ export default class RaceGameScene extends Group {
     this.bee = new BlueBee()
     this.hornet = new Hornet()
     this.grass = new Grass(this.property.map.with / this.property.map.ratio, this.property.map.height / this.property.map.ratio, 500000)
-    this.portal = new Mesh(new SphereGeometry(1, 32, 16), new MeshBasicMaterial({color: 0xff0000}))
 
+    const portalGeo = new PlaneBufferGeometry(2.5,2.5)
+    const portalMat = new MeshStandardMaterial({
+      color: 0x97F5D0,
+      side: DoubleSide,
+      map: this.webGl.resources.items.smokeTexture,
+      transparent: true
+    })
+
+    this.pesticideCloud = new Group
+    // One cloud of pesticide
+    for(let i=0; i<15; i++) {
+      let particle = new Mesh(portalGeo, portalMat)
+      particle.position.set(
+        0.03 * i * Math.cos((4 * i * Math.PI) / 180),
+        0.03 * i * Math.sin((4 * i * Math.PI) / 180),
+        0.03 * i
+      )
+      particle.rotation.z = Math.random() * 360
+      this.pesticideCloud.add(particle)
+    }
     this.groundGroup = new Group()
     this.allGrounds = new Group()
 
@@ -135,13 +161,13 @@ export default class RaceGameScene extends Group {
     this.grass.position.set(0, -5, this.property.map.height / this.property.map.ratio / 2)
     this.gamePlayed = false
 
-    // Portal
-    this.portal.position.set(0, 0, 50)
+    // Pesticides
     this.portals = []
     for (let i = 0; i < this.property.game.obstacle.number; i++) {
-      const thisPortal = this.portal.clone()
-      thisPortal.position.set(randomIntFromInterval(-4, 4, 1), randomIntFromInterval(-1.5, 1.2, 1), randomIntFromInterval(15, (this.property.map.height / this.property.map.ratio) / 1.2, 5))
-      this.portals.push(thisPortal)
+      const clonePortal = this.pesticideCloud.clone()
+      clonePortal.rotation.set(Math.random() / 10, Math.random() / 10, Math.random() / 10)
+      clonePortal.position.set(randomIntFromInterval(-4, 4, 1), randomIntFromInterval(-1.5, 1.2, 1), randomIntFromInterval(15, (this.property.map.height / this.property.map.ratio) / 1.2, 5))
+      this.portals.push(clonePortal)
     }
 
     // Add elements from map
@@ -151,16 +177,15 @@ export default class RaceGameScene extends Group {
     addTrees(treeLocation, this.groundGroup, this.resources.items.treeModel.scene)
 
     // Add models
-    this.add(this.bee.model)
-    this.add(this.hornet.model)
+    this.add(this.bee.model, this.hornet.model)
 
-    this.groundGroup.add(...this.portals)
-    this.groundGroup.add(this.grass)
+    this.groundGroup.add(...this.portals, this.grass)
 
     this.secondGroundGroup = this.groundGroup.clone()
     this.secondGroundGroup.position.set(0, 0, this.property.map.height / this.property.map.ratio)
     this.allGrounds.add(this.groundGroup, this.secondGroundGroup)
 
+    // Add one map
     this.add(this.allGrounds)
   }
 
@@ -254,12 +279,10 @@ export default class RaceGameScene extends Group {
     }
 
     if (this.bee) {
-      // Update anim bee
       this.bee.update()
     }
 
     if (this.bee && this.gamePlayed) {
-
       // Check collision between bee and portals
       for (const portal of this.portals) {
         const worldPosition = portal.position.clone()

@@ -30,18 +30,6 @@
     "path": "webgl/models/Hornet/hornet.glb"
   },
   {
-    "name": "grassNormalTexture",
-    "type": "texture",
-    "actingScenes": "outsideTwoScene",
-    "path": "webgl/textures/Grass/normal.jpg"
-  },
-  {
-    "name": "noiseTexture",
-    "type": "texture",
-    "actingScenes": "outsideOneScene",
-    "path": "webgl/textures/noiseTexture.png"
-  },
-  {
     "name": "lysModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene raceGameScene pollenGameScene",
@@ -100,6 +88,24 @@
     "type": "gltfModel",
     "actingScenes": "hiveScene endingScene",
     "path": "webgl/models/Ruche/ruche.glb"
+  },
+  {
+    "name": "grassNormalTexture",
+    "type": "texture",
+    "actingScenes": "outsideTwoScene",
+    "path": "webgl/textures/Grass/normal.jpg"
+  },
+  {
+    "name": "noiseTexture",
+    "type": "texture",
+    "actingScenes": "outsideOneScene",
+    "path": "webgl/textures/noiseTexture.png"
+  },
+  {
+    "name": "smokeTexture",
+    "type": "texture",
+    "actingScenes": "raceGameScene outsideTwoScene",
+    "path": "webgl/textures/Portal/smoke.png"
   },
   {
     "name": "BgMusicSound",
