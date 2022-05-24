@@ -1,14 +1,12 @@
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 import {convertPosition} from '@/webgl/utils/ConvertPosition'
-import stoneLocation from '@/webgl/elementsLocations/raceGame/stone-race.json'
-import treeLocation from '@/webgl/elementsLocations/raceGame/tree-race.json'
 
 export const addDaisys = (location, group, resource, isScene) => {
   for (let i = 0; i < location.length; i++) {
     const daisyClone = resource.clone()
     const daisySize = randomIntFromInterval(0.5, 1, 0.01)
     daisyClone.scale.set(daisySize, daisySize, daisySize)
-    daisyClone.position.set(convertPosition(i, location).x, isScene ? -1.5 : -5, convertPosition(i, location).z)
+    daisyClone.position.set(convertPosition(i, location).x, isScene ? -3 : -5, convertPosition(i, location).z)
     group.add(daisyClone)
   }
 }
@@ -25,18 +23,18 @@ export const addLys = (location, group, resource, isScene) => {
 }
 
 export const addStones = (location, group, resource, isScene) => {
-  for (let i = 0; i < stoneLocation.length; i++) {
+  for (let i = 0; i < location.length; i++) {
     const stoneClone = resource.clone()
     const stoneSize = randomIntFromInterval(0.8, 1.8, 0.01)
     stoneClone.scale.set(stoneSize, stoneSize, stoneSize)
-    stoneClone.position.set(convertPosition(i, location).x, isScene ? -1.5 : -5, convertPosition(i, location).z)
+    stoneClone.position.set(convertPosition(i, location).x, isScene ? -3 : -5, convertPosition(i, location).z)
     stoneClone.rotation.set(0, Math.random() * 50, Math.random() / 10)
     group.add(stoneClone)
   }
 }
 
 export const addTrees = (location, group, resource, isScene) => {
-  for (let i = 0; i < treeLocation.length; i++) {
+  for (let i = 0; i < location.length; i++) {
     const cloneTree = resource.clone()
     const treeSize = randomIntFromInterval(6.5, 9.5, 0.01)
     cloneTree.scale.set(treeSize, treeSize, treeSize)
@@ -74,7 +72,7 @@ export const addBridge = (location, group, resource) => {
     const cloneBridge = resource.clone()
     const bridgeSize = 2.3
     cloneBridge.scale.set(bridgeSize, bridgeSize, bridgeSize)
-    cloneBridge.position.set(convertPosition(i, location).x, -2.7, convertPosition(i, location).z)
+    cloneBridge.position.set(convertPosition(i, location).x, -2, convertPosition(i, location).z)
     cloneBridge.rotation.set(0, Math.PI, 0)
     group.add(cloneBridge)
   }

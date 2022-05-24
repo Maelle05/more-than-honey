@@ -96,6 +96,7 @@ export default class OutsideOneScene extends Group
     this.queen = new Queen()
     this.particles = new Particules()
     this.grass = new Grass()
+    this.tree = this.resources.items.treeModel.scene
 
     this.listener = new Listener()
 
