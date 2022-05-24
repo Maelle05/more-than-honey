@@ -75,24 +75,29 @@ export default class PollenGameScene extends Group {
   }
 
   setup() {
-    // Add daisy to scene
+    // Elements of the scene
     this.daisy = new DaisyGame()
+    this.bee = new BlueBee()
+    this.grass = new Grass(this.nbDaisys + 20, 60, 400000)
+    this.tree = this.resources.items.treeModel.scene
+    this.mushroom = this.resources.items.mushroomModel.scene
+    this.lys = this.resources.items.lysModel.scene
+    this.bridge = this.resources.items.bridgeModel.scene
 
     // Sound
     this.backgroundMusic = this.resources.items.BgMusicSound
     this.voiceIntro = this.resources.items.ChapTwoOneSound
 
-    // Random dasy set
+    // Random position for daisy
     for (let i = 0; i < this.nbDaisys; i++) {
       this.positionDaisys.push({
-        // x: randomIntFromInterval(-2, 30, 0.5),
         x: this.positionDaisys[i].x + randomIntFromInterval(0.4, 1.6, 0.04),
         y: 0,
         z: randomIntFromInterval(-3.5, 3.5, 0.04)
       })
     }
 
-    // Add dasy
+    // set daisys positions
     this.daisys = []
     for (let i = 0; i < this.positionDaisys.length; i++) {
       const thisDaisy = this.daisy.model.clone()
@@ -102,24 +107,6 @@ export default class PollenGameScene extends Group {
       this.daisys.push(thisDaisy)
       this.add(thisDaisy)
     }
-
-    // bee
-    this.bee = new BlueBee()
-
-    // Grass
-    this.grass = new Grass(this.nbDaisys + 20, 60, 400000)
-
-    // Tree
-    this.tree = this.resources.items.treeModel.scene
-
-    // Mushroom
-    this.mushroom = this.resources.items.mushroomModel.scene
-
-    // Lys
-    this.lys = this.resources.items.lysModel.scene
-
-    // Bridge
-    this.bridge = this.resources.items.bridgeModel.scene
 
     // Debug
     this.debug = this.webGl.debug
@@ -153,11 +140,10 @@ export default class PollenGameScene extends Group {
 
     this.gamePlayed = false
 
-
     // Change fog
     this.scene.fog.density = 0.03
 
-    // Set bee position
+    // Set position of elements
     this.bee.model.position.set(-4, 1, 0.5)
     this.bee.model.scale.set(0.02, 0.02, 0.02)
     this.beeTarget = {
@@ -165,60 +151,55 @@ export default class PollenGameScene extends Group {
       y: 1,
       z: 0.5,
     }
-    this.add(this.bee.model)
 
-    // Add grass
     this.grass.position.set(this.nbDaisys / 2, 0, 0)
-    this.add(this.grass)
 
     // Add Trees
     const nbTrees = 25
     for (let i = 0; i <= nbTrees; i++) {
-      const thisTree = this.tree.clone()
-      thisTree.position.set(
+      const cloneTree = this.tree.clone()
+      cloneTree.position.set(
         randomIntFromInterval(-3, this.gameProperty.camTarget.x + 10, 0.5),
         0.5,
         i > nbTrees/4 ? randomIntFromInterval(-3.5, -25, 0.5) : randomIntFromInterval(14, 20, 0.5)
       )
-      thisTree.scale.set(3, 3, 3)
-      thisTree.rotation.y = randomIntFromInterval(0, 1, 0.02)
-      this.add(thisTree)
+      cloneTree.scale.set(3, 3, 3)
+      cloneTree.rotation.y = randomIntFromInterval(0, 1, 0.02)
+      this.add(cloneTree)
     }
 
     // Add mushroom
     const nbMushroom = 25
     for (let i = 0; i <= nbMushroom; i++) {
-      const thisMushroom = this.mushroom.clone()
-      thisMushroom.position.set(
+      const cloneMushroom = this.mushroom.clone()
+      cloneMushroom.position.set(
         randomIntFromInterval(-3, this.gameProperty.camTarget.x + 3, 0.5),
         0.3,
         i > nbMushroom/4 ? randomIntFromInterval(-2, -15, 0.5) : randomIntFromInterval(3.5, 10, 0.5)
       )
-      thisMushroom.scale.set(0.5, 0.5, 0.5)
-      thisMushroom.rotation.y = randomIntFromInterval(0, 1, 0.02)
-      this.add(thisMushroom)
+      cloneMushroom.scale.set(0.5, 0.5, 0.5)
+      cloneMushroom.rotation.y = randomIntFromInterval(0, 1, 0.02)
+      this.add(cloneMushroom)
     }
 
     // Add Lys
     const nbLys = 25
     for (let i = 0; i <= nbLys; i++) {
-      const thisLys = this.lys.clone()
-      thisLys.position.set(
+      const cloneLys = this.lys.clone()
+      cloneLys.position.set(
         randomIntFromInterval(-3, this.gameProperty.camTarget.x + 3, 0.5),
         0.7,
         i > nbLys/4 ? randomIntFromInterval(-2, -15, 0.5) : randomIntFromInterval(3, 10, 0.5)
       )
-      thisLys.scale.set(0.07, 0.07, 0.07)
-      thisLys.rotation.y = randomIntFromInterval(0, 1, 0.02)
-      this.add(thisLys)
+      cloneLys.scale.set(0.07, 0.07, 0.07)
+      cloneLys.rotation.y = randomIntFromInterval(0, 1, 0.02)
+      this.add(cloneLys)
     }
 
     // Add Bridge
     this.bridge.position.x = this.gameProperty.camTarget.x + 8
     this.bridge.position.y = 0.4
     this.bridge.rotation.y = 0.7
-    this.add(this.bridge)
-    
 
     // Add butterflies BOT
     const nbBot = 10
@@ -227,6 +208,7 @@ export default class PollenGameScene extends Group {
       this.butterflies.push(new Butterflie(this, this.positionDaisys, i))
     }
 
+    this.add(this.bee.model, this.grass, this.bridge)
 
     // End Loader
     setTimeout(()=>{
@@ -245,7 +227,6 @@ export default class PollenGameScene extends Group {
         this.bee.model.position.x = MathUtils.damp(this.bee.model.position.x, this.beeTarget.x, 0.07, .8)
         this.bee.model.lookAt(this.beeTarget.x, this.beeTarget.y, this.beeTarget.z )
       }
-      
 
       for (let i = 0; i < this.positionDaisys.length; i++) {
         if (
@@ -412,7 +393,6 @@ export default class PollenGameScene extends Group {
   }
 
   playGame(){
-
     // Listener
     this.listener = new Listener()
     this.listener.on('mouseMove', ()=>{
@@ -536,7 +516,6 @@ export default class PollenGameScene extends Group {
         }
       })
 
-      // console.log(pollenMesh.material)
       daisy.add(pollenMesh)
     }
   }
@@ -586,7 +565,6 @@ export default class PollenGameScene extends Group {
 
 class Butterflie {
   constructor(group, posDaisy, id){
-    // console.log('Butterflie')
     this.scene = group
     this.posDaisy = posDaisy
 
