@@ -3,17 +3,12 @@
     <TimelineComponent/>
     <Popup class="popupPollen hidden" ref="popUpIntro" title="Le jeu du pollen" label-button="Commencer à jouer"
            @action-on-click="startGame">
-      <p>L’objectif est de <strong> polliniser </strong> un maximum de fleurs dans le temps imparti.</p>
+      <p>L’objectif est de <strong>polliniser</strong> un maximum de fleurs dans le temps imparti tout en <strong>évitant</strong> les <strong>papillons</strong>.</p>
       <lottie-player autoplay background="transparent" loop mode="normal" src="/lottie/game/DeplacementPop.json"
                      style="width: 90px"></lottie-player>
       <p><strong>Déplacez-vous</strong> vers les fleurs grâce à votre <b>souris</b></p>
       <p class="popupPollen__element u-uppercase espace">Espace</p>
-      <p><strong> Appuyez sur espace </strong> pour polliniser cette fleur</p>
-      <p class="popupPollen__element attention u-uppercase">Attention !</p>
-      <p class="u-italic"><strong>Evitez les papillons</strong> : <br> Ils ralentiront votre progression !</p><br>
-      <p class="u-italic">L’abeille pourrait éventuellement devenir <strong> incontrôlaaaaable </strong> ! Bonne chance
-        &nbsp;
-        <img class="popupPollen__icon" src="/images/popup/smile.svg" alt="blue smiley"></p>
+      <p><strong>Maintenez l’appuie long sur la barre espace</strong> pour polliniser une fleur</p>
     </Popup>
 
     <Starter ref="starter"/>

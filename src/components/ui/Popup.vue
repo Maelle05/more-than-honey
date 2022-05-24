@@ -52,9 +52,11 @@ export default {
   padding: 24px 64px;
 
   &__title {
-    font-size: 16px;
+    font-size: 24px;
     font-weight: normal;
     margin-bottom: 20px;
+    font-family: 'RoadRage', sans-serif;
+    color: $blueGreen;
   }
 
   &__button {

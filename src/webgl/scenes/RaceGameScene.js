@@ -4,7 +4,6 @@ import Listener from '../utils/Listener'
 import BlueBee from '@/webgl/entities/BlueBee'
 import mapSetting from '@/webgl/elementsLocations/mapSetting.json'
 import gsap from 'gsap'
-import Queen from '@/webgl/entities/Queen'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 import treeLocation from '@/webgl/elementsLocations/raceGame/tree-race.json'
 import lysLocation from '@/webgl/elementsLocations/raceGame/lys-race.json'
@@ -14,6 +13,7 @@ import Grass from '@/webgl/shaders/grass/PollenGameGrass'
 import Bloom from '@/webgl/shaders/bloom'
 import {customEase} from '@/webgl/utils/CustomEase'
 import {addDaisys, addLys, addStones, addTrees} from '@/webgl/elementsLoop/AddElements'
+import Hornet from '@/webgl/entities/Hornet'
 
 let raceGameInstance = null
 
@@ -79,7 +79,7 @@ export default class RaceGameScene extends Group {
   setup() {
     // Import models
     this.bee = new BlueBee()
-    this.hornet = new Queen()
+    this.hornet = new Hornet()
     this.grass = new Grass(this.property.map.with / this.property.map.ratio, this.property.map.height / this.property.map.ratio, 500000)
     this.portal = new Mesh(new SphereGeometry(1, 32, 16), new MeshBasicMaterial({color: 0xff0000}))
 
@@ -131,6 +131,7 @@ export default class RaceGameScene extends Group {
     this.bee.model.position.set(0, 0, 0)
     this.bee.model.rotation.set(0, 6.3, 0)
     this.hornet.model.position.set(4, -1.5, -2)
+    this.hornet.model.rotation.y = Math.PI
     this.grass.position.set(0, -5, this.property.map.height / this.property.map.ratio / 2)
     this.gamePlayed = false
 
@@ -142,14 +143,6 @@ export default class RaceGameScene extends Group {
       thisPortal.position.set(randomIntFromInterval(-4, 4, 1), randomIntFromInterval(-1.5, 1.2, 1), randomIntFromInterval(15, (this.property.map.height / this.property.map.ratio) / 1.2, 5))
       this.portals.push(thisPortal)
     }
-
-    // Hornet go back after the game is started
-    gsap.to(this.hornet.model.position, {
-      delay: 3,
-      duration: 2,
-      z: -8,
-      ease: "power1.in",
-    })
 
     // Add elements from map
     addDaisys(daisyLocation, this.groundGroup, this.resources.items.daisyModel.scene)
@@ -172,6 +165,13 @@ export default class RaceGameScene extends Group {
   }
 
   playGame() {
+    // Hornet go back after the game is started
+    gsap.to(this.hornet.model.position, {
+      duration: 2.5,
+      z: -8,
+      ease: "power1.in",
+    })
+
     const numberOfSteps = 5
     let step = 0
 
@@ -191,7 +191,7 @@ export default class RaceGameScene extends Group {
     const moveGround = () => {
       step++
       gsap.to(this.allGrounds.position, {
-        duration: (numberOfSteps + 4) - step,
+        duration: (numberOfSteps + 3) - step,
         z: (-(this.property.map.height / this.property.map.ratio) + 2) * step, // + 2 to see the bee at the end
         ease: "none",
       }).then(() => {
@@ -201,6 +201,7 @@ export default class RaceGameScene extends Group {
         if (step < numberOfSteps) {
           moveGround()
         } else {
+          console.log('end')
           this.popupEnd.classList.remove('hidden')
         }
       })

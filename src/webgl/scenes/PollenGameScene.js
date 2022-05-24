@@ -1,5 +1,5 @@
 import { MathUtils } from 'three'
-import { Group, Vector2, Raycaster } from 'three'
+import { Group, Vector2 } from 'three'
 import BlueBee from '../entities/BlueBee'
 import DaisyGame from '../entities/DaisyGame'
 import Listener from '../utils/Listener'
@@ -8,9 +8,9 @@ import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 import gsap from 'gsap'
 import { MeshBasicMaterial, Mesh, BoxGeometry, Vector3 } from 'three'
 import Bloom from '../shaders/bloom'
-import { CustomEase } from 'gsap/all'
 import Grass from '../shaders/grass/PollenGameGrass'
 import { SphereGeometry } from 'three'
+import {customEase} from '@/webgl/utils/CustomEase'
 
 let gameInstance = null
 
@@ -487,11 +487,10 @@ export default class PollenGameScene extends Group {
     }, 3000)
     
     this.gameProperty.lastIntersectBB = this.butterflies[i].mesh.name
-    gsap.registerPlugin(CustomEase)
     gsap.to(this.PostPros.vignettePass.uniforms.uIntensity, {
       value: 0.6,
       duration: 2.5,
-      ease: CustomEase.create("custom", "M0,0,C0,0,0.01,0.133,0.032,0.236,0.037,0.261,0.058,0.319,0.07,0.34,0.077,0.355,0.167,0.538,0.246,0.32,0.272,0.248,0.282,0.16,0.362,0.122,0.448,0.08,0.584,0.184,0.672,0.196,0.876,0.223,1,0,1,0")
+      ease: customEase
     })
     setTimeout( ()=>{
       this.lottieLose.classList.add('hidden')

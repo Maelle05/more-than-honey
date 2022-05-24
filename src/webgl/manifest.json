@@ -24,6 +24,12 @@
     "path": "webgl/models/Queen/queen.glb"
   },
   {
+    "name": "hornetModel",
+    "type": "gltfModel",
+    "actingScenes": "raceGameScene",
+    "path": "webgl/models/Hornet/hornet.glb"
+  },
+  {
     "name": "grassNormalTexture",
     "type": "texture",
     "actingScenes": "outsideTwoScene",

@@ -19,9 +19,8 @@
       <p>Vous avez réussi à finir la course sans que le frelon vous rattrape</p>
       <img class="popupRace__element" src="/images/popup/plume.svg" alt="plume">
       <h2 class="popupRace__title">Le saviez-vous ?</h2>
-      <p>Cela fait environ 30 ans que les populations d’abeilles diminuent en France. <br>Importé involontairement en
-        2004,
-        le frelon asiatique est aujourd’hui capable de décimer des colonies en un temps record.</p>
+      <p>Importé involontairement en 2004, le frelon asiatique est aujourd’hui capable de décimer des colonies en un
+        temps record.</p>
     </Popup>
   </div>
 </template>
