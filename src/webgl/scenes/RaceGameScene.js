@@ -89,8 +89,8 @@ export default class RaceGameScene extends Group {
     this.hornet = new Hornet()
     this.grass = new Grass(this.property.map.with / this.property.map.ratio, this.property.map.height / this.property.map.ratio, 500000)
 
-    const portalGeo = new PlaneBufferGeometry(2.5,2.5)
-    const portalMat = new MeshStandardMaterial({
+    const pesticideGeometry = new PlaneBufferGeometry(2.5,2.5)
+    const pesticideMaterial = new MeshStandardMaterial({
       color: 0x97F5D0,
       side: DoubleSide,
       map: this.webGl.resources.items.smokeTexture,
@@ -100,7 +100,7 @@ export default class RaceGameScene extends Group {
     this.pesticideCloud = new Group
     // One cloud of pesticide
     for(let i=0; i<15; i++) {
-      let particle = new Mesh(portalGeo, portalMat)
+      let particle = new Mesh(pesticideGeometry, pesticideMaterial)
       particle.position.set(
         0.03 * i * Math.cos((4 * i * Math.PI) / 180),
         0.03 * i * Math.sin((4 * i * Math.PI) / 180),
