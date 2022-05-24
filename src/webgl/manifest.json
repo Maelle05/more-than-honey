@@ -1,20 +1,8 @@
 [
   {
-    "name": "foxModel",
-    "type": "gltfModel",
-    "actingScenes": "foxScene",
-    "path": "webgl/models/Fox/glTF/Fox.gltf"
-  },
-  {
-    "name": "beeModel",
-    "type": "gltfModel",
-    "actingScenes": "raceGameScene beeScene",
-    "path": "webgl/models/Bee/scene.gltf"
-  },
-  {
     "name": "beeBlueModel",
     "type": "gltfModel",
-    "actingScenes": "hiveScene raceGameScene outsideTwoScene outsideOneScene endingScene pollenGameScene",
+    "actingScenes": "endingScene hiveScene outsideOneScene outsideTwoScene pollenGameScene raceGameScene",
     "path": "webgl/models/Bee/bee.glb"
   },
   {
@@ -32,19 +20,13 @@
   {
     "name": "lysModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene raceGameScene pollenGameScene",
+    "actingScenes": "outsideOneScene pollenGameScene raceGameScene",
     "path": "webgl/models/Lys/oneLys.glb"
-  },
-  {
-    "name": "particlesTexture",
-    "type": "texture",
-    "actingScenes": "outsideOneScene",
-    "path": "webgl/particles/3.png"
   },
   {
     "name": "treeModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene raceGameScene outsideTwoScene pollenGameScene",
+    "actingScenes": "outsideOneScene outsideTwoScene pollenGameScene raceGameScene",
     "path": "webgl/models/Tree/sakura.glb"
   },
   {
@@ -72,12 +54,6 @@
     "path": "webgl/models/Daisy/daisy-v3.glb"
   },
   {
-    "name": "trunkModel",
-    "type": "gltfModel",
-    "actingScenes": "outsideOneSceneNon ",
-    "path": "webgl/models/Trunk/tronc.glb"
-  },
-  {
     "name": "mushroomModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene pollenGameScene",
@@ -86,8 +62,14 @@
   {
     "name": "hiveModel",
     "type": "gltfModel",
-    "actingScenes": "hiveScene endingScene",
+    "actingScenes": "endingScene hiveScene",
     "path": "webgl/models/Ruche/ruche.glb"
+  },
+  {
+    "name": "particlesTexture",
+    "type": "texture",
+    "actingScenes": "outsideOneScene",
+    "path": "webgl/particles/3.png"
   },
   {
     "name": "grassNormalTexture",
@@ -104,7 +86,7 @@
   {
     "name": "smokeTexture",
     "type": "texture",
-    "actingScenes": "raceGameScene outsideTwoScene",
+    "actingScenes": "outsideTwoScene raceGameScene",
     "path": "webgl/textures/Portal/smoke.png"
   },
   {
@@ -112,7 +94,7 @@
     "type": "sound",
     "volume": 0.3,
     "loop": true,
-    "actingScenes": "outsideOneScene pollenGameScene",
+    "actingScenes": "outsideOneScene pollenGameScene raceGameScene",
     "path": "/voices/outsideOne/bg.mp3"
   },
   {
