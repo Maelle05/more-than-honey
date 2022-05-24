@@ -27,7 +27,7 @@ import Grass from '@/webgl/shaders/grass/grass'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 import Queen from '../entities/Queen'
 import { SphereGeometry } from 'three'
-import gsap, { CustomEase } from 'gsap/all'
+import gsap  from 'gsap/all'
 import { Power0 } from 'gsap'
 import {
   addBridge,
@@ -38,6 +38,7 @@ import {
   addStones,
   addTrees
 } from '@/webgl/elementsLoop/AddElements'
+import {customEaseOpacity} from '@/webgl/utils/CustomEase'
 
 export default class OutsideOneScene extends Group
 {
@@ -298,9 +299,9 @@ export class Pheromone {
     this.scene = group
     this.initPos = queen.position
 
-    // Model
-    this.geometry = new SphereGeometry(0.6, 16, 16),
-    this.material = new MeshBasicMaterial( {color: '#8A2BE2'} )
+    // Fake male around the queen bee
+    this.geometry = new SphereGeometry(0.6, 16, 16)
+    this.material = new MeshBasicMaterial( {color: '#8A2BE2'})
     this.material.transparent = true 
     this.mesh = new Mesh( this.geometry, this.material )
     const size = randomIntFromInterval(0.05, 0.2, 0.05)
@@ -319,7 +320,7 @@ export class Pheromone {
     gsap.to(this.mesh.material, {
       opacity: 0,
       duration: randomIntFromInterval(1, 3, 0.1),
-      ease: CustomEase.create("custom", "M0,0,C0,0,0.005,0.125,0.02,0.199,0.033,0.268,0.047,0.314,0.075,0.379,0.102,0.446,0.247,0.65,0.3,0.7,0.362,0.758,0.425,0.8,0.5,0.8,0.602,0.8,0.647,0.756,0.7,0.7,0.75,0.646,0.89,0.462,0.922,0.382,0.945,0.323,0.976,0.245,0.98,0.2,0.99,0.082,1,0,1,0"),
+      ease: customEaseOpacity,
       stagger: {
         each: 0,
         repeat: -1
