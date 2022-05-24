@@ -10,7 +10,7 @@
     </svg>
     <p class="u-uppercase loading__text">Chargement ...</p>
 
-    <div class="headphones">
+    <div v-if="this.$route.path === '/honeyIntro'" class="headphones">
       <img src="/images/loader/headphone.svg" alt="icon for sound, headphone">
       <p>Use headphones for better experience</p>
     </div>
