@@ -63,7 +63,7 @@
     "name": "hiveModel",
     "type": "gltfModel",
     "actingScenes": "endingScene hiveScene",
-    "path": "webgl/models/Ruche/ruche.glb"
+    "path": "webgl/models/Hive/hive.glb"
   },
   {
     "name": "particlesTexture",
