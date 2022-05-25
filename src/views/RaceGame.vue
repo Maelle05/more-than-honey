@@ -3,7 +3,7 @@
     <TimelineComponent/>
     <Starter ref="starter"/>
     <div class="raceGame__loose hidden" ref="lottieLoose">
-      <lottie-player autoplay background="transparent" mode="normal" src="/lottie/raceGame/Heart.json" style="width: 200px"></lottie-player>
+      <lottie-player loop autoplay background="transparent" mode="normal" src="/lottie/raceGame/Heart.json" style="width: 200px"></lottie-player>
     </div>
     <Popup class="popupRace" ref="popupIntro" title="Course poursuite" label-button="Commencer à jouer"
            @action-on-click="startGame">
