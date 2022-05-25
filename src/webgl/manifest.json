@@ -87,7 +87,7 @@
     "name": "smokeTexture",
     "type": "texture",
     "actingScenes": "outsideTwoScene raceGameScene",
-    "path": "webgl/textures/Portal/smoke.png"
+    "path": "webgl/textures/Portal/smoke_02.png"
   },
   {
     "name": "BgMusicSound",
