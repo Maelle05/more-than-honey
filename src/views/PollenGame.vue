@@ -1,13 +1,17 @@
 <template>
   <div class="pollenGame" ref="pollenGameUI">
     <TimelineComponent/>
-    <Popup class="popupPollen hidden" ref="popUpIntro" title="Le jeu du pollen" label-button="Commencer à jouer"
+    <Popup class="popupPollen" ref="popUpIntro" title="Pollinisation intensive" label-button="Commencer à jouer"
            @action-on-click="startGame">
       <p>L’objectif est de <strong>polliniser</strong> un maximum de fleurs dans le temps imparti tout en <strong>évitant</strong> les <strong>papillons</strong>.</p>
       <lottie-player autoplay background="transparent" loop mode="normal" src="/lottie/game/DeplacementPop.json"
                      style="width: 90px"></lottie-player>
       <p><strong>Déplacez-vous</strong> vers les fleurs grâce à votre <b>souris</b></p>
-      <p class="popupPollen__element u-uppercase espace">Espace</p>
+      <div class="popupPollen__longPress">
+        <lottie-player autoplay background="transparent" loop mode="normal" src="/lottie/pollenGame/LongPress.json"
+                       style="width: 170px"></lottie-player>
+      </div>
+
       <p><strong>Maintenez l’appuie long sur la barre espace</strong> pour polliniser une fleur</p>
     </Popup>
 
@@ -111,6 +115,10 @@ export default {
   .popupPollen {
     font-size: 12px;
     color: $black;
+
+    &__longPress {
+      margin: -40px 0;
+    }
 
     &__element {
       margin: 25px 15px;

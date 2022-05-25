@@ -56,7 +56,7 @@ export default {
     font-weight: normal;
     margin-bottom: 20px;
     font-family: 'RoadRage', sans-serif;
-    color: $blueGreen;
+    color: $black;
   }
 
   &__button {

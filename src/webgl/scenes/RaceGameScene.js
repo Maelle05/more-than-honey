@@ -78,9 +78,10 @@ export default class RaceGameScene extends Group {
     })
   }
 
-  setupPopups(start, end) {
+  setupDomElements(start, end, lottie) {
     this.popupStart = start
     this.popupEnd = end
+    this.lottie = lottie
   }
 
   setup() {
@@ -226,7 +227,7 @@ export default class RaceGameScene extends Group {
         if (step < numberOfSteps) {
           moveGround()
         } else {
-          console.log('end')
+          this.lottie.classList.add('hidden')
           this.popupEnd.classList.remove('hidden')
         }
       })
@@ -258,6 +259,8 @@ export default class RaceGameScene extends Group {
       ease: customEase
     })
 
+    this.lottie.classList.remove('hidden')
+
     // Go back to normal after 2.5s
     setTimeout( ()=>{
       gsap.to(this.hornet.model.position, {
@@ -266,6 +269,7 @@ export default class RaceGameScene extends Group {
         ease: "power1.out",
       })
       this.postProcessing.vignettePass.uniforms.uIntensity.value = 0
+      this.lottie.classList.add('hidden')
     }, 2500)
   }
 

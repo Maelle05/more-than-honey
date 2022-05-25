@@ -59,7 +59,7 @@ export default {
     filter: blur(16px);
   }
 
-  &__sound, &__subtitle {
+  &__sound {
     display: flex;
     justify-content: center;
     padding-bottom: 3vh;
@@ -86,7 +86,7 @@ export default {
     .line {
       width: 2px;
       background: $white;
-      height: calc(60vh / 6);
+      height: calc(75vh / 6);
       margin: 10px 0;
     }
 

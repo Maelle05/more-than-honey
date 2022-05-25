@@ -2,6 +2,9 @@
   <div class="raceGame">
     <TimelineComponent/>
     <Starter ref="starter"/>
+    <div class="raceGame__loose hidden" ref="lottieLoose">
+      <lottie-player autoplay background="transparent" mode="normal" src="/lottie/raceGame/Heart.json" style="width: 200px"></lottie-player>
+    </div>
     <Popup class="popupRace" ref="popupIntro" title="Course poursuite" label-button="Commencer à jouer"
            @action-on-click="startGame">
       <p>Votre but est de <strong> fuir le plus rapidement possible </strong> pour vous protéger du <strong>frelon
@@ -9,7 +12,7 @@
       <lottie-player autoplay background="transparent" loop mode="normal" src="/lottie/game/DeplacementPop.json"
                      style="width: 90px"></lottie-player>
       <p>Faites de votre mieux pour <strong>contrôler le mouvement et esquiver les rejets de pesticides</strong>.</p>
-      <img class="popupRace__element" src="/images/popup/portal.svg" alt="blue portal">
+      <img class="popupRace__element" src="/images/popup/portal.png" alt="cloud of pesticide">
       <p><strong>Atteignez la ruche </strong>avant que le frelon ne vous <strong>rattrape</strong> !</p>
     </Popup>
 
@@ -41,7 +44,7 @@ export default {
   },
   mounted() {
     this.webGLInstance = new RaceGameScene()
-    this.webGLInstance.setupPopups(this.$refs.popupIntro.$el, this.$refs.popupOutro.$el)
+    this.webGLInstance.setupDomElements(this.$refs.popupIntro.$el, this.$refs.popupOutro.$el, this.$refs.lottieLoose)
   },
   methods: {
     startGame() {
