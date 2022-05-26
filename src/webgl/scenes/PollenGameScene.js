@@ -87,6 +87,7 @@ export default class PollenGameScene extends Group {
     // Sound
     this.backgroundMusic = this.resources.items.BgMusicSound
     this.voiceIntro = this.resources.items.ChapTwoOneSound
+    this.impact = this.resources.items.ImactSound
 
     // Random position for daisy
     for (let i = 0; i < this.nbDaisys; i++) {
@@ -460,6 +461,12 @@ export default class PollenGameScene extends Group {
   }
 
   loseForaged(i) {
+
+    // Init Sounds
+    this.impact.fade(0, 0.3, .3)
+    this.impact.play()
+
+    
     if (this.gameProperty.foraged.length && !this.gameProperty.isFinish) {
       this.lottieLose.classList.remove('hidden')
       this.gameProperty.foraged.shift()

@@ -92,7 +92,7 @@
   {
     "name": "BgMusicSound",
     "type": "sound",
-    "volume": 0.3,
+    "volume": 0.1,
     "loop": true,
     "actingScenes": "outsideOneScene pollenGameScene raceGameScene",
     "path": "/voices/outsideOne/bg.mp3"
@@ -120,5 +120,13 @@
     "loop": false,
     "actingScenes": "pollenGameScene",
     "path": "/voices/pollenGame/Chap2-1.wav"
+  },
+  {
+    "name": "ImactSound",
+    "type": "sound",
+    "volume": 0.8,
+    "loop": false,
+    "actingScenes": "pollenGameScene",
+    "path": "/voices/pollenGame/Impact.mp3"
   }
 ]
