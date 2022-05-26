@@ -164,13 +164,13 @@ export default class HiveScene extends Group {
 
 
     // Init Sounds
-    this.voiceOne.fade(0, 0.3, .3)
+    this.voiceOne.fade(0, 0.6, .3)
     this.voiceOne.play()
     this.resources.on(`soundChapOneOneSoundFinished`, ()=>{
-      this.voiceTwo.fade(0, 0.3, .3)
+      this.voiceTwo.fade(0, 0.6, .3)
       this.voiceTwo.play()
       this.resources.on(`soundChapOneOneOneSoundFinished`, ()=>{
-        this.voiceEnd.fade(0, 0.3, .3)
+        this.voiceEnd.fade(0, 0.6, .3)
         this.voiceEnd.play()
         this.resources.on(`soundChapOneOneTwoSoundFinished`, ()=>{
           console.log('Scene fini aller à la suite')

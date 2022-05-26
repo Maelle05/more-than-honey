@@ -112,6 +112,8 @@ export default class OutsideTwoScene extends Group
     this.listener = new Listener()
 
     // Sound
+    this.backgroundMusic = this.resources.items.BgMusicSound
+    this.voice = this.resources.items.ChapTwoTwoSound
     
 
     // CURVE HANDLE
@@ -191,14 +193,24 @@ export default class OutsideTwoScene extends Group
       }
     })
 
+
+    // Init Sounds
+    setTimeout(() => {
+      this.backgroundMusic.fade(0, 0.3, .3)
+      this.backgroundMusic.play()
+
+      setTimeout(()=>{
+        this.voice.fade(0, 0.6, .3)
+        this.voice.play()
+        this.resources.on('', ()=>{
+          this.cursor.endScene()
+        })
+      }, 3000)
+    }, 50)
+
     setTimeout(() => {
       this.loader.classList.add('loaded')
     }, 500)
-    
-    setTimeout(()=>{
-      console.log('Scene suivente débloquer')
-      this.cursorComponent.endScene()
-    }, 10000)
   }
 
   update(){

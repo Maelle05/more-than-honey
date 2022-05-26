@@ -94,11 +94,11 @@
     "type": "sound",
     "volume": 0.1,
     "loop": true,
-    "actingScenes": "outsideOneScene pollenGameScene raceGameScene",
+    "actingScenes": "outsideOneScene pollenGameScene raceGameScene outsideTwoScene",
     "path": "/voices/outsideOne/bg.mp3"
   },
   {
-    "name": "ChapOneTowSound",
+    "name": "ChapOneTwoSound",
     "type": "sound",
     "volume": 0.6,
     "loop": false,
@@ -168,5 +168,13 @@
     "loop": false,
     "actingScenes": "hiveScene",
     "path": "/voices/hive/Chap1-1-2.wav"
+  },
+  {
+    "name": "ChapTwoTwoSound",
+    "type": "sound",
+    "volume": 0.6,
+    "loop": false,
+    "actingScenes": "outsideTwoScene",
+    "path": "/voices/outsideTwo/Chap2-2.wav"
   }
 ]

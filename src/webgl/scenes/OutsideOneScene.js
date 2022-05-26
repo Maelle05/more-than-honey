@@ -112,7 +112,7 @@ export default class OutsideOneScene extends Group
 
     // Sound
     this.backgroundMusic = this.resources.items.BgMusicSound
-    this.voice = this.resources.items.ChapOneTowSound
+    this.voice = this.resources.items.ChapOneTwoSound
     this.voiceReine = this.resources.items.ChapOneThreeSound
 
     // CURVE HANDLE
