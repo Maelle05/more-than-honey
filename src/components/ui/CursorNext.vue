@@ -56,8 +56,8 @@ export default {
   cursor: none !important;
   .customCursor {
     cursor: none !important;
-    height: 0px;
-    width: 0px;
+    height: 5px;
+    width: 5px;
     background: white;
     border-radius: 50%;
     position: fixed;
