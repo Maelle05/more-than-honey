@@ -1,6 +1,6 @@
 <template>
   <div class="hive">
-    <div class="customCursor" ref="cursor"/>
+    <div class="customCursor" ref="cursor"/> 
     <div class="customCursorBorder" ref="cursorBorder"/>
     <TimelineComponent/>
     <Tuto path="/lottie/UI/hover.json" listener="mouseMove"/>

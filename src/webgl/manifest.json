@@ -69,7 +69,7 @@
     "name": "particlesTexture",
     "type": "texture",
     "actingScenes": "outsideOneScene",
-    "path": "webgl/particles/3.png"
+    "path": "webgl/textures/particles/3.png"
   },
   {
     "name": "grassNormalTexture",
