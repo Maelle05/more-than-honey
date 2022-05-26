@@ -40,10 +40,20 @@ import {
 } from '@/webgl/elementsLoop/AddElements'
 import {customEaseOpacity} from '@/webgl/utils/CustomEase'
 
+let OutsideOneInstance = null
+
 export default class OutsideOneScene extends Group
 {
   constructor(){
+    if(OutsideOneInstance){
+      return OutsideOneInstance
+    }
+    
+
     super()
+
+    OutsideOneInstance = this
+
     this.webGl = new WebGl()
     this.scene = this.webGl.scene
     this.renderer = this.webGl.renderer
@@ -89,6 +99,10 @@ export default class OutsideOneScene extends Group
     {
       this.setup()
     })
+  }
+
+  initCursorComponent(cursor){
+    this.cursorComponent = cursor
   }
 
   setup(){
@@ -250,6 +264,7 @@ export default class OutsideOneScene extends Group
     
     this.resources.on(`soundChapOneThreeSoundFinished`, ()=>{
       console.log('Scene suivente débloquer')
+      this.cursorComponent.endScene()
     })
   }
 
@@ -287,7 +302,6 @@ export default class OutsideOneScene extends Group
         pheromone.updateQueenPos(this.queen.model.position)
       })
     }
-
   }
 
   delete(){

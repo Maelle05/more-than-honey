@@ -1,8 +1,8 @@
 <template>
   <div class="outsideOne">
-    <CursorNext to="/pollenGame"/>
     <TimelineComponent/>
     <Tuto path="/lottie/UI/scroll.json" listener="scrollToTop"/>
+    <CursorNext to="/pollenGame" ref="cursorNext"/>
   </div>
 </template>
 
@@ -10,6 +10,7 @@
 import TimelineComponent from '@/components/ui/TimelineComponent'
 import Tuto from '@/components/ui/Tuto'
 import CursorNext from '@/components/ui/CursorNext'
+import OutsideOne from '@/webgl/scenes/OutsideOneScene'
 
 export default {
   name: 'OutsideOne',
@@ -17,13 +18,17 @@ export default {
     TimelineComponent,
     Tuto,
     CursorNext
+  },
+  mounted(){
+
+    // Pass Cursor to scene
+    this.scene = new OutsideOne()
+    this.scene.initCursorComponent(this.$refs.cursorNext)
+
   }
 }
 </script>
 
 <style scoped lang="scss">
-.outsideOne{
-  cursor: none;
-}
 
 </style>
