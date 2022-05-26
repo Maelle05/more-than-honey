@@ -256,6 +256,7 @@ export default class PollenGameScene extends Group {
           }
 
           if(!this.gameProperty.foraged.includes(i)){
+            document.body.style.cursor = 'none'
             if (this.gameProperty.currentLoadPollen[i] < 5) {
               this.loaderPollen.flowers.forEach((flower)=>{
                 flower.style.opacity = 0.2
@@ -393,6 +394,7 @@ export default class PollenGameScene extends Group {
   }
 
   playGame(){
+    document.body.style.cursor = 'none'
     // Listener
     this.listener = new Listener()
     this.listener.on('mouseMove', ()=>{
@@ -433,6 +435,7 @@ export default class PollenGameScene extends Group {
       x: this.gameProperty.controlsTarget.x, 
       ease: "power1.in", 
     }).then(()=>{
+      document.body.style.cursor = 'auto'
       this.gameProperty.isFinish = true
       this.endPopUp.querySelector('p').innerHTML = this.gameProperty.foraged.length + ' fleurs viennent d’être pollinisées'
       this.endPopUp.classList.remove('hidden')
@@ -521,6 +524,7 @@ export default class PollenGameScene extends Group {
   }
 
   reStart(){
+    document.body.style.cursor = 'none'
     this.endPopUp.classList.add('hidden')
     this.gameProperty.beeCanMouve = false
     this.camera.position.set(0, 10, 10)
@@ -546,6 +550,7 @@ export default class PollenGameScene extends Group {
         x: this.gameProperty.controlsTarget.x, 
         ease: "power1.in", 
       }).then(()=>{
+        document.body.style.cursor = 'auto'
         this.gameProperty.isFinish = true
         this.endPopUp.querySelector('p').innerHTML = this.gameProperty.foraged.length + ' fleurs viennent d’être pollinisées'
         this.endPopUp.classList.remove('hidden')
