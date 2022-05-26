@@ -119,7 +119,23 @@
     "volume": 0.6,
     "loop": false,
     "actingScenes": "pollenGameScene",
-    "path": "/voices/pollenGame/Chap2-1.wav"
+    "path": "/voices/pollenGame/Chap2-1-1.wav"
+  },
+  {
+    "name": "ChapTwoOneTwoSound",
+    "type": "sound",
+    "volume": 0.6,
+    "loop": false,
+    "actingScenes": "pollenGameScene",
+    "path": "/voices/pollenGame/Chap2-1-2.wav"
+  },
+  {
+    "name": "ChapTwoOneThreeSound",
+    "type": "sound",
+    "volume": 0.6,
+    "loop": false,
+    "actingScenes": "pollenGameScene",
+    "path": "/voices/pollenGame/Chap2-1-3.wav"
   },
   {
     "name": "ImactSound",

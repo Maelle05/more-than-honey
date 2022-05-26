@@ -87,7 +87,10 @@ export default class PollenGameScene extends Group {
     // Sound
     this.backgroundMusic = this.resources.items.BgMusicSound
     this.voiceIntro = this.resources.items.ChapTwoOneSound
+    this.ChapTwoOneTwoSound = this.resources.items.ChapTwoOneTwoSound
+    this.ChapTwoOneThreeSound = this.resources.items.ChapTwoOneThreeSound
     this.impact = this.resources.items.ImactSound
+    this.isFlowerSongPlay = false
 
     // Random position for daisy
     for (let i = 0; i < this.nbDaisys; i++) {
@@ -306,6 +309,19 @@ export default class PollenGameScene extends Group {
               this.loaderPollen.flowers.forEach((flower, index)=>{
                 index <= 11 ? flower.style.opacity = 1 : flower.style.opacity = 0.2
               })
+              // Init Sounds
+              if (!this.isFlowerSongPlay) {
+                this.isFlowerSongPlay = true
+                this.ChapTwoOneTwoSound.fade(0, 0.3, .3)
+                this.ChapTwoOneTwoSound.play()
+                this.resources.on('soundChapTwoOneTwoSoundFinished', ()=>{
+                  setTimeout(()=>{
+                    this.ChapTwoOneThreeSound.fade(0, 0.3, .3)
+                    this.ChapTwoOneThreeSound.play()
+                  }, 5000)
+                })
+              }
+              
             }
           }
 
