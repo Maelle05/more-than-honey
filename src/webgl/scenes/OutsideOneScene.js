@@ -232,11 +232,12 @@ export default class OutsideOneScene extends Group
         setTimeout(() => {
           this.voice.fade(0, 0.6, .3)
           this.voice.play()
-          this.resources.on(`soundChapOneTowSoundFinished`, ()=>{
+          this.resources.on(`soundChapOneTwoSoundFinished`, ()=>{
             voiceReineCanStart = true
           })
         }, 1000)
       }
+      console.log(voiceReineStart, result, voiceReineCanStart )
       if (voiceReineStart === false && result > 0.97 && voiceReineCanStart) {
         voiceReineStart = true
         this.voiceReine.fade(0, 0.6, .3)
