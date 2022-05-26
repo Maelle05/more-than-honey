@@ -1,102 +1,236 @@
+import WebGl from '../webglManager'
 import {
   Group,
-  MathUtils,
   Vector3,
-} from 'three'
-import WebGl from '../webglManager'
-import Bee from '@/webgl/entities/BlueBee'
-import Listener from '../utils/Listener'
-import Grass from '../shaders/grass/grass'
+  BoxGeometry,
+  MeshBasicMaterial,
+  Mesh,
+  CatmullRomCurve3,
+  Line,
+  BufferGeometry,
+  LineBasicMaterial} from 'three'
 import Particules from '../shaders/fireflies'
+import Bee from '../entities/BlueBee'
+import mapSetting from '../elementsLocations/mapSetting.json'
+import stoneLocation from '../elementsLocations/outsideTwo/stone.json'
+import daisyLocation from '../elementsLocations/outsideTwo/daisy.json'
+import lysLocation from '../elementsLocations/outsideTwo/lys.json'
+import treeLocation from '../elementsLocations/outsideTwo/tree.json'
+import nenupharLocation from '../elementsLocations/outsideTwo/nenuphar.json'
+import mushroomLocation from '../elementsLocations/outsideTwo/mushrooms.json'
+import bridgeLocation from '../elementsLocations/outsideTwo/bridge.json'
+import beePath from '../elementsLocations/outsideTwo/beePath.json'
+import Listener from '../utils/Listener'
+import { MathUtils } from 'three'
+import Grass from '@/webgl/shaders/grass/grass'
+import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
+import { SphereGeometry } from 'three'
+import gsap  from 'gsap/all'
+import { Power0 } from 'gsap'
+import {
+  addBridge,
+  addDaisys,
+  addLys,
+  addMushrooms,
+  addNenuphar,
+  addStones,
+  addTrees
+} from '@/webgl/elementsLoop/AddElements'
+import {customEaseOpacity} from '@/webgl/utils/CustomEase'
 
-export default class OutsideTwoScene extends Group {
-  constructor() {
+let OutsideTwoInstance = null
+
+export default class OutsideTwoScene extends Group
+{
+  constructor(){
+    if(OutsideTwoInstance){
+      return OutsideTwoInstance
+    }
+    
+
     super()
+
+    OutsideTwoInstance = this
+
     this.webGl = new WebGl()
     this.scene = this.webGl.scene
+    this.renderer = this.webGl.renderer
     this.camera = this.webGl.camera
     this.resources = this.webGl.resources
+    this.time = this.webGl.time
     this.loader = this.webGl.loader
-    this.sizes = this.webGl.sizes
+
+    this.mixer = []
+
+    if(mapSetting[0].left != 0 || mapSetting[0].top != 0){
+      alert('La map n\'a pas les bonnes coordonnées')
+    }
+
+    this.property = {
+      map: {
+        with: mapSetting[0].right,
+        height: mapSetting[0].bottom,
+        ratio : 5,
+      },
+      mouse: {
+        target: new Vector3(), 
+        mouseX: null,
+        mouseY: null
+      },
+      moveBee: {
+        deltaLookAt: 0.007,
+        speed: 0.0005,
+        target: new Vector3(),
+        curveCurrent: 0.03,
+        curveTarget: 0.03,
+        baseY: 2.5
+      },
+      camera: {
+        target : 0,
+        current: 0
+      }
+    }
+    
 
     // Wait for resources
-    this.resources.on(`sourcesReadyoutsideTwo`, () => {
+    this.resources.on(`sourcesReadyoutsideTwo`, () =>
+    {
       this.setup()
     })
   }
 
-  setup() {
+  initCursorComponent(cursor){
+    this.cursorComponent = cursor
+  }
+
+  setup(){
     this.bee = new Bee()
-    this.grass = new Grass()
     this.particles = new Particules()
+    this.grass = new Grass()
+    this.tree = this.resources.items.treeModel.scene
 
-    // Debug
-    this.debug = this.webGl.debug
+    this.listener = new Listener()
 
-    if (this.debug.active) {
-      const viewGUI = this.debug.ui.addFolder('Point of view')
-      const camGUI = viewGUI.addFolder('Camera position')
-      // camera position
-      camGUI.add(this.camera.position, 'x', -10, 10).setValue(-3)
-      camGUI.add(this.camera.position, 'y', -10, 10).setValue(3)
-      camGUI.add(this.camera.position, 'z', -30, 10).setValue(-8)
+    // Sound
+    
 
-      const beeGUI = viewGUI.addFolder('Bee position')
-      beeGUI.add(this.bee.model.position, 'y', -3, 2, 0.05).setValue(1.5)
+    // CURVE HANDLE
+    // extract from .json and change format
+    this.initialPoints = []
+    for (let i = 0; i < beePath.length; i++) {
+      this.initialPoints.push({x: ( beePath[i].x / this.property.map.ratio ) - this.property.map.with / this.property.map.ratio / 2, y: beePath[i].z ? beePath[i].z : this.property.moveBee.baseY, z: beePath[i].y / this.property.map.ratio })
     }
+    // create cube for each point of the curve
+    this.boxGeometry = new BoxGeometry( 0.5, 0.5, 0.5 )
+		this.boxMaterial = new MeshBasicMaterial({ color: 'red'})
+    this.curveHandles = []
+    for ( const handlePos of this.initialPoints ) {
+      const handle = new Mesh( this.boxGeometry, this.boxMaterial )
+      handle.position.copy( handlePos )
+      this.curveHandles.push( handle )
+      // this.add(handle)
+    }
+    // Calculate Smooth curve
+    this.curve = new CatmullRomCurve3(
+      this.curveHandles.map( ( handle ) => handle.position )
+    )
+    this.curve.curveType = 'centripetal'
+    this.curve.closed = false
+    this.points = this.curve.getPoints( 50 )
+    this.line = new Line(
+      new BufferGeometry().setFromPoints( this.points ),
+      new LineBasicMaterial( { color: 0x00ff00 } )
+    )
+    // this.add( this.line )
+
 
     this.init()
   }
 
-  init() {
+  init(){
+    // Set fog
+    this.scene.fog.density = 0.01
+
+    // Add bee
+    this.beeMove = 0
+    this.beePoss = this.curve.getPointAt(this.beeMove)
+    this.beePoss2 = this.curve.getPointAt(this.beeMove + 0.01)
+    this.bee.model.position.copy(this.beePoss)
+    this.bee.model.lookAt(this.beePoss2)
+    this.bee.model.scale.set(0.02, 0.02, 0.02)
+    this.add(this.bee.model)
+
+    // Add grass
+    this.grass.position.set(0,0, this.property.map.height / this.property.map.ratio)
+    this.add(this.grass)
+
+
+    // Add elements from map
+    addLys(lysLocation, this, this.resources.items.lysModel.scene, true)
+    addTrees(treeLocation, this, this.resources.items.treeModel.scene, true)
+    addStones(stoneLocation, this, this.resources.items.stoneModel.scene, true)
+    addDaisys(daisyLocation, this, this.resources.items.daisyModel.scene, true)
+    addMushrooms(mushroomLocation, this, this.resources.items.mushroomModel.scene)
+    addNenuphar(nenupharLocation, this, this.resources.items.nenupharModel.scene)
+    addBridge(bridgeLocation, this, this.resources.items.bridgeModel.scene)
+
+    // Add particles
+    this.particles.position.x -= 1
+    this.add(this.particles)
+
+    // Set Camera property
+    this.webGl.camera.position.set(0, 20, (this.property.map.height + 200 )/this.property.map.ratio)
+    this.webGl.controls.enabled = false
+    this.webGl.controls.target = new Vector3(0, -5, 0)
+    
+    // Listener
+    this.listener.on('scroll', ()=>{ 
+      const result = this.property.moveBee.curveTarget - this.listener.property.virtualScroll.delta / 90000
+      if (result > 0.03 && result < 0.98) {
+        this.property.moveBee.curveTarget -= this.listener.property.virtualScroll.delta / 90000
+      }
+    })
+
     setTimeout(() => {
       this.loader.classList.add('loaded')
     }, 500)
-
-    // Set parameters of the scene at init
-    this.camera.position.set(0, 5, -30)
-    this.bee.model.position.set(0, 1.5, 0)
-    this.webGl.controls.enabled = false
-    this.webGl.controls.target = new Vector3(0, 0, 1000)
-
-    // change glowy effect on this scene
-    // this.webGl.bloom.renderer.toneMappingExposure = Math.pow( 0.85, 4.0 )
-
-    // Listener
-    this.listener = new Listener()
-    this.listener.on('scroll', ()=>{
-      this.bee.model.position.z += this.listener.property.virtualScroll.delta / 100
-      this.camera.position.z += this.listener.property.virtualScroll.delta / 100
-    })
-
-    // Add elements
-    this.add(this.particles)
-    this.add(this.bee.model)
-    this.add(this.grass)
-
+    
+    setTimeout(()=>{
+      console.log('Scene suivente débloquer')
+      this.cursorComponent.endScene()
+    }, 10000)
   }
 
-  update() {
+  update(){
+    if (this.curve) {
+      this.property.moveBee.curveCurrent = MathUtils.damp(this.property.moveBee.curveCurrent, this.property.moveBee.curveTarget, this.property.moveBee.speed, this.time.delta)
 
-    if (this.bee && this.listener) {
-      // Update anim bee
-      this.bee.update()
+      this.property.moveBee.target = this.curve.getPointAt(this.property.moveBee.curveCurrent)
+      this.property.camera.target = this.curve.getPointAt(this.property.moveBee.curveCurrent + this.property.moveBee.deltaLookAt)
+      
+      this.bee.model.position.set(this.property.moveBee.target.x, this.property.moveBee.target.y - 0.5, this.property.moveBee.target.z )
+      this.bee.model.lookAt(this.property.camera.target)
 
-      // Rotate camera with cursor mouse
-      this.camera.position.x = MathUtils.lerp(this.camera.position.x, (-this.listener.property.cursor.x * Math.PI) / 5, 0.1)
-      // this.camera.rotation.y = MathUtils.lerp(this.camera.rotation.y, (this.listener.property.cursor.x * Math.PI) / 10, 0.1)
-
+      const possCam = this.curve.getPointAt(this.property.moveBee.curveCurrent - 0.03)
+      this.webGl.camera.position.set(possCam.x, possCam.y + 1, possCam.z)
+      this.webGl.controls.target.set(this.property.camera.target.x, this.property.camera.target.y + 0.3, this.property.camera.target.z )
     }
 
-    if (this.grass) {
+    if(this.bee){
+      this.bee.update()
+    }
+
+    if(this.grass) {
       this.grass.update()
     }
 
-    if (this.particles) {
+    if(this.particles) {
       this.particles.update()
     }
+
   }
 
-  delete() {
+  delete(){
+    
   }
 }

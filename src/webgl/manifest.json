@@ -20,7 +20,7 @@
   {
     "name": "lysModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene pollenGameScene raceGameScene",
+    "actingScenes": "outsideOneScene pollenGameScene raceGameScene outsideTwoScene",
     "path": "webgl/models/Lys/oneLys.glb"
   },
   {
@@ -32,31 +32,31 @@
   {
     "name": "nenupharModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene",
+    "actingScenes": "outsideOneScene outsideTwoScene",
     "path": "webgl/models/Nenuphar/nenuphar.glb"
   },
   {
     "name": "stoneModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene raceGameScene",
+    "actingScenes": "outsideOneScene raceGameScene outsideTwoScene",
     "path": "webgl/models/Stone/stone.glb"
   },
   {
     "name": "bridgeModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene pollenGameScene",
+    "actingScenes": "outsideOneScene pollenGameScene outsideTwoScene",
     "path": "webgl/models/Bridge/bridge-2.glb"
   },
   {
     "name": "daisyModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene pollenGameScene raceGameScene",
+    "actingScenes": "outsideOneScene pollenGameScene raceGameScene outsideTwoScene",
     "path": "webgl/models/Daisy/daisy-v3.glb"
   },
   {
     "name": "mushroomModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene pollenGameScene",
+    "actingScenes": "outsideOneScene pollenGameScene outsideTwoScene",
     "path": "webgl/models/Mushroom/mushrooms.glb"
   },
   {
@@ -68,7 +68,7 @@
   {
     "name": "particlesTexture",
     "type": "texture",
-    "actingScenes": "outsideOneScene",
+    "actingScenes": "outsideOneScene outsideTwoScene",
     "path": "webgl/textures/particles/3.png"
   },
   {
@@ -80,13 +80,13 @@
   {
     "name": "noiseTexture",
     "type": "texture",
-    "actingScenes": "outsideOneScene",
+    "actingScenes": "outsideOneScene outsideTwoScene",
     "path": "webgl/textures/noiseTexture.png"
   },
   {
     "name": "smokeTexture",
     "type": "texture",
-    "actingScenes": "outsideTwoScene raceGameScene",
+    "actingScenes": "raceGameScene",
     "path": "webgl/textures/Portal/smoke_02.png"
   },
   {
