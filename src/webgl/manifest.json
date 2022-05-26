@@ -128,5 +128,29 @@
     "loop": false,
     "actingScenes": "pollenGameScene",
     "path": "/voices/pollenGame/Impact.mp3"
+  },
+  {
+    "name": "ChapOneOneSound",
+    "type": "sound",
+    "volume": 0.6,
+    "loop": false,
+    "actingScenes": "hiveScene",
+    "path": "/voices/hive/Chap1-1.wav"
+  },
+  {
+    "name": "ChapOneOneOneSound",
+    "type": "sound",
+    "volume": 0.6,
+    "loop": false,
+    "actingScenes": "hiveScene",
+    "path": "/voices/hive/Chap1-1-1.wav"
+  },
+  {
+    "name": "ChapOneOneTwoSound",
+    "type": "sound",
+    "volume": 0.6,
+    "loop": false,
+    "actingScenes": "hiveScene",
+    "path": "/voices/hive/Chap1-1-2.wav"
   }
 ]

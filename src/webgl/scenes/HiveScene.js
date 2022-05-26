@@ -94,6 +94,11 @@ export default class HiveScene extends Group {
     this.raycaster = new Raycaster()
     this.hive = this.resources.items.hiveModel.scene
     this.mixers = []
+
+    //Song
+    this.voiceOne = this.resources.items.ChapOneOneSound
+    this.voiceTwo = this.resources.items.ChapOneOneOneSound
+    this.voiceEnd = this.resources.items.ChapOneOneTwoSound
     
     setTimeout(()=>{
       this.init()
@@ -155,6 +160,22 @@ export default class HiveScene extends Group {
       if (this.currentIntersect) {
         console.log('click on model')
       }
+    })
+
+
+    // Init Sounds
+    this.voiceOne.fade(0, 0.3, .3)
+    this.voiceOne.play()
+    this.resources.on(`soundChapOneOneSoundFinished`, ()=>{
+      this.voiceTwo.fade(0, 0.3, .3)
+      this.voiceTwo.play()
+      this.resources.on(`soundChapOneOneOneSoundFinished`, ()=>{
+        this.voiceEnd.fade(0, 0.3, .3)
+        this.voiceEnd.play()
+        this.resources.on(`soundChapOneOneTwoSoundFinished`, ()=>{
+          console.log('Scene fini aller a la suite')
+        })
+      })
     })
 
 
