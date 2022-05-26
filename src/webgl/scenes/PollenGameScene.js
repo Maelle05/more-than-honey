@@ -52,6 +52,7 @@ export default class PollenGameScene extends Group {
   }
 
   setDOM(dom){
+    // Get all ui elements
     this.chrono = {
       div: dom.getElementsByClassName('chrono')[0],
       label: dom.querySelector('.chrono p')
@@ -92,7 +93,7 @@ export default class PollenGameScene extends Group {
     this.impact = this.resources.items.ImactSound
     this.isFlowerSongPlay = false
 
-    // Random position for daisy
+    // Random position for all daisy
     for (let i = 0; i < this.nbDaisys; i++) {
       this.positionDaisys.push({
         x: this.positionDaisys[i].x + randomIntFromInterval(0.4, 1.6, 0.04),
@@ -101,7 +102,7 @@ export default class PollenGameScene extends Group {
       })
     }
 
-    // set daisys positions
+    // Add daisys on scene
     this.daisys = []
     for (let i = 0; i < this.positionDaisys.length; i++) {
       const thisDaisy = this.daisy.model.clone()
@@ -147,7 +148,7 @@ export default class PollenGameScene extends Group {
     // Change fog
     this.scene.fog.density = 0.03
 
-    // Set position of elements
+    // Set init position of elements
     this.bee.model.position.set(-4, 1, 0.5)
     this.bee.model.scale.set(0.02, 0.02, 0.02)
     this.beeTarget = {
@@ -157,6 +158,8 @@ export default class PollenGameScene extends Group {
     }
 
     this.grass.position.set(this.nbDaisys / 2, 0, 0)
+
+    this.add(this.bee.model, this.grass, this.bridge)
 
     // Add Trees
     const nbTrees = 25
@@ -202,17 +205,14 @@ export default class PollenGameScene extends Group {
 
     // Add Bridge
     this.bridge.position.x = this.gameProperty.camTarget.x + 8
-    this.bridge.position.y = 0.4
     this.bridge.rotation.y = 0.7
 
-    // Add butterflies BOT
+    // Init butterflies BOT
     const nbBot = 10
     this.butterflies = []
     for (let i = 0; i < nbBot; i++) {
       this.butterflies.push(new Butterflie(this, this.positionDaisys, i))
     }
-
-    this.add(this.bee.model, this.grass, this.bridge)
 
     // End Loader
     setTimeout(()=>{
@@ -233,6 +233,7 @@ export default class PollenGameScene extends Group {
       }
 
       for (let i = 0; i < this.positionDaisys.length; i++) {
+        // Check if bee is on daisy
         if (
         this.bee.model.position.x > (Math.round(this.positionDaisys[i].x * 10) / 10) - 0.2
         && this.bee.model.position.x < (Math.round(this.positionDaisys[i].x * 10) / 10) + 0.2
@@ -259,6 +260,7 @@ export default class PollenGameScene extends Group {
             this.gameProperty.currentLoadPollen[i] = 1
           }
 
+          // Loader cursor foraged
           if(!this.gameProperty.foraged.includes(i)){
             document.body.style.cursor = 'none'
             if (this.gameProperty.currentLoadPollen[i] < 5) {
@@ -328,17 +330,19 @@ export default class PollenGameScene extends Group {
         }
       }
 
+      // Score count
       this.domCount.label.innerHTML = this.gameProperty.foraged.length
-
     }
 
     if (this.bee && !this.gamePlayed){
+      // Anim Bee if game not started
       this.bee.update()
       this.bee.model.lookAt(this.beeTarget.x, this.beeTarget.y, this.beeTarget.z )
     }
 
     if(this.butterflies){
       for (let i = 0; i < this.butterflies.length; i++) {
+        // Check if bee touch butterflie
         if (this.bee.model.position.x > (Math.round(this.butterflies[i].mesh.position.x * 10) / 10) - this.butterflies[i].mesh.scale.x
         && this.bee.model.position.x < (Math.round(this.butterflies[i].mesh.position.x * 10) / 10) + this.butterflies[i].mesh.scale.x
         && this.bee.model.position.z > (Math.round(this.butterflies[i].mesh.position.z * 10) / 10) - 0
@@ -355,6 +359,7 @@ export default class PollenGameScene extends Group {
     }
 
     if (this.gameProperty) {
+      // Hide Pollen for daisy foraged
       this.gameProperty.currentLoadPollen.forEach((currentLoadPollen, index) => {
         if(currentLoadPollen === 58){
           this.daisys[index].children.forEach(children => {
@@ -371,6 +376,7 @@ export default class PollenGameScene extends Group {
     }
   }
 
+  // Start Cinematique
   initAnim(){
     const cinematiqueTime = 15
 
@@ -452,6 +458,7 @@ export default class PollenGameScene extends Group {
       x: this.gameProperty.controlsTarget.x, 
       ease: "power1.in", 
     }).then(()=>{
+      // End of the game
       document.body.style.cursor = 'auto'
       this.gameProperty.isFinish = true
       this.endPopUp.querySelector('p').innerHTML = this.gameProperty.foraged.length + ' fleurs viennent d’être pollinisées'
@@ -476,28 +483,33 @@ export default class PollenGameScene extends Group {
     }
   }
 
+  // handle hit on buterflies
   loseForaged(i) {
 
     // Init Sounds
     this.impact.fade(0, 0.3, .3)
     this.impact.play()
 
-    
+    // if you have foraged remove one daisy
     if (this.gameProperty.foraged.length && !this.gameProperty.isFinish) {
       this.lottieLose.classList.remove('hidden')
       this.gameProperty.foraged.shift()
     }
+
+    // stunning bee for 3s
     this.gameProperty.cursorIsInvert = !this.gameProperty.cursorIsInvert
     setTimeout(()=>{
       this.gameProperty.cursorIsInvert = !this.gameProperty.cursorIsInvert
     }, 3000)
     
-    this.gameProperty.lastIntersectBB = this.butterflies[i].mesh.name
+    // red vignette
     gsap.to(this.PostPros.vignettePass.uniforms.uIntensity, {
       value: 0.6,
       duration: 2.5,
       ease: customEase
     })
+
+    this.gameProperty.lastIntersectBB = this.butterflies[i].mesh.name
     setTimeout( ()=>{
       this.lottieLose.classList.add('hidden')
       this.gameProperty.lastIntersectBB = ''
@@ -507,7 +519,6 @@ export default class PollenGameScene extends Group {
 
   addPollenOnDaisy(daisy){
     const nbPollen = 3
-    const allPollens = []
 
     for (let i = 0; i <= nbPollen; i++) {
       const geometry = new SphereGeometry( 0.3, 7, 6 )
@@ -547,6 +558,7 @@ export default class PollenGameScene extends Group {
   }
 
   reStart(){
+    // init game values
     document.body.style.cursor = 'none'
     this.endPopUp.classList.add('hidden')
     this.gameProperty.beeCanMouve = false
@@ -590,7 +602,7 @@ export default class PollenGameScene extends Group {
   }
 }
 
-
+// BOT
 class Butterflie {
   constructor(group, posDaisy, id){
     this.scene = group
