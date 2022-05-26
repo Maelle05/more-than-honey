@@ -173,7 +173,7 @@ export default class HiveScene extends Group {
         this.voiceEnd.fade(0, 0.3, .3)
         this.voiceEnd.play()
         this.resources.on(`soundChapOneOneTwoSoundFinished`, ()=>{
-          console.log('Scene fini aller a la suite')
+          console.log('Scene fini aller à la suite')
         })
       })
     })
