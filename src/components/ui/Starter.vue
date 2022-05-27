@@ -1,5 +1,5 @@
 <template>
-  <div class="starterScreen hidden" ref="starter">
+  <div class="starterScreen u-hidden" ref="starter">
     <lottie-player
         background="transparent"
         mode="normal"
@@ -21,11 +21,11 @@ export default {
     startLottieAnimation(){
       const player = document.querySelector('.lottie123')
       const container = document.querySelector('.starterScreen')
-      container.classList.remove('hidden')
+      container.classList.remove('u-hidden')
       player.play()
       player.addEventListener('complete', function(){
         player.stop()
-        container.classList.add('hidden')
+        container.classList.add('u-hidden')
       })
     }
   }
@@ -43,9 +43,5 @@ export default {
   position: fixed;
   visibility: visible;
   transition: 0.8s;
-}
-
-.hidden {
-  display: none;
 }
 </style>

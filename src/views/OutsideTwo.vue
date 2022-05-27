@@ -1,5 +1,5 @@
 <template>
-  <div class="outsideTwo">
+  <div class="outsideTwo u-cursor-hidden">
     <TimelineComponent/>
     <Tuto path="/lottie/UI/scroll.json" listener="scrollToTop"/>
     <CursorNext to="/raceGame" ref="cursorNext"/>
@@ -30,5 +30,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.outsideTwo {
+  width: 100vw;
+  height: 100vh;
+}
 </style>

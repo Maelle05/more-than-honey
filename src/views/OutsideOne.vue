@@ -1,5 +1,5 @@
 <template>
-  <div class="outsideOne">
+  <div class="outsideOne u-cursor-hidden">
     <TimelineComponent/>
     <Tuto path="/lottie/UI/scroll.json" listener="scrollToTop"/>
     <CursorNext to="/pollenGame" ref="cursorNext"/>
@@ -20,15 +20,16 @@ export default {
     CursorNext
   },
   mounted(){
-
     // Pass Cursor to scene
     this.scene = new OutsideOne()
     this.scene.initCursorComponent(this.$refs.cursorNext)
-
   }
 }
 </script>
 
 <style scoped lang="scss">
-
+.outsideOne {
+  width: 100vw;
+  height: 100vh;
+}
 </style>

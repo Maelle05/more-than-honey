@@ -1,10 +1,12 @@
 <template>
-  <div class="raceGame">
+  <div class="raceGame" ref="raceGameUI">
     <TimelineComponent/>
     <Starter ref="starter"/>
-    <div class="raceGame__loose hidden" ref="lottieLoose">
+
+    <div class="raceGame__loose u-hidden" ref="lottieLoose">
       <lottie-player loop autoplay background="transparent" mode="normal" src="/lottie/raceGame/Heart.json" style="width: 200px"></lottie-player>
     </div>
+
     <Popup class="popupRace" ref="popupIntro" title="Course poursuite" label-button="Commencer à jouer"
            @action-on-click="startGame">
       <p>Votre but est de <strong> fuir le plus rapidement possible </strong> pour vous protéger du <strong>frelon
@@ -16,7 +18,7 @@
       <p><strong>Atteignez la ruche </strong>avant que le frelon ne vous <strong>rattrape</strong> !</p>
     </Popup>
 
-    <Popup class="popupRace hidden" ref="popupOutro" label-button="Envie de rejouer ?" path="/ending"
+    <Popup class="popupRace u-hidden" ref="popupOutro" label-button="Envie de rejouer ?" path="/ending"
            @action-on-click="reStart">
       <h2 class="popupRace__title u-uppercase">Bravo</h2>
       <p>Vous avez réussi à finir la course sans que le frelon vous rattrape</p>
@@ -44,22 +46,26 @@ export default {
   },
   mounted() {
     this.webGLInstance = new RaceGameScene()
-    this.webGLInstance.setupDomElements(this.$refs.popupIntro.$el, this.$refs.popupOutro.$el, this.$refs.lottieLoose)
+    this.webGLInstance.setupDomElements(this.$refs.popupIntro.$el, this.$refs.popupOutro.$el, this.$refs.lottieLoose, this.$refs.raceGameUI)
   },
   methods: {
     startGame() {
       if (this.$refs.popupIntro) {
-        this.$refs.popupIntro.$el.classList.add('hidden')
+        this.$refs.popupIntro.$el.classList.add('u-hidden')
+        this.$refs.raceGameUI.classList.add('u-cursor-hidden')
 
         Starter.methods.startLottieAnimation()
         setTimeout(() => this.webGLInstance.playGame(), 3500)
-
       }
     },
     reStart() {
-      this.$refs.popupOutro.$el.classList.add('hidden')
-      Starter.methods.startLottieAnimation()
-      setTimeout(() => this.webGLInstance.reStartGame(), 3500)
+      if(this.$refs.popupOutro) {
+        this.$refs.popupOutro.$el.classList.add('u-hidden')
+        this.$refs.raceGameUI.classList.add('u-cursor-hidden')
+
+        Starter.methods.startLottieAnimation()
+        setTimeout(() => this.webGLInstance.reStartGame(), 3500)
+      }
     }
   }
 }
@@ -72,11 +78,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .hidden {
-    opacity: 0;
-    display: none;
-  }
 
   .popupRace {
     font-size: 12px;

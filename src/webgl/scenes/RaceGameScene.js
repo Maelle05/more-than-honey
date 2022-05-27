@@ -78,10 +78,11 @@ export default class RaceGameScene extends Group {
     })
   }
 
-  setupDomElements(start, end, lottie) {
+  setupDomElements(start, end, lottie, ui) {
     this.popupStart = start
     this.popupEnd = end
     this.lottie = lottie
+    this.raceUI = ui
   }
 
   setup() {
@@ -227,8 +228,7 @@ export default class RaceGameScene extends Group {
         if (step < numberOfSteps) {
           moveGround()
         } else {
-          this.lottie.classList.add('hidden')
-          this.popupEnd.classList.remove('hidden')
+          this.endOfTheGame()
         }
       })
     }
@@ -242,6 +242,12 @@ export default class RaceGameScene extends Group {
 
     // this.playGame()
     console.log('WIP marche pas')
+  }
+
+  endOfTheGame() {
+    this.lottie.classList.add('u-hidden')
+    this.popupEnd.classList.remove('u-hidden')
+    this.raceUI.classList.remove('u-cursor-hidden')
   }
 
   hurtingPortal() {
@@ -259,7 +265,7 @@ export default class RaceGameScene extends Group {
       ease: customEase
     })
 
-    this.lottie.classList.remove('hidden')
+    this.lottie.classList.remove('u-hidden')
 
     // Go back to normal after 2.5s
     setTimeout( ()=>{
@@ -269,7 +275,7 @@ export default class RaceGameScene extends Group {
         ease: "power1.out",
       })
       this.postProcessing.vignettePass.uniforms.uIntensity.value = 0
-      this.lottie.classList.add('hidden')
+      this.lottie.classList.add('u-hidden')
     }, 2500)
   }
 

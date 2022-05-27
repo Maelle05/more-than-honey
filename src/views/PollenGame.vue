@@ -1,7 +1,9 @@
 <template>
   <div class="pollenGame" ref="pollenGameUI">
     <TimelineComponent/>
-    <Popup class="popupPollen hidden" ref="popUpIntro" title="Pollinisation intensive" label-button="Commencer à jouer"
+    <Starter ref="starter"/>
+
+    <Popup class="popupPollen u-hidden" ref="popUpIntro" title="Pollinisation intensive" label-button="Commencer à jouer"
            @action-on-click="startGame">
       <p>L’objectif est de <strong>polliniser</strong> un maximum de fleurs dans le temps imparti tout en <strong>évitant</strong> les <strong>papillons</strong>.</p>
       <lottie-player autoplay background="transparent" loop mode="normal" src="/lottie/game/DeplacementPop.json"
@@ -15,9 +17,7 @@
       <p><strong>Maintenez l’appuie long sur la barre espace</strong> pour polliniser une fleur</p>
     </Popup>
 
-    <Starter ref="starter"/>
-
-    <Popup class="popUpOutro hidden" ref="popUpOutro" label-button="Envie de rejouer ?" path="/outsideTwo" @action-on-click="reStart">
+    <Popup class="popupPollen u-hidden" ref="popUpOutro" label-button="Envie de rejouer ?" path="/outsideTwo" @action-on-click="reStart">
       <h2 class="popupPollen__title u-uppercase">Merci</h2>
       <p>XX fleurs<b></b> viennent d’être pollinisées</p>
       <img class="popupPollen__element" src="/images/popup/flower.svg" alt="blue smiley">
@@ -25,7 +25,7 @@
       <p>Une abeille peut polliniser jusqu’à 250 fleurs en 1h. On peut dire que c’est productif !</p>
     </Popup>
 
-    <div class="chrono hidden">
+    <div class="chrono u-hidden">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <mask id="path-1-inside-1_1419_410" fill="white">
         <path d="M24.5054 7.67294L25.4708 6.15594C25.8994 5.48231 25.7008 4.58869 25.0272 4.16C24.3536 3.73125 23.46 3.92994 23.0313 4.60369L22.0682 6.11713C20.649 5.40988 19.0906 4.94225 17.4456 4.76837V2.89156H17.5361C18.3345 2.89156 18.9819 2.24425 18.9819 1.44575C18.9819 0.64725 18.3345 0 17.5361 0H14.4634C13.665 0 13.0176 0.647312 13.0176 1.44581C13.0176 2.24431 13.6649 2.89162 14.4634 2.89162H14.554V4.76844C7.7022 5.49281 2.3457 11.3054 2.3457 18.3459C2.3457 25.8748 8.47089 32 15.9998 32C23.5286 32 29.6538 25.8748 29.6538 18.3459C29.6538 14.0304 27.641 10.1769 24.5054 7.67294Z"/>
@@ -34,15 +34,18 @@
       </svg>
       <p></p>
     </div>
-    <div class="loaderPollen hidden">
+
+    <div class="loaderPollen u-hidden">
       <div class="loaderSpinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
       <p></p>
     </div>
-    <div class="count hidden">
+
+    <div class="count u-hidden">
       <img src="/images/pollenGame/flower.png" alt="" srcset="">
       <p></p>
     </div>
-    <div class="lottieLoseForaged hidden">
+
+    <div class="lottieLoseForaged u-hidden">
       <lottie-player
           autoplay
           background="transparent"
@@ -83,16 +86,17 @@ export default {
   methods: {
     startGame() {
       if (this.$refs.popUpIntro) {
-        this.$refs.popUpIntro.$el.classList.add('hidden')
+        this.$refs.popUpIntro.$el.classList.add('u-hidden')
+        this.$refs.pollenGameUI.classList.add('u-cursor-hidden')
         Starter.methods.startLottieAnimation()
         setTimeout(() => this.webglInstance.playGame() , 3500)
       }
     },
     reStart() {
-      this.$refs.popUpOutro.$el.classList.add('hidden')
+      this.$refs.popUpOutro.$el.classList.add('u-hidden')
+      this.$refs.pollenGameUI.classList.add('u-cursor-hidden')
       Starter.methods.startLottieAnimation()
       this.webglInstance.reStart()
-      
     }
   },
 
@@ -106,11 +110,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .hidden {
-    opacity: 0;
-    display: none;
-  }
 
   .popupPollen {
     font-size: 12px;
@@ -167,10 +166,6 @@ export default {
       font-size: 40px;
       min-width: 100px;
     }
-
-    &.hidden{
-      display: none;
-    }
   }
 
   .count {
@@ -190,10 +185,6 @@ export default {
       width: 60px;
       height: 60px;
       margin-right: 15px;
-    }
-
-    &.hidden{
-      display: none;
     }
   }
 
@@ -233,17 +224,8 @@ export default {
         transform: rotate(calc($i * 30) + deg);
       }
     }
-
-    &.hidden {
-      opacity: 0;
-    }
   }
 
-  .lottieLoseForaged {
-    &.hidden {
-      display: none;
-    }
-  }
 }
 
 </style>

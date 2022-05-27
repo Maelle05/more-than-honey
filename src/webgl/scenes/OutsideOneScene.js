@@ -259,7 +259,6 @@ export default class OutsideOneScene extends Group
     }, 50)
     
     this.resources.on(`soundChapOneThreeSoundFinished`, ()=>{
-      console.log('Scene suivente débloquer')
       this.cursorComponent.endScene()
     })
   }

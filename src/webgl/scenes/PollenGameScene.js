@@ -6,11 +6,12 @@ import Listener from '../utils/Listener'
 import WebGl from '../webglManager'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 import gsap from 'gsap'
-import { MeshBasicMaterial, Mesh, BoxGeometry, Vector3 } from 'three'
+import { MeshBasicMaterial, Mesh, Vector3 } from 'three'
 import Bloom from '../shaders/bloom'
 import Grass from '../shaders/grass/PollenGameGrass'
 import { SphereGeometry } from 'three'
 import {customEase} from '@/webgl/utils/CustomEase'
+import Butterflie from '@/webgl/entities/ButterflieBot'
 
 let gameInstance = null
 
@@ -41,10 +42,6 @@ export default class PollenGameScene extends Group {
     ]
     this.cursor = new Vector2()
 
-    // UI
-    this.chrono
-    this.loaderPollen
-
     // Wait for resources
     this.resources.on(`sourcesReadypollenGame`, () => {
       this.setup()
@@ -53,6 +50,8 @@ export default class PollenGameScene extends Group {
 
   setDOM(dom){
     // Get all ui elements
+    this.pollenUI = dom
+
     this.chrono = {
       div: dom.getElementsByClassName('chrono')[0],
       label: dom.querySelector('.chrono p')
@@ -70,7 +69,7 @@ export default class PollenGameScene extends Group {
     }
 
     this.startPopUp = dom.getElementsByClassName('popupPollen')[0]
-    this.endPopUp = dom.getElementsByClassName('popUpOutro')[0]
+    this.endPopUp = dom.getElementsByClassName('popupPollen')[1]
 
     this.lottieLose = dom.getElementsByClassName('lottieLoseForaged')[0]
   }
@@ -243,7 +242,7 @@ export default class PollenGameScene extends Group {
         && !this.gameProperty.isFinish
         ) {
           this.gameProperty.beeCanMouve = false
-          this.loaderPollen.div.classList.remove('hidden')
+          this.loaderPollen.div.classList.remove('u-hidden')
           this.loaderPollen.div.style.left = this.listener.property.cursorOnWind.x + 'px'
           this.loaderPollen.div.style.top = this.listener.property.cursorOnWind.y + 'px'
 
@@ -262,7 +261,6 @@ export default class PollenGameScene extends Group {
 
           // Loader cursor foraged
           if(!this.gameProperty.foraged.includes(i)){
-            document.body.style.cursor = 'none'
             if (this.gameProperty.currentLoadPollen[i] < 5) {
               this.loaderPollen.flowers.forEach((flower)=>{
                 flower.style.opacity = 0.2
@@ -412,12 +410,11 @@ export default class PollenGameScene extends Group {
       delay: 0.7,
       ease: 'none'
     }).then(()=>{
-      this.startPopUp.classList.remove('hidden')
+      this.startPopUp.classList.remove('u-hidden')
     })
   }
 
   playGame(){
-    document.body.style.cursor = 'none'
     // Listener
     this.listener = new Listener()
     this.listener.on('mouseMove', ()=>{
@@ -441,7 +438,7 @@ export default class PollenGameScene extends Group {
         this.gameProperty.spaceIsPress = false
         this.gameProperty.beeCanMouve = true
 
-        this.loaderPollen.div.classList.add('hidden')
+        this.loaderPollen.div.classList.add('u-hidden')
       }
     }, false)
 
@@ -458,18 +455,11 @@ export default class PollenGameScene extends Group {
       x: this.gameProperty.controlsTarget.x, 
       ease: "power1.in", 
     }).then(()=>{
-      // End of the game
-      document.body.style.cursor = 'auto'
-      this.gameProperty.isFinish = true
-      this.endPopUp.querySelector('p').innerHTML = this.gameProperty.foraged.length + ' fleurs viennent d’être pollinisées'
-      this.endPopUp.classList.remove('hidden')
+      this.endOfTheGame()
     })
 
     // Start chrono
-    this.chrono.div.classList.remove('hidden')
-    this.setChrono(this.gameProperty.durationGame, 0)
-
-    this.domCount.div.classList.remove('hidden')
+    this.startChrono()
   }
 
   setChrono(i, endNbr) {
@@ -492,7 +482,7 @@ export default class PollenGameScene extends Group {
 
     // if you have foraged remove one daisy
     if (this.gameProperty.foraged.length && !this.gameProperty.isFinish) {
-      this.lottieLose.classList.remove('hidden')
+      this.lottieLose.classList.remove('u-hidden')
       this.gameProperty.foraged.shift()
     }
 
@@ -511,7 +501,7 @@ export default class PollenGameScene extends Group {
 
     this.gameProperty.lastIntersectBB = this.butterflies[i].mesh.name
     setTimeout( ()=>{
-      this.lottieLose.classList.add('hidden')
+      this.lottieLose.classList.add('u-hidden')
       this.gameProperty.lastIntersectBB = ''
       this.PostPros.vignettePass.uniforms.uIntensity.value = 0
     }, 2500) 
@@ -559,8 +549,7 @@ export default class PollenGameScene extends Group {
 
   reStart(){
     // init game values
-    document.body.style.cursor = 'none'
-    this.endPopUp.classList.add('hidden')
+    this.endPopUp.classList.add('u-hidden')
     this.gameProperty.beeCanMouve = false
     this.camera.position.set(0, 10, 10)
     this.webGl.controls.target.set(0, 0, 0 )
@@ -585,70 +574,29 @@ export default class PollenGameScene extends Group {
         x: this.gameProperty.controlsTarget.x, 
         ease: "power1.in", 
       }).then(()=>{
-        document.body.style.cursor = 'auto'
-        this.gameProperty.isFinish = true
-        this.endPopUp.querySelector('p').innerHTML = this.gameProperty.foraged.length + ' fleurs viennent d’être pollinisées'
-        this.endPopUp.classList.remove('hidden')
+        this.endOfTheGame()
       })
 
-      // Start chron
-      this.chrono.div.classList.remove('hidden')
-      this.setChrono(this.gameProperty.durationGame, 0)
+      // Start chrono
+      this.startChrono()
     }, 3500)
+  }
+
+  startChrono() {
+    this.chrono.div.classList.remove('u-hidden')
+    this.domCount.div.classList.remove('u-hidden')
+
+    this.setChrono(this.gameProperty.durationGame, 0)
+  }
+
+  endOfTheGame(){
+    this.gameProperty.isFinish = true
+    this.endPopUp.querySelector('p').innerHTML = this.gameProperty.foraged.length + ' fleurs viennent d’être pollinisées'
+    this.pollenUI.classList.remove('u-cursor-hidden')
+    this.endPopUp.classList.remove('u-hidden')
   }
 
   delete() {
 
-  }
-}
-
-// BOT
-class Butterflie {
-  constructor(group, posDaisy, id){
-    this.scene = group
-    this.posDaisy = posDaisy
-
-    // Model
-    this.geometry = new BoxGeometry( 1, 1, 1 )
-    this.material = new MeshBasicMaterial( {color: 0x00ff00} )
-    this.mesh = new Mesh( this.geometry, this.material )
-    const size = randomIntFromInterval(0.2, 0.4, 0.05)
-    this.mesh.scale.set(size, size, size)
-    this.mesh.name = 'BOT' + id
-
-    // GET is Target points
-    this.targetStep = 0
-    this.targetPoints = []
-    for (let i = 0; i < 4; i++) {
-      if(!this.targetPoints.length){
-        this.targetPoints.push(randomIntFromInterval(6, this.posDaisy.length - 8, 1))
-      } else {
-        this.targetPoints.push(randomIntFromInterval(this.targetPoints[0] - 6 , this.targetPoints[0] + 8 , 1))
-      }
-    }
-
-    // Init pos
-    this.mesh.position.set(this.posDaisy[this.targetPoints[this.targetPoints.length-1]].x, this.posDaisy[this.targetPoints[this.targetPoints.length-1]].y + 1, this.posDaisy[this.targetPoints[this.targetPoints.length-1]].z)
-    this.scene.add( this.mesh )
-    
-    setTimeout(()=>{
-      this.goToTarget()
-    }, randomIntFromInterval(0, 2000, 1) )
-    
-  }
-
-  goToTarget(){
-    gsap.to(this.mesh.position, {
-      duration: 10, 
-      x: this.posDaisy[this.targetPoints[this.targetStep]].x, 
-      z: this.posDaisy[this.targetPoints[this.targetStep]].z,
-      ease: "none", 
-    }).then(()=> {
-      this.targetStep < this.targetPoints.length - 1 ? this.targetStep++ : this.targetStep = 0
-      setTimeout(()=>{
-        this.goToTarget()
-      }, 2000)
-      
-    })
   }
 }

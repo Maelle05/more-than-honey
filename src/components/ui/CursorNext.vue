@@ -1,5 +1,5 @@
 <template>
-  <div class="cursorNext" v-if="this.$route.path !== '/'">
+  <div class="cursorNext">
     <div class="customCursor" ref="cursor"/>
     <div class="customCursorBorder" ref="cursorBorder"/>
     <div class="customCursorBorder" ref="cursorBorder2"/>
@@ -29,7 +29,6 @@ export default {
       cursor.style.transform = `translate3d(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%), 0)`
       cursorBorder.style.transform = `translate3d(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%), 0)`
       cursorBorder2.style.transform = `translate3d(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%), 0)`
-      document.body.style.cursor = 'none'
     })
   },
   methods: {
@@ -58,7 +57,7 @@ export default {
     cursor: none !important;
     height: 5px;
     width: 5px;
-    background: white;
+    background: $white;
     border-radius: 50%;
     position: fixed;
     transform: translate(-50%, -50%);
@@ -67,13 +66,11 @@ export default {
 
     &::after {
       content: 'Continuer';
-      color: black;
+      color: $black;
       font-family: 'Lato';
       font-size: 0px;
       transition: all .7s;
     }
-
-
 
     &Border {
       width: 10px;
@@ -97,7 +94,7 @@ export default {
       align-items: center;
       &::after {
         content: 'Continuer';
-        color: black;
+        color: $black;
         font-family: 'Lato';
         font-size: 12px;
       }
@@ -106,13 +103,13 @@ export default {
     &Ending {
       height: 75px;
       width: 75px;
-      border: 1.5px solid white !important;
+      border: 1.5px solid $white !important;
     }
 
     &Ending2 {
       height: 80px;
       width: 80px;
-      border: 1px solid white !important;
+      border: 1px solid $white !important;
     }
   }
 }

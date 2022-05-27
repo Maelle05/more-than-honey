@@ -34,7 +34,7 @@ export default {
           if (this.listener === 'mouseClick') {
             this.$refs.tuto.classList.add('click')
           }
-          this.$refs.tuto.classList.add('hidden')
+          this.$refs.tuto.classList.add('u-hidden')
         }
       })
   }
@@ -58,10 +58,5 @@ export default {
 
 .click {
   transition: 0.1s !important;
-}
-
-.hidden {
-  opacity: 0;
-  pointer-events: none;
 }
 </style>
