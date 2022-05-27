@@ -65,9 +65,11 @@ export default class RaceGameScene extends Group {
         bee: {
           speed: 0.01
         },
+        numberOfLife: 5,
+        numberOfMap: 5,
         duration: 10000, // in ms
         obstacle: {
-          number: 12
+          number: 17
         }
       }
     }
@@ -78,11 +80,12 @@ export default class RaceGameScene extends Group {
     })
   }
 
-  setupDomElements(start, end, lottie, ui) {
+  setupDomElements(start, end, lottie, ui, lifeBar) {
     this.popupStart = start
     this.popupEnd = end
     this.lottie = lottie
     this.raceUI = ui
+    this.lifeBar = lifeBar
   }
 
   setup() {
@@ -192,6 +195,9 @@ export default class RaceGameScene extends Group {
   }
 
   playGame() {
+    // Display ui
+    this.lifeBar.classList.remove('u-hidden')
+
     // Hornet go back after the game is started
     gsap.to(this.hornet.model.position, {
       duration: 2.5,
@@ -199,7 +205,6 @@ export default class RaceGameScene extends Group {
       ease: "power1.in",
     })
 
-    const numberOfSteps = 5
     let step = 0
 
     // Ground in the group of this.allGround
@@ -218,14 +223,14 @@ export default class RaceGameScene extends Group {
     const moveGround = () => {
       step++
       gsap.to(this.allGrounds.position, {
-        duration: (numberOfSteps + 3) - step,
+        duration: (this.property.game.numberOfMap + 3) - step,
         z: (-(this.property.map.height / this.property.map.ratio) + 2) * step, // + 2 to see the bee at the end
         ease: "none",
       }).then(() => {
-        if (step < numberOfSteps - 1) {
+        if (step < this.property.game.numberOfMap - 1) {
           replaceGround()
         }
-        if (step < numberOfSteps) {
+        if (step < this.property.game.numberOfMap) {
           moveGround()
         } else {
           this.endOfTheGame()
@@ -242,12 +247,6 @@ export default class RaceGameScene extends Group {
 
     // this.playGame()
     console.log('WIP marche pas')
-  }
-
-  endOfTheGame() {
-    this.lottie.classList.add('u-hidden')
-    this.popupEnd.classList.remove('u-hidden')
-    this.raceUI.classList.remove('u-cursor-hidden')
   }
 
   hurtingPortal() {
@@ -267,6 +266,12 @@ export default class RaceGameScene extends Group {
 
     this.lottie.classList.remove('u-hidden')
 
+    // User loose one life TODO finish
+    // if(this.property.game.numberOfLife > 0) {
+    //   this.property.game.numberOfLife = this.property.game.numberOfLife -1
+    //   this.lifeBar.innerHTML = this.property.game.numberOfLife
+    // }
+
     // Go back to normal after 2.5s
     setTimeout( ()=>{
       gsap.to(this.hornet.model.position, {
@@ -277,6 +282,12 @@ export default class RaceGameScene extends Group {
       this.postProcessing.vignettePass.uniforms.uIntensity.value = 0
       this.lottie.classList.add('u-hidden')
     }, 2500)
+  }
+
+  endOfTheGame() {
+    this.lottie.classList.add('u-hidden')
+    this.popupEnd.classList.remove('u-hidden')
+    this.raceUI.classList.remove('u-cursor-hidden')
   }
 
   update() {

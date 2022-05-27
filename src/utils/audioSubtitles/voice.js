@@ -1,4 +1,4 @@
-import EventEmitter from '../webgl/utils/EventEmitter'
+import EventEmitter from '../../webgl/utils/EventEmitter'
 
 export class AudioClass extends EventEmitter{
   constructor(url) {

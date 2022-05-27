@@ -473,6 +473,13 @@ export default class PollenGameScene extends Group {
     }
   }
 
+  startChrono() {
+    this.chrono.div.classList.remove('u-hidden')
+    this.domCount.div.classList.remove('u-hidden')
+
+    this.setChrono(this.gameProperty.durationGame, 0)
+  }
+
   // handle hit on buterflies
   loseForaged(i) {
 
@@ -580,13 +587,6 @@ export default class PollenGameScene extends Group {
       // Start chrono
       this.startChrono()
     }, 3500)
-  }
-
-  startChrono() {
-    this.chrono.div.classList.remove('u-hidden')
-    this.domCount.div.classList.remove('u-hidden')
-
-    this.setChrono(this.gameProperty.durationGame, 0)
   }
 
   endOfTheGame(){

@@ -3,7 +3,7 @@ import { TextureLoader } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import EventEmitter from './EventEmitter.js'
 
-import { AudioClass } from "@/utils/voice"
+import { AudioClass } from "@/utils/audioSubtitles/voice"
 import {Howl, Howler} from 'howler'
 
 let resourcesInstance = null

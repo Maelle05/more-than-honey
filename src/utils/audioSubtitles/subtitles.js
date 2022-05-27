@@ -1,4 +1,4 @@
-import text from '@/utils/subtitles.json'
+import text from '@/utils/audioSubtitles/subtitles.json'
 
 export class SlideSubtitle {
   constructor(slideStep) {
