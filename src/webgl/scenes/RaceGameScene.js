@@ -88,6 +88,10 @@ export default class RaceGameScene extends Group {
     this.lifeBar = lifeBar
   }
 
+  getActiveTimelineItem(activeItem) {
+    this.activeItem = activeItem.querySelector('.timeline__wrapper a.active .cursor')
+  }
+
   setup() {
     // Import models
     this.bee = new BlueBee()
@@ -195,6 +199,14 @@ export default class RaceGameScene extends Group {
   }
 
   playGame() {
+
+    // move cursor above the timeline
+    gsap.to(this.activeItem, {
+      duration: 25,
+      y: 100,
+      ease: "none",
+    })
+
     // Display ui
     this.lifeBar.classList.remove('u-hidden')
 

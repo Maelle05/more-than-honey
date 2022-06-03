@@ -48,6 +48,10 @@ export default class PollenGameScene extends Group {
     })
   }
 
+  getActiveTimelineItem(activeItem) {
+    this.activeItem = activeItem.querySelector('.timeline__wrapper a.active .cursor')
+  }
+
   setDOM(dom){
     // Get all ui elements
     this.pollenUI = dom
@@ -415,6 +419,14 @@ export default class PollenGameScene extends Group {
   }
 
   playGame(){
+
+    // move cursor above the timeline
+    gsap.to(this.activeItem, {
+      duration: 70,
+      y: 100,
+      ease: "none",
+    })
+
     // Listener
     this.listener = new Listener()
     this.listener.on('mouseMove', ()=>{

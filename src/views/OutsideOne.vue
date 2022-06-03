@@ -1,6 +1,6 @@
 <template>
   <div class="outsideOne u-cursor-hidden">
-    <TimelineComponent/>
+    <TimelineComponent ref="timeline"/>
     <Tuto path="/lottie/UI/scroll.json" listener="scrollToTop"/>
     <CursorNext to="/pollenGame" ref="cursorNext"/>
   </div>
@@ -23,6 +23,7 @@ export default {
     // Pass Cursor to scene
     this.scene = new OutsideOne()
     this.scene.initCursorComponent(this.$refs.cursorNext)
+    this.scene.getActiveTimelineItem(this.$refs.timeline.$el)
   }
 }
 </script>

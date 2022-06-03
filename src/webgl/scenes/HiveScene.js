@@ -5,6 +5,7 @@ import {clone as skeletonClone} from 'three/examples/jsm/utils/SkeletonUtils'
 import Listener from '../utils/Listener'
 import beePositions from '../elementsLocations/hive/beePosition.json'
 import {AnimationMixer} from 'three'
+import gsap from 'gsap'
 
 let hiveInstance = null
 
@@ -40,6 +41,10 @@ export default class HiveScene extends Group {
 
   setUpCursor(cursor) {
     this.cursor = cursor
+  }
+
+  getActiveTimelineItem(activeItem) {
+    this.activeItem = activeItem.querySelector('.timeline__wrapper a.active .cursor')
   }
 
   setUpPointsFromDOM(points) {
@@ -96,6 +101,7 @@ export default class HiveScene extends Group {
     this.mixers = []
 
     //Song
+    this.backgroundMusic = this.resources.items.BgMusicSoundHive
     this.voiceOne = this.resources.items.ChapOneOneSound
     this.voiceTwo = this.resources.items.ChapOneOneOneSound
     this.voiceEnd = this.resources.items.ChapOneOneTwoSound
@@ -162,10 +168,17 @@ export default class HiveScene extends Group {
       }
     })
 
+    // move cursor above the timeline
+    gsap.to(this.activeItem, {
+      duration: 20,
+      y: 100,
+      ease: "none",
+    })
 
     // Init Sounds
     this.voiceOne.fade(0, 0.6, .3)
     this.voiceOne.play()
+
     this.resources.on(`soundChapOneOneSoundFinished`, ()=>{
       this.voiceTwo.fade(0, 0.6, .3)
       this.voiceTwo.play()
@@ -178,6 +191,11 @@ export default class HiveScene extends Group {
       })
     })
 
+    // Init Sounds
+    setTimeout(() => {
+      this.backgroundMusic.fade(0, 0.3, .3)
+      this.backgroundMusic.play()
+    }, 50)
 
     // Remove loader
     setTimeout(() => {

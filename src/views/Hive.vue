@@ -2,7 +2,7 @@
   <div class="hive">
     <div class="customCursor" ref="cursor"/> 
     <div class="customCursorBorder" ref="cursorBorder"/>
-    <TimelineComponent/>
+    <TimelineComponent ref="timeline"/>
     <Tuto path="/lottie/UI/hover.json" listener="mouseMove"/>
     <div class="hive__point" v-for="(bee, i) in bees" :key="i" ref="points">
       <div class="pointer"/>
@@ -41,6 +41,7 @@ export default {
     const scene = new HiveScene()
     scene.setUpPointsFromDOM(this.$refs.points)
     scene.setUpCursor(cursorBorder)
+    scene.getActiveTimelineItem(this.$refs.timeline.$el)
 
     document.addEventListener('mousemove', (e) => {
       let mouseX = e.clientX

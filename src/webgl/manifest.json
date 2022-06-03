@@ -92,10 +92,26 @@
   {
     "name": "BgMusicSound",
     "type": "sound",
+    "volume": 0.0005,
+    "loop": true,
+    "actingScenes": "pollenGameScene raceGameScene outsideTwoScene",
+    "path": "/voices/music.mp3"
+  },
+  {
+    "name": "BgMusicSoundHive",
+    "type": "sound",
     "volume": 0.1,
     "loop": true,
-    "actingScenes": "outsideOneScene pollenGameScene raceGameScene outsideTwoScene",
-    "path": "/voices/music.mp3"
+    "actingScenes": "hiveScene",
+    "path": "/voices/hive/hive_music.mp3"
+  },
+  {
+    "name": "BgMusicSoundOutsideOne",
+    "type": "sound",
+    "volume": 0.1,
+    "loop": true,
+    "actingScenes": "outsideOneScene",
+    "path": "/voices/outsideOne/outside_one_music.mp3"
   },
   {
     "name": "IntroHomeSound",

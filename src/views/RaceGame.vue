@@ -1,6 +1,6 @@
 <template>
   <div class="raceGame" ref="raceGameUI">
-    <TimelineComponent/>
+    <TimelineComponent ref="timeline"/>
     <Starter ref="starter"/>
 
     <div class="raceGame__loose u-hidden" ref="lottieLoose">
@@ -66,6 +66,7 @@ export default {
   mounted() {
     this.webGLInstance = new RaceGameScene()
     this.webGLInstance.setupDomElements(this.$refs.popupIntro.$el, this.$refs.popupOutro.$el, this.$refs.lottieLoose, this.$refs.raceGameUI, this.$refs.lifeBar)
+    this.webGLInstance.getActiveTimelineItem(this.$refs.timeline.$el)
   },
   data() {
     return {

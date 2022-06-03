@@ -4,8 +4,9 @@
     <div class="timeline__sound">
       <img src="/images/timeline/sound.svg" alt="icon to cut or add sound to the experience">
     </div>
+
     <ul class="timeline__wrapper">
-      <router-link class="timeline__item" v-for="path in paths" :key="path.label" :to="path.path">
+      <router-link class="timeline__item" v-for="path in paths" :key="path.label" :to="path.path" ref="bullets">
         <div class="cursor">
           <div class="cursor__ball"/>
         </div>
@@ -19,6 +20,7 @@
 
 <script lang="js">
 import TimelineContent from '../../../public/data/timelineContent.json'
+import WebGl from '@/webgl/webglManager'
 
 export default {
   name: 'TimelineComponent',
@@ -96,7 +98,7 @@ export default {
       border-radius: 50%;
       border: 2px solid $white;
       position: absolute;
-      top: 50%;
+      top: 0;
       transform: translateY(-25%);
       display: none;
 

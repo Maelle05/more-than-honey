@@ -1,6 +1,6 @@
 <template>
   <div class="pollenGame" ref="pollenGameUI">
-    <TimelineComponent/>
+    <TimelineComponent ref="timeline"/>
     <Starter ref="starter"/>
 
     <Popup class="popupPollen u-hidden" ref="popUpIntro" title="Pollinisation intensive" label-button="Commencer à jouer"
@@ -77,6 +77,7 @@ export default {
     const manager = new WebGl()
     this.webglInstance = new PollenGame()
     this.webglInstance.setDOM(this.$refs.pollenGameUI)
+    this.webglInstance.getActiveTimelineItem(this.$refs.timeline.$el)
 
     setTimeout(() => {
       manager.loader.classList.add('loaded')

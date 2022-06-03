@@ -35,6 +35,7 @@ import {
   addTrees
 } from '@/webgl/elementsLoop/AddElements'
 import Pheromone from '@/webgl/entities/Pheromone'
+import gsap from 'gsap'
 
 let OutsideOneInstance = null
 
@@ -101,6 +102,10 @@ export default class OutsideOneScene extends Group
     this.cursorComponent = cursor
   }
 
+  getActiveTimelineItem(activeItem) {
+    this.activeItem = activeItem.querySelector('.timeline__wrapper a.active .cursor')
+  }
+
   setup(){
     this.bee = new Bee()
     this.queen = new Queen()
@@ -110,7 +115,7 @@ export default class OutsideOneScene extends Group
     this.listener = new Listener()
 
     // Sound
-    this.backgroundMusic = this.resources.items.BgMusicSound
+    this.backgroundMusic = this.resources.items.BgMusicSoundOutsideOne
     this.voice = this.resources.items.ChapOneTwoSound
     this.voiceReine = this.resources.items.ChapOneThreeSound
 
@@ -232,6 +237,12 @@ export default class OutsideOneScene extends Group
         setTimeout(() => {
           this.voice.fade(0, 0.6, .3)
           this.voice.play()
+          // move cursor above the timeline
+          gsap.to(this.activeItem, {
+            duration: 75,
+            y: 100,
+            ease: "none",
+          })
           this.resources.on(`soundChapOneTwoSoundFinished`, ()=>{
             voiceReineCanStart = true
           })

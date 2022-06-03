@@ -103,6 +103,10 @@ export default class OutsideTwoScene extends Group
     this.cursorComponent = cursor
   }
 
+  getActiveTimelineItem(activeItem) {
+    this.activeItem = activeItem.querySelector('.timeline__wrapper a.active .cursor')
+  }
+
   setup(){
     this.bee = new Bee()
     this.particles = new Particules()
@@ -200,6 +204,12 @@ export default class OutsideTwoScene extends Group
       this.backgroundMusic.play()
 
       setTimeout(()=>{
+        // move cursor above the timeline
+        gsap.to(this.activeItem, {
+          duration: 20,
+          y: 100,
+          ease: "none",
+        })
         this.voice.fade(0, 0.6, .3)
         this.voice.play()
         this.resources.on('soundChapTwoTwoSoundFinished', ()=>{
