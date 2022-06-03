@@ -95,7 +95,23 @@
     "volume": 0.1,
     "loop": true,
     "actingScenes": "outsideOneScene pollenGameScene raceGameScene outsideTwoScene",
-    "path": "/voices/outsideOne/bg.mp3"
+    "path": "/voices/music.mp3"
+  },
+  {
+    "name": "IntroHomeSound",
+    "type": "sound",
+    "volume": 0.6,
+    "loop": false,
+    "actingScenes": "homeScene",
+    "path": "/voices/home/intro.mp3"
+  },
+  {
+    "name": "CinematiqueSound",
+    "type": "sound",
+    "volume": 0.6,
+    "loop": false,
+    "actingScenes": "homeScene",
+    "path": "/voices/home/Chap1-0.mp3"
   },
   {
     "name": "ChapOneTwoSound",
@@ -103,7 +119,7 @@
     "volume": 0.6,
     "loop": false,
     "actingScenes": "outsideOneScene",
-    "path": "/voices/outsideOne/Chap1-2.wav"
+    "path": "/voices/outsideOne/Chap1-2.mp3"
   },
   {
     "name": "ChapOneThreeSound",
@@ -111,7 +127,7 @@
     "volume": 0.6,
     "loop": false,
     "actingScenes": "outsideOneScene",
-    "path": "/voices/outsideOne/Chap1-3.wav"
+    "path": "/voices/outsideOne/Chap1-3.mp3"
   },
   {
     "name": "ChapTwoOneSound",
@@ -119,7 +135,7 @@
     "volume": 0.6,
     "loop": false,
     "actingScenes": "pollenGameScene",
-    "path": "/voices/pollenGame/Chap2-1-1.wav"
+    "path": "/voices/pollenGame/Chap2-1-1.mp3"
   },
   {
     "name": "ChapTwoOneTwoSound",
@@ -127,7 +143,7 @@
     "volume": 0.6,
     "loop": false,
     "actingScenes": "pollenGameScene",
-    "path": "/voices/pollenGame/Chap2-1-2.wav"
+    "path": "/voices/pollenGame/Chap2-1-2.mp3"
   },
   {
     "name": "ChapTwoOneThreeSound",
@@ -135,7 +151,7 @@
     "volume": 0.6,
     "loop": false,
     "actingScenes": "pollenGameScene",
-    "path": "/voices/pollenGame/Chap2-1-3.wav"
+    "path": "/voices/pollenGame/Chap2-1-3.mp3"
   },
   {
     "name": "ImactSound",
@@ -143,7 +159,7 @@
     "volume": 0.8,
     "loop": false,
     "actingScenes": "pollenGameScene",
-    "path": "/voices/pollenGame/Impact.mp3"
+    "path": "/voices/sounds/Impact.mp3"
   },
   {
     "name": "ChapOneOneSound",
@@ -151,7 +167,7 @@
     "volume": 0.6,
     "loop": false,
     "actingScenes": "hiveScene",
-    "path": "/voices/hive/Chap1-1.wav"
+    "path": "/voices/hive/Chap1-1.mp3"
   },
   {
     "name": "ChapOneOneOneSound",
@@ -159,7 +175,7 @@
     "volume": 0.6,
     "loop": false,
     "actingScenes": "hiveScene",
-    "path": "/voices/hive/Chap1-1-1.wav"
+    "path": "/voices/hive/Chap1-1-1.mp3"
   },
   {
     "name": "ChapOneOneTwoSound",
@@ -167,7 +183,7 @@
     "volume": 0.6,
     "loop": false,
     "actingScenes": "hiveScene",
-    "path": "/voices/hive/Chap1-1-2.wav"
+    "path": "/voices/hive/Chap1-1-2.mp3"
   },
   {
     "name": "ChapTwoTwoSound",
@@ -175,6 +191,14 @@
     "volume": 0.6,
     "loop": false,
     "actingScenes": "outsideTwoScene",
-    "path": "/voices/outsideTwo/Chap2-2.wav"
+    "path": "/voices/outsideTwo/Chap2-2.mp3"
+  },
+  {
+    "name": "ChapTwoThreeSound",
+    "type": "sound",
+    "volume": 0.6,
+    "loop": false,
+    "actingScenes": "raceGameScene",
+    "path": "/voices/raceGame/Chap2-3.mp3"
   }
 ]

@@ -28,7 +28,7 @@ export const routes = [
   {
     path: '/honeyIntro',
     name: 'honeyIntro',
-    label: 'Honey intro',
+    label: 'Honey home',
     component: function () {
       return import('../views/HoneyIntro.vue')
     },
