@@ -204,7 +204,6 @@ export default class OutsideTwoScene extends Group
         this.voice.play()
         this.resources.on('soundChapTwoTwoSoundFinished', ()=>{
           this.cursorComponent.endScene()
-          console.log('here')
         })
       }, 3000)
     }, 50)
