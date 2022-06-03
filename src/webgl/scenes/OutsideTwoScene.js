@@ -202,8 +202,9 @@ export default class OutsideTwoScene extends Group
       setTimeout(()=>{
         this.voice.fade(0, 0.6, .3)
         this.voice.play()
-        this.resources.on('', ()=>{
-          this.cursor.endScene()
+        this.resources.on('soundChapTwoTwoSoundFinished', ()=>{
+          this.cursorComponent.endScene()
+          console.log('here')
         })
       }, 3000)
     }, 50)

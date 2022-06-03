@@ -20,11 +20,9 @@ export default {
     CursorNext
   },
   mounted(){
-
     // Pass Cursor to scene
     this.scene = new OutsideTwo()
     this.scene.initCursorComponent(this.$refs.cursorNext)
-
   }
 }
 </script>

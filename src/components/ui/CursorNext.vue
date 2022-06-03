@@ -33,6 +33,7 @@ export default {
   },
   methods: {
     endScene(){
+      console.log('end of the scene')
       this.$refs.cursorBorder.classList.add('customCursorEnding')
       this.$refs.cursorBorder2.classList.add('customCursorEnding2')
       this.$refs.cursor.classList.add('customCursorEnd')

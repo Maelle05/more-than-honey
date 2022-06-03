@@ -237,7 +237,6 @@ export default class OutsideOneScene extends Group
           })
         }, 1000)
       }
-      console.log(voiceReineStart, result, voiceReineCanStart )
       if (voiceReineStart === false && result > 0.97 && voiceReineCanStart) {
         voiceReineStart = true
         this.voiceReine.fade(0, 0.6, .3)
