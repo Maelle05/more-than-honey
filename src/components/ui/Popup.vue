@@ -1,7 +1,7 @@
 <template>
   <div class="popup">
     <h1 v-if="title !== ''" class="popup__title">{{ title }}</h1>
-    <slot/>
+    <slot class="popup__content"/>
     <button class="popup__button" @click="actionOnClick">
       {{ labelButton }}
     </button>
@@ -42,21 +42,26 @@ export default {
 .popup {
   background: $white;
   border-radius: 16px;
+  font-size: 14px;
   color: $black;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 300px;
-  padding: 24px 64px;
+  width: 320px;
+  padding: 24px 40px;
 
   &__title {
     font-size: 24px;
     font-weight: normal;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
     font-family: 'RoadRage', sans-serif;
     color: $black;
+  }
+
+  &__content {
+    font-size: 14px;
   }
 
   &__button {
@@ -69,7 +74,7 @@ export default {
     background-color: #003B48;
     border-radius: 4px;
     padding: 11px 16px;
-    margin-top: 20px;
+    margin-top: 32px;
     cursor: pointer;
   }
 }

@@ -17,32 +17,34 @@
 
     <Popup class="popupRace" ref="popupIntro" title="Course poursuite" label-button="Commencer à jouer"
            @action-on-click="startGame">
-      <p>Votre but est de <strong> fuir le plus rapidement possible </strong> pour vous protéger du <strong>frelon
+      <p class="u-mb-modal">Votre but est de <strong> fuir le plus rapidement possible </strong> pour vous protéger du <strong>frelon
         asiatique</strong>.</p>
-      <lottie-player autoplay background="transparent" loop mode="normal" src="/lottie/game/DeplacementPop.json"
-                     style="width: 90px"></lottie-player>
-      <p>Faites de votre mieux pour <strong>contrôler le mouvement et esquiver les rejets de pesticides</strong>.</p>
+      <p class="u-12">Faites de votre mieux pour <strong>contrôler le mouvement et esquiver les rejets de pesticides</strong>.</p>
+      <span class="u-mt-lottie">
+        <lottie-player autoplay background="transparent" loop mode="normal" src="/lottie/game/DeplacementPop.json"
+                       style="width: 100px"></lottie-player>
+      </span>
+      <p class="u-12"><strong>Atteignez la ruche </strong>avant que le frelon ne vous <strong>rattrape</strong> !</p>
       <img class="popupRace__element" src="/images/popup/portal.png" alt="cloud of pesticide">
-      <p><strong>Atteignez la ruche </strong>avant que le frelon ne vous <strong>rattrape</strong> !</p>
     </Popup>
 
     <Popup class="popupRace u-hidden" ref="popupOutro" label-button="Envie de rejouer ?" path="/ending"
            @action-on-click="reStart">
       <h2 class="popupRace__title u-uppercase">Bravo</h2>
-      <p>Vous avez réussi à finir la course sans que le frelon vous rattrape</p>
-      <img class="popupRace__element" src="/images/popup/plume.svg" alt="plume">
+      <p class="u-mb-modal">Vous avez réussi à finir la course sans que le frelon vous rattrape</p>
+      <img class="u-mb-modal" src="/images/popup/plume.svg" alt="plume">
       <h2 class="popupRace__title">Le saviez-vous ?</h2>
-      <p>Importé involontairement en 2004, le frelon asiatique est aujourd’hui capable de décimer des colonies en un
+      <p class="u-12">Importé involontairement en 2004, le frelon asiatique est aujourd’hui capable de décimer des colonies en un
         temps record.</p>
     </Popup>
 
     <Popup class="popupRace u-hidden" ref="popupOutroLoose" label-button="Envie de rejouer ?" path="/ending"
            @action-on-click="reStart">
       <h2 class="popupRace__title u-uppercase">Dommage...</h2>
-      <p>Vous <strong>n'avez pas pu échapper aux pesticides</strong></p>
-      <img class="popupRace__element" src="/images/popup/heart.svg" alt="icon of a heart broken">
+      <p class="u-mb-modal">Vous <strong>n'avez pas pu échapper aux pesticides</strong></p>
+      <img class="u-mb-modal" src="/images/popup/heart.svg" alt="icon of a heart broken">
       <h2 class="popupRace__title">Le saviez-vous ?</h2>
-      <p>D'après une étude britannique, depuis 1994 le taux de mortalité des abeilles sauvages aurait été multiplié par
+      <p class="u-12">D'après une étude britannique, depuis 1994 le taux de mortalité des abeilles sauvages aurait été multiplié par
         trois à cause des pesticides.</p>
     </Popup>
   </div>
@@ -118,8 +120,6 @@ export default {
   }
 
   .popupRace {
-    font-size: 12px;
-
     &__title {
       font-size: 24px;
       font-family: 'RoadRage', sans-serif;
@@ -128,7 +128,7 @@ export default {
     }
 
     &__element {
-      margin: 25px 15px;
+      margin-top: 8px;
     }
   }
 }

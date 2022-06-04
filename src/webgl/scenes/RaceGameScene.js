@@ -100,7 +100,7 @@ export default class RaceGameScene extends Group {
 
     const pesticideGeometry = new PlaneBufferGeometry(2.5,2.5)
     const pesticideMaterial = new MeshStandardMaterial({
-      color: 0x49F1A5,
+      color: 0x8EFFC9,
       side: DoubleSide,
       map: this.webGl.resources.items.smokeTexture,
       transparent: true
