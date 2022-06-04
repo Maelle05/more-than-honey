@@ -64,12 +64,12 @@ export default {
   &__sound {
     display: flex;
     justify-content: center;
-    padding-bottom: 3vh;
+    padding-bottom: 20px;
     cursor: pointer;
   }
 
   &__wrapper {
-    margin-bottom: 3vh;
+    margin-bottom: 20px;
   }
 
   &__item {
@@ -88,7 +88,7 @@ export default {
     .line {
       width: 2px;
       background: $white;
-      height: calc(75vh / 6);
+      height: calc(63vh / 6);
       margin: 10px 0;
     }
 
