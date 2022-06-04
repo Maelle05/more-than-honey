@@ -2,7 +2,6 @@
   <div class="cursorNext">
     <div class="customCursor" ref="cursor"/>
     <div class="customCursorBorder" ref="cursorBorder"/>
-    <div class="customCursorBorder" ref="cursorBorder2"/>
   </div>
 </template>
 
@@ -19,7 +18,6 @@ export default {
   mounted(){
     const cursor = this.$refs.cursor
     const cursorBorder = this.$refs.cursorBorder
-    const cursorBorder2 = this.$refs.cursorBorder2
 
     this.canGoNext = false
 
@@ -28,15 +26,13 @@ export default {
       let mouseY = e.clientY
       cursor.style.transform = `translate3d(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%), 0)`
       cursorBorder.style.transform = `translate3d(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%), 0)`
-      cursorBorder2.style.transform = `translate3d(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%), 0)`
     })
   },
   methods: {
     endScene(){
-      console.log('end of the scene')
-      this.$refs.cursorBorder.classList.add('customCursorEnding')
-      this.$refs.cursorBorder2.classList.add('customCursorEnding2')
+      console.log('end')
       this.$refs.cursor.classList.add('customCursorEnd')
+      this.$refs.cursorBorder.classList.add('customCursorBorderEnd')
       this.canGoNext = true
 
       document.addEventListener('click', this.changeScene.bind(this), true)
@@ -55,62 +51,49 @@ export default {
 .cursorNext {
   cursor: none !important;
   .customCursor {
-    cursor: none !important;
-    height: 5px;
-    width: 5px;
+    height: 6px;
+    width: 6px;
     background: $white;
     border-radius: 50%;
     position: fixed;
     transform: translate(-50%, -50%);
     pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transition: width .7s, height .7s, opacity .7s;
+    box-shadow: 0 0 2px 1px $white;
 
     &::after {
-      content: 'Continuer';
-      color: $black;
-      font-family: 'Lato';
-      font-size: 0px;
-      transition: all .7s;
-    }
-
-    &Border {
-      width: 10px;
-      height: 10px;
-      border-radius: 100%;
-      border: 2px solid transparent;
-      position: fixed;
-      transition: border .7s, width .7s, height .7s;
-      pointer-events: none;
-      left: 0;
-      top: 0;
-      transform: translate(calc(-50% + 15px), -50%);
-      cursor: none !important;
+      opacity: 0;
     }
 
     &End {
-      height: 70px;
-      width: 70px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      height: 80px;
+      width: 80px;
+      box-shadow: 0 0 1px 5px $white;
+
       &::after {
         content: 'Continuer';
-        color: $black;
-        font-family: 'Lato';
-        font-size: 12px;
+        color: $blueGreen;
+        font-family: 'RoadRage', sans-serif;
+        font-size: 24px;
+        opacity: 1;
       }
     }
 
-    &Ending {
-      height: 75px;
-      width: 75px;
-      border: 1.5px solid $white !important;
-    }
+    &Border {
+      height: 0;
+      width: 0;
+      border-radius: 50%;
+      border: 2px solid $white !important;
+      box-shadow: 0 0 0.5px 0.5px $white;
+      transition: width .7s, height .7s;
 
-    &Ending2 {
-      height: 80px;
-      width: 80px;
-      border: 1px solid $white !important;
+      &End {
+        height: 96px;
+        width: 96px;
+      }
     }
   }
 }
