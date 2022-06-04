@@ -17,7 +17,7 @@ export default {
     const manager =  new WebGl()
     setTimeout(() => {
       manager.loader.classList.add('loaded')
-    }, 500)
+    }, 3000)
   }
 }
 </script>
