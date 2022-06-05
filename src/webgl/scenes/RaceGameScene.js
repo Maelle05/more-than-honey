@@ -318,11 +318,17 @@ export default class RaceGameScene extends Group {
   }
 
   reStartGame() {
-    this.grass.position.set(0, -5, this.property.map.height / this.property.map.ratio)
-    this.allGrounds.position.set(0, 0, this.property.map.height / this.property.map.ratio)
+    this.allGrounds.position.set(0, 0, 0)
+    this.groundGroup.position.set(0, 0, 0)
+    this.secondGroundGroup.position.set(0, 0, this.property.map.height / this.property.map.ratio)
 
-    this.playGame()
-    console.log('WIP marche pas')
+    this.property.sitting.step = 0
+    this.property.game.numberOfLife = 5
+    this.property.game.obstacle.lastHurt = ''
+
+    setTimeout(()=>{
+      this.playGame()
+    }, 3500)
   }
 
   hurtingPortal() {

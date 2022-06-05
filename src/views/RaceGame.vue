@@ -93,7 +93,7 @@ export default {
         this.$refs.raceGameUI.classList.add('u-cursor-hidden')
 
         Starter.methods.startLottieAnimation()
-        setTimeout(() => this.webGLInstance.reStartGame(), 3500)
+        this.webGLInstance.reStartGame()
       }
     }
   },
