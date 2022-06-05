@@ -14,7 +14,7 @@ export const addDaisys = (location, group, resource, isScene) => {
 export const addLys = (location, group, resource, isScene) => {
   for (let i = 0; i < location.length; i++) {
     const lysClone = resource.clone()
-    const lysSize = randomIntFromInterval(0.05, 0.13, 0.01)
+    const lysSize = randomIntFromInterval(0.04, 0.08, 0.01)
     lysClone.scale.set(lysSize, lysSize, lysSize)
     lysClone.position.set(convertPosition(i, location).x, isScene ? -1.5 : -4, convertPosition(i, location).z)
     lysClone.rotation.set(0, Math.random(), Math.random() / 10)
@@ -47,7 +47,7 @@ export const addTrees = (location, group, resource, isScene) => {
 export const addMushrooms = (location, group, resource) => {
   for (let i = 0; i < location.length; i++) {
     const cloneMushroom = resource.clone()
-    const mushroomSize = randomIntFromInterval(0.4,1.3, 0.01)
+    const mushroomSize = randomIntFromInterval(0.4,1, 0.01)
     cloneMushroom.scale.set(mushroomSize, mushroomSize, mushroomSize)
     cloneMushroom.position.set(convertPosition(i, location).x, -3.2, convertPosition(i, location).z)
     cloneMushroom.rotation.set(0, Math.random() * 25, 0)
@@ -72,7 +72,7 @@ export const addBridge = (location, group, resource) => {
     const cloneBridge = resource.clone()
     const bridgeSize = 2.3
     cloneBridge.scale.set(bridgeSize, bridgeSize, bridgeSize)
-    cloneBridge.position.set(convertPosition(i, location).x, -2, convertPosition(i, location).z)
+    cloneBridge.position.set(convertPosition(i, location).x, -2.5, convertPosition(i, location).z)
     cloneBridge.rotation.set(0, Math.PI, 0)
     group.add(cloneBridge)
   }
