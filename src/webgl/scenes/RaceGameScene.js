@@ -263,10 +263,10 @@ export default class RaceGameScene extends Group {
   }
 
   reStartGame() {
-    // this.grass.position.set(0, -5, this.property.map.height / this.property.map.ratio)
-    // this.secondGroundGroup.position.set(0, 0, this.property.map.height / this.property.map.ratio)
+    this.grass.position.set(0, -5, this.property.map.height / this.property.map.ratio)
+    this.allGrounds.position.set(0, 0, this.property.map.height / this.property.map.ratio)
 
-    // this.playGame()
+    this.playGame()
     console.log('WIP marche pas')
   }
 
@@ -331,6 +331,7 @@ export default class RaceGameScene extends Group {
         this.groundGroup.localToWorld(worldPosition)
         if (this.bee.model.position.distanceTo(worldPosition) <= 1) {
           portal.visible = false
+          console.log('only once')
           this.hurtingPortal()
         }
       }
