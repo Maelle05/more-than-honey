@@ -53,8 +53,7 @@ export default {
 
   svg {
     height: 165px;
-    margin-bottom: 20px;
-    width: 20vw;
+    width: 13vw;
 
     .path {
       stroke-dasharray: 2300;
@@ -87,7 +86,7 @@ export default {
 
   &__text {
     font-family: 'RoadRage', sans-serif;
-    font-size: 32px;
+    font-size: 24px;
     color: $white;
   }
 }
