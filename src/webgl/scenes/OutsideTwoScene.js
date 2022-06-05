@@ -23,10 +23,7 @@ import beePath from '../elementsLocations/outsideTwo/beePath.json'
 import Listener from '../utils/Listener'
 import { MathUtils } from 'three'
 import Grass from '@/webgl/shaders/grass/grass'
-import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
-import { SphereGeometry } from 'three'
 import gsap  from 'gsap/all'
-import { Power0 } from 'gsap'
 import {
   addBridge,
   addDaisys,
@@ -46,7 +43,6 @@ export default class OutsideTwoScene extends Group
     if(OutsideTwoInstance){
       return OutsideTwoInstance
     }
-    
 
     super()
 
