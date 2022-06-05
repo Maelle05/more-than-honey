@@ -412,7 +412,7 @@ export default class RaceGameScene extends Group {
           setTimeout(()=>{
             this.property.game.obstacle.lastHurt = this.property.game.obstacle.lastHurt.replace(portal.name, '')
             pest.visible = true
-          }, 300)
+          }, 500)
           this.hurtingPortal()
         }
       }
