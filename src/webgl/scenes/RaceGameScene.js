@@ -21,6 +21,7 @@ import Bloom from '@/webgl/shaders/bloom'
 import {customEase} from '@/webgl/utils/CustomEase'
 import {addDaisys, addLys, addStones, addTrees} from '@/webgl/elementsLoop/AddElements'
 import Hornet from '@/webgl/entities/Hornet'
+import { Vector3 } from 'three'
 
 let raceGameInstance = null
 
@@ -154,6 +155,7 @@ export default class RaceGameScene extends Group {
 
     // Set parameters of the scene at init
     this.camera.position.set(0, 0, -10)
+    this.webGl.controls.target = new Vector3(0, 0, 20)
     this.webGl.controls.enabled = false
 
     // Listener
@@ -163,6 +165,7 @@ export default class RaceGameScene extends Group {
     })
 
     // Elements position and state at init
+    this.bee.model.scale.set(0.06, 0.06, 0.06)
     this.bee.model.position.set(0, 0, 0)
     this.bee.model.rotation.set(0, 6.3, 0)
     this.hornet.model.position.set(4, -1.5, -2)
@@ -196,6 +199,12 @@ export default class RaceGameScene extends Group {
 
     // Add one map
     this.add(this.allGrounds)
+
+    this.cinematique()
+  }
+
+  cinematique(){
+    
   }
 
   playGame() {

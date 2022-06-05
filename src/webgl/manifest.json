@@ -92,7 +92,7 @@
   {
     "name": "BgMusicSound",
     "type": "sound",
-    "volume": 0.0005,
+    "volume": 0.05,
     "loop": true,
     "actingScenes": "pollenGameScene raceGameScene outsideTwoScene",
     "path": "/voices/music.mp3"
@@ -100,7 +100,7 @@
   {
     "name": "BgMusicSoundHive",
     "type": "sound",
-    "volume": 0.1,
+    "volume": 0.07,
     "loop": true,
     "actingScenes": "hiveScene",
     "path": "/voices/hive/hive_music.mp3"
@@ -215,6 +215,6 @@
     "volume": 0.6,
     "loop": false,
     "actingScenes": "raceGameScene",
-    "path": "/voices/raceGame/Chap2-3.mp3"
+    "path": "/voices/raceGame/Chap2-3-v2.mp3"
   }
 ]
