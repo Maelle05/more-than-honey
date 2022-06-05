@@ -99,7 +99,14 @@ export default class Resources extends EventEmitter {
   }
 
   sourceLoaded(source, file){
-    this.items[source.name] = file
+    if (source.type === 'sound') {  
+      this.items[source.name] = {
+        sound: file,
+        volume: source.volume
+      }
+    } else {
+      this.items[source.name] = file
+    }
 
     this.loaded++
 

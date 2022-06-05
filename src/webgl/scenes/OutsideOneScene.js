@@ -235,8 +235,8 @@ export default class OutsideOneScene extends Group
       if (voiceInitStart === false) {
         voiceInitStart = true
         setTimeout(() => {
-          this.voice.fade(0, 0.6, .3)
-          this.voice.play()
+          this.voice.sound.fade(0, this.voice.volume, .3)
+          this.voice.sound.play()
           // move cursor above the timeline
           gsap.to(this.activeItem, {
             duration: 75,
@@ -250,8 +250,8 @@ export default class OutsideOneScene extends Group
       }
       if (voiceReineStart === false && result > 0.97 && voiceReineCanStart) {
         voiceReineStart = true
-        this.voiceReine.fade(0, 0.6, .3)
-        this.voiceReine.play()
+        this.voiceReine.sound.fade(0, this.voiceReine.volume, .3)
+        this.voiceReine.sound.play()
       }
       if (result > 0.03 && result < 0.98) {
         this.property.moveBee.curveTarget -= this.listener.property.virtualScroll.delta / 90000
@@ -264,8 +264,8 @@ export default class OutsideOneScene extends Group
 
     // Init Sounds
     setTimeout(() => {
-      this.backgroundMusic.fade(0, 0.3, .3)
-      this.backgroundMusic.play()
+      this.backgroundMusic.sound.fade(0, this.backgroundMusic.volume, .3)
+      this.backgroundMusic.sound.play()
     }, 50)
     
     this.resources.on(`soundChapOneThreeSoundFinished`, ()=>{

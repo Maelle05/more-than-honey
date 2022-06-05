@@ -200,8 +200,8 @@ export default class OutsideTwoScene extends Group
 
     // Init Sounds
     setTimeout(() => {
-      this.backgroundMusic.fade(0, 0.3, .3)
-      this.backgroundMusic.play()
+      this.backgroundMusic.sound.fade(0, this.backgroundMusic.volume, .3)
+      this.backgroundMusic.sound.play()
 
       setTimeout(()=>{
         // move cursor above the timeline
@@ -210,8 +210,8 @@ export default class OutsideTwoScene extends Group
           y: 100,
           ease: "none",
         })
-        this.voice.fade(0, 0.6, .3)
-        this.voice.play()
+        this.voice.sound.fade(0, this.voice.volume, .3)
+        this.voice.sound.play()
         this.resources.on('soundChapTwoTwoSoundFinished', ()=>{
           this.cursorComponent.endScene()
         })

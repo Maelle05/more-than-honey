@@ -108,7 +108,7 @@
   {
     "name": "BgMusicSoundOutsideOne",
     "type": "sound",
-    "volume": 0.1,
+    "volume": 0.05,
     "loop": true,
     "actingScenes": "outsideOneScene",
     "path": "/voices/outsideOne/outside_one_music.mp3"
@@ -132,7 +132,7 @@
   {
     "name": "ChapOneTwoSound",
     "type": "sound",
-    "volume": 0.6,
+    "volume": 0.7,
     "loop": false,
     "actingScenes": "outsideOneScene",
     "path": "/voices/outsideOne/Chap1-2.mp3"

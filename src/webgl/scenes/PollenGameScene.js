@@ -316,12 +316,12 @@ export default class PollenGameScene extends Group {
               // Init Sounds
               if (!this.isFlowerSongPlay) {
                 this.isFlowerSongPlay = true
-                this.ChapTwoOneTwoSound.fade(0, 0.6, .3)
-                this.ChapTwoOneTwoSound.play()
+                this.ChapTwoOneTwoSound.sound.fade(0, this.ChapTwoOneTwoSound.volume, .3)
+                this.ChapTwoOneTwoSound.sound.play()
                 this.resources.on('soundChapTwoOneTwoSoundFinished', ()=>{
                   setTimeout(()=>{
-                    this.ChapTwoOneThreeSound.fade(0, 0.6, .3)
-                    this.ChapTwoOneThreeSound.play()
+                    this.ChapTwoOneThreeSound.sound.fade(0, 0.6, .3)
+                    this.ChapTwoOneThreeSound.sound.play()
                   }, 5000)
                 })
               }
@@ -384,12 +384,12 @@ export default class PollenGameScene extends Group {
 
     // Init Sounds
     setTimeout(() => {
-      this.backgroundMusic.fade(0, 0.3, .3)
-      this.backgroundMusic.play()
+      this.backgroundMusic.sound.fade(0, this.backgroundMusic.volume, .3)
+      this.backgroundMusic.sound.play()
     }, 50)
     setTimeout(()=>{
-      this.voiceIntro.fade(0, 0.6, .3)
-      this.voiceIntro.play()
+      this.voiceIntro.sound.fade(0, this.voiceIntro.volume, .3)
+      this.voiceIntro.sound.play()
     }, 1000)
 
 
@@ -496,8 +496,8 @@ export default class PollenGameScene extends Group {
   loseForaged(i) {
 
     // Init Sounds
-    this.impact.fade(0, 0.7, .3)
-    this.impact.play()
+    this.impact.sound.fade(0, this.impact.volume, .3)
+    this.impact.sound.play()
 
     // if you have foraged remove one daisy
     if (this.gameProperty.foraged.length && !this.gameProperty.isFinish) {

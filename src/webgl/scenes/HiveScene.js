@@ -176,15 +176,15 @@ export default class HiveScene extends Group {
     })
 
     // Init Sounds
-    this.voiceOne.fade(0, 0.6, .3)
-    this.voiceOne.play()
+    this.voiceOne.sound.fade(0, this.voiceOne.volume, .3)
+    this.voiceOne.sound.play()
 
     this.resources.on(`soundChapOneOneSoundFinished`, ()=>{
-      this.voiceTwo.fade(0, 0.6, .3)
-      this.voiceTwo.play()
+      this.voiceTwo.sound.fade(0, this.voiceTwo.volume, .3)
+      this.voiceTwo.sound.play()
       this.resources.on(`soundChapOneOneOneSoundFinished`, ()=>{
-        this.voiceEnd.fade(0, 0.6, .3)
-        this.voiceEnd.play()
+        this.voiceEnd.sound.fade(0, this.voiceEnd.volume, .3)
+        this.voiceEnd.sound.play()
         this.resources.on(`soundChapOneOneTwoSoundFinished`, ()=>{
           console.log('Scene fini aller à la suite')
         })
@@ -193,8 +193,8 @@ export default class HiveScene extends Group {
 
     // Init Sounds
     setTimeout(() => {
-      this.backgroundMusic.fade(0, 0.3, .3)
-      this.backgroundMusic.play()
+      this.backgroundMusic.sound.fade(0, this.backgroundMusic.volume, .3)
+      this.backgroundMusic.sound.play()
     }, 50)
 
     // Remove loader
