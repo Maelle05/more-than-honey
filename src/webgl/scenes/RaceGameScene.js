@@ -70,7 +70,8 @@ export default class RaceGameScene extends Group {
         numberOfMap: 5,
         duration: 10000, // in ms
         obstacle: {
-          number: 17
+          number: 3,
+          lastHurt: '',
         }
       }
     }
@@ -114,7 +115,7 @@ export default class RaceGameScene extends Group {
 
     this.pesticideCloud = new Group
     // One cloud of pesticide
-    for(let i=0; i<15; i++) {
+    for(let i=0; i<this.property.game.obstacle.number; i++) {
       let particle = new Mesh(pesticideGeometry, pesticideMaterial)
       particle.position.set(
         0.03 * i * Math.cos((4 * i * Math.PI) / 180),
@@ -180,6 +181,7 @@ export default class RaceGameScene extends Group {
     this.portals = []
     for (let i = 0; i < this.property.game.obstacle.number; i++) {
       const clonePortal = this.pesticideCloud.clone()
+      clonePortal.name = 'cloud'+i
       clonePortal.rotation.set(Math.random() / 10, Math.random() / 10, Math.random() / 10)
       clonePortal.position.set(randomIntFromInterval(-4, 4, 1), randomIntFromInterval(-1.5, 1.2, 1), randomIntFromInterval(15, (this.property.map.height / this.property.map.ratio) / 1.2, 5))
       this.portals.push(clonePortal)
@@ -379,11 +381,28 @@ export default class RaceGameScene extends Group {
     if (this.bee && this.gamePlayed) {
       // Check collision between bee and portals
       for (const portal of this.portals) {
-        const worldPosition = portal.position.clone()
-        this.groundGroup.localToWorld(worldPosition)
-        if (this.bee.model.position.distanceTo(worldPosition) <= 1) {
+        const portalsPosition = portal.position.clone()
+        this.groundGroup.localToWorld(portalsPosition)
+        if (this.bee.model.position.distanceTo(portalsPosition) <= 1.5 && !this.property.game.obstacle.lastHurt.includes(portal.name)) {
           portal.visible = false
-          console.log('only once')
+          console.log(portal.name)
+          this.property.game.obstacle.lastHurt =  this.property.game.obstacle.lastHurt + ' ' + portal.name 
+          setTimeout(()=>{
+            this.property.game.obstacle.lastHurt.replace(portal.name, '')
+            portal.visible = true
+          }, 100)
+          this.hurtingPortal()
+        }
+
+        this.secondGroundGroup.localToWorld(portalsPosition)
+        if (this.bee.model.position.distanceTo(portalsPosition) <= 1.5 && !this.property.game.obstacle.lastHurt.includes(portal.name)) {
+          portal.visible = false
+          console.log(portal.name)
+          this.property.game.obstacle.lastHurt =  this.property.game.obstacle.lastHurt + ' ' + portal.name 
+          setTimeout(()=>{
+            this.property.game.obstacle.lastHurt.replace(portal.name, '')
+            portal.visible = true
+          }, 100)
           this.hurtingPortal()
         }
       }
