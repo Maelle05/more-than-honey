@@ -62,6 +62,9 @@ export default class RaceGameScene extends Group {
         targetX: 0,
         targetY: 0
       },
+      sitting: {
+        step: 0,
+      },
       game: {
         bee: {
           speed: 0.01
@@ -280,8 +283,6 @@ export default class RaceGameScene extends Group {
       ease: "power1.in",
     })
 
-    let step = 0
-
     // Ground in the group of this.allGround
     const groundToMove = [
       this.groundGroup,
@@ -289,23 +290,23 @@ export default class RaceGameScene extends Group {
     ]
 
     const replaceGround = () => {
-      let indexResult = step % 2 === 0 ? 1 : 0
+      let indexResult = this.property.sitting.step % 2 === 0 ? 1 : 0
       groundToMove[indexResult].position.z = groundToMove[indexResult].position.z + (this.property.map.height / this.property.map.ratio) * 2
     }
 
     this.gamePlayed = true
 
     const moveGround = () => {
-      step++
+      this.property.sitting.step++
       gsap.to(this.allGrounds.position, {
-        duration: (this.property.game.numberOfMap + 3) - step,
-        z: (-(this.property.map.height / this.property.map.ratio) + 2) * step, // + 2 to see the bee at the end
+        duration: (this.property.game.numberOfMap + 3) - this.property.sitting.step,
+        z: (-(this.property.map.height / this.property.map.ratio) + 2) * this.property.sitting.step, // + 2 to see the bee at the end
         ease: "none",
       }).then(() => {
-        if (step < this.property.game.numberOfMap - 1) {
+        if (this.property.sitting.step < this.property.game.numberOfMap - 1) {
           replaceGround()
         }
-        if (step < this.property.game.numberOfMap) {
+        if (this.property.sitting.step < this.property.game.numberOfMap) {
           moveGround()
         } else {
           this.endOfTheGame()
@@ -382,27 +383,30 @@ export default class RaceGameScene extends Group {
       // Check collision between bee and portals
       for (const portal of this.portals) {
         const portalsPosition = portal.position.clone()
-        this.groundGroup.localToWorld(portalsPosition)
-        if (this.bee.model.position.distanceTo(portalsPosition) <= 1.5 && !this.property.game.obstacle.lastHurt.includes(portal.name)) {
-          portal.visible = false
-          console.log(portal.name)
-          this.property.game.obstacle.lastHurt =  this.property.game.obstacle.lastHurt + ' ' + portal.name 
-          setTimeout(()=>{
-            this.property.game.obstacle.lastHurt.replace(portal.name, '')
-            portal.visible = true
-          }, 100)
-          this.hurtingPortal()
-        }
 
-        this.secondGroundGroup.localToWorld(portalsPosition)
+        if (this.property.sitting.step % 2 === 1) {
+          this.groundGroup.localToWorld(portalsPosition)
+        } else {
+          this.secondGroundGroup.localToWorld(portalsPosition)
+        }
+        
         if (this.bee.model.position.distanceTo(portalsPosition) <= 1.5 && !this.property.game.obstacle.lastHurt.includes(portal.name)) {
-          portal.visible = false
-          console.log(portal.name)
+          let pest = null
+          if (this.property.sitting.step % 2 === 1) {
+            pest = portal
+          } else {
+            this.secondGroundGroup.children.forEach(child => {
+              if (child.name === portal.name) {
+                pest = child
+              }
+            })
+          }
+          pest.visible = false
           this.property.game.obstacle.lastHurt =  this.property.game.obstacle.lastHurt + ' ' + portal.name 
           setTimeout(()=>{
-            this.property.game.obstacle.lastHurt.replace(portal.name, '')
-            portal.visible = true
-          }, 100)
+            this.property.game.obstacle.lastHurt = this.property.game.obstacle.lastHurt.replace(portal.name, '')
+            pest.visible = true
+          }, 300)
           this.hurtingPortal()
         }
       }
