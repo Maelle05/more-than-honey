@@ -15,7 +15,7 @@
       <p></p>
     </div>
 
-    <Popup class="popupRace" ref="popupIntro" title="Course poursuite" label-button="Commencer à jouer"
+    <Popup class="popupRace u-hidden" ref="popupIntro" title="Course poursuite" label-button="Commencer à jouer"
            @action-on-click="startGame">
       <p class="u-mb-modal">Votre but est de <strong> fuir le plus rapidement possible </strong> pour vous protéger du <strong>frelon
         asiatique</strong>.</p>

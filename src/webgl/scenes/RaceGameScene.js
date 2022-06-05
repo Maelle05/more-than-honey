@@ -99,6 +99,11 @@ export default class RaceGameScene extends Group {
     this.hornet = new Hornet()
     this.grass = new Grass(this.property.map.with / this.property.map.ratio, this.property.map.height / this.property.map.ratio, 500000)
 
+    // Sound 
+    this.backgroundMusic = this.resources.items.BgMusicSound
+    this.voiceIntro = this.resources.items.ChapTwoThreeSound
+    this.impactSound = this.resources.items.ImactSound
+
     const pesticideGeometry = new PlaneBufferGeometry(2.5,2.5)
     const pesticideMaterial = new MeshStandardMaterial({
       color: 0x8EFFC9,
@@ -154,9 +159,9 @@ export default class RaceGameScene extends Group {
     this.scene.fog.density = 0.009
 
     // Set parameters of the scene at init
-    this.camera.position.set(0, 0, -10)
-    this.webGl.controls.target = new Vector3(0, 0, 20)
-    this.webGl.controls.enabled = false
+    // this.camera.position.set(0, 0, -10)
+    // this.webGl.controls.target = new Vector3(0, 0, 20)
+    // this.webGl.controls.enabled = false
 
     // Listener
     this.listener.on(`mouseMove`, () => {
@@ -168,8 +173,6 @@ export default class RaceGameScene extends Group {
     this.bee.model.scale.set(0.06, 0.06, 0.06)
     this.bee.model.position.set(0, 0, 0)
     this.bee.model.rotation.set(0, 6.3, 0)
-    this.hornet.model.position.set(4, -1.5, -2)
-    this.hornet.model.rotation.y = Math.PI
     this.grass.position.set(0, -5, this.property.map.height / this.property.map.ratio / 2)
     this.gamePlayed = false
 
@@ -204,7 +207,56 @@ export default class RaceGameScene extends Group {
   }
 
   cinematique(){
-    
+    const cinematiqueTime = 12
+
+    // Set Camera position
+    this.camera.position.set(10, -5, -10)
+    this.webGl.controls.target.set(10, 0, 0 )
+
+    // Sound
+    this.backgroundMusic.sound.fade(0, this.backgroundMusic.volume, .3)
+    this.backgroundMusic.sound.play()
+
+    this.voiceIntro.sound.fade(0, this.voiceIntro.volume, .3)
+    this.voiceIntro.sound.play()
+
+    // Hornet init position
+    this.hornet.model.position.set(12, -4, -2)
+    this.hornet.model.rotation.y = Math.PI/2
+
+    gsap.to(this.hornet.model.position, {
+      duration: 9,
+      x: 4,
+      y: -1.5,
+      z: -2,
+      ease: "power1.in",
+    })
+
+    gsap.to(this.hornet.model.rotation, {
+      duration: 10,
+      y: Math.PI,
+      ease: "power1.in",
+    })
+
+    gsap.to(this.camera.position, {
+      x: 0,
+      y: 0,
+      z: -10,
+      duration: cinematiqueTime,
+      delay: 0.7,
+      ease: 'none'
+    })
+
+    gsap.to(this.webGl.controls.target, {
+      x: 0,
+      y: 0,
+      z: 20,
+      duration: cinematiqueTime,
+      delay: 0.7,
+      ease: 'none'
+    }).then(()=>{
+      this.popupStart.classList.remove('u-hidden')
+    })
   }
 
   playGame() {
