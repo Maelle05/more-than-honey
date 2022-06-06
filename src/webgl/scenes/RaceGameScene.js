@@ -264,7 +264,7 @@ export default class RaceGameScene extends Group {
     // move cursor above the timeline
     gsap.to(this.activeItem, {
       duration: 25,
-      y: 100,
+      y: 70,
       ease: "none",
     })
 

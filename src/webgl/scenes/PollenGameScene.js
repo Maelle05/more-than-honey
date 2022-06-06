@@ -423,7 +423,7 @@ export default class PollenGameScene extends Group {
     // move cursor above the timeline
     gsap.to(this.activeItem, {
       duration: 70,
-      y: 100,
+      y: 70,
       ease: "none",
     })
 

@@ -98,7 +98,7 @@ export default {
       border-radius: 50%;
       border: 2px solid $white;
       position: absolute;
-      top: 0;
+      top: 16px;
       transform: translateY(-25%);
       display: none;
 

@@ -240,7 +240,7 @@ export default class OutsideOneScene extends Group
           // move cursor above the timeline
           gsap.to(this.activeItem, {
             duration: 75,
-            y: 100,
+            y: 70,
             ease: "none",
           })
           this.resources.on(`soundChapOneTwoSoundFinished`, ()=>{

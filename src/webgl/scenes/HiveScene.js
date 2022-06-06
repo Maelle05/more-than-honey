@@ -171,7 +171,7 @@ export default class HiveScene extends Group {
     // move cursor above the timeline
     gsap.to(this.activeItem, {
       duration: 20,
-      y: 100,
+      y: 70,
       ease: "none",
     })
 

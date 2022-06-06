@@ -203,7 +203,7 @@ export default class OutsideTwoScene extends Group
         // move cursor above the timeline
         gsap.to(this.activeItem, {
           duration: 20,
-          y: 100,
+          y: 70,
           ease: "none",
         })
         this.voice.sound.fade(0, this.voice.volume, .3)
