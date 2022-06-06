@@ -66,6 +66,11 @@ export default {
 
     &::after {
       opacity: 0;
+      font-size: 0;
+      content: 'Continuer';
+      color: $blueGreen;
+      font-family: 'RoadRage', sans-serif;
+      transition: all .7s;
     }
 
     &End {
@@ -74,9 +79,6 @@ export default {
       box-shadow: 0 0 1px 5px $white;
 
       &::after {
-        content: 'Continuer';
-        color: $blueGreen;
-        font-family: 'RoadRage', sans-serif;
         font-size: 24px;
         opacity: 1;
       }

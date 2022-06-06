@@ -71,7 +71,7 @@ export default {
     text-transform: uppercase;
     font-size: 16px;
     color: $white;
-    background-color: #003B48;
+    background-color: $blueGreen;
     border-radius: 4px;
     padding: 11px 16px;
     margin-top: 32px;
