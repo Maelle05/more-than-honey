@@ -11,7 +11,7 @@
       </a>
 
       <span class="bullet"></span>
-
+      <p class="u-uppercase credits__text">Avec la participation de </p>
       <a v-for="(name, i) in content.sound" :key="i + 5" target="_blank" class="u-uppercase credits__name"
          :href="name.link">
         {{ name.name }}<br/>
