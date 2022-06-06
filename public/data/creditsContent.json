@@ -1,0 +1,66 @@
+[
+  {
+    "group": [
+      {
+        "name": "Léonie Grimoin",
+        "role": "Développeuse interactive",
+        "link": "https://www.linkedin.com/in/leonie-grimoin/"
+      },
+      {
+        "name": "Maëlle Rabouan",
+        "role": "Développeuse interactive",
+        "link": "https://www.linkedin.com/in/ma%C3%ABlle-rabouan-4b0776194/"
+      },
+      {
+        "name": "Camille Robillard",
+        "role": "Designer interactive",
+        "link": "https://www.linkedin.com/in/camille-robillard-049361157/"
+      },
+      {
+        "name": "Jessica Poulain",
+        "role": "Designer interactive",
+        "link": "https://www.linkedin.com/in/jessica-poulain-b890b310a/"
+      },
+      {
+        "name": "Danny Lahcene",
+        "role": "Designer interactif",
+        "link": "https://www.linkedin.com/in/danny-lahcene-b28663187/"
+      }
+    ],
+    "sound": [
+      {
+        "name": "Arthur Loichot",
+        "role": "Sound design",
+        "link": "https://www.linkedin.com/in/arthur-loichot-104226173/"
+      },
+      {
+        "name": "Pierre-Andréas Durant",
+        "role": "Voix off",
+        "link": "https://www.linkedin.com/in/pierre-andr%C3%A9as-durant-882b561a7/"
+      }
+    ],
+    "teacher": [
+      {
+        "name": "Thierry Audoux"
+      },
+      {
+        "name": "Catherine Nyeki"
+      },
+      {
+        "name": "Thomas Menia"
+      },
+      {
+        "name": "Christophe Massolin"
+      },
+      {
+        "name": "François Marquet"
+      },
+      {
+        "name": "Dorian Lods"
+      },
+      {
+        "name": "Adrien Lavisiera"
+      }
+    ]
+  }
+]

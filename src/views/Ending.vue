@@ -2,91 +2,95 @@
   <div class="ending">
     <div class="credits">
       <img class="logo" src="@/assets/images/logo.svg" alt="white logo of the project 'more than honey'">
-      <h2>Une création originale de</h2>
-      <a href="https://www.linkedin.com/in/leonie-grimoin/" target="_blank">LÉONIE GRIMOIN</a>
-      <p>Développeuse interactive</p>
-      <a href="https://www.linkedin.com/in/ma%C3%ABlle-rabouan-4b0776194/" target="_blank"> MAËLLE RABOUAN </a>
-      <p>Développeuse interactive</p>
-      <a href="https://www.linkedin.com/in/camille-robillard-049361157/" target="_blank"> CAMILLE ROBILLARD </a>
-      <p>Designer interactive</p>
-      <a href="https://www.linkedin.com/in/jessica-poulain-b890b310a/" target="_blank"> JESSICA POULAIN </a>
-      <p>Designer interactive</p>
-      <a href="https://www.linkedin.com/in/danny-lahcene-b28663187/" target="_blank"> DANNY LAHCENE </a>
-      <p>Designer interactive</p>
-      <span></span>
-      <h2>Avec la participation de</h2>
-      <a href="https://www.linkedin.com/in/ma%C3%ABlle-rabouan-4b0776194/" target="_blank"> ARTHUR LOICHOT </a>
-      <p>Sound designer</p>
-      <a href="https://www.linkedin.com/in/ma%C3%ABlle-rabouan-4b0776194/" target="_blank"> PIERRE-ANDRÉAS DURANT </a>
-      <p>Voix</p>
-      <span></span>
-      <h2>Merci également à toute l’équipe Gobelins pour leurs conseils et encouragements</h2>
-      <a>THIERRY AUDOUX</a>
-      <a>Catherine Nyeki</a>
-      <a>Thomas Menia</a>
-      <a>Christophe Massolin</a>
-      <a>François Marquet</a>
-      <a>DORIAN LODS</a>
-      <a>Christian Porri</a>
-      <a>Adrien Lavisiera</a>
-      <a>ET BIEN D’AUTRES ENCORE...</a>
-      <img src="@/assets/images/gobelins.png" alt="" srcset="">
+      <p class="u-uppercase credits__text">Une création originale de</p>
+
+      <a v-for="(name, i) in content.group" :key="i" target="_blank" class="u-uppercase credits__name"
+         :href="name.link">
+        {{ name.name }}<br/>
+        <span class="credits__role">{{ name.role }}</span>
+      </a>
+
+      <span class="bullet"></span>
+
+      <a v-for="(name, i) in content.sound" :key="i + 5" target="_blank" class="u-uppercase credits__name"
+         :href="name.link">
+        {{ name.name }}<br/>
+        <span class="credits__role">{{ name.role }}</span>
+      </a>
+
+      <span class="bullet"></span>
+
+      <p class="u-uppercase credits__text">Merci également à toute l’équipe Gobelins pour leurs conseils et encouragements</p>
+
+      <ul>
+        <li v-for="(name, i) in content.teacher" :key="i + 7" class="u-uppercase credits__name">
+          {{name.name}}
+        </li>
+      </ul>
+
+      <p class="u-uppercase credits__name">Et bien d'autres encore...</p>
+      <img src="@/assets/images/gobelins.png" alt="logo of the Gobelins school">
     </div>
   </div>
 </template>
 
 <script lang="js">
-import Button from '@/components/ui/PrimaryButton'
+import creditsContent from '../../public/data/creditsContent.json'
 
 export default {
-  name: 'Home',
-  components: {
-  },
+  name: 'Ending',
+  data() {
+    return {
+      content: creditsContent[0]
+    }
+  }
 }
 </script>
 
 <style scoped lang="scss">
-.ending{
+.ending {
   background-color: #00000085;
   opacity: 0;
 }
 
-.credits{
+.credits {
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 
-  img{
+  img {
     margin-top: 80px;
   }
 
-  h2{
-    margin-top: 24px;
-    font-family: 'Lato';
-    font-size: 20px;
-    margin-bottom: 10px;
+  &__text {
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    margin-bottom: 24px;
+    font-weight: 900;
   }
 
-  a{
-    margin-top: 32px;
-    font-family: 'Road Rage';
+  &__name {
+    margin-bottom: 32px;
+    font-family: 'RoadRage', sans-serif;
     font-size: 24px;
     color: white;
+    text-align: center;
   }
 
-  p{
-    font-family: 'Lato';
+  &__role {
+    font-family: 'Lato', sans-serif;
     font-size: 16px;
     margin-top: 8px;
+    text-transform: none !important;
   }
 
-  span{
+  .bullet {
     display: block;
-    background-color: white;
-    border-radius: 999999999px;
-    margin: 40px 0 40px 0;
+    background-color: $white;
+    border-radius: 50%;
+    margin: 0 0 40px 0;
     width: 8px;
     height: 8px;
   }

@@ -42,16 +42,15 @@ export default class EndingScene extends Group {
     this.bee.model.rotation.z = Math.PI
 
     // add models
-    this.add(this.hive)
-    this.add(this.bee.model)
+    this.add(this.hive, this.bee.model)
 
     setTimeout(() => {
       this.loader.classList.add('loaded')
-      this.beeAnnim()
+      this.beeAnim()
     }, 500)
   }
 
-  beeAnnim(){
+  beeAnim(){
     gsap.to(this.bee.model.position, {
       duration: 7,
       x: 4,
