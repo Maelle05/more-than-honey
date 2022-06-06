@@ -160,7 +160,7 @@ export default class RaceGameScene extends Group {
     }, 500)
 
     // Set fog
-    this.scene.fog.density = 0.009
+    this.scene.fog.density = 0.012
 
     // Listener
     this.listener.on(`mouseMove`, () => {
@@ -412,7 +412,7 @@ export default class RaceGameScene extends Group {
           this.secondGroundGroup.localToWorld(portalsPosition)
         }
 
-        if (this.bee.model.position.distanceTo(portalsPosition) <= 1.5 && !this.property.game.obstacle.lastHurt.includes(portal.name)) {
+        if (this.bee.model.position.distanceTo(portalsPosition) <= 1.3 && !this.property.game.obstacle.lastHurt.includes(portal.name)) {
           let pest = null
           if (this.property.sitting.step % 2 === 1) {
             pest = portal

@@ -179,7 +179,7 @@ export default class OutsideOneScene extends Group
 
   init(){
     // Set fog
-    this.scene.fog.density = 0.01
+    this.scene.fog.density = 0.015
 
     // Add bee
     this.beeMove = 0
