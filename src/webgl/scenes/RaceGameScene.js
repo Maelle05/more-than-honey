@@ -21,7 +21,7 @@ import Bloom from '@/webgl/shaders/bloom'
 import {customEase} from '@/webgl/utils/CustomEase'
 import {addDaisys, addLys, addStones, addTrees} from '@/webgl/elementsLoop/AddElements'
 import Hornet from '@/webgl/entities/Hornet'
-import { Vector3 } from 'three'
+import store from '../../store/index'
 
 let raceGameInstance = null
 
@@ -69,11 +69,10 @@ export default class RaceGameScene extends Group {
         bee: {
           speed: 0.01
         },
-        numberOfLife: 5,
         numberOfMap: 5,
         duration: 10000, // in ms
         obstacle: {
-          number: 3,
+          number: 22,
           lastHurt: '',
         }
       }
@@ -85,9 +84,10 @@ export default class RaceGameScene extends Group {
     })
   }
 
-  setupDomElements(start, end, lottie, ui, lifeBar) {
+  setupDomElements(start, end, loose, lottie, ui, lifeBar) {
     this.popupStart = start
     this.popupEnd = end
+    this.popupLoose = loose
     this.lottie = lottie
     this.raceUI = ui
     this.lifeBar = lifeBar
@@ -108,7 +108,7 @@ export default class RaceGameScene extends Group {
     this.voiceIntro = this.resources.items.ChapTwoThreeSound
     this.impactSound = this.resources.items.ImactSound
 
-    const pesticideGeometry = new PlaneBufferGeometry(2.5,2.5)
+    const pesticideGeometry = new PlaneBufferGeometry(2.5, 2.5)
     const pesticideMaterial = new MeshStandardMaterial({
       color: 0x8EFFC9,
       side: DoubleSide,
@@ -118,7 +118,7 @@ export default class RaceGameScene extends Group {
 
     this.pesticideCloud = new Group
     // One cloud of pesticide
-    for(let i=0; i<this.property.game.obstacle.number; i++) {
+    for (let i = 0; i < this.property.game.obstacle.number; i++) {
       let particle = new Mesh(pesticideGeometry, pesticideMaterial)
       particle.position.set(
         0.03 * i * Math.cos((4 * i * Math.PI) / 180),
@@ -162,11 +162,6 @@ export default class RaceGameScene extends Group {
     // Set fog
     this.scene.fog.density = 0.009
 
-    // Set parameters of the scene at init
-    // this.camera.position.set(0, 0, -10)
-    // this.webGl.controls.target = new Vector3(0, 0, 20)
-    // this.webGl.controls.enabled = false
-
     // Listener
     this.listener.on(`mouseMove`, () => {
       this.property.cursor.targetX = -this.listener.property.cursor.x * this.property.bee.limitRightLeft
@@ -184,9 +179,9 @@ export default class RaceGameScene extends Group {
     this.portals = []
     for (let i = 0; i < this.property.game.obstacle.number; i++) {
       const clonePortal = this.pesticideCloud.clone()
-      clonePortal.name = 'cloud'+i
+      clonePortal.name = 'cloud' + i
       clonePortal.rotation.set(Math.random() / 10, Math.random() / 10, Math.random() / 10)
-      clonePortal.position.set(randomIntFromInterval(-4, 4, 1), randomIntFromInterval(-1.5, 1.2, 1), randomIntFromInterval(15, (this.property.map.height / this.property.map.ratio) / 1.2, 5))
+      clonePortal.position.set(randomIntFromInterval(-4, 4, 1), randomIntFromInterval(-1.2, 1.2, 1), randomIntFromInterval(15, (this.property.map.height / this.property.map.ratio) / 1.2, 5))
       this.portals.push(clonePortal)
     }
 
@@ -211,12 +206,12 @@ export default class RaceGameScene extends Group {
     this.cinematique()
   }
 
-  cinematique(){
+  cinematique() {
     const cinematiqueTime = 12
 
     // Set Camera position
     this.camera.position.set(10, -5, -10)
-    this.webGl.controls.target.set(10, 0, 0 )
+    this.webGl.controls.target.set(10, 0, 0)
 
     // Sound
     this.backgroundMusic.sound.fade(0, this.backgroundMusic.volume, .3)
@@ -227,7 +222,7 @@ export default class RaceGameScene extends Group {
 
     // Hornet init position
     this.hornet.model.position.set(12, -4, -2)
-    this.hornet.model.rotation.y = Math.PI/2
+    this.hornet.model.rotation.y = Math.PI / 2
 
     gsap.to(this.hornet.model.position, {
       duration: 9,
@@ -259,7 +254,7 @@ export default class RaceGameScene extends Group {
       duration: cinematiqueTime,
       delay: 0.7,
       ease: 'none'
-    }).then(()=>{
+    }).then(() => {
       this.popupStart.classList.remove('u-hidden')
     })
   }
@@ -298,10 +293,12 @@ export default class RaceGameScene extends Group {
 
     const moveGround = () => {
       this.property.sitting.step++
+
       gsap.to(this.allGrounds.position, {
         duration: (this.property.game.numberOfMap + 3) - this.property.sitting.step,
         z: (-(this.property.map.height / this.property.map.ratio) + 2) * this.property.sitting.step, // + 2 to see the bee at the end
         ease: "none",
+        overwrite: 'auto'
       }).then(() => {
         if (this.property.sitting.step < this.property.game.numberOfMap - 1) {
           replaceGround()
@@ -321,17 +318,17 @@ export default class RaceGameScene extends Group {
     this.allGrounds.position.set(0, 0, 0)
     this.groundGroup.position.set(0, 0, 0)
     this.secondGroundGroup.position.set(0, 0, this.property.map.height / this.property.map.ratio)
+    store.state.numberOfLife = 5
 
     this.property.sitting.step = 0
-    this.property.game.numberOfLife = 5
     this.property.game.obstacle.lastHurt = ''
 
-    setTimeout(()=>{
+    setTimeout(() => {
       this.playGame()
     }, 3500)
   }
 
-  hurtingPortal() {
+  hurtingPortal(portal) {
     // if the bee hurt portal -> the hornet come closer
     gsap.to(this.hornet.model.position, {
       duration: 0.5,
@@ -346,16 +343,23 @@ export default class RaceGameScene extends Group {
       ease: customEase
     })
 
+    // Play sound when impact
+    this.impactSound.sound.fade(0, this.impactSound.volume, .3)
+
     this.lottie.classList.remove('u-hidden')
 
-    // User loose one life TODO finish
-    // if(this.property.game.numberOfLife > 0) {
-    //   this.property.game.numberOfLife = this.property.game.numberOfLife -1
-    //   this.lifeBar.innerHTML = this.property.game.numberOfLife
-    // }
+    // User loose one life
+    if (store.state.numberOfLife > 0) {
+      this.impactSound.sound.play()
+      portal.visible = false
+
+      store.dispatch('looseLife')
+    } else {
+      this.losingGame()
+    }
 
     // Go back to normal after 2.5s
-    setTimeout( ()=>{
+    setTimeout(() => {
       gsap.to(this.hornet.model.position, {
         duration: 0.5,
         z: -2,
@@ -368,8 +372,20 @@ export default class RaceGameScene extends Group {
 
   endOfTheGame() {
     this.lottie.classList.add('u-hidden')
-    this.popupEnd.classList.remove('u-hidden')
+    if (store.state.numberOfLife > 0) {
+      this.popupEnd.classList.remove('u-hidden')
+      this.raceUI.classList.remove('u-cursor-hidden')
+      this.postProcessing.vignettePass.uniforms.uIntensity.value = 0
+    }
+  }
+
+  losingGame() {
+    this.lottie.classList.add('u-hidden')
+    this.popupLoose.classList.remove('u-hidden')
     this.raceUI.classList.remove('u-cursor-hidden')
+    gsap.killTweensOf(this.allGrounds.position)
+    gsap.killTweensOf(this.hornet.model.position)
+    gsap.killTweensOf(this.postProcessing.vignettePass.uniforms.uIntensity)
   }
 
   update() {
@@ -395,7 +411,7 @@ export default class RaceGameScene extends Group {
         } else {
           this.secondGroundGroup.localToWorld(portalsPosition)
         }
-        
+
         if (this.bee.model.position.distanceTo(portalsPosition) <= 1.5 && !this.property.game.obstacle.lastHurt.includes(portal.name)) {
           let pest = null
           if (this.property.sitting.step % 2 === 1) {
@@ -407,13 +423,12 @@ export default class RaceGameScene extends Group {
               }
             })
           }
-          pest.visible = false
-          this.property.game.obstacle.lastHurt =  this.property.game.obstacle.lastHurt + ' ' + portal.name 
-          setTimeout(()=>{
+          this.property.game.obstacle.lastHurt = this.property.game.obstacle.lastHurt + ' ' + portal.name
+          setTimeout(() => {
             this.property.game.obstacle.lastHurt = this.property.game.obstacle.lastHurt.replace(portal.name, '')
             pest.visible = true
           }, 500)
-          this.hurtingPortal()
+          this.hurtingPortal(pest)
         }
       }
 
