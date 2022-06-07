@@ -18,7 +18,7 @@ export default class Butterflie {
     this.annim = this.resources.items.butterflyModel.animations[0]
 
     this.mesh = skeletonClone(this.resources.items.butterflyModel.scene)
-    const size = randomIntFromInterval(0.7, 1.1, 0.05)
+    const size = randomIntFromInterval(0.9, 1.1, 0.05)
     this.mesh.scale.set(size, size, size)
     this.mesh.name = 'BOT' + id
 

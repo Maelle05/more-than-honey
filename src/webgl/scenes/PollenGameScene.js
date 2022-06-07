@@ -201,7 +201,7 @@ export default class PollenGameScene extends Group {
         0.7,
         i > nbLys/4 ? randomIntFromInterval(-2, -15, 0.5) : randomIntFromInterval(3, 10, 0.5)
       )
-      cloneLys.scale.set(0.07, 0.07, 0.07)
+      cloneLys.scale.set(0.05, 0.05, 0.05)
       cloneLys.rotation.y = randomIntFromInterval(0, 1, 0.02)
       this.add(cloneLys)
     }
