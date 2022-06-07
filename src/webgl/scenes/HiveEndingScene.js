@@ -67,9 +67,9 @@ export default class EndingScene extends Group {
       })
 
       gsap.fromTo(this.credits, {
-        y: window.innerHeight * 1.3,
+        y: window.innerHeight,
       }, {
-        duration: 25,
+        duration: 45,
         y: window.innerHeight - 2200,
         ease: "none",
       })
