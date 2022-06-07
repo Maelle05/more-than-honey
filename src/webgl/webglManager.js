@@ -92,26 +92,26 @@ export default class WebGl{
       this.update()
     })
 
-    // Keybord control Camera
-    document.addEventListener('keydown', (e) => {
-      switch (e.key) {
-        case 'z':
-          this.camera.position.z -= 0.5
-          break
-        case 's':
-          this.camera.position.z += 0.5
-          break
-        case 'q':
-          this.camera.position.x -= 0.5
-          break
-        case 'd':
-          this.camera.position.x += 0.5
-          break
-        default:
-          break
-      }
-      // console.log(this.camera.position);
-    })
+    // Keybord control Camera -> to debug
+    // document.addEventListener('keydown', (e) => {
+    //   switch (e.key) {
+    //     case 'z':
+    //       this.camera.position.z -= 0.5
+    //       break
+    //     case 's':
+    //       this.camera.position.z += 0.5
+    //       break
+    //     case 'q':
+    //       this.camera.position.x -= 0.5
+    //       break
+    //     case 'd':
+    //       this.camera.position.x += 0.5
+    //       break
+    //     default:
+    //       break
+    //   }
+    //   // console.log(this.camera.position);
+    // })
   }
 
   getLoaderRef(loader) {

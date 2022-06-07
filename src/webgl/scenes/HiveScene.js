@@ -210,6 +210,11 @@ export default class HiveScene extends Group {
   }
 
   update() {
+    // parallax
+    if (this.listener) {
+      this.webGl.controls.target.set(- this.listener.property.cursor.x * 1.5, this.listener.property.cursor.y * 1.5, 0)
+    }
+
     if (this.mixers) {
       for (const mixer of this.mixers) mixer.update(this.time.delta * 0.001)
     }

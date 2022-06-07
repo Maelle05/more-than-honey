@@ -29,7 +29,7 @@
       </ul>
 
       <p class="u-uppercase credits__name">Et bien d'autres encore...</p>
-      <img src="@/assets/images/gobelins.png" alt="logo of the Gobelins school">
+      <img class="credits__image" src="@/assets/images/gobelins.png" alt="logo of the Gobelins school">
     </div>
   </div>
 </template>
@@ -69,6 +69,10 @@ export default {
     font-size: 16px;
     margin-bottom: 24px;
     font-weight: 900;
+  }
+
+  &__image {
+    width: 150px;
   }
 
   &__name {

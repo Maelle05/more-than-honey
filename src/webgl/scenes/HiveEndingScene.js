@@ -3,6 +3,7 @@ import gsap, { CustomEase, Power1 } from 'gsap/all'
 import {Group} from 'three'
 import BlueBee from '../entities/BlueBee'
 import WebGl from '../webglManager'
+import Listener from '@/webgl/utils/Listener'
 
 export default class EndingScene extends Group {
   constructor() {
@@ -34,6 +35,7 @@ export default class EndingScene extends Group {
     this.webGl.controls.target.set(0, 0, 0)
 
     // Listener
+    this.listener = new Listener()
 
     // Bee
     this.bee.model.position.set(40, 40, 300)
@@ -67,7 +69,7 @@ export default class EndingScene extends Group {
       })
 
       gsap.fromTo(this.credits, {
-        y: window.innerHeight,
+        y: window.innerHeight * 1.3,
       }, {
         duration: 45,
         y: window.innerHeight - 2200,
@@ -86,6 +88,10 @@ export default class EndingScene extends Group {
   update() {
     if (this.bee) {
       this.bee.update()
+    }
+
+    if (this.listener) {
+      this.webGl.controls.target.set(- this.listener.property.cursor.x * 1.5, this.listener.property.cursor.y * 1.5, 0)
     }
 
   }

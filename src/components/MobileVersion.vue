@@ -1,7 +1,7 @@
 <template>
   <div class="mobileVersion">
     <img class="logo" src="@/assets/images/computer.png" alt="white computer">
-    <p>Veuillez nous excusez <br/><b>More than honey</b> n'est disponible que<br/> depuis un ordinateur</p>
+    <p>Veuillez nous excuser <br/><b>More than honey</b> n'est disponible que<br/> depuis un ordinateur</p>
   </div>
 </template>
 
