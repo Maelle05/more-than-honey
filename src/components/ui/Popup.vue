@@ -5,16 +5,15 @@
     <button class="popup__button" @click="actionOnClick">
       {{ labelButton }}
     </button>
-    <PrimaryButton v-if="path !== ''" label="Passer à la suite" :to="path"/>
+    <button v-if="path !== ''" class="popup__nextButton">
+      <router-link class="u-uppercase" :to="path">Passer à la suite</router-link>
+    </button>
   </div>
 </template>
 
 <script>
-import PrimaryButton from '@/components/ui/PrimaryButton'
-
 export default {
   name: 'Popup',
-  components: {PrimaryButton},
   props: {
     title: {
       required: false,
@@ -64,18 +63,36 @@ export default {
     font-size: 14px;
   }
 
+  &__nextButton {
+    a {
+      color: $blueGreen;
+      font-size: 20px;
+    }
+    all: unset;
+    padding: 8px 24px;
+    font-family: 'RoadRage', sans-serif;
+  }
+
   &__button {
     all: unset;
     display: block;
     font-family: 'RoadRage', sans-serif;
     text-transform: uppercase;
-    font-size: 16px;
-    color: $white;
-    background-color: $blueGreen;
+    font-size: 20px;
+    color: $blueGreen;
+    border: 2px solid $blueGreen;
+    background: transparent;
     border-radius: 4px;
-    padding: 11px 16px;
+    padding: 4px 20px;
     margin-top: 32px;
     cursor: pointer;
+    z-index: 10; // to fix lottie issue
+    transition: 0.3s;
+
+    &:hover {
+      background: $blueGreen;
+      color: $white;
+    }
   }
 }
 </style>

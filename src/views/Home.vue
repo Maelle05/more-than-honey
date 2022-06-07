@@ -5,18 +5,19 @@
       <img class="logo" src="@/assets/images/logo.svg" alt="white logo of the project 'more than honey'">
       <p class="u-uppercase">Le pouvoir des abeilles</p>
     </div>
-    <Button to="/honeyIntro" label="Commencer l'expérience" is-home-page="true"/>
+
+    <PrimaryButton to="/honeyIntro" label="Commencer l'expérience" is-home-page="true"/>
   </div>
 </template>
 
 <script>
-import Button from '@/components/ui/PrimaryButton'
+import PrimaryButton from '@/components/ui/PrimaryButton'
 import WebGl from '@/webgl/webglManager'
 
 export default {
   name: 'Home',
   components: {
-    Button
+    PrimaryButton
   },
   mounted() {
     const manager =  new WebGl()

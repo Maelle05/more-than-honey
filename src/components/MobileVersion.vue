@@ -1,7 +1,7 @@
 <template>
   <div class="mobileVersion">
-    <img class="logo" src="@/assets/images/logo.svg" alt="white logo of the project 'more than honey'">
-    <p>Désolé, cette expérience n'est disponible que depuis un ordinateur :)</p>
+    <img class="logo" src="@/assets/images/computer.png" alt="white computer">
+    <p>Veuillez nous excusez <br/><b>More than honey</b> n'est disponible que<br/> depuis un ordinateur</p>
   </div>
 </template>
 
@@ -19,13 +19,14 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 0 10%;
   text-align: center;
   height: 100vh;
+  width: 100vw;
+  font-size: 20px;
 
   .logo {
-    height: 100px;
-    margin-bottom: 50px;
+    height: 120px;
+    margin-bottom: 24px;
   }
 
 }

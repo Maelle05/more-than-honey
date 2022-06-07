@@ -18,7 +18,6 @@
         <lottie-player autoplay background="transparent" loop mode="normal" src="/lottie/pollenGame/LongPress.json"
                        style="width: 180px"></lottie-player>
       </div>
-
     </Popup>
 
     <Popup class="popupPollen u-hidden" ref="popUpOutro" label-button="Envie de rejouer ?" path="/outsideTwo"
