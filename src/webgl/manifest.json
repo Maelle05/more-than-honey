@@ -184,6 +184,14 @@
     "path": "/voices/sounds/Impact.mp3"
   },
   {
+    "name": "achievementSound",
+    "type": "sound",
+    "volume": 0.1,
+    "loop": false,
+    "actingScenes": "pollenGameScene",
+    "path": "/voices/sounds/Achievement.mp3"
+  },
+  {
     "name": "ChapOneOneSound",
     "type": "sound",
     "volume": 0.6,

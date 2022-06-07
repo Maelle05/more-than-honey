@@ -94,6 +94,7 @@ export default class PollenGameScene extends Group {
     this.ChapTwoOneTwoSound = this.resources.items.ChapTwoOneTwoSound
     this.ChapTwoOneThreeSound = this.resources.items.ChapTwoOneThreeSound
     this.impact = this.resources.items.ImactSound
+    this.achievement = this.resources.items.achievementSound
     this.isFlowerSongPlay = false
 
     // Random position for all daisy
@@ -313,6 +314,7 @@ export default class PollenGameScene extends Group {
               this.loaderPollen.flowers.forEach((flower, index)=>{
                 index <= 11 ? flower.style.opacity = 1 : flower.style.opacity = 0.2
               })
+              
               // Init Sounds
               if (!this.isFlowerSongPlay) {
                 this.isFlowerSongPlay = true
@@ -320,10 +322,13 @@ export default class PollenGameScene extends Group {
                 this.ChapTwoOneTwoSound.sound.play()
                 this.resources.on('soundChapTwoOneTwoSoundFinished', ()=>{
                   setTimeout(()=>{
-                    this.ChapTwoOneThreeSound.sound.fade(0, 0.6, .3)
+                    this.ChapTwoOneThreeSound.sound.fade(0, this.ChapTwoOneThreeSound.volume, .3)
                     this.ChapTwoOneThreeSound.sound.play()
                   }, 5000)
                 })
+              } else {
+                this.achievement.sound.fade(0, this.achievement.volume, .3)
+                this.achievement.sound.play()
               }
               
             }
