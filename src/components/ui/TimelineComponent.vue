@@ -2,7 +2,8 @@
   <div class="timeline">
     <div class="timeline__bg"></div>
     <div class="timeline__sound">
-      <img src="/images/timeline/sound.svg" alt="icon to cut or add sound to the experience">
+      <img src="/images/timeline/sound.svg" ref="on" class="on" alt="icon to cut or add sound to the experience" @click="soundOff()">
+      <img src="/images/timeline/soundOff.svg" ref="off" class="off hidden" alt="icon to cut or add sound to the experience" @click="soundOn()">
     </div>
 
     <ul class="timeline__wrapper">
@@ -21,6 +22,7 @@
 <script lang="js">
 import TimelineContent from '../../../public/data/timelineContent.json'
 import WebGl from '@/webgl/webglManager'
+import Resources from '../../webgl/utils/Resources'
 
 export default {
   name: 'TimelineComponent',
@@ -28,7 +30,38 @@ export default {
     return {
       paths: TimelineContent
     }
-  }
+  },
+  mounted() {
+    this.resources = new Resources()
+  },
+  methods: {
+    soundOff(){
+      this.$store.dispatch('songOff')
+      this.$refs.on.classList.add('hidden')
+      this.$refs.off.classList.remove('hidden')
+      console.log(this.$store.state.isSongOn)
+
+      const resourcesKeys = Object.keys(this.resources.items)
+      for (let i = 0; i < resourcesKeys.length; i++) {
+        if (this.resources.items[resourcesKeys[i]].sound) {
+          this.resources.items[resourcesKeys[i]].sound.fade(this.resources.items[resourcesKeys[i]].sound._volume, 0, .3)
+        }
+      }
+    },
+    soundOn(){
+      this.$store.dispatch('songOn')
+      this.$refs.on.classList.remove('hidden')
+      this.$refs.off.classList.add('hidden')
+      console.log(this.$store.state.isSongOn)
+
+      const resourcesKeys = Object.keys(this.resources.items)
+      for (let i = 0; i < resourcesKeys.length; i++) {
+        if (this.resources.items[resourcesKeys[i]].sound) {
+          this.resources.items[resourcesKeys[i]].sound.fade(0, this.resources.items[resourcesKeys[i]].volume, .3)
+        }
+      }
+    }
+  },
 }
 
 </script>
@@ -66,6 +99,12 @@ export default {
     justify-content: center;
     padding-bottom: 20px;
     cursor: pointer;
+    z-index: 1;
+
+    .hidden{
+      display: none;
+      pointer-events: none;
+    }
   }
 
   &__wrapper {

@@ -28,8 +28,6 @@ export default class Butterflie {
     }, Math.random() * 10000)
     
 
-    console.log(this.annim)
-
     // GET is Target points
     this.targetStep = 0
     this.targetPoints = []
