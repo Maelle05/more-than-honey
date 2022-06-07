@@ -2,8 +2,8 @@
   <div class="timeline">
     <div class="timeline__bg"></div>
     <div class="timeline__sound">
-      <img src="/images/timeline/sound.svg" ref="on" class="on" alt="icon to cut or add sound to the experience" @click="soundOff()">
-      <img src="/images/timeline/soundOff.svg" ref="off" class="off hidden" alt="icon to cut or add sound to the experience" @click="soundOn()">
+      <img src="/images/timeline/sound.svg" ref="on" :class="$store.state.isSongOn ? '' : 'hidden'" alt="icon to cut or add sound to the experience" @click="soundOff()">
+      <img src="/images/timeline/soundOff.svg" ref="off" :class="$store.state.isSongOn ? 'hidden' : ''" alt="icon to cut or add sound to the experience" @click="soundOn()">
     </div>
 
     <ul class="timeline__wrapper">
@@ -39,7 +39,6 @@ export default {
       this.$store.dispatch('songOff')
       this.$refs.on.classList.add('hidden')
       this.$refs.off.classList.remove('hidden')
-      console.log(this.$store.state.isSongOn)
 
       const resourcesKeys = Object.keys(this.resources.items)
       for (let i = 0; i < resourcesKeys.length; i++) {
@@ -52,7 +51,6 @@ export default {
       this.$store.dispatch('songOn')
       this.$refs.on.classList.remove('hidden')
       this.$refs.off.classList.add('hidden')
-      console.log(this.$store.state.isSongOn)
 
       const resourcesKeys = Object.keys(this.resources.items)
       for (let i = 0; i < resourcesKeys.length; i++) {

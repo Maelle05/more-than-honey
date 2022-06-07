@@ -33,7 +33,7 @@ import {
   addStones,
   addTrees
 } from '@/webgl/elementsLoop/AddElements'
-import {customEaseOpacity} from '@/webgl/utils/CustomEase'
+import store from '../../store/index'
 
 let OutsideTwoInstance = null
 
@@ -196,7 +196,7 @@ export default class OutsideTwoScene extends Group
 
     // Init Sounds
     setTimeout(() => {
-      this.backgroundMusic.sound.fade(0, this.backgroundMusic.volume, .3)
+      this.backgroundMusic.sound.fade(0, store.state.isSongOn ? this.backgroundMusic.volume : 0, .3)
       this.backgroundMusic.sound.play()
 
       setTimeout(()=>{
@@ -206,7 +206,7 @@ export default class OutsideTwoScene extends Group
           y: 70,
           ease: "none",
         })
-        this.voice.sound.fade(0, this.voice.volume, .3)
+        this.voice.sound.fade(0, store.state.isSongOn ? this.voice.volume : 0, .3)
         this.voice.sound.play()
         this.resources.on('soundChapTwoTwoSoundFinished', ()=>{
           this.cursorComponent.endScene()

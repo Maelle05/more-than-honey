@@ -36,6 +36,7 @@ import {
 } from '@/webgl/elementsLoop/AddElements'
 import Pheromone from '@/webgl/entities/Pheromone'
 import gsap from 'gsap'
+import store from '../../store/index'
 
 let OutsideOneInstance = null
 
@@ -235,7 +236,7 @@ export default class OutsideOneScene extends Group
       if (voiceInitStart === false) {
         voiceInitStart = true
         setTimeout(() => {
-          this.voice.sound.fade(0, this.voice.volume, .3)
+          this.voice.sound.fade(0, store.state.isSongOn ? this.voice.volume : 0, .3)
           this.voice.sound.play()
           // move cursor above the timeline
           gsap.to(this.activeItem, {
@@ -250,7 +251,7 @@ export default class OutsideOneScene extends Group
       }
       if (voiceReineStart === false && result > 0.97 && voiceReineCanStart) {
         voiceReineStart = true
-        this.voiceReine.sound.fade(0, this.voiceReine.volume, .3)
+        this.voiceReine.sound.fade(0, store.state.isSongOn ? this.voiceReine.volume : 0, .3)
         this.voiceReine.sound.play()
       }
       if (result > 0.03 && result < 0.98) {
@@ -264,7 +265,7 @@ export default class OutsideOneScene extends Group
 
     // Init Sounds
     setTimeout(() => {
-      this.backgroundMusic.sound.fade(0, this.backgroundMusic.volume, .3)
+      this.backgroundMusic.sound.fade(0, store.state.isSongOn ? this.backgroundMusic.volume : 0, .3)
       this.backgroundMusic.sound.play()
     }, 50)
     

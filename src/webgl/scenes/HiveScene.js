@@ -3,9 +3,9 @@ import WebGl from '../webglManager'
 import Bee from "@/webgl/entities/BlueBee"
 import {clone as skeletonClone} from 'three/examples/jsm/utils/SkeletonUtils'
 import Listener from '../utils/Listener'
-import beePositions from '../elementsLocations/hive/beePosition.json'
 import {AnimationMixer} from 'three'
 import gsap from 'gsap'
+import store from '../../store/index'
 
 let hiveInstance = null
 
@@ -163,14 +163,14 @@ export default class HiveScene extends Group {
     })
 
     // Init Sounds
-    this.voiceOne.sound.fade(0, this.voiceOne.volume, .3)
+    this.voiceOne.sound.fade(0, store.state.isSongOn ? this.voiceOne.volume : 0, .3)
     this.voiceOne.sound.play()
 
     this.resources.on(`soundChapOneOneSoundFinished`, ()=>{
-      this.voiceTwo.sound.fade(0, this.voiceTwo.volume, .3)
+      this.voiceTwo.sound.fade(0, store.state.isSongOn ? this.voiceTwo.volume : 0, .3)
       this.voiceTwo.sound.play()
       this.resources.on(`soundChapOneOneOneSoundFinished`, ()=>{
-        this.voiceEnd.sound.fade(0, this.voiceEnd.volume, .3)
+        this.voiceEnd.sound.fade(0, store.state.isSongOn ? this.voiceEnd.volume : 0, .3)
         this.voiceEnd.sound.play()
         this.resources.on(`soundChapOneOneTwoSoundFinished`, ()=>{
           this.nextButton.classList.remove('u-hidden')
@@ -181,7 +181,7 @@ export default class HiveScene extends Group {
 
     // Init Sounds
     setTimeout(() => {
-      this.backgroundMusic.sound.fade(0, this.backgroundMusic.volume, .3)
+      this.backgroundMusic.sound.fade(0, store.state.isSongOn ? this.backgroundMusic.volume : 0, .3)
       this.backgroundMusic.sound.play()
     }, 50)
 

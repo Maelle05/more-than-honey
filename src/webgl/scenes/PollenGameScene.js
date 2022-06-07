@@ -12,6 +12,7 @@ import Grass from '../shaders/grass/PollenGameGrass'
 import { SphereGeometry } from 'three'
 import {customEase} from '@/webgl/utils/CustomEase'
 import Butterflie from '@/webgl/entities/ButterflieBot'
+import store from '../../store/index'
 
 let gameInstance = null
 
@@ -318,16 +319,16 @@ export default class PollenGameScene extends Group {
               // Init Sounds
               if (!this.isFlowerSongPlay) {
                 this.isFlowerSongPlay = true
-                this.ChapTwoOneTwoSound.sound.fade(0, this.ChapTwoOneTwoSound.volume, .3)
+                this.ChapTwoOneTwoSound.sound.fade(0, store.state.isSongOn ? this.ChapTwoOneTwoSound.volume : 0, .3)
                 this.ChapTwoOneTwoSound.sound.play()
                 this.resources.on('soundChapTwoOneTwoSoundFinished', ()=>{
                   setTimeout(()=>{
-                    this.ChapTwoOneThreeSound.sound.fade(0, this.ChapTwoOneThreeSound.volume, .3)
+                    this.ChapTwoOneThreeSound.sound.fade(0, store.state.isSongOn ? this.ChapTwoOneThreeSound.volume : 0, .3)
                     this.ChapTwoOneThreeSound.sound.play()
                   }, 5000)
                 })
               } else {
-                this.achievement.sound.fade(0, this.achievement.volume, .3)
+                this.achievement.sound.fade(0, store.state.isSongOn ? this.achievement.volume : 0, .3)
                 this.achievement.sound.play()
               }
               
@@ -391,11 +392,11 @@ export default class PollenGameScene extends Group {
 
     // Init Sounds
     setTimeout(() => {
-      this.backgroundMusic.sound.fade(0, this.backgroundMusic.volume, .3)
+      this.backgroundMusic.sound.fade(0, store.state.isSongOn ? this.backgroundMusic.volume : 0, .3)
       this.backgroundMusic.sound.play()
     }, 50)
     setTimeout(()=>{
-      this.voiceIntro.sound.fade(0, this.voiceIntro.volume, .3)
+      this.voiceIntro.sound.fade(0, store.state.isSongOn ? this.voiceIntro.volume : 0, .3)
       this.voiceIntro.sound.play()
     }, 1000)
 
@@ -503,7 +504,7 @@ export default class PollenGameScene extends Group {
   loseForaged(i) {
 
     // Init Sounds
-    this.impact.sound.fade(0, this.impact.volume, .3)
+    this.impact.sound.fade(0, store.state.isSongOn ? this.impact.volume : 0, .3)
     this.impact.sound.play()
 
     // if you have foraged remove one daisy

@@ -214,10 +214,10 @@ export default class RaceGameScene extends Group {
     this.webGl.controls.target.set(10, 0, 0)
 
     // Sound
-    this.backgroundMusic.sound.fade(0, this.backgroundMusic.volume, .3)
+    this.backgroundMusic.sound.fade(0, store.state.isSongOn ? this.backgroundMusic.volume : 0, .3)
     this.backgroundMusic.sound.play()
 
-    this.voiceIntro.sound.fade(0, this.voiceIntro.volume, .3)
+    this.voiceIntro.sound.fade(0, store.state.isSongOn ? this.voiceIntro.volume : 0, .3)
     this.voiceIntro.sound.play()
 
     // Hornet init position
@@ -344,7 +344,7 @@ export default class RaceGameScene extends Group {
     })
 
     // Play sound when impact
-    this.impactSound.sound.fade(0, this.impactSound.volume, .3)
+    this.impactSound.sound.fade(0, store.state.isSongOn ? this.impactSound.volume : 0, .3)
 
     this.lottie.classList.remove('u-hidden')
 
