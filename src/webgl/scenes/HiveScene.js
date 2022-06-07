@@ -146,23 +146,6 @@ export default class HiveScene extends Group {
       this.add(bee)
     }
 
-
-    // add other bee
-    for (let i = 0; i < beePositions.length; i++) {
-      // Skeleton clone instead of usual clone because of rig in model
-      const bee = skeletonClone(this.bee.model)
-      // animation on bee
-      const mixer = new AnimationMixer(bee)
-      mixer.clipAction(this.bee.resource.animations[0]).play()
-
-      bee.scale.set(0.10, 0.10, 0.10)
-      bee.position.set(beePositions[i].px, beePositions[i].py, beePositions[i].pz)
-      bee.rotation.y = Math.PI
-      this.mixers.push(mixer)
-
-      // this.add(bee)
-    }
-
     // Listener
     this.listener = new Listener()
 

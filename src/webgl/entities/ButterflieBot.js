@@ -1,19 +1,34 @@
 import {BoxGeometry, Mesh, MeshBasicMaterial} from 'three'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
+import {clone as skeletonClone} from 'three/examples/jsm/utils/SkeletonUtils'
 import gsap from 'gsap'
+import Resources from '../utils/Resources'
+import { AnimationMixer } from 'three'
+import Time from '../utils/Time'
 
 export default class Butterflie {
   constructor(group, posDaisy, id){
     this.scene = group
     this.posDaisy = posDaisy
 
+    this.resources = new Resources()
+    this.time = new Time()
+
     // Model
-    this.geometry = new BoxGeometry( 1, 1, 1 )
-    this.material = new MeshBasicMaterial( {color: 0x00ff00} )
-    this.mesh = new Mesh( this.geometry, this.material )
-    const size = randomIntFromInterval(0.2, 0.4, 0.05)
+    this.annim = this.resources.items.butterflyModel.animations[0]
+
+    this.mesh = skeletonClone(this.resources.items.butterflyModel.scene)
+    const size = randomIntFromInterval(0.9, 1.1, 0.05)
     this.mesh.scale.set(size, size, size)
     this.mesh.name = 'BOT' + id
+
+    this.mixer = new AnimationMixer(this.mesh)
+    setTimeout(() => {
+      this.mixer.clipAction(this.annim).play()
+    }, Math.random() * 10000)
+    
+
+    console.log(this.annim)
 
     // GET is Target points
     this.targetStep = 0
@@ -47,7 +62,13 @@ export default class Butterflie {
       setTimeout(()=>{
         this.goToTarget()
       }, 2000)
-
     })
+    this.mesh.lookAt( this.posDaisy[this.targetPoints[this.targetStep]].x, 1, this.posDaisy[this.targetPoints[this.targetStep]].z )
+  }
+
+  update(){
+    if (this.mixer) {
+      this.mixer.update(this.time.delta * 0.002)
+    }
   }
 }

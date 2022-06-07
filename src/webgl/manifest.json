@@ -6,6 +6,12 @@
     "path": "webgl/models/Bee/bee.glb"
   },
   {
+    "name": "butterflyModel",
+    "type": "gltfModel",
+    "actingScenes": "pollenGameScene",
+    "path": "webgl/models/Butterfly/butterfly.glb"
+  },
+  {
     "name": "queenModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene raceGameScene",
@@ -176,6 +182,14 @@
     "loop": false,
     "actingScenes": "pollenGameScene raceGameScene",
     "path": "/voices/sounds/Impact.mp3"
+  },
+  {
+    "name": "achievementSound",
+    "type": "sound",
+    "volume": 0.1,
+    "loop": false,
+    "actingScenes": "pollenGameScene",
+    "path": "/voices/sounds/Achievement.mp3"
   },
   {
     "name": "ChapOneOneSound",

@@ -94,6 +94,7 @@ export default class PollenGameScene extends Group {
     this.ChapTwoOneTwoSound = this.resources.items.ChapTwoOneTwoSound
     this.ChapTwoOneThreeSound = this.resources.items.ChapTwoOneThreeSound
     this.impact = this.resources.items.ImactSound
+    this.achievement = this.resources.items.achievementSound
     this.isFlowerSongPlay = false
 
     // Random position for all daisy
@@ -201,7 +202,7 @@ export default class PollenGameScene extends Group {
         0.7,
         i > nbLys/4 ? randomIntFromInterval(-2, -15, 0.5) : randomIntFromInterval(3, 10, 0.5)
       )
-      cloneLys.scale.set(0.07, 0.07, 0.07)
+      cloneLys.scale.set(0.05, 0.05, 0.05)
       cloneLys.rotation.y = randomIntFromInterval(0, 1, 0.02)
       this.add(cloneLys)
     }
@@ -313,6 +314,7 @@ export default class PollenGameScene extends Group {
               this.loaderPollen.flowers.forEach((flower, index)=>{
                 index <= 11 ? flower.style.opacity = 1 : flower.style.opacity = 0.2
               })
+              
               // Init Sounds
               if (!this.isFlowerSongPlay) {
                 this.isFlowerSongPlay = true
@@ -320,10 +322,13 @@ export default class PollenGameScene extends Group {
                 this.ChapTwoOneTwoSound.sound.play()
                 this.resources.on('soundChapTwoOneTwoSoundFinished', ()=>{
                   setTimeout(()=>{
-                    this.ChapTwoOneThreeSound.sound.fade(0, 0.6, .3)
+                    this.ChapTwoOneThreeSound.sound.fade(0, this.ChapTwoOneThreeSound.volume, .3)
                     this.ChapTwoOneThreeSound.sound.play()
                   }, 5000)
                 })
+              } else {
+                this.achievement.sound.fade(0, this.achievement.volume, .3)
+                this.achievement.sound.play()
               }
               
             }
@@ -345,14 +350,16 @@ export default class PollenGameScene extends Group {
     if(this.butterflies){
       for (let i = 0; i < this.butterflies.length; i++) {
         // Check if bee touch butterflie
-        if (this.bee.model.position.x > (Math.round(this.butterflies[i].mesh.position.x * 10) / 10) - this.butterflies[i].mesh.scale.x
-        && this.bee.model.position.x < (Math.round(this.butterflies[i].mesh.position.x * 10) / 10) + this.butterflies[i].mesh.scale.x
-        && this.bee.model.position.z > (Math.round(this.butterflies[i].mesh.position.z * 10) / 10) - 0
-        && this.bee.model.position.z < (Math.round(this.butterflies[i].mesh.position.z * 10) / 10) + this.butterflies[i].mesh.scale.x) {
+        if (this.bee.model.position.x > (Math.round(this.butterflies[i].mesh.position.x * 10) / 10) - this.butterflies[i].mesh.scale.x/2
+        && this.bee.model.position.x < (Math.round(this.butterflies[i].mesh.position.x * 10) / 10) + this.butterflies[i].mesh.scale.x/2
+        && this.bee.model.position.z > (Math.round(this.butterflies[i].mesh.position.z * 10) / 10) - this.butterflies[i].mesh.scale.y/2
+        && this.bee.model.position.z < (Math.round(this.butterflies[i].mesh.position.z * 10) / 10) + this.butterflies[i].mesh.scale.y/2) {
           if (this.gameProperty.lastIntersectBB != this.butterflies[i].mesh.name) {
             this.loseForaged(i)
           }
         }
+
+        this.butterflies[i].update()
       }
     }
 
