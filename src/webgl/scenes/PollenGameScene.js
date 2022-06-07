@@ -345,14 +345,16 @@ export default class PollenGameScene extends Group {
     if(this.butterflies){
       for (let i = 0; i < this.butterflies.length; i++) {
         // Check if bee touch butterflie
-        if (this.bee.model.position.x > (Math.round(this.butterflies[i].mesh.position.x * 10) / 10) - this.butterflies[i].mesh.scale.x
-        && this.bee.model.position.x < (Math.round(this.butterflies[i].mesh.position.x * 10) / 10) + this.butterflies[i].mesh.scale.x
-        && this.bee.model.position.z > (Math.round(this.butterflies[i].mesh.position.z * 10) / 10) - 0
-        && this.bee.model.position.z < (Math.round(this.butterflies[i].mesh.position.z * 10) / 10) + this.butterflies[i].mesh.scale.x) {
+        if (this.bee.model.position.x > (Math.round(this.butterflies[i].mesh.position.x * 10) / 10) - this.butterflies[i].mesh.scale.x/2
+        && this.bee.model.position.x < (Math.round(this.butterflies[i].mesh.position.x * 10) / 10) + this.butterflies[i].mesh.scale.x/2
+        && this.bee.model.position.z > (Math.round(this.butterflies[i].mesh.position.z * 10) / 10) - this.butterflies[i].mesh.scale.y/2
+        && this.bee.model.position.z < (Math.round(this.butterflies[i].mesh.position.z * 10) / 10) + this.butterflies[i].mesh.scale.y/2) {
           if (this.gameProperty.lastIntersectBB != this.butterflies[i].mesh.name) {
             this.loseForaged(i)
           }
         }
+
+        this.butterflies[i].update()
       }
     }
 

@@ -6,6 +6,12 @@
     "path": "webgl/models/Bee/bee.glb"
   },
   {
+    "name": "butterflyModel",
+    "type": "gltfModel",
+    "actingScenes": "pollenGameScene",
+    "path": "webgl/models/Butterfly/butterfly.glb"
+  },
+  {
     "name": "queenModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene raceGameScene",
