@@ -1,5 +1,8 @@
 <template>
-  <div class="button" :class="{'center': isHomePage}">
+  <div class="button" :class="{
+    'center': isHomePage,
+    'right': !isHomePage
+  }">
     <router-link :to=to>{{label}}</router-link>
   </div>
 </template>
@@ -26,27 +29,39 @@ export default {
 
 <style scoped lang="scss">
 .button {
+  z-index: 50;
+  background: #1A1A1A40;
+  border: 2px solid $white;
+  border-radius: 8px;
+  transition: 0.3s;
+  display: inline-block;
+
   a {
-    color: $blueGreen;
-    text-transform: uppercase;
-    font-size: 16px;
+    font-size: 24px;
     display: block;
-    padding: 15px 24px;
+    padding: 8px 24px;
     font-weight: 500;
     font-family: 'RoadRage', sans-serif;
+    color: $white;
   }
+
   &:hover {
-    //background: $hoverGrey;
+    a {
+      color: $blueGreen;
+    }
+    background: $white;
   }
+}
+
+.right {
+  position: fixed;
+  right: 104px;
+  bottom: 40px;
 }
 
 .center {
   position: fixed;
-  background: $white;
-  border-radius: 8px;
-  transition: 0.5s;
-  font-size: 16px;
-  bottom: 11vh;
+  bottom: 15vh;
   right: 50%;
   transform: translateX(50%);
 }

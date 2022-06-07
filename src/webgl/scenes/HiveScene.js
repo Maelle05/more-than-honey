@@ -43,6 +43,10 @@ export default class HiveScene extends Group {
     this.cursor = cursor
   }
 
+  setNextButton(button) {
+    this.nextButton = button
+  }
+
   getActiveTimelineItem(activeItem) {
     this.activeItem = activeItem.querySelector('.timeline__wrapper a.active .cursor')
   }
@@ -186,6 +190,7 @@ export default class HiveScene extends Group {
         this.voiceEnd.sound.fade(0, this.voiceEnd.volume, .3)
         this.voiceEnd.sound.play()
         this.resources.on(`soundChapOneOneTwoSoundFinished`, ()=>{
+          this.nextButton.classList.remove('u-hidden')
           console.log('Scene fini aller à la suite')
         })
       })

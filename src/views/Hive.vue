@@ -3,6 +3,7 @@
     <div class="customCursor" ref="cursor"/> 
     <div class="customCursorBorder" ref="cursorBorder"/>
     <TimelineComponent ref="timeline"/>
+    <PrimaryButton ref="nextButton" class="u-hidden" to="/outsideOne" label="Passer à la suite"/>
     <Tuto path="/lottie/UI/hover.json" listener="mouseMove"/>
     <div class="hive__point" v-for="(bee, i) in bees" :key="i" ref="points">
       <div class="pointer"/>
@@ -21,10 +22,12 @@ import HiveScene from '@/webgl/scenes/HiveScene'
 import TimelineComponent from '@/components/ui/TimelineComponent'
 import JsonBeesContent from '../../public/data/hiveContent.json'
 import Tuto from '@/components/ui/Tuto'
+import PrimaryButton from '@/components/ui/PrimaryButton'
 
 export default {
   name: 'Hive',
   components: {
+    PrimaryButton,
     TimelineComponent,
     Tuto
   },
@@ -41,6 +44,7 @@ export default {
     const scene = new HiveScene()
     scene.setUpPointsFromDOM(this.$refs.points)
     scene.setUpCursor(cursorBorder)
+    scene.setNextButton(this.$refs.nextButton.$el)
     scene.getActiveTimelineItem(this.$refs.timeline.$el)
 
     document.addEventListener('mousemove', (e) => {
@@ -168,11 +172,11 @@ export default {
       }
 
       .content {
-        font-size: 12px;
+        font-size: 14px;
       }
 
       .label {
-        font-size: 12px;
+        font-size: 14px;
         color: $blueGreen;
         padding-bottom: 20px;
       }
