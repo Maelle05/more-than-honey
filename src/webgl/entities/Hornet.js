@@ -39,12 +39,12 @@ export default class Hornet {
     this.animation.actions.hover = this.animation.mixer.clipAction(this.resource.animations[1])
     this.animation.actions.takeOff = this.animation.mixer.clipAction(this.resource.animations[2])
 
-    this.animation.actions.current = this.animation.actions.idle
+    this.animation.actions.current = this.animation.actions.hover
     this.animation.actions.current.play()
 
   }
 
   update() {
-    this.animation.mixer.update(this.time.delta * 0.002)
+    this.animation.mixer.update(this.time.delta * 0.001)
   }
 }

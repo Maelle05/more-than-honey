@@ -21,7 +21,7 @@
     "name": "hornetModel",
     "type": "gltfModel",
     "actingScenes": "outsideTwoScene raceGameScene",
-    "path": "webgl/models/Hornet/hornet.glb"
+    "path": "webgl/models/Hornet/hornet2.glb"
   },
   {
     "name": "lysModel",
