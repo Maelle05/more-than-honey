@@ -72,6 +72,12 @@
     "path": "webgl/models/Hive/hive.glb"
   },
   {
+    "name": "hiveExtModel",
+    "type": "gltfModel",
+    "actingScenes": "outsideOneScene",
+    "path": "webgl/models/Hive/hive_ext.glb"
+  },
+  {
     "name": "particlesTexture",
     "type": "texture",
     "actingScenes": "outsideOneScene outsideTwoScene",

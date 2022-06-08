@@ -16,6 +16,7 @@ import stoneLocation from '../elementsLocations/outsideOne/stone.json'
 import daisyLocation from '../elementsLocations/outsideOne/daisy.json'
 import lysLocation from '../elementsLocations/outsideOne/lys.json'
 import treeLocation from '../elementsLocations/outsideOne/tree.json'
+import hiveLocation from '../elementsLocations/outsideOne/hive.json'
 import nenupharLocation from '../elementsLocations/outsideOne/nenuphar.json'
 import mushroomLocation from '../elementsLocations/outsideOne/mushrooms.json'
 import bridgeLocation from '../elementsLocations/outsideOne/bridge.json'
@@ -37,6 +38,7 @@ import {
 import Pheromone from '@/webgl/entities/Pheromone'
 import gsap from 'gsap'
 import store from '../../store/index'
+import {convertPosition} from '@/webgl/utils/ConvertPosition'
 
 let OutsideOneInstance = null
 
@@ -112,7 +114,9 @@ export default class OutsideOneScene extends Group
     this.queen = new Queen()
     this.particles = new Particules()
     this.grass = new Grass()
+    this.extHive = this.resources.items.hiveExtModel.scene
 
+    // Listener
     this.listener = new Listener()
 
     // Sound
@@ -211,6 +215,10 @@ export default class OutsideOneScene extends Group
     addNenuphar(nenupharLocation, this, this.resources.items.nenupharModel.scene)
     addBridge(bridgeLocation, this, this.resources.items.bridgeModel.scene)
 
+    this.extHive.position.set(convertPosition(0, hiveLocation).x, 7.2, convertPosition(0, hiveLocation).z)
+    this.extHive.scale.set(0.65, 0.9, 0.65)
+    this.add(this.extHive)
+
     // Add particles
     this.particles.position.x -= 1
     this.add(this.particles)
@@ -238,6 +246,7 @@ export default class OutsideOneScene extends Group
         setTimeout(() => {
           this.voice.sound.fade(0, store.state.isSongOn ? this.voice.volume : 0, .3)
           this.voice.sound.play()
+
           // move cursor above the timeline
           gsap.to(this.activeItem, {
             duration: 75,

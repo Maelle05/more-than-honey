@@ -47,7 +47,7 @@ export const addTrees = (location, group, resource, isScene) => {
 export const addMushrooms = (location, group, resource) => {
   for (let i = 0; i < location.length; i++) {
     const cloneMushroom = resource.clone()
-    const mushroomSize = randomIntFromInterval(0.4,1, 0.01)
+    const mushroomSize = randomIntFromInterval(0.2,0.9, 0.01)
     cloneMushroom.scale.set(mushroomSize, mushroomSize, mushroomSize)
     cloneMushroom.position.set(convertPosition(i, location).x, -3.2, convertPosition(i, location).z)
     cloneMushroom.rotation.set(0, Math.random() * 25, 0)
