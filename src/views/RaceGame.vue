@@ -112,6 +112,7 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
+  user-select: none;
 
   &__lifeBar {
     position: absolute;
