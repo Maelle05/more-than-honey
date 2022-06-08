@@ -46,6 +46,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  user-select: none;
   flex-direction: column;
   opacity: 1;
   visibility: visible;

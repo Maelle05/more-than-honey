@@ -55,6 +55,7 @@ export default {
 
 .credits {
   width: 100vw;
+  user-select: none;
   display: flex;
   justify-content: center;
   align-items: center;
