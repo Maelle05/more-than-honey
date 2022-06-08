@@ -7,7 +7,7 @@ export class SlideSubtitle {
     this.numSentences = 0
     this.duration = 0
     this.step = 0
-    this.containerSubtitle = document.querySelector<HTMLInputElement>('.subtitles--wrapper')
+    this.containerSubtitle = document.querySelector('.subtitles--wrapper')
     this.textSubtitle = document.createElement('p')
     this.play = true
   }

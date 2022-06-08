@@ -20,6 +20,7 @@ import treeLocation from '../elementsLocations/outsideTwo/tree.json'
 import nenupharLocation from '../elementsLocations/outsideTwo/nenuphar.json'
 import mushroomLocation from '../elementsLocations/outsideTwo/mushrooms.json'
 import bridgeLocation from '../elementsLocations/outsideTwo/bridge.json'
+import hornetLocation from '../elementsLocations/outsideTwo/hornet.json'
 import beePath from '../elementsLocations/outsideTwo/beePath.json'
 import Listener from '../utils/Listener'
 import {MathUtils} from 'three'
@@ -35,6 +36,8 @@ import {
   addTrees
 } from '@/webgl/elementsLoop/AddElements'
 import store from '../../store/index'
+import Hornet from '@/webgl/entities/Hornet'
+import {convertPosition} from '@/webgl/utils/ConvertPosition'
 
 let OutsideTwoInstance = null
 
@@ -104,6 +107,7 @@ export default class OutsideTwoScene extends Group {
 
   setup() {
     this.bee = new Bee()
+    this.hornet = new Hornet()
     this.particles = new Particules()
     this.grass = new Grass()
     this.tree = this.resources.items.treeModel.scene
@@ -148,7 +152,6 @@ export default class OutsideTwoScene extends Group {
     )
     // this.add( this.line )
 
-
     this.init()
   }
 
@@ -178,6 +181,11 @@ export default class OutsideTwoScene extends Group {
     addMushrooms(mushroomLocation, this, this.resources.items.mushroomModel.scene)
     addNenuphar(nenupharLocation, this, this.resources.items.nenupharModel.scene)
     addBridge(bridgeLocation, this, this.resources.items.bridgeModel.scene)
+
+    // Hornet
+    this.hornet.model.position.set(convertPosition(0, hornetLocation).x, 2, convertPosition(0, hornetLocation).z)
+    this.hornet.model.scale.set(0.07, 0.07, 0.07)
+    this.add(this.hornet.model)
 
     // Add particles
     this.particles.position.x -= 1
@@ -239,6 +247,10 @@ export default class OutsideTwoScene extends Group {
 
     if (this.bee) {
       this.bee.update()
+    }
+
+    if(this.hornet) {
+      this.hornet.update()
     }
 
     if (this.grass) {

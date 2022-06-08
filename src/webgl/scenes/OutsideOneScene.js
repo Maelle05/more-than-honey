@@ -16,6 +16,7 @@ import stoneLocation from '../elementsLocations/outsideOne/stone.json'
 import daisyLocation from '../elementsLocations/outsideOne/daisy.json'
 import lysLocation from '../elementsLocations/outsideOne/lys.json'
 import treeLocation from '../elementsLocations/outsideOne/tree.json'
+import hiveLocation from '../elementsLocations/outsideOne/hive.json'
 import nenupharLocation from '../elementsLocations/outsideOne/nenuphar.json'
 import mushroomLocation from '../elementsLocations/outsideOne/mushrooms.json'
 import bridgeLocation from '../elementsLocations/outsideOne/bridge.json'
@@ -37,6 +38,7 @@ import {
 import Pheromone from '@/webgl/entities/Pheromone'
 import gsap from 'gsap'
 import store from '../../store/index'
+import {convertPosition} from '@/webgl/utils/ConvertPosition'
 
 let OutsideOneInstance = null
 
@@ -112,7 +114,9 @@ export default class OutsideOneScene extends Group
     this.queen = new Queen()
     this.particles = new Particules()
     this.grass = new Grass()
+    this.extHive = this.resources.items.hiveExtModel.scene
 
+    // Listener
     this.listener = new Listener()
 
     // Sound
@@ -182,25 +186,21 @@ export default class OutsideOneScene extends Group
     // Set fog
     this.scene.fog.density = 0.015
 
-    // Add bee
+    // Bee
     this.beeMove = 0
     this.beePoss = this.curve.getPointAt(this.beeMove)
     this.beePoss2 = this.curve.getPointAt(this.beeMove + 0.01)
     this.bee.model.position.copy(this.beePoss)
     this.bee.model.lookAt(this.beePoss2)
     this.bee.model.scale.set(0.04, 0.04, 0.04)
-    this.add(this.bee.model)
 
-    // Add Queen
+    // Queen
     this.queen.model.rotation.set(0, Math.PI, 0)
     this.queen.model.scale.set(0.07, 0.07, 0.07)
     this.queen.model.position.copy(this.QueenCurve.getPointAt(0))
-    this.add(this.queen.model)
 
-    // Add grass
+    // Grass
     this.grass.position.set(0,0, this.property.map.height / this.property.map.ratio)
-    this.add(this.grass)
-
 
     // Add elements from map
     addLys(lysLocation, this, this.resources.items.lysModel.scene, true)
@@ -211,9 +211,15 @@ export default class OutsideOneScene extends Group
     addNenuphar(nenupharLocation, this, this.resources.items.nenupharModel.scene)
     addBridge(bridgeLocation, this, this.resources.items.bridgeModel.scene)
 
-    // Add particles
+    // Ext hive
+    this.extHive.position.set(convertPosition(0, hiveLocation).x, 7.1, convertPosition(0, hiveLocation).z)
+    this.extHive.rotation.y = Math.PI / 3
+    this.extHive.scale.set(0.95, 0.95, 0.65)
+
+    // Particles
     this.particles.position.x -= 1
-    this.add(this.particles)
+
+    this.add(this.particles, this.extHive, this.grass, this.queen.model, this.bee.model)
 
     // Add Pheromone
     const nbPheromone = 20
@@ -238,6 +244,7 @@ export default class OutsideOneScene extends Group
         setTimeout(() => {
           this.voice.sound.fade(0, store.state.isSongOn ? this.voice.volume : 0, .3)
           this.voice.sound.play()
+
           // move cursor above the timeline
           gsap.to(this.activeItem, {
             duration: 75,

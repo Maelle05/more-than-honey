@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" ref="container">
     <!-- <img class="home__background" src="@/assets/images/homeBackground.png" alt="background of the home page, trees and flower"> -->
     <div class="home__intro" ref="intro" >
       <img class="logo" src="@/assets/images/logo.svg" alt="white logo of the project 'more than honey'">
@@ -9,23 +9,29 @@
     <div class="button center" ref="button" @click="playCinematique">
       <p>Commencer l'expérience</p>
     </div>
+    <CursorNext to="/hive" ref="cursorNext"/>
+    <div class="subtitles--wrapper"></div>
   </div>
 </template>
 
 <script>
 import HomeScene from '@/webgl/scenes/HomeScene'
+import CursorNext from '@/components/ui/CursorNext'
 
 export default {
   name: 'Home',
   components: {
+    CursorNext
   },
   mounted() {
     this.scene = new HomeScene()
+    this.scene.initCursorComponent(this.$refs.cursorNext)
   },
   methods: {
     playCinematique(){
       this.scene.play(this.$refs)
       this.$refs.button.style.pointerEvents = 'none'
+      this.$refs.container.classList.add('u-cursor-hidden')
     }
   }
 }
@@ -89,6 +95,19 @@ export default {
     bottom: 15vh;
     right: 50%;
     transform: translateX(50%);
+  }
+
+  .subtitles--wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    p{
+      font-family: 'Lato', sans-serif;
+      font-size: 20px;
+    }
   }
 }
 </style>

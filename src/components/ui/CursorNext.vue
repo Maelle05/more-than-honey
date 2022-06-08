@@ -49,7 +49,7 @@ export default {
 
 <style scoped lang="scss">
 .cursorNext {
-  cursor: none !important;
+  //cursor: none !important;
   .customCursor {
     height: 6px;
     width: 6px;

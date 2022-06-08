@@ -20,8 +20,8 @@
   {
     "name": "hornetModel",
     "type": "gltfModel",
-    "actingScenes": "raceGameScene",
-    "path": "webgl/models/Hornet/hornet.glb"
+    "actingScenes": "outsideTwoScene raceGameScene",
+    "path": "webgl/models/Hornet/hornet2.glb"
   },
   {
     "name": "lysModel",
@@ -70,6 +70,12 @@
     "type": "gltfModel",
     "actingScenes": "endingScene hiveScene",
     "path": "webgl/models/Hive/hive.glb"
+  },
+  {
+    "name": "hiveExtModel",
+    "type": "gltfModel",
+    "actingScenes": "outsideOneScene homeScene",
+    "path": "webgl/models/Hive/hive_ext.glb"
   },
   {
     "name": "particlesTexture",

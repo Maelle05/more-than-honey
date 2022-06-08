@@ -6,7 +6,7 @@ import {
   addBridge,
   addLys,
   addNenuphar,
-  addTrees
+  addTrees,
 } from '@/webgl/elementsLoop/AddElements'
 import lysLocation from '../elementsLocations/cinematique/lys.json'
 import treeLocation from '../elementsLocations/cinematique/tree.json'
@@ -16,6 +16,7 @@ import mapSetting from '../elementsLocations/mapSetting.json'
 import Listener from '../utils/Listener'
 import gsap from 'gsap/all'
 import store from '../../store/index'
+import { SlideSubtitle } from '../../utils/audioSubtitles/subtitles'
 
 let Instance = null
 
@@ -58,6 +59,8 @@ export default class HomeScene extends Group
   }
 
   init(){
+    this.subtitles = new SlideSubtitle(0)
+
     // Listener
     this.listener = new Listener()
 
@@ -76,6 +79,10 @@ export default class HomeScene extends Group
     addTrees(treeLocation, this, this.resources.items.treeModel.scene, true)
     addNenuphar(nenupharLocation, this, this.resources.items.nenupharModel.scene)
     addBridge(bridgeLocation, this, this.resources.items.bridgeModel.scene)
+
+    // Hive
+    this.hive = this.resources.items.hiveExtModel.scene
+
 
     // Set Camera position
     this.camPos = {
@@ -129,8 +136,12 @@ export default class HomeScene extends Group
     //Song
     this.backgroundMusic.sound.fade(0, store.state.isSongOn ? this.backgroundMusic.volume : 0, .3)
     this.backgroundMusic.sound.play()
-    this.voiceOne.sound.fade(0, store.state.isSongOn ? this.voiceOne.volume : 0, .3)
-    this.voiceOne.sound.play()
+    setTimeout(()=>{
+      this.voiceOne.sound.fade(0, store.state.isSongOn ? this.voiceOne.volume : 0, .3)
+      this.voiceOne.sound.play()
+      this.subtitles.init()
+    }, 2000)
+    
     this.resources.on(`soundIntroHomeSoundFinished`, ()=>{
       setTimeout(()=>{
         this.voiceTow.sound.fade(0, store.state.isSongOn ? this.voiceTow.volume : 0, .3)
@@ -139,6 +150,7 @@ export default class HomeScene extends Group
 
       this.resources.on(`soundCinematiqueSoundFinished`, ()=>{
         // Cursor next scene
+        this.cursorComponent.endScene()
       })
     })
   }
@@ -157,6 +169,10 @@ export default class HomeScene extends Group
       this.webGl.camera.position.set( -5 + 0.5 * this.listener.property.cursor.y, 8 , 120 + 1.5 * this.listener.property.cursor.x)
     }
     
+  }
+
+  initCursorComponent(cursor){
+    this.cursorComponent = cursor
   }
 
   delete(){

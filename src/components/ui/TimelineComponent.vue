@@ -77,6 +77,8 @@ export default {
   position: fixed;
   right: 0;
   top: 0;
+  cursor: pointer !important;
+  z-index: 1;
 
   display: flex;
   flex-direction: column;
