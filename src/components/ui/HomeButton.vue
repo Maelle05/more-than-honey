@@ -17,6 +17,8 @@ export default {
   position: fixed;
   top: 32px;
   left: 32px;
+  z-index: 2;
+  cursor: pointer;
   img {
     height: 56px;
   }
