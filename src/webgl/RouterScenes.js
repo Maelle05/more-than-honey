@@ -8,6 +8,7 @@ import OutsideTwoScene from "./scenes/OutsideTwoScene"
 import RaceGameScene from "./scenes/RaceGameScene"
 import EndingScene from "./scenes/HiveEndingScene"
 import EventEmitter from "./utils/EventEmitter"
+import HomeScene from "./scenes/HomeScene"
 
 let routerScenesInstance = null
 
@@ -39,7 +40,11 @@ export default class RouterScenes extends EventEmitter{
     }
     
     if (!this.allScenes[nameScene]) {
-      switch (nameScene) {   
+      switch (nameScene) {
+        case 'home':
+          this.allScenes[nameScene] = new HomeScene()
+          break
+
         case 'hive':
           this.allScenes[nameScene] = new HiveScene()
           break

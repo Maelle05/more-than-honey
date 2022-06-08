@@ -26,43 +26,43 @@
   {
     "name": "lysModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene pollenGameScene raceGameScene outsideTwoScene",
+    "actingScenes": "outsideOneScene pollenGameScene raceGameScene outsideTwoScene homeScene",
     "path": "webgl/models/Lys/oneLys.glb"
   },
   {
     "name": "treeModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene outsideTwoScene pollenGameScene raceGameScene",
+    "actingScenes": "outsideOneScene outsideTwoScene pollenGameScene homeScene raceGameScene",
     "path": "webgl/models/Tree/sakura.glb"
   },
   {
     "name": "nenupharModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene outsideTwoScene",
+    "actingScenes": "outsideOneScene outsideTwoScene homeScene",
     "path": "webgl/models/Nenuphar/nenuphar.glb"
   },
   {
     "name": "stoneModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene raceGameScene outsideTwoScene",
+    "actingScenes": "outsideOneScene raceGameScene outsideTwoScene homeScene",
     "path": "webgl/models/Stone/stone.glb"
   },
   {
     "name": "bridgeModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene pollenGameScene outsideTwoScene",
+    "actingScenes": "outsideOneScene pollenGameScene outsideTwoScene homeScene",
     "path": "webgl/models/Bridge/bridge-2.glb"
   },
   {
     "name": "daisyModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene pollenGameScene raceGameScene outsideTwoScene",
+    "actingScenes": "outsideOneScene pollenGameScene homeScene raceGameScene outsideTwoScene",
     "path": "webgl/models/Daisy/daisy-v3.glb"
   },
   {
     "name": "mushroomModel",
     "type": "gltfModel",
-    "actingScenes": "outsideOneScene pollenGameScene outsideTwoScene",
+    "actingScenes": "outsideOneScene pollenGameScene homeScene outsideTwoScene",
     "path": "webgl/models/Mushroom/mushrooms.glb"
   },
   {
@@ -74,13 +74,13 @@
   {
     "name": "particlesTexture",
     "type": "texture",
-    "actingScenes": "outsideOneScene outsideTwoScene",
+    "actingScenes": "outsideOneScene homeScene outsideTwoScene",
     "path": "webgl/textures/particles/3.png"
   },
   {
     "name": "grassNormalTexture",
     "type": "texture",
-    "actingScenes": "outsideTwoScene",
+    "actingScenes": "outsideTwoScene ",
     "path": "webgl/textures/Grass/normal.jpg"
   },
   {
@@ -100,7 +100,7 @@
     "type": "sound",
     "volume": 0.05,
     "loop": true,
-    "actingScenes": "pollenGameScene raceGameScene outsideTwoScene",
+    "actingScenes": "pollenGameScene raceGameScene homeScene outsideTwoScene",
     "path": "/voices/music.mp3"
   },
   {
@@ -138,7 +138,7 @@
   {
     "name": "IntroHomeSound",
     "type": "sound",
-    "volume": 0.6,
+    "volume": 0.06,
     "loop": false,
     "actingScenes": "homeScene",
     "path": "/voices/home/intro.mp3"
@@ -146,7 +146,7 @@
   {
     "name": "CinematiqueSound",
     "type": "sound",
-    "volume": 0.6,
+    "volume": 0.06,
     "loop": false,
     "actingScenes": "homeScene",
     "path": "/voices/home/Chap1-0.mp3"

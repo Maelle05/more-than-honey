@@ -149,12 +149,6 @@ export default class HiveScene extends Group {
     // Listener
     this.listener = new Listener()
 
-    window.addEventListener("click", () => {
-      if (this.currentIntersect) {
-        console.log('click on model')
-      }
-    })
-
     // move cursor above the timeline
     gsap.to(this.activeItem, {
       duration: 20,

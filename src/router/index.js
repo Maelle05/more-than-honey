@@ -26,17 +26,6 @@ export const routes = [
     component: Home
   },
   {
-    path: '/honeyIntro',
-    name: 'honeyIntro',
-    label: 'Honey home',
-    component: function () {
-      return import('../views/HoneyIntro.vue')
-    },
-    meta: {
-      homePassedRequired: true,
-    },
-  },
-  {
     path: '/hive',
     name: 'hive',
     label: 'Hive',

@@ -49,7 +49,7 @@ export default {
   flex-direction: column;
   opacity: 1;
   visibility: visible;
-  z-index: 6;
+  z-index: 10000;
 
   svg {
     height: 165px;

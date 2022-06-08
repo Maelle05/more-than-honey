@@ -1,31 +1,32 @@
 <template>
   <div class="home">
-    <img class="home__background" src="@/assets/images/homeBackground.png" alt="background of the home page, trees and flower">
-    <div class="home__intro">
+    <!-- <img class="home__background" src="@/assets/images/homeBackground.png" alt="background of the home page, trees and flower"> -->
+    <div class="home__intro" ref="intro" >
       <img class="logo" src="@/assets/images/logo.svg" alt="white logo of the project 'more than honey'">
-      <p class="u-uppercase">Le pouvoir des abeilles</p>
+      <p class="u-uppercase" >Le pouvoir des abeilles</p>
     </div>
 
-    <PrimaryButton to="/honeyIntro" label="Commencer l'expérience" is-home-page="true"/>
+    <div class="button center" ref="button" @click="playCinematique">
+      <p>Commencer l'expérience</p>
+    </div>
   </div>
 </template>
 
 <script>
-import PrimaryButton from '@/components/ui/PrimaryButton'
-import WebGl from '@/webgl/webglManager'
+import HomeScene from '@/webgl/scenes/HomeScene'
 
 export default {
   name: 'Home',
   components: {
-    PrimaryButton
   },
   mounted() {
-    const manager =  new WebGl()
-    setTimeout(() => {
-      manager.loader.classList.add('loaded')
-      localStorage.setItem('isHomePassed', true)
-    }, 500)
-    
+    this.scene = new HomeScene()
+  },
+  methods: {
+    playCinematique(){
+      this.scene.play(this.$refs)
+      this.$refs.button.style.pointerEvents = 'none'
+    }
   }
 }
 </script>
@@ -44,12 +45,50 @@ export default {
     pointer-events: none;
     top: 50%;
     left: 50%;
+    opacity: 1;
     transform: translate(-50%, -50%);
 
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    p{
+      margin-top: -17px;
+    }
+  }
+
+  .button {
+    z-index: 50;
+    background: #1A1A1A40;
+    border: 2px solid $white;
+    border-radius: 8px;
+    transition: 0.3s;
+    display: inline-block;
+    cursor: pointer;
+
+    p {
+      font-size: 24px;
+      display: block;
+      padding: 8px 24px;
+      font-weight: 500;
+      font-family: 'RoadRage', sans-serif;
+      color: $white;
+    }
+
+    &:hover {
+      p {
+        color: $blueGreen;
+      }
+      background: $white;
+    }
+  }
+
+  .center {
+    position: fixed;
+    bottom: 15vh;
+    right: 50%;
+    transform: translateX(50%);
   }
 }
 </style>
