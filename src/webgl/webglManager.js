@@ -48,6 +48,7 @@ export default class WebGl{
   
     this.stats.dom.style.top = 'auto'
     this.stats.dom.style.bottom = '0'
+    this.stats.dom.style.opacity = 0
     
     // OrbitControls
     this.controls = new OrbitControls(this.camera, this.canvas)
@@ -112,6 +113,12 @@ export default class WebGl{
     //   }
     //   // console.log(this.camera.position);
     // })
+
+    // document.addEventListener('keydown', (e)=>{
+    //   if (e.key === 's') {
+    //     this.saveIMG()
+    //   }
+    // })
   }
 
   getLoaderRef(loader) {
@@ -137,5 +144,25 @@ export default class WebGl{
     this.bloom.update()
 
     this.stats.end()
+  }
+
+  saveIMG(){
+      var imgData
+
+      try {
+          var strMime = "image/jpeg"
+          imgData = this.canvas.toDataURL(strMime)
+
+          var link = document.createElement('a')
+          link.setAttribute('href', imgData)
+          link.setAttribute('target', '_blank')
+          link.setAttribute('download', 'test')
+
+          link.click()
+
+      } catch (e) {
+          console.log(e)
+          return
+      }
   }
 }

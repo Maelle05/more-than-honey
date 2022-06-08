@@ -133,7 +133,7 @@ export default class Bloom {
   }
 
   update() {
-    this.renderer.setClearColor(this.params.rendererBGColor)
+    // this.renderer.setClearColor(this.params.rendererBGColor)
     this.renderer.clear()
     if (this.routerScenes.currentRoot === "pollenGame" || this.routerScenes.currentRoot === "raceGame") {
       this.composerGame.render(this.scene, this.camera)
