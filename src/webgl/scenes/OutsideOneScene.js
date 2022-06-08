@@ -186,25 +186,21 @@ export default class OutsideOneScene extends Group
     // Set fog
     this.scene.fog.density = 0.015
 
-    // Add bee
+    // Bee
     this.beeMove = 0
     this.beePoss = this.curve.getPointAt(this.beeMove)
     this.beePoss2 = this.curve.getPointAt(this.beeMove + 0.01)
     this.bee.model.position.copy(this.beePoss)
     this.bee.model.lookAt(this.beePoss2)
     this.bee.model.scale.set(0.04, 0.04, 0.04)
-    this.add(this.bee.model)
 
-    // Add Queen
+    // Queen
     this.queen.model.rotation.set(0, Math.PI, 0)
     this.queen.model.scale.set(0.07, 0.07, 0.07)
     this.queen.model.position.copy(this.QueenCurve.getPointAt(0))
-    this.add(this.queen.model)
 
-    // Add grass
+    // Grass
     this.grass.position.set(0,0, this.property.map.height / this.property.map.ratio)
-    this.add(this.grass)
-
 
     // Add elements from map
     addLys(lysLocation, this, this.resources.items.lysModel.scene, true)
@@ -215,13 +211,14 @@ export default class OutsideOneScene extends Group
     addNenuphar(nenupharLocation, this, this.resources.items.nenupharModel.scene)
     addBridge(bridgeLocation, this, this.resources.items.bridgeModel.scene)
 
-    this.extHive.position.set(convertPosition(0, hiveLocation).x, 7.2, convertPosition(0, hiveLocation).z)
-    this.extHive.scale.set(0.65, 0.9, 0.65)
-    this.add(this.extHive)
+    // Ext hive
+    this.extHive.position.set(convertPosition(0, hiveLocation).x, 7.1, convertPosition(0, hiveLocation).z)
+    this.extHive.scale.set(0.75, 0.8, 0.65)
 
-    // Add particles
+    // Particles
     this.particles.position.x -= 1
-    this.add(this.particles)
+
+    this.add(this.particles, this.extHive, this.grass, this.queen.model, this.bee.model)
 
     // Add Pheromone
     const nbPheromone = 20

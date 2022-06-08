@@ -20,7 +20,7 @@
   {
     "name": "hornetModel",
     "type": "gltfModel",
-    "actingScenes": "raceGameScene",
+    "actingScenes": "outsideTwoScene raceGameScene",
     "path": "webgl/models/Hornet/hornet.glb"
   },
   {
