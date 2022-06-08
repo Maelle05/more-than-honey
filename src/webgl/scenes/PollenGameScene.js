@@ -90,11 +90,12 @@ export default class PollenGameScene extends Group {
     this.bridge = this.resources.items.bridgeModel.scene
 
     // Sound
-    this.backgroundMusic = this.resources.items.BgMusicSound
+    this.backgroundMusic = this.resources.items.BgMusicSoundOutsideOne
+    this.musicInGame = this.resources.items.BgMusicSoundPollenGame
     this.voiceIntro = this.resources.items.ChapTwoOneSound
     this.ChapTwoOneTwoSound = this.resources.items.ChapTwoOneTwoSound
     this.ChapTwoOneThreeSound = this.resources.items.ChapTwoOneThreeSound
-    this.impact = this.resources.items.ImactSound
+    this.impact = this.resources.items.ImpactSound
     this.achievement = this.resources.items.achievementSound
     this.isFlowerSongPlay = false
 
@@ -427,6 +428,10 @@ export default class PollenGameScene extends Group {
   }
 
   playGame(){
+    this.backgroundMusic.sound.fade(store.state.isSongOn ? this.backgroundMusic.volume : 0, 0, .3)
+    this.backgroundMusic.sound.stop()
+    this.musicInGame.sound.fade(0, store.state.isSongOn ? this.backgroundMusic.volume : 0, .3)
+    this.musicInGame.sound.play()
 
     // move cursor above the timeline
     gsap.to(this.activeItem, {

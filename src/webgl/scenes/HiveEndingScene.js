@@ -1,9 +1,10 @@
-import { Power0 } from 'gsap'
-import gsap, { CustomEase, Power1 } from 'gsap/all'
+import {Power0} from 'gsap'
+import gsap, {CustomEase, Power1} from 'gsap/all'
 import {Group} from 'three'
 import BlueBee from '../entities/BlueBee'
 import WebGl from '../webglManager'
 import Listener from '@/webgl/utils/Listener'
+import store from '@/store'
 
 export default class EndingScene extends Group {
   constructor() {
@@ -20,8 +21,12 @@ export default class EndingScene extends Group {
   }
 
   setup() {
+    // 3D models
     this.hive = this.resources.items.hiveModel.scene
     this.bee = new BlueBee()
+
+    // Song
+    this.backgroundMusic = this.resources.items.BgMusicSoundHive
 
     this.init()
   }
@@ -46,20 +51,24 @@ export default class EndingScene extends Group {
     // add models
     this.add(this.hive, this.bee.model)
 
+    // Init sound
+    this.backgroundMusic.sound.fade(0, store.state.isSongOn ? this.backgroundMusic.volume : 0, .3)
+    this.backgroundMusic.sound.play()
+
     setTimeout(() => {
       this.loader.classList.add('loaded')
       this.beeAnim()
     }, 500)
   }
 
-  beeAnim(){
+  beeAnim() {
     gsap.to(this.bee.model.position, {
       duration: 7,
       x: 4,
-      y:-4,
-      z:-10,
+      y: -4,
+      z: -10,
       ease: Power1.easeOut,
-    }).then(()=>{
+    }).then(() => {
       this.credits = document.querySelector('.credits')
       this.bgCredits = document.querySelector('.ending')
 
@@ -75,12 +84,12 @@ export default class EndingScene extends Group {
         y: window.innerHeight - 2200,
         ease: "none",
       })
-   })
+    })
 
     gsap.to(this.bee.model.rotation, {
       duration: 2,
       delay: 7,
-      y: -Math.PI/2.5,
+      y: -Math.PI / 2.5,
       ease: Power1.easeOut,
     })
   }
@@ -91,7 +100,7 @@ export default class EndingScene extends Group {
     }
 
     if (this.listener) {
-      this.webGl.controls.target.set(- this.listener.property.cursor.x * 1.5, this.listener.property.cursor.y * 1.5, 0)
+      this.webGl.controls.target.set(-this.listener.property.cursor.x * 1.5, this.listener.property.cursor.y * 1.5, 0)
     }
 
   }

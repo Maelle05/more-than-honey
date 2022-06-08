@@ -249,7 +249,7 @@ export default class OutsideOneScene extends Group
           })
         }, 1000)
       }
-      if (voiceReineStart === false && result > 0.97 && voiceReineCanStart) {
+      if (voiceReineStart === false && result > 0.85 && voiceReineCanStart) {
         voiceReineStart = true
         this.voiceReine.sound.fade(0, store.state.isSongOn ? this.voiceReine.volume : 0, .3)
         this.voiceReine.sound.play()

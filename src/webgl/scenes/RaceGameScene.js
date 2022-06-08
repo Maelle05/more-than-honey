@@ -104,9 +104,10 @@ export default class RaceGameScene extends Group {
     this.grass = new Grass(this.property.map.with / this.property.map.ratio, this.property.map.height / this.property.map.ratio, 500000)
 
     // Sound 
-    this.backgroundMusic = this.resources.items.BgMusicSound
+    this.backgroundMusic = this.resources.items.BgMusicSoundOutsideOne
+    this.musicInGame = this.resources.items.BgMusicSoundRaceGame
     this.voiceIntro = this.resources.items.ChapTwoThreeSound
-    this.impactSound = this.resources.items.ImactSound
+    this.impactSound = this.resources.items.ImpactSound
 
     const pesticideGeometry = new PlaneBufferGeometry(2.5, 2.5)
     const pesticideMaterial = new MeshStandardMaterial({
@@ -260,6 +261,12 @@ export default class RaceGameScene extends Group {
   }
 
   playGame() {
+    // Change music during game
+    this.backgroundMusic.sound.fade(store.state.isSongOn ? this.backgroundMusic.volume : 0, 0, .3)
+    this.backgroundMusic.sound.stop()
+
+    this.musicInGame.sound.fade(0, store.state.isSongOn ? this.backgroundMusic.volume : 0, .3)
+    this.musicInGame.sound.play()
 
     // move cursor above the timeline
     gsap.to(this.activeItem, {
