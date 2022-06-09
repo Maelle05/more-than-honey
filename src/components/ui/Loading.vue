@@ -11,9 +11,9 @@
 
     <p class="u-uppercase loading__text">Chargement ...</p>
 
-    <div v-if="this.$route.path === '/honeyIntro'" class="headphones">
+    <div class="headphones">
       <img src="/images/loader/headphone.svg" alt="icon for sound, headphone">
-      <p>Use headphones for better experience</p>
+      <p>L'expérience nécessite l'activation du son</p>
     </div>
   </div>
 </template>
