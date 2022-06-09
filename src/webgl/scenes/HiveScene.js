@@ -132,8 +132,9 @@ export default class HiveScene extends Group {
       const bee = skeletonClone(this.bee.model)
       // animation on bee
       const mixer = new AnimationMixer(bee)
+      mixer.clipAction(this.bee.resource.animations[1]).play()
       setTimeout(() => {
-        mixer.clipAction(this.bee.resource.animations[1]).play()
+        mixer.clipAction(this.bee.resource.animations[1]).reset()
       }, Math.random() * 10000)
       bee.scale.set(0.15, 0.15, 0.15)
       bee.position.set(this.points[i].position.x, this.points[i].position.y, this.points[i].position.z)

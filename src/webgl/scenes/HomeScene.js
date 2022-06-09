@@ -19,6 +19,7 @@ import store from '../../store/index'
 import { SlideSubtitle } from '../../utils/audioSubtitles/subtitles'
 import {convertPosition} from '@/webgl/utils/ConvertPosition'
 import hiveLocation from '../elementsLocations/cinematique/hive.json'
+import BlueBee from '../entities/BlueBee'
 
 let Instance = null
 
@@ -87,6 +88,11 @@ export default class HomeScene extends Group
     this.hive.position.set(convertPosition(0, hiveLocation).x, 6.7, convertPosition(0, hiveLocation).z)
     this.hive.scale.set(0.95, 0.95, 0.65)
     this.add(this.hive)
+
+    // Bee
+    this.bee = new BlueBee()
+    this.bee.model.position.set(-5, 8, 100)
+    this.add(this.bee.model)
 
 
     // Set Camera position
@@ -177,6 +183,10 @@ export default class HomeScene extends Group
       this.webGl.camera.position.set(this.webGl.camera.position.x + 0.5 * this.listener.property.cursor.y, this.webGl.camera.position.y , this.webGl.camera.position.z + 1.5 * this.listener.property.cursor.x)
     } else if (this.listener) {
       this.webGl.camera.position.set( -5 + 0.5 * this.listener.property.cursor.y, 8 , 120 + 1.5 * this.listener.property.cursor.x)
+    }
+
+    if (this.bee) {
+      this.bee.update()
     }
     
   }
