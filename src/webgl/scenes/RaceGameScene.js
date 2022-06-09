@@ -72,7 +72,7 @@ export default class RaceGameScene extends Group {
         numberOfMap: 5,
         duration: 10000, // in ms
         obstacle: {
-          number: 22,
+          number: 20,
           lastHurt: '',
         }
       }
@@ -114,7 +114,8 @@ export default class RaceGameScene extends Group {
       color: 0x8EFFC9,
       side: DoubleSide,
       map: this.webGl.resources.items.smokeTexture,
-      transparent: true
+      transparent: true,
+      opacity: 0.7
     })
 
     this.pesticideCloud = new Group
@@ -356,7 +357,7 @@ export default class RaceGameScene extends Group {
     this.lottie.classList.remove('u-hidden')
 
     // User loose one life
-    if (store.state.numberOfLife > 0) {
+    if (store.state.numberOfLife > 1) {
       this.impactSound.sound.play()
       portal.visible = false
 
@@ -418,8 +419,7 @@ export default class RaceGameScene extends Group {
         } else {
           this.secondGroundGroup.localToWorld(portalsPosition)
         }
-
-        if (this.bee.model.position.distanceTo(portalsPosition) <= 1.3 && !this.property.game.obstacle.lastHurt.includes(portal.name)) {
+        if (this.bee.model.position.distanceTo(portalsPosition) <= 1.15 && !this.property.game.obstacle.lastHurt.includes(portal.name)) {
           let pest = null
           if (this.property.sitting.step % 2 === 1) {
             pest = portal
