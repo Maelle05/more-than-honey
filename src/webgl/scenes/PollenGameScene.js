@@ -1,15 +1,12 @@
-import { MathUtils } from 'three'
-import { Group, Vector2 } from 'three'
+import {Group, MathUtils, Mesh, MeshBasicMaterial, SphereGeometry, Vector2, Vector3} from 'three'
 import BlueBee from '../entities/BlueBee'
 import DaisyGame from '../entities/DaisyGame'
 import Listener from '../utils/Listener'
 import WebGl from '../webglManager'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 import gsap from 'gsap'
-import { MeshBasicMaterial, Mesh, Vector3 } from 'three'
 import Bloom from '../shaders/bloom'
 import Grass from '../shaders/grass/PollenGameGrass'
-import { SphereGeometry } from 'three'
 import {customEase} from '@/webgl/utils/CustomEase'
 import Butterflie from '@/webgl/entities/ButterflieBot'
 import store from '../../store/index'
@@ -544,7 +541,7 @@ export default class PollenGameScene extends Group {
 
     for (let i = 0; i <= nbPollen; i++) {
       const geometry = new SphereGeometry( 0.3, 7, 6 )
-      const material = new MeshBasicMaterial( {color: 0x72F8F0, transparent: true} )
+      const material = new MeshBasicMaterial( {color: 0xD6CFFF, transparent: true} )
       const pollenMesh = new Mesh( geometry, material )
       pollenMesh.name = 'Pollen'
 

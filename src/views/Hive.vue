@@ -8,7 +8,7 @@
     <div class="hive__point" v-for="(bee, i) in bees" :key="i" ref="points">
       <div class="pointer"/>
       <div class="text" :class="bee.style">
-        <img :src="bee.imgPath" alt="">
+        <img class="img" :src="bee.imgPath" alt="">
         <h3 class="name">{{bee.name}}</h3>
         <p class="label">{{bee.label}}</p>
         <p class="content">{{bee.content}}</p>
@@ -166,8 +166,13 @@ export default {
       transform: scale(0, 0);
       transition: transform 0.3s;
 
+      .img {
+        width: 70px;
+      }
+
       .name {
         font-size: 16px;
+        color: $blueGreen;
         padding-bottom: 3px;
       }
 
@@ -176,8 +181,8 @@ export default {
       }
 
       .label {
-        font-size: 14px;
-        color: $blueGreen;
+        font-size: 16px;
+        color: $black;
         padding-bottom: 20px;
       }
     }

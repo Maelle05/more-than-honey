@@ -2,8 +2,8 @@
   <div class="timeline">
     <div class="timeline__bg"></div>
     <div class="timeline__sound">
-      <img src="/images/timeline/sound.svg" ref="on" :class="$store.state.isSongOn ? '' : 'hidden'" alt="icon to cut or add sound to the experience" @click="soundOff()">
-      <img src="/images/timeline/soundOff.svg" ref="off" :class="$store.state.isSongOn ? 'hidden' : ''" alt="icon to cut or add sound to the experience" @click="soundOn()">
+      <img src="/images/timeline/sound.svg" ref="on" :class="$store.state.isSongOn ? '' : 'u-hidden'" alt="icon to cut or add sound to the experience" @click="soundOff()">
+      <img src="/images/timeline/soundOff.svg" ref="off" :class="$store.state.isSongOn ? 'u-hidden' : ''" alt="icon to cut or add sound to the experience" @click="soundOn()">
     </div>
 
     <ul class="timeline__wrapper">
@@ -21,7 +21,6 @@
 
 <script lang="js">
 import TimelineContent from '../../../public/data/timelineContent.json'
-import WebGl from '@/webgl/webglManager'
 import Resources from '../../webgl/utils/Resources'
 
 export default {
@@ -37,8 +36,8 @@ export default {
   methods: {
     soundOff(){
       this.$store.dispatch('songOff')
-      this.$refs.on.classList.add('hidden')
-      this.$refs.off.classList.remove('hidden')
+      this.$refs.on.classList.add('u-hidden')
+      this.$refs.off.classList.remove('u-hidden')
 
       const resourcesKeys = Object.keys(this.resources.items)
       for (let i = 0; i < resourcesKeys.length; i++) {
@@ -49,8 +48,8 @@ export default {
     },
     soundOn(){
       this.$store.dispatch('songOn')
-      this.$refs.on.classList.remove('hidden')
-      this.$refs.off.classList.add('hidden')
+      this.$refs.on.classList.remove('u-hidden')
+      this.$refs.off.classList.add('u-hidden')
 
       const resourcesKeys = Object.keys(this.resources.items)
       for (let i = 0; i < resourcesKeys.length; i++) {
@@ -100,11 +99,6 @@ export default {
     padding-bottom: 20px;
     cursor: pointer;
     z-index: 1;
-
-    .hidden{
-      display: none;
-      pointer-events: none;
-    }
   }
 
   &__wrapper {

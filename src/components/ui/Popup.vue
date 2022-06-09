@@ -6,7 +6,7 @@
       {{ labelButton }}
     </button>
     <button v-if="path !== ''" class="popup__nextButton">
-      <router-link class="u-uppercase" :to="path">Passer à la suite</router-link>
+      <router-link :to="path">Passer à la suite</router-link>
     </button>
   </div>
 </template>
@@ -48,11 +48,11 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 320px;
-  padding: 24px 40px;
+  width: calc(448px - 56px);
+  padding: 24px 28px;
 
   &__title {
-    font-size: 24px;
+    font-size: 32px;
     font-weight: normal;
     margin-bottom: 8px;
     font-family: 'RoadRage', sans-serif;
@@ -77,7 +77,6 @@ export default {
     all: unset;
     display: block;
     font-family: 'RoadRage', sans-serif;
-    text-transform: uppercase;
     font-size: 20px;
     color: $blueGreen;
     border: 2px solid $blueGreen;

@@ -65,7 +65,7 @@ export default class RaceGameScene extends Group {
         numberOfMap: 5,
         duration: 10000, // in ms
         obstacle: {
-          number: 20,
+          number: 18,
           lastHurt: '',
         }
       }
@@ -319,7 +319,7 @@ export default class RaceGameScene extends Group {
     this.allGrounds.position.set(0, 0, 0)
     this.groundGroup.position.set(0, 0, 0)
     this.secondGroundGroup.position.set(0, 0, this.property.map.height / this.property.map.ratio)
-    store.state.numberOfLife = 3
+    store.state.numberOfLife = 5
 
     this.property.sitting.step = 0
     this.property.game.obstacle.lastHurt = ''

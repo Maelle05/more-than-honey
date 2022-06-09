@@ -5,14 +5,14 @@
 
     <Popup class="popupPollen u-hidden" ref="popUpIntro" title="Pollinisation intensive" label-button="Commencer à jouer"
            @action-on-click="startGame">
-      <p class="u-mb-modal">L’objectif est de <strong>polliniser</strong> un maximum de fleurs dans le temps imparti
+      <p class="u-mb-modal">L’objectif est de <strong>polliniser</strong> un maximum de fleurs<br> dans le temps imparti
         tout en <strong>évitant</strong> les <strong>papillons</strong>.</p>
-      <p class="u-12"><strong>Déplacez-vous</strong> vers les fleurs grâce à votre <b>souris</b></p>
+      <p><strong>Déplacez-vous</strong> vers les fleurs grâce à votre <b>souris</b></p>
       <span class="u-mt-lottie">
          <lottie-player autoplay background="transparent" loop mode="normal" src="/lottie/game/DeplacementPop.json"
                         style="width: 100px"></lottie-player>
       </span>
-      <p class="u-12"><strong>Maintenez l’appuie long sur la barre espace</strong> pour polliniser une fleur</p>
+      <p><strong>Maintenez l’appuie long sur la barre espace</strong> pour polliniser</p>
 
       <div class="popupPollen__longPress">
         <lottie-player autoplay background="transparent" loop mode="normal" src="/lottie/pollenGame/LongPress.json"
@@ -26,7 +26,7 @@
       <p class="u-mb-modal">XX fleurs<b></b> viennent d’être pollinisées</p>
       <img class="u-mb-modal" src="/images/popup/flower.svg" alt="blue smiley">
       <h2 class="popupPollen__title">Le saviez-vous ?</h2>
-      <p class="u-12"> Une abeille peut polliniser jusqu’à 250 fleurs en 1h. On peut dire que c’est productif !</p>
+      <p> Une abeille peut polliniser jusqu’à 250 fleurs en 1h.<br> On peut dire que c’est productif !</p>
     </Popup>
 
     <div class="chrono u-hidden">
@@ -134,6 +134,7 @@ export default {
   user-select: none;
 
   .popupPollen {
+    line-height: 19px;
     &__longPress {
       margin: -60px 0;
     }
@@ -143,7 +144,7 @@ export default {
     }
 
     &__title {
-      font-size: 24px;
+      font-size: 32px;
       font-family: 'RoadRage', sans-serif;
       margin-bottom: 8px;
       font-weight: 500;
@@ -191,7 +192,7 @@ export default {
     position: absolute;
     left: 110px;
     bottom: 64px;
-    color: white;
+    color: $white;
     display: flex;
     flex-direction: row;
     align-items: center;
