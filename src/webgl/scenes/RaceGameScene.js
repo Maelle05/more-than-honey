@@ -1,11 +1,4 @@
-import {
-  DoubleSide,
-  Group,
-  MathUtils,
-  Mesh,
-  MeshStandardMaterial,
-  PlaneBufferGeometry,
-} from 'three'
+import {DoubleSide, Group, MathUtils, Mesh, MeshStandardMaterial, PlaneBufferGeometry,} from 'three'
 import WebGl from '../webglManager'
 import Listener from '../utils/Listener'
 import BlueBee from '@/webgl/entities/BlueBee'
@@ -115,7 +108,7 @@ export default class RaceGameScene extends Group {
       side: DoubleSide,
       map: this.webGl.resources.items.smokeTexture,
       transparent: true,
-      opacity: 0.7
+      opacity: 0.75
     })
 
     this.pesticideCloud = new Group
