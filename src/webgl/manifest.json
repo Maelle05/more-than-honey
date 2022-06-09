@@ -144,7 +144,7 @@
   {
     "name": "IntroHomeSound",
     "type": "sound",
-    "volume": 0.06,
+    "volume": 0.7,
     "loop": false,
     "actingScenes": "homeScene",
     "path": "/voices/home/intro.mp3"
@@ -152,7 +152,7 @@
   {
     "name": "CinematiqueSound",
     "type": "sound",
-    "volume": 0.06,
+    "volume": 0.7,
     "loop": false,
     "actingScenes": "homeScene",
     "path": "/voices/home/Chap1-0.mp3"

@@ -1,6 +1,6 @@
 <template>
   <div class="home" ref="container">
-    <!-- <img class="home__background" src="@/assets/images/homeBackground.png" alt="background of the home page, trees and flower"> -->
+   
     <div class="home__intro" ref="intro" >
       <img class="logo" src="@/assets/images/logo.svg" alt="white logo of the project 'more than honey'">
       <p class="u-uppercase" >Le pouvoir des abeilles</p>
@@ -8,8 +8,6 @@
         <span>Commencer l'expérience</span>
       </div>
     </div>
-
- 
 
     <CursorNext to="/hive" ref="cursorNext"/>
     <div class="subtitles--wrapper"></div>
@@ -35,6 +33,7 @@ export default {
   },
   methods: {
     playCinematique(){
+      // document.querySelector('.HomeButton').style.opacity = 1
       this.scene.play(this.$refs)
       this.$refs.button.style.pointerEvents = 'none'
       this.$refs.container.classList.add('u-cursor-hidden')
@@ -53,6 +52,9 @@ export default {
   }
 
   &__intro {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -126,10 +128,22 @@ export default {
     height: 100vh;
 
     p{
-      font-family: 'Lato', sans-serif;
-      font-weight: bold;
-      font-size: 20px;
+      // font-family: 'Lato', sans-serif;
+      font-family: 'RoadRage', sans-serif;
+      font-size: 45px;
+      // text-transform: uppercase;
+      text-align: center;
+        span{
+          animation: .3s ease-in fadeIn;
+          text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.377);
+        }
     }
+  }
+
+
+  @keyframes fadeIn {
+    from { opacity: 0 }
+    to   { opacity: 1 }
   }
 }
 </style>

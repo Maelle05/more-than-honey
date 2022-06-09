@@ -1,52 +1,32 @@
 [
   [
     {
-      "text": "Bienvenue dans More than honey",
+      "text": "<span> Bienvenue dans </span> <br> <span> More than honey </span>",
       "duration": 2.2
     },
     {
-      "text": "écoute, respire et regarde la nature qui t’entoure",
+      "text": "<span> écoute, respire et regarde <br> la nature qui t’entoure </span>",
       "duration": 3.6
     },
     {
-      "text": "Tu es ici pour contempler et comprendre",
-      "duration": 2.3
+      "text": "<span> Tu es ici pour contempler et comprendre <br> l’environnement qui te fait face </span>",
+      "duration": 4.4
     },
     {
-      "text": "l’environnement qui te fait face",
-      "duration": 2
-    },
-    {
-      "text": "La nature est une force puissante",
+      "text": "<span> La nature est une force puissante </span>",
       "duration": 1.7
     },
     {
-      "text": "elle affecte chaque habitant",
-      "duration": 1.7
+      "text": "<span> elle affecte chaque habitant <br> chaque particule de notre planète </span>",
+      "duration": 3.7
     },
     {
-      "text": "chaque particule de notre planète",
-      "duration": 2
+      "text": "<span> Nous avons tous un rôle à jouer <br> nous sommes tous responsables de son bien-être  </span>",
+      "duration": 3.8
     },
     {
-      "text": "Nous avons tous un rôle à jouer",
-      "duration": 1.6
-    },
-    {
-      "text": "nous sommes tous responsables de son bien-être",
-      "duration": 2.2
-    },
-    {
-      "text": "Prends quelques minutes pour découvrir",
-      "duration": 1.9
-    },
-    {
-      "text": "l’un des êtres indispensable à son équilibre",
-      "duration": 2.3
-    },
-    {
-      "text": "L’abeille",
-      "duration": 3
+      "text": "<span> Prends quelques minutes pour découvrir <br> l’un des êtres indispensable à son équilibre <br> l’abeille </span>",
+      "duration": 5.3
     }
   ]
 ]
