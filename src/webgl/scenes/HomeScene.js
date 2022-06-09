@@ -110,6 +110,11 @@ export default class HomeScene extends Group
       opacity: 0,
       duration: .5,
     })
+    gsap.to(refs.headphones, {
+      opacity: 0,
+      duration: 1,
+      delay: 3
+    })
     this.isXPPlay = true
     this.isCin = true
 

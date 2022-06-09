@@ -4,13 +4,19 @@
     <div class="home__intro" ref="intro" >
       <img class="logo" src="@/assets/images/logo.svg" alt="white logo of the project 'more than honey'">
       <p class="u-uppercase" >Le pouvoir des abeilles</p>
+      <div class="button" ref="button" @click="playCinematique">
+        <span>Commencer l'expérience</span>
+      </div>
     </div>
 
-    <div class="button center" ref="button" @click="playCinematique">
-      <p>Commencer l'expérience</p>
-    </div>
+ 
+
     <CursorNext to="/hive" ref="cursorNext"/>
     <div class="subtitles--wrapper"></div>
+    <div class="headphones center" ref="headphones">
+      <img src="/images/loader/headphone.svg" alt="icon for sound, headphone">
+      <p>L'expérience nécessite l'activation du son</p>
+    </div>
   </div>
 </template>
 
@@ -47,57 +53,72 @@ export default {
   }
 
   &__intro {
-    position: fixed;
-    pointer-events: none;
-    top: 50%;
-    left: 50%;
-    opacity: 1;
-    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    
+    p{
+      text-align: center;
+      margin-top: -17px;
+    }
 
+    .button {
+      z-index: 50;
+      background: #1A1A1A40;
+      border: 2px solid $white;
+      border-radius: 8px;
+      transition: 0.3s;
+      display: inline-block;
+      cursor: pointer;
+      margin-top: 60px;
+
+      span {
+        font-size: 24px;
+        display: block;
+        padding: 8px 24px;
+        font-weight: 500;
+        font-family: 'RoadRage', sans-serif;
+        color: $white;
+      }
+
+      &:hover {
+        span {
+          color: $blueGreen;
+        }
+        background: $white;
+      }
+    }
+  }
+
+  .headphones {
+    position: absolute;
+    bottom: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 
-    p{
-      margin-top: -17px;
-    }
-  }
-
-  .button {
-    z-index: 50;
-    background: #1A1A1A40;
-    border: 2px solid $white;
-    border-radius: 8px;
-    transition: 0.3s;
-    display: inline-block;
-    cursor: pointer;
-
-    p {
-      font-size: 24px;
-      display: block;
-      padding: 8px 24px;
-      font-weight: 500;
-      font-family: 'RoadRage', sans-serif;
-      color: $white;
-    }
-
-    &:hover {
-      p {
-        color: $blueGreen;
-      }
-      background: $white;
+    img {
+      margin-bottom: 16px;
     }
   }
 
   .center {
     position: fixed;
-    bottom: 15vh;
+    bottom: 6vh;
     right: 50%;
     transform: translateX(50%);
   }
 
   .subtitles--wrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -106,6 +127,7 @@ export default {
 
     p{
       font-family: 'Lato', sans-serif;
+      font-weight: bold;
       font-size: 20px;
     }
   }
