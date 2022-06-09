@@ -17,6 +17,8 @@ import Listener from '../utils/Listener'
 import gsap from 'gsap/all'
 import store from '../../store/index'
 import { SlideSubtitle } from '../../utils/audioSubtitles/subtitles'
+import {convertPosition} from '@/webgl/utils/ConvertPosition'
+import hiveLocation from '../elementsLocations/cinematique/hive.json'
 
 let Instance = null
 
@@ -82,6 +84,9 @@ export default class HomeScene extends Group
 
     // Hive
     this.hive = this.resources.items.hiveExtModel.scene
+    this.hive.position.set(convertPosition(0, hiveLocation).x, 6.7, convertPosition(0, hiveLocation).z)
+    this.hive.scale.set(0.95, 0.95, 0.65)
+    this.add(this.hive)
 
 
     // Set Camera position
