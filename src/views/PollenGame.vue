@@ -175,7 +175,7 @@ export default {
     display: flex;
     align-items: center;
     right: 110px;
-    top: 64px;
+    top: 36px;
 
     svg {
       margin-right: 10px;
@@ -183,7 +183,7 @@ export default {
 
     p {
       font-family: 'RoadRage', sans-serif;
-      font-size: 40px;
+      font-size: 55px;
       min-width: 100px;
     }
   }

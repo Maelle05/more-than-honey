@@ -65,7 +65,7 @@ export default class RaceGameScene extends Group {
         numberOfMap: 5,
         duration: 10000, // in ms
         obstacle: {
-          number: 18,
+          number: 17,
           lastHurt: '',
         }
       }
@@ -297,7 +297,7 @@ export default class RaceGameScene extends Group {
 
       gsap.to(this.allGrounds.position, {
         duration: (this.property.game.numberOfMap + 3) - this.property.sitting.step,
-        z: (-(this.property.map.height / this.property.map.ratio) + 2) * this.property.sitting.step, // + 2 to see the bee at the end
+        z: (-(this.property.map.height / this.property.map.ratio) + 2.5) * this.property.sitting.step, // + 2 to see the bee at the end
         ease: "none",
         overwrite: 'auto'
       }).then(() => {
@@ -319,7 +319,7 @@ export default class RaceGameScene extends Group {
     this.allGrounds.position.set(0, 0, 0)
     this.groundGroup.position.set(0, 0, 0)
     this.secondGroundGroup.position.set(0, 0, this.property.map.height / this.property.map.ratio)
-    store.state.numberOfLife = 5
+    store.state.numberOfLife = 3
 
     this.property.sitting.step = 0
     this.property.game.obstacle.lastHurt = ''

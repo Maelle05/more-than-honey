@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    numberOfLife: 5,
+    numberOfLife: 3,
     isSongOn: true,
   },
   mutations: {
