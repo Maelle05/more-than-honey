@@ -76,7 +76,7 @@ export default {
   position: fixed;
   right: 0;
   top: 0;
-  cursor: pointer !important;
+  //cursor: pointer !important;
   z-index: 1;
 
   display: flex;
@@ -103,6 +103,7 @@ export default {
 
   &__wrapper {
     margin-bottom: 20px;
+    pointer-events: none;
   }
 
   &__item {
