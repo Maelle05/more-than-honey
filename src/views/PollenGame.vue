@@ -98,10 +98,6 @@ export default {
     this.webglInstance = new PollenGame()
     this.webglInstance.setDOM(this.$refs.pollenGameUI)
     this.webglInstance.getActiveTimelineItem(this.$refs.timeline.$el)
-
-    setTimeout(() => {
-      manager.loader.classList.add('loaded')
-    }, 500)
   },
 
   methods: {

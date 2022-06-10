@@ -220,7 +220,7 @@ export default class PollenGameScene extends Group {
     // End Loader
     setTimeout(()=>{
       this.loader.classList.add('loaded')
-    }, 500)
+    }, 1000)
 
     this.initAnim()
   }
