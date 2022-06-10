@@ -14,14 +14,20 @@ import nenupharLocation from '../elementsLocations/cinematique/nenuphar.json'
 import bridgeLocation from '../elementsLocations/cinematique/bridge.json'
 import mapSetting from '../elementsLocations/mapSetting.json'
 import Listener from '../utils/Listener'
-import gsap from 'gsap/all'
+import gsap, { Back, Elastic } from 'gsap/all'
 import store from '../../store/index'
 import { SlideSubtitle } from '../../utils/audioSubtitles/subtitles'
 import {convertPosition} from '@/webgl/utils/ConvertPosition'
 import hiveLocation from '../elementsLocations/cinematique/hive.json'
 import BlueBee from '../entities/BlueBee'
+import { Vector3 } from 'three'
 
 let Instance = null
+
+const targetsPoints =  [ 
+  new Vector3(-5, 8, 100),
+  new Vector3(0, 7, 105),
+]
 
 export default class HomeScene extends Group
 {
@@ -91,7 +97,7 @@ export default class HomeScene extends Group
 
     // Bee
     this.bee = new BlueBee()
-    this.bee.model.position.set(-5, 8, 100)
+    this.bee.model.position.set(-15, 3, 130)
     this.add(this.bee.model)
 
 
@@ -168,6 +174,31 @@ export default class HomeScene extends Group
         // Cursor next scene
         this.cursorComponent.endScene()
       })
+    })
+
+    setTimeout(()=>{
+      this.annimBee()
+    }, 22000)
+  }
+
+  annimBee(){
+    this.goToPoint(0)
+  }
+
+  goToPoint(step){
+    this.bee.model.lookAt(targetsPoints[step])
+    gsap.to(this.bee.model.position, {
+      x: targetsPoints[step].x,
+      y: targetsPoints[step].y,
+      z: targetsPoints[step].z,
+      duration: 5,
+      ease: Back.
+      easeInOut.config(
+      1.7)
+    }).then(()=>{
+      if (targetsPoints[step+1]) {
+        this.goToPoint(step + 1)
+      }
     })
   }
 
