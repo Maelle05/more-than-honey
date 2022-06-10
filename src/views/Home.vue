@@ -133,10 +133,10 @@ export default {
       font-size: 45px;
       // text-transform: uppercase;
       text-align: center;
-        span{
-          animation: .3s ease-in fadeIn;
-          text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.377);
-        }
+      span{
+        animation: .3s ease-in fadeIn;
+        text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.377);
+      }
     }
   }
 
