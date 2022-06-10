@@ -156,5 +156,31 @@
       "text": "<span>La reine peut pondre jusqu’à 2 500 œufs en 24 heures.",
       "duration": 3.8
     }
+  ],
+  [
+    {
+      "text": "<span>Le saviez-vous ?</span>",
+      "duration": 0.8
+    },
+    {
+      "text": "<span>C’est en se nourrissant du nectar des fleurs</span>",
+      "duration": 2.1
+    },
+    {
+      "text": "<span>que les abeilles accrochent du pollen à leurs pattes et à leurs poils.</span>",
+      "duration": 2.8
+    },
+    {
+      "text": "<span> Ainsi, en se déplaçant de fleur en fleur,</span>",
+      "duration": 2.5
+    },
+    {
+      "text": "<span>les abeilles déposent le pollen sur le pistil, au centre de la fleur,</span>",
+      "duration": 3.5
+    },
+    {
+      "text": "<span> ce qui permet la reproduction.</span>",
+      "duration": 2
+    }
   ]
 ]

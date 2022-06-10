@@ -33,7 +33,6 @@ export default {
   },
   methods: {
     playCinematique(){
-      // document.querySelector('.HomeButton').style.opacity = 1
       this.scene.play(this.$refs)
       this.$refs.button.style.pointerEvents = 'none'
       this.$refs.container.classList.add('u-cursor-hidden')

@@ -10,6 +10,7 @@ import Grass from '../shaders/grass/PollenGameGrass'
 import {customEase} from '@/webgl/utils/CustomEase'
 import Butterflie from '@/webgl/entities/ButterflieBot'
 import store from '../../store/index'
+import {SlideSubtitle} from '@/utils/audioSubtitles/subtitles'
 
 let gameInstance = null
 
@@ -132,6 +133,9 @@ export default class PollenGameScene extends Group {
   }
 
   init() {
+    // Subtitles
+    this.subtitles = new SlideSubtitle(7)
+
     // Game property
     this.gameProperty = {
       foraged: [],
@@ -396,6 +400,7 @@ export default class PollenGameScene extends Group {
     setTimeout(()=>{
       this.voiceIntro.sound.fade(0, store.state.isSongOn ? this.voiceIntro.volume : 0, .3)
       this.voiceIntro.sound.play()
+      this.subtitles.init()
     }, 1000)
 
 

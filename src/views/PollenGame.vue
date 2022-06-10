@@ -2,6 +2,7 @@
   <div class="pollenGame" ref="pollenGameUI">
     <TimelineComponent ref="timeline"/>
     <Starter ref="starter"/>
+    <div class="subtitles--wrapper"></div>
 
     <Popup class="popupPollen u-hidden" ref="popUpIntro" title="Pollinisation intensive" label-button="Commencer à jouer"
            @action-on-click="startGame">
