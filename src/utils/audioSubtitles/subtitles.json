@@ -38,5 +38,123 @@
       "text": "<span>Les insectes possèdent la capacité de voir <br>la lumière en dehors du spectre visuel.</span>",
       "duration": 5.3
     }
+  ],
+  [
+    {
+      "text": "<span>L'abeille, un pollinisateur sous estimé ! </span>",
+      "duration": 2.8
+    },
+    {
+      "text": "<span> Comme la fourmi, l’abeille est un insecte social : elle vit en communauté.</span>",
+      "duration": 4.29
+    },
+    {
+      "text": "<span> En général une ruche peut contenir entre 30 et 80 000 abeilles. </span>",
+      "duration": 4
+    }
+  ],
+  [
+    {
+      "text": "<span> En te baladant dans la ruche tu pourras découvrir ces différentes castes.</span>",
+      "duration": 3.2
+    }
+  ],
+  [
+    {
+      "text": "<span>Il est temps d’aller récupérer le pollen, de suivre le mouvement vers les fleurs !</span>",
+      "duration": 3
+    },
+    {
+      "text": "<span>C’est parti !</span>",
+      "duration": 1.5
+    }
+  ],
+  [
+    {
+      "text": "<span>Depuis les années 70 nous savons comment les abeilles communiquent.</span>",
+      "duration": 3.6
+    },
+    {
+      "text": "<span>Elles dansent ! Notamment, en forme de 8.</span>",
+      "duration": 2.4
+    },
+    {
+      "text": "<span>Une abeille qui trouve une bonne source de nourriture,</span>",
+      "duration": 2.7
+    },
+    {
+      "text": "<span>revient à la ruche et effectue cette danse.</span>",
+      "duration": 2.1
+    },
+    {
+      "text": "<span>Les paramètres de cette danse permettront aux autres abeilles</span>",
+      "duration": 2.5
+    },
+    {
+      "text": "<span>de connaître la distance de cette nourriture ainsi que sa qualité.</span>",
+      "duration": 3.5
+    },
+    {
+      "text": "<span> Le \"8\" est fait à la perpendiculaire, </span>",
+      "duration": 2.5
+    },
+    {
+      "text": "<span> et indique l’angle de la source par rapport au soleil.</span>",
+      "duration": 2.8
+    },
+    {
+      "text": "<span>Plus le \"8\" est répété, plus la source de nourriture est profitable.",
+      "duration": 3
+    },
+    {
+      "text": "<span>Si une certaine partie du \"8\" est longue,",
+      "duration": 2.7
+    },
+    {
+      "text": "<span>cela signifie que la distance est longue.",
+      "duration": 2.7
+    }
+  ],
+  [
+    {
+      "text": "<span>La reine, appelée également mère, est la seule abeille féconde de la colonie.",
+      "duration": 4.6
+    },
+    {
+      "text": "<span>Malgré son surnom, elle ne « dirige » pas la ruche.",
+      "duration": 3.3
+    },
+    {
+      "text": "<span> Elle vit uniquement à l’intérieur et ne sortira que dans deux cas,",
+      "duration": 3.7
+    },
+    {
+      "text": "<span> l’essaimage et le fameux « vol nuptial ».",
+      "duration": 2.8
+    },
+    {
+      "text": "<span>Lors de cette parade, plusieurs centaines de mâles volent autour d’elle.",
+      "duration": 4
+    },
+    {
+      "text": "<span>Cette dernière se laissera inséminer par les plus agiles,",
+      "duration": 2.5
+    },
+    {
+      "text": "<span>jusqu’à 15 mâles environ,",
+      "duration": 1.6
+    },
+    {
+      "text": "<span>et constituera en elle, une réserve génétique pour féconder ses prochains œufs.",
+      "duration": 4.2
+    },
+    {
+      "text": "<span>Ensuite elle reviendra à la ruche pour ne plus en sortir.",
+      "duration": 4
+    },
+    {
+      "text": "<span>La reine peut pondre jusqu’à 2 500 œufs en 24 heures.",
+      "duration": 3.8
+    }
   ]
 ]

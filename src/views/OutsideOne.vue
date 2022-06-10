@@ -3,6 +3,7 @@
     <TimelineComponent ref="timeline"/>
     <Tuto path="/lottie/UI/scroll.json" listener="scrollToTop"/>
     <CursorNext to="/pollenGame" ref="cursorNext"/>
+    <div class="subtitles--wrapper"></div>
   </div>
 </template>
 
@@ -28,9 +29,10 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .outsideOne {
   width: 100vw;
   height: 100vh;
+  user-select: none;
 }
 </style>

@@ -1,14 +1,16 @@
 import WebGl from '../webglManager'
 import {
-  Group,
-  Vector3,
   BoxGeometry,
-  MeshBasicMaterial,
-  Mesh,
-  CatmullRomCurve3,
-  Line,
   BufferGeometry,
-  LineBasicMaterial} from 'three'
+  CatmullRomCurve3,
+  Group,
+  Line,
+  LineBasicMaterial,
+  MathUtils,
+  Mesh,
+  MeshBasicMaterial,
+  Vector3
+} from 'three'
 import Particules from '../shaders/fireflies'
 import Bee from '../entities/BlueBee'
 import mapSetting from '../elementsLocations/mapSetting.json'
@@ -23,7 +25,6 @@ import bridgeLocation from '../elementsLocations/outsideOne/bridge.json'
 import beePath from '../elementsLocations/outsideOne/beePath.json'
 import QueenPath from '../elementsLocations/outsideOne/QweenPath.json'
 import Listener from '../utils/Listener'
-import { MathUtils } from 'three'
 import Grass from '@/webgl/shaders/grass/grass'
 import Queen from '../entities/Queen'
 import {
@@ -39,6 +40,7 @@ import Pheromone from '@/webgl/entities/Pheromone'
 import gsap from 'gsap'
 import store from '../../store/index'
 import {convertPosition} from '@/webgl/utils/ConvertPosition'
+import {SlideSubtitle} from '@/utils/audioSubtitles/subtitles'
 
 let OutsideOneInstance = null
 
@@ -183,6 +185,11 @@ export default class OutsideOneScene extends Group
   }
 
   init(){
+    // Subtitles
+    this.subtitles = new SlideSubtitle(5)
+    this.subtitlesQueen = new SlideSubtitle(6)
+
+
     // Set fog
     this.scene.fog.density = 0.015
 
@@ -244,6 +251,7 @@ export default class OutsideOneScene extends Group
         setTimeout(() => {
           this.voice.sound.fade(0, store.state.isSongOn ? this.voice.volume : 0, .3)
           this.voice.sound.play()
+          this.subtitles.init()
 
           // move cursor above the timeline
           gsap.to(this.activeItem, {
@@ -260,6 +268,7 @@ export default class OutsideOneScene extends Group
         voiceReineStart = true
         this.voiceReine.sound.fade(0, store.state.isSongOn ? this.voiceReine.volume : 0, .3)
         this.voiceReine.sound.play()
+        this.subtitlesQueen.init()
       }
       if (result > 0.03 && result < 0.98) {
         this.property.moveBee.curveTarget -= this.listener.property.virtualScroll.delta / 90000

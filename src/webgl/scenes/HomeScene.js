@@ -59,6 +59,7 @@ export default class HomeScene extends Group
   }
 
   init(){
+    // Subtitles
     this.subtitles = new SlideSubtitle(0)
     this.subtitlesTwo = new SlideSubtitle(1)
 

@@ -45,6 +45,7 @@ export default {
 <style lang="scss">
 .home {
   z-index: 5;
+  user-select: none;
   height: 100vh;
   &__background {
     width: 100%;
@@ -117,33 +118,19 @@ export default {
   }
 
   .subtitles--wrapper{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 
     p{
-      // font-family: 'Lato', sans-serif;
       font-family: 'RoadRage', sans-serif;
       font-size: 45px;
-      // text-transform: uppercase;
-      text-align: center;
       span{
-        animation: .3s ease-in fadeIn;
+        background: transparent;
         text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.377);
       }
     }
-  }
-
-
-  @keyframes fadeIn {
-    from { opacity: 0 }
-    to   { opacity: 1 }
   }
 }
 </style>
