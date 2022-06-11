@@ -182,5 +182,46 @@
       "text": "<span> ce qui permet la reproduction.</span>",
       "duration": 2
     }
+  ],
+  [],
+  [
+    {
+      "text": "<span>L’usage intensif des produits phytosanitaires</span>",
+      "duration": 2.7
+    },
+    {
+      "text": "<span>qui intoxiquent les abeilles et affaiblissent leurs défenses immunitaires,</span>",
+      "duration": 3.2
+    },
+    {
+      "text": "<span>favorisant ainsi les infections parasitaires </span>",
+      "duration": 2.3
+    },
+    {
+      "text": "<span>mais aussi l’apparition d’un nouveau et terrible prédateur : le frelon asiatique.</span>",
+      "duration": 3.8
+    }
+  ],
+  [
+    {
+      "text": "<span>En voici un par exemple…</span>",
+      "duration": 1.9
+    },
+    {
+      "text": "<span>Le frelon asiatique est reconnaissable à son aspect brun foncé.</span>",
+      "duration": 3
+    },
+    {
+      "text": "<span>Votre but est de fuir le plus rapidement possible pour vous protéger.</span>",
+      "duration": 3
+    },
+    {
+      "text": "<span>Rentrez à la ruche en essayant d’éviter au maximum les rejets de pesticides.</span>",
+      "duration": 3
+    },
+    {
+      "text": "<span>Bonne chance !</span>",
+      "duration": 2
+    }
   ]
 ]

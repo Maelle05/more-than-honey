@@ -1,14 +1,15 @@
 import WebGl from '../webglManager'
 import {
-  Group,
-  Vector3,
   BoxGeometry,
-  MeshBasicMaterial,
-  Mesh,
-  CatmullRomCurve3,
-  Line,
   BufferGeometry,
-  LineBasicMaterial
+  CatmullRomCurve3,
+  Group,
+  Line,
+  LineBasicMaterial,
+  MathUtils,
+  Mesh,
+  MeshBasicMaterial,
+  Vector3
 } from 'three'
 import Particules from '../shaders/fireflies'
 import Bee from '../entities/BlueBee'
@@ -23,7 +24,6 @@ import bridgeLocation from '../elementsLocations/outsideTwo/bridge.json'
 import hornetLocation from '../elementsLocations/outsideTwo/hornet.json'
 import beePath from '../elementsLocations/outsideTwo/beePath.json'
 import Listener from '../utils/Listener'
-import {MathUtils} from 'three'
 import Grass from '@/webgl/shaders/grass/grass'
 import gsap from 'gsap/all'
 import {
@@ -38,6 +38,7 @@ import {
 import store from '../../store/index'
 import Hornet from '@/webgl/entities/Hornet'
 import {convertPosition} from '@/webgl/utils/ConvertPosition'
+import {SlideSubtitle} from '@/utils/audioSubtitles/subtitles'
 
 let OutsideTwoInstance = null
 
@@ -156,6 +157,9 @@ export default class OutsideTwoScene extends Group {
   }
 
   init() {
+    // Subtitles
+    this.subtitles = new SlideSubtitle(9)
+
     // Set fog
     this.scene.fog.density = 0.015
 
@@ -219,6 +223,7 @@ export default class OutsideTwoScene extends Group {
     setTimeout(() => {
       this.voice.sound.fade(0, store.state.isSongOn ? this.voice.volume : 0, .3)
       this.voice.sound.play()
+      this.subtitles.init()
 
       this.resources.on('soundChapTwoTwoSoundFinished', () => {
         this.cursorComponent.endScene()
