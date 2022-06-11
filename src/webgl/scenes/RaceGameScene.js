@@ -15,6 +15,7 @@ import {customEase} from '@/webgl/utils/CustomEase'
 import {addDaisys, addLys, addStones, addTrees} from '@/webgl/elementsLoop/AddElements'
 import Hornet from '@/webgl/entities/Hornet'
 import store from '../../store/index'
+import {SlideSubtitle} from '@/utils/audioSubtitles/subtitles'
 
 let raceGameInstance = null
 
@@ -65,7 +66,7 @@ export default class RaceGameScene extends Group {
         numberOfMap: 5,
         duration: 10000, // in ms
         obstacle: {
-          number: 18,
+          number: 17,
           lastHurt: '',
         }
       }
@@ -150,6 +151,9 @@ export default class RaceGameScene extends Group {
   }
 
   init() {
+    // Subtitles
+    this.subtitles = new SlideSubtitle(10)
+
     setTimeout(() => {
       this.loader.classList.add('loaded')
     }, 500)
@@ -214,6 +218,7 @@ export default class RaceGameScene extends Group {
 
     this.voiceIntro.sound.fade(0, store.state.isSongOn ? this.voiceIntro.volume : 0, .3)
     this.voiceIntro.sound.play()
+    this.subtitles.init()
 
     // Hornet init position
     this.hornet.model.position.set(12, -4, -2)
@@ -297,7 +302,7 @@ export default class RaceGameScene extends Group {
 
       gsap.to(this.allGrounds.position, {
         duration: (this.property.game.numberOfMap + 3) - this.property.sitting.step,
-        z: (-(this.property.map.height / this.property.map.ratio) + 2) * this.property.sitting.step, // + 2 to see the bee at the end
+        z: (-(this.property.map.height / this.property.map.ratio) + 2.5) * this.property.sitting.step, // + 2 to see the bee at the end
         ease: "none",
         overwrite: 'auto'
       }).then(() => {
@@ -319,7 +324,7 @@ export default class RaceGameScene extends Group {
     this.allGrounds.position.set(0, 0, 0)
     this.groundGroup.position.set(0, 0, 0)
     this.secondGroundGroup.position.set(0, 0, this.property.map.height / this.property.map.ratio)
-    store.state.numberOfLife = 5
+    store.state.numberOfLife = 3
 
     this.property.sitting.step = 0
     this.property.game.obstacle.lastHurt = ''

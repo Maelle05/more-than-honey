@@ -21,7 +21,7 @@ export class SlideSubtitle {
     this.finish = false
     this.durationVoice()
     this.getNewSentence(this.play)
-    this.textSubtitle.classList.remove('hidden')
+    this.textSubtitle.classList.remove('u-hidden')
   }
 
   getNewSentence(play) {
@@ -35,7 +35,7 @@ export class SlideSubtitle {
       } else {
         this.finish = true
         this.textSubtitle.innerHTML = ''
-        this.textSubtitle.classList.add('hidden')
+        this.textSubtitle.classList.add('u-hidden')
         this.step = 0
       }
     }, duration)

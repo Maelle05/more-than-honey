@@ -3,6 +3,7 @@
     <TimelineComponent ref="timeline"/>
     <Tuto path="/lottie/UI/scroll.json" listener="scrollToTop"/>
     <CursorNext to="/raceGame" ref="cursorNext"/>
+    <div class="subtitles--wrapper"></div>
   </div>
 </template>
 

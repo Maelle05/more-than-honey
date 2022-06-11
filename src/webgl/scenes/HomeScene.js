@@ -1,22 +1,16 @@
-import { Group } from 'three'
+import {Group, Vector3} from 'three'
 import Particules from '../shaders/fireflies'
 import Grass from '../shaders/grass/grassCinematique'
 import WebGl from '../webglManager'
-import {
-  addBridge,
-  addLys,
-  addNenuphar,
-  addTrees,
-} from '@/webgl/elementsLoop/AddElements'
+import {addBridge, addLys, addNenuphar, addTrees,} from '@/webgl/elementsLoop/AddElements'
 import lysLocation from '../elementsLocations/cinematique/lys.json'
 import treeLocation from '../elementsLocations/cinematique/tree.json'
 import nenupharLocation from '../elementsLocations/cinematique/nenuphar.json'
 import bridgeLocation from '../elementsLocations/cinematique/bridge.json'
-import mapSetting from '../elementsLocations/mapSetting.json'
 import Listener from '../utils/Listener'
 import gsap, { Back, Elastic, Power1 } from 'gsap/all'
 import store from '../../store/index'
-import { SlideSubtitle } from '../../utils/audioSubtitles/subtitles'
+import {SlideSubtitle} from '../../utils/audioSubtitles/subtitles'
 import {convertPosition} from '@/webgl/utils/ConvertPosition'
 import hiveLocation from '../elementsLocations/cinematique/hive.json'
 import BlueBee from '../entities/BlueBee'
@@ -50,7 +44,6 @@ export default class HomeScene extends Group
     this.particles = new Particules()
     this.grass = new Grass()
 
-
     this.isXPPlay = false
     this.isCin = false
 
@@ -59,12 +52,13 @@ export default class HomeScene extends Group
     this.voiceOne = this.resources.items.IntroHomeSound
     this.voiceTow = this.resources.items.CinematiqueSound
 
-    
     this.init()
   }
 
   init(){
+    // Subtitles
     this.subtitles = new SlideSubtitle(0)
+    this.subtitlesTwo = new SlideSubtitle(1)
 
     // Listener
     this.listener = new Listener()
@@ -164,6 +158,7 @@ export default class HomeScene extends Group
       setTimeout(()=>{
         this.voiceTow.sound.fade(0, store.state.isSongOn ? this.voiceTow.volume : 0, .3)
         this.voiceTow.sound.play()
+        this.subtitlesTwo.init()
       }, 2000)
 
       this.resources.on(`soundCinematiqueSoundFinished`, ()=>{

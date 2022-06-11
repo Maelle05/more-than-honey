@@ -5,6 +5,8 @@
     <TimelineComponent ref="timeline"/>
     <PrimaryButton ref="nextButton" class="u-hidden" to="/outsideOne" label="Passer à la suite"/>
     <Tuto path="/lottie/UI/hover.json" listener="mouseMove"/>
+    <div class="subtitles--wrapper"></div>
+
     <div class="hive__point" v-for="(bee, i) in bees" :key="i" ref="points">
       <div class="pointer"/>
       <div class="text" :class="bee.style">

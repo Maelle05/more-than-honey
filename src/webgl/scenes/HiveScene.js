@@ -1,11 +1,11 @@
-import {Group, Vector2, Raycaster, Vector3} from 'three'
+import {AnimationMixer, Group, Raycaster, Vector2, Vector3} from 'three'
 import WebGl from '../webglManager'
 import Bee from "@/webgl/entities/BlueBee"
 import {clone as skeletonClone} from 'three/examples/jsm/utils/SkeletonUtils'
 import Listener from '../utils/Listener'
-import {AnimationMixer} from 'three'
 import gsap from 'gsap'
 import store from '../../store/index'
+import {SlideSubtitle} from '@/utils/audioSubtitles/subtitles'
 
 let hiveInstance = null
 
@@ -116,6 +116,11 @@ export default class HiveScene extends Group {
   }
 
   init() {
+    // Subtitles
+    this.subtitles = new SlideSubtitle(2)
+    this.subtitleTwo = new SlideSubtitle(3)
+    this.subtitleThree = new SlideSubtitle(4)
+
     // Set parameters of the scene at init
     this.camera.position.set(-7, -2, -55)
     this.webGl.controls.target = new Vector3(0, 0, 0)
@@ -160,13 +165,16 @@ export default class HiveScene extends Group {
     // Init Sounds
     this.voiceOne.sound.fade(0, store.state.isSongOn ? this.voiceOne.volume : 0, .3)
     this.voiceOne.sound.play()
+    this.subtitles.init()
 
     this.resources.on(`soundChapOneOneSoundFinished`, ()=>{
       this.voiceTwo.sound.fade(0, store.state.isSongOn ? this.voiceTwo.volume : 0, .3)
       this.voiceTwo.sound.play()
+      this.subtitleTwo.init()
       this.resources.on(`soundChapOneOneOneSoundFinished`, ()=>{
         this.voiceEnd.sound.fade(0, store.state.isSongOn ? this.voiceEnd.volume : 0, .3)
         this.voiceEnd.sound.play()
+        this.subtitleThree.init()
         this.resources.on(`soundChapOneOneTwoSoundFinished`, ()=>{
           this.nextButton.classList.remove('u-hidden')
           console.log('Scene fini aller à la suite')
