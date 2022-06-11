@@ -14,6 +14,14 @@ import {SlideSubtitle} from '../../utils/audioSubtitles/subtitles'
 import {convertPosition} from '@/webgl/utils/ConvertPosition'
 import hiveLocation from '../elementsLocations/cinematique/hive.json'
 import BlueBee from '../entities/BlueBee'
+import BeePath from '../elementsLocations/cinematique/beePath.json'
+import { Mesh } from 'three'
+import { CatmullRomCurve3 } from 'three'
+import { Line } from 'three'
+import { BufferGeometry } from 'three'
+import { LineBasicMaterial } from 'three'
+import mapSetting from '../elementsLocations/mapSetting.json'
+import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 
 let Instance = null
 
@@ -30,6 +38,7 @@ export default class HomeScene extends Group
     this.webGl = new WebGl()
     this.scene = this.webGl.scene
     this.resources = this.webGl.resources
+    this.time = this.webGl.time
 
     this.quaternions = []
 
@@ -51,6 +60,41 @@ export default class HomeScene extends Group
     this.backgroundMusic = this.resources.items.BgMusicSound
     this.voiceOne = this.resources.items.IntroHomeSound
     this.voiceTow = this.resources.items.CinematiqueSound
+
+    this.property = {
+      map: {
+        with: mapSetting[0].right,
+        height: mapSetting[0].bottom,
+        ratio : 5,
+      }
+    }
+
+
+    // Bee Path
+    // extract from .json and change format
+    this.BeeInitialPoints = []
+    for (let i = 0; i < BeePath.length; i++) {
+      this.BeeInitialPoints.push({x: ( BeePath[i].x / this.property.map.ratio ) - this.property.map.with / this.property.map.ratio / 2, y: randomIntFromInterval(2.5, 6, 0.3), z: BeePath[i].y / this.property.map.ratio })
+    }
+    this.BeeCurveHandles = []
+    for ( const handlePos of this.BeeInitialPoints ) {
+      const handle = new Mesh( this.boxGeometry, this.boxMaterial )
+      handle.position.copy( handlePos )
+      this.BeeCurveHandles.push( handle )
+      // this.add(handle)
+    }
+    // Calculate Smooth curve
+    this.BeeCurve = new CatmullRomCurve3(
+      this.BeeCurveHandles.map( ( handle ) => handle.position )
+    )
+    this.BeeCurve.curveType = 'centripetal'
+    this.BeeCurve.closed = true
+    this.BeePoints = this.BeeCurve.getPoints( 50 )
+    this.BeeLine = new Line(
+      new BufferGeometry().setFromPoints( this.BeePoints ),
+      new LineBasicMaterial( { color: 0x00ff00 } )
+    )
+    // this.add( this.BeeLine )
 
     this.init()
   }
@@ -168,13 +212,9 @@ export default class HomeScene extends Group
     })
 
     setTimeout(()=>{
-      this.annimBee()
+      // this.annimBee()
     }, 22000)
 
-  }
-
-  annimBee(){
-    this.goToPoint(0)
   }
 
   update(){
@@ -193,6 +233,8 @@ export default class HomeScene extends Group
 
     if (this.bee) {
       this.bee.update()
+      this.bee.model.lookAt(this.BeeCurve.getPointAt((this.time.elapsed / 30000) % 1 ))
+      this.bee.model.position.copy(this.BeeCurve.getPointAt((this.time.elapsed / 30000) % 1 ))
     }
     
   }
