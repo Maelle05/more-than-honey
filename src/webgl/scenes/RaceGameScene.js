@@ -15,6 +15,7 @@ import {customEase} from '@/webgl/utils/CustomEase'
 import {addDaisys, addLys, addStones, addTrees} from '@/webgl/elementsLoop/AddElements'
 import Hornet from '@/webgl/entities/Hornet'
 import store from '../../store/index'
+import {SlideSubtitle} from '@/utils/audioSubtitles/subtitles'
 
 let raceGameInstance = null
 
@@ -150,6 +151,9 @@ export default class RaceGameScene extends Group {
   }
 
   init() {
+    // Subtitles
+    this.subtitles = new SlideSubtitle(10)
+
     setTimeout(() => {
       this.loader.classList.add('loaded')
     }, 500)
@@ -214,6 +218,7 @@ export default class RaceGameScene extends Group {
 
     this.voiceIntro.sound.fade(0, store.state.isSongOn ? this.voiceIntro.volume : 0, .3)
     this.voiceIntro.sound.play()
+    this.subtitles.init()
 
     // Hornet init position
     this.hornet.model.position.set(12, -4, -2)

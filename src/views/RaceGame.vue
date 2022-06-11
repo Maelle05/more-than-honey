@@ -2,6 +2,7 @@
   <div class="raceGame" ref="raceGameUI">
     <TimelineComponent ref="timeline"/>
     <Starter ref="starter"/>
+    <div class="subtitles--wrapper"></div>
 
     <div class="raceGame__loose u-hidden" ref="lottieLoose">
       <lottie-player loop autoplay background="transparent" mode="normal" src="/lottie/raceGame/Heart.json"
