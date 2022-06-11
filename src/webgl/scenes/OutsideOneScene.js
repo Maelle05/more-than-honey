@@ -266,9 +266,11 @@ export default class OutsideOneScene extends Group
       }
       if (voiceReineStart === false && result > 0.85 && voiceReineCanStart) {
         voiceReineStart = true
-        this.voiceReine.sound.fade(0, store.state.isSongOn ? this.voiceReine.volume : 0, .3)
-        this.voiceReine.sound.play()
-        this.subtitlesQueen.init()
+        setTimeout(() => {
+          this.voiceReine.sound.fade(0, store.state.isSongOn ? this.voiceReine.volume : 0, .3)
+          this.voiceReine.sound.play()
+          this.subtitlesQueen.init()
+        }, 1000)
       }
       if (result > 0.03 && result < 0.98) {
         this.property.moveBee.curveTarget -= this.listener.property.virtualScroll.delta / 90000

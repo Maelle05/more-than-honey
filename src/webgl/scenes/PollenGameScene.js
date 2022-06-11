@@ -92,7 +92,6 @@ export default class PollenGameScene extends Group {
     this.musicInGame = this.resources.items.BgMusicSoundPollenGame
     this.voiceIntro = this.resources.items.ChapTwoOneSound
     this.ChapTwoOneTwoSound = this.resources.items.ChapTwoOneTwoSound
-    this.ChapTwoOneThreeSound = this.resources.items.ChapTwoOneThreeSound
     this.impact = this.resources.items.ImpactSound
     this.achievement = this.resources.items.achievementSound
     this.isFlowerSongPlay = false
@@ -323,12 +322,6 @@ export default class PollenGameScene extends Group {
                 this.isFlowerSongPlay = true
                 this.ChapTwoOneTwoSound.sound.fade(0, store.state.isSongOn ? this.ChapTwoOneTwoSound.volume : 0, .3)
                 this.ChapTwoOneTwoSound.sound.play()
-                this.resources.on('soundChapTwoOneTwoSoundFinished', ()=>{
-                  setTimeout(()=>{
-                    this.ChapTwoOneThreeSound.sound.fade(0, store.state.isSongOn ? this.ChapTwoOneThreeSound.volume : 0, .3)
-                    this.ChapTwoOneThreeSound.sound.play()
-                  }, 5000)
-                })
               } else {
                 this.achievement.sound.fade(0, store.state.isSongOn ? this.achievement.volume : 0, .3)
                 this.achievement.sound.play()

@@ -117,7 +117,8 @@ export default class OutsideTwoScene extends Group {
 
     // Sound
     this.backgroundMusic = this.resources.items.BgMusicSoundOutsideOne
-    this.voice = this.resources.items.ChapTwoTwoSound
+    this.voice = this.resources.items.ChapTwoOneThreeSound
+    this.voiceHornet = this.resources.items.ChapTwoTwoSound
 
 
     // CURVE HANDLE
@@ -158,7 +159,8 @@ export default class OutsideTwoScene extends Group {
 
   init() {
     // Subtitles
-    this.subtitles = new SlideSubtitle(9)
+    this.subtitles = new SlideSubtitle(8)
+    this.subtitlesTwo = new SlideSubtitle(9)
 
     // Set fog
     this.scene.fog.density = 0.015
@@ -201,34 +203,51 @@ export default class OutsideTwoScene extends Group {
     this.webGl.controls.target = new Vector3(0, -5, 0)
 
     // Listener
+    let voiceInitStart = false
+    let voiceHornetCanStart = false
+    let voiceHornetStart = false
+
     this.listener.on('scroll', () => {
       const result = this.property.moveBee.curveTarget - this.listener.property.virtualScroll.delta / 90000
+
+      if (voiceInitStart === false) {
+        voiceInitStart = true
+        setTimeout(() => {
+          this.voice.sound.fade(0, store.state.isSongOn ? this.voice.volume : 0, .3)
+          this.voice.sound.play()
+          this.subtitles.init()
+
+          // Move cursor above the timeline
+          gsap.to(this.activeItem, {
+            duration: 75,
+            y: 70,
+            ease: "none",
+          })
+          this.resources.on(`soundChapTwoOneThreeSoundFinished`, ()=>{
+            voiceHornetCanStart = true
+          })
+        }, 1000)
+      }
+
+      if (voiceHornetStart === false && result > 0.8 && voiceHornetCanStart) {
+        voiceHornetStart = true
+        this.voiceHornet.sound.fade(0, store.state.isSongOn ? this.voiceHornet.volume : 0, .3)
+        this.voiceHornet.sound.play()
+        this.subtitlesTwo.init()
+      }
+
       if (result > 0.03 && result < 0.98) {
         this.property.moveBee.curveTarget -= this.listener.property.virtualScroll.delta / 90000
       }
     })
 
-
     // Init Sounds
     this.backgroundMusic.sound.fade(0, store.state.isSongOn ? this.backgroundMusic.volume : 0, .3)
     this.backgroundMusic.sound.play()
 
-    // Move cursor above the timeline
-    gsap.to(this.activeItem, {
-      duration: 20,
-      y: 70,
-      ease: "none",
+    this.resources.on('soundChapTwoTwoSoundFinished', () => {
+      this.cursorComponent.endScene()
     })
-
-    setTimeout(() => {
-      this.voice.sound.fade(0, store.state.isSongOn ? this.voice.volume : 0, .3)
-      this.voice.sound.play()
-      this.subtitles.init()
-
-      this.resources.on('soundChapTwoTwoSoundFinished', () => {
-        this.cursorComponent.endScene()
-      })
-    }, 7000)
 
     setTimeout(() => {
       this.loader.classList.add('loaded')

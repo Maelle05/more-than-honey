@@ -183,7 +183,40 @@
       "duration": 2
     }
   ],
-  [],
+  [
+    {
+      "text": "<span> A titre informatif, le vent peut également jouer le rôle de pollinisateur,</span>",
+      "duration": 3.9
+    },
+    {
+      "text": "<span>mais cela relève plus du hasard.</span>",
+      "duration": 1.7
+    },
+    {
+      "text": "<span> Fun fact :</span>",
+      "duration": 0.9
+    },
+    {
+      "text": "<span>Si les abeilles venaient à disparaître,</span>",
+      "duration": 2
+    },
+    {
+      "text": "<span>nous ne pourrions plus manger de fruits,</span>",
+      "duration": 2.1
+    },
+    {
+      "text": "<span>c’est en partie grâce à elles que nous avons de beaux et gros fruits bien uniformes.</span>",
+      "duration": 3.7
+    },
+    {
+      "text": "<span>On observe un effet bénéfique de la pollinisation</span>",
+      "duration": 2.6
+    },
+    {
+      "text": "<span> sur les fruits qui poussent dans les arbres.</span>",
+      "duration": 2.5
+    }
+  ],
   [
     {
       "text": "<span>L’usage intensif des produits phytosanitaires</span>",
