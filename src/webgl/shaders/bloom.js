@@ -1,9 +1,9 @@
-import * as THREE from 'three'
 import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass.js'
 import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass'
 import {ShaderPass} from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import {FXAAShader} from 'three/examples/jsm/shaders/FXAAShader'
+import {AmbientLight, sRGBEncoding, Vector2} from 'three'
 
 import WebGl from "../webglManager"
 import RouterScenes from '../RouterScenes'
@@ -36,20 +36,20 @@ export default class Bloom {
 
     this.renderer = this.WebGl.renderer
     this.renderer.toneMappingExposure = Math.pow(0.9, 4.0)
-    this.renderer.outputEncoding = THREE.sRGBEncoding
+    this.renderer.outputEncoding = sRGBEncoding
     this.renderer.setClearColor(this.params.rendererBGColor)
     this.renderer.autoClear = false
 
 
     // Light
-    this.scene.add(new THREE.AmbientLight(0xffffff, 0.25))
+    this.scene.add(new AmbientLight(0xffffff, 0.25))
 
     this.renderScene = new RenderPass(this.scene, this.camera)
 
     this.effectFXAA = new ShaderPass(FXAAShader)
     this.effectFXAA.uniforms.resolution.value.set(1 / this.sizes.width, 1 / this.sizes.height)
 
-    this.bloomPass = new UnrealBloomPass(new THREE.Vector2(this.sizes.width, this.sizes.height), 1.5, 0.4, 0.85)
+    this.bloomPass = new UnrealBloomPass(new Vector2(this.sizes.width, this.sizes.height), 1.5, 0.4, 0.85)
     this.bloomPass.threshold = this.params.bloomThreshold
     this.bloomPass.strength = this.params.bloomStrength
     this.bloomPass.radius = this.params.bloomRadius

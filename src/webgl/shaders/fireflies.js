@@ -1,10 +1,10 @@
-import * as THREE from 'three'
 import WebGl from '../webglManager'
 import mapSetting from '../elementsLocations/mapSetting.json'
 import firefliesVertexShader from './fireflies/vert.glsl'
 import firefliesFragmentShader from './fireflies/frag.glsl'
+import {AdditiveBlending, BufferAttribute, BufferGeometry, Group, Points, ShaderMaterial} from 'three'
 
-export default class Particules extends THREE.Group {
+export default class Particules extends Group {
   constructor(){
     super()
 
@@ -25,7 +25,7 @@ export default class Particules extends THREE.Group {
   setup(){
 
     // Geometry
-    this.firefliesGeometry = new THREE.BufferGeometry()
+    this.firefliesGeometry = new BufferGeometry()
     this.count = 550
     this.positionArray = new Float32Array(this.count * 3)
     this.scaleArray = new Float32Array(this.count)
@@ -37,12 +37,12 @@ export default class Particules extends THREE.Group {
       this.scaleArray[i] = Math.random()
     }
 
-    this.firefliesGeometry.setAttribute('position', new THREE.BufferAttribute(this.positionArray, 3))
-    this.firefliesGeometry.setAttribute('aScale', new THREE.BufferAttribute(this.scaleArray, 1))
+    this.firefliesGeometry.setAttribute('position', new BufferAttribute(this.positionArray, 3))
+    this.firefliesGeometry.setAttribute('aScale', new BufferAttribute(this.scaleArray, 1))
 
-    this.firefliesMaterial = new THREE.ShaderMaterial({
+    this.firefliesMaterial = new ShaderMaterial({
       transparent: true,
-      blending: THREE.AdditiveBlending,
+      blending: AdditiveBlending,
       depthWrite: false,
       uniforms:
       {
@@ -54,7 +54,7 @@ export default class Particules extends THREE.Group {
       fragmentShader: firefliesFragmentShader
     })
 
-    this.fireflies = new THREE.Points(this.firefliesGeometry, this.firefliesMaterial)
+    this.fireflies = new Points(this.firefliesGeometry, this.firefliesMaterial)
 
 
     // Debug
@@ -62,8 +62,6 @@ export default class Particules extends THREE.Group {
       const viewGUI = this.debug.ui.addFolder('Fireflies Proprety')
       viewGUI.add(this.firefliesMaterial.uniforms.uSize, 'value').min(0).max(1000).step(10).name('firefliesSize')
     }
-    
-
 
     // Add to group
     this.add(this.fireflies)

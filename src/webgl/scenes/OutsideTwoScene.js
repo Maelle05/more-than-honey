@@ -139,7 +139,7 @@ export default class OutsideTwoScene extends Group {
       const handle = new Mesh(this.boxGeometry, this.boxMaterial)
       handle.position.copy(handlePos)
       this.curveHandles.push(handle)
-      this.add(handle)
+      // this.add(handle)
     }
     // Calculate Smooth curve
     this.curve = new CatmullRomCurve3(
