@@ -51,7 +51,7 @@
     "name": "bridgeModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene pollenGameScene outsideTwoScene homeScene",
-    "path": "webgl/models/Bridge/bridge-2.glb"
+    "path": "webgl/models/Bridge/bridge-5.glb"
   },
   {
     "name": "daisyModel",

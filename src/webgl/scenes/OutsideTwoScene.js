@@ -139,7 +139,7 @@ export default class OutsideTwoScene extends Group {
       const handle = new Mesh(this.boxGeometry, this.boxMaterial)
       handle.position.copy(handlePos)
       this.curveHandles.push(handle)
-      // this.add(handle)
+      this.add(handle)
     }
     // Calculate Smooth curve
     this.curve = new CatmullRomCurve3(
@@ -177,7 +177,6 @@ export default class OutsideTwoScene extends Group {
     // Add grass
     this.grass.position.set(0, 0, this.property.map.height / this.property.map.ratio)
     this.add(this.grass)
-
 
     // Add elements from map
     addLys(lysLocation, this, this.resources.items.lysModel.scene, true)

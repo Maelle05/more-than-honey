@@ -1,9 +1,9 @@
 import * as THREE from 'three'
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass'
-import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
-import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader'
+import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer.js'
+import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass.js'
+import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass'
+import {ShaderPass} from 'three/examples/jsm/postprocessing/ShaderPass.js'
+import {FXAAShader} from 'three/examples/jsm/shaders/FXAAShader'
 
 import WebGl from "../webglManager"
 import RouterScenes from '../RouterScenes'
@@ -17,7 +17,6 @@ export default class Bloom {
     }
 
     postprosInstance = this
-
 
     this.WebGl = new WebGl()
     this.scene = this.WebGl.scene
@@ -56,7 +55,7 @@ export default class Bloom {
     this.bloomPass.radius = this.params.bloomRadius
     this.bloomPass.renderToScreen = true
 
-    // for the red vignette when user hurt butterflies or protal during game
+    // For the red vignette when user hurt butterflies or portal during game
     this.vignettePass = new ShaderPass({
       uniforms: {
         tDiffuse: { value: null },
@@ -99,9 +98,6 @@ export default class Bloom {
     this.composerGame.addPass(this.effectFXAA)
     this.composerGame.addPass(this.bloomPass)
     this.composerGame.addPass(this.vignettePass)
-
-    
-
 
     // Debug
     this.debug = this.WebGl.debug
