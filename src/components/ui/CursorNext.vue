@@ -77,6 +77,8 @@ export default {
       height: 80px;
       width: 80px;
       box-shadow: 0 0 1px 5px $white;
+      animation: 1.2s ease-in infinite alternate heartMove2;
+
 
       &::after {
         font-size: 24px;
@@ -93,8 +95,23 @@ export default {
       transition: width .7s, height .7s;
 
       &End {
+        animation: 1.2s ease-in infinite alternate heartMove;
         height: 96px;
         width: 96px;
+      }
+    }
+
+
+    @keyframes heartMove {
+      from { 
+        opacity: 0;
+        height: 94px;
+        width: 94px;
+      }
+      to { 
+        opacity: 1;
+        height: 102px;
+        width: 102px;
       }
     }
   }
