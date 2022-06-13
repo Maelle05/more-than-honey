@@ -3,12 +3,12 @@
     "group": [
       {
         "name": "Léonie Grimoin",
-        "role": "Développeuse Créative",
+        "role": "Développeuse créative",
         "link": "https://www.linkedin.com/in/leonie-grimoin/"
       },
       {
         "name": "Maëlle Rabouan",
-        "role": "Développeuse Créative",
+        "role": "Développeuse créative",
         "link": "https://www.linkedin.com/in/ma%C3%ABlle-rabouan-4b0776194/"
       },
       {
@@ -40,7 +40,7 @@
       },
       {
         "name": "Titouan Pellerin",
-        "role": "Speciale dedicace"
+        "role": "Spéciale dédicace"
       }
     ],
     "teacher": [
@@ -52,6 +52,9 @@
       },
       {
         "name": "Thomas Menia"
+      },
+      {
+        "name": "Christian Porri"
       },
       {
         "name": "Christophe Massolin"

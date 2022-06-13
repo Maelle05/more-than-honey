@@ -78,12 +78,6 @@
     "path": "webgl/models/Hive/hive_ext.glb"
   },
   {
-    "name": "particlesTexture",
-    "type": "texture",
-    "actingScenes": "outsideOneScene homeScene outsideTwoScene",
-    "path": "webgl/textures/particles/3.png"
-  },
-  {
     "name": "grassNormalTexture",
     "type": "texture",
     "actingScenes": "outsideTwoScene ",

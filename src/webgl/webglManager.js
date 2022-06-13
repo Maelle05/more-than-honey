@@ -1,5 +1,5 @@
-import {Scene, PerspectiveCamera, CubeTextureLoader, WebGLRenderer, sRGBEncoding, FogExp2} from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import {CubeTextureLoader, FogExp2, PerspectiveCamera, Scene, sRGBEncoding, WebGLRenderer} from 'three'
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
 import Stats from 'stats.js'
 import sources from './manifest.json'
 import Resources from './utils/Resources.js'
@@ -67,12 +67,12 @@ export default class WebGl{
     // Set Sky
     const cubeTextureLoader = new CubeTextureLoader()
     this.environmentMapTexture = cubeTextureLoader.load([
-        '/webgl/textures/Sky/test9/px.png',
-        '/webgl/textures/Sky/test9/nx.png',
-        '/webgl/textures/Sky/test9/py.png',
-        '/webgl/textures/Sky/test9/ny.png',
-        '/webgl/textures/Sky/test9/pz.png',
-        '/webgl/textures/Sky/test9/nz.png'
+        '/webgl/textures/Sky/px.png',
+        '/webgl/textures/Sky/nx.png',
+        '/webgl/textures/Sky/py.png',
+        '/webgl/textures/Sky/ny.png',
+        '/webgl/textures/Sky/pz.png',
+        '/webgl/textures/Sky/nz.png'
     ])
     this.environmentMapTexture.encoding = sRGBEncoding
 
