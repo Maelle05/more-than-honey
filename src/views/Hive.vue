@@ -160,7 +160,7 @@ export default {
       background-color: $white;
       line-height: 1.3em;
       font-weight: 100;
-      padding: 16px 16px 30px 16px;
+      padding: 30px;
       text-align: center;
       border-radius: 16px;
       z-index: 15;

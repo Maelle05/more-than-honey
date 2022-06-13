@@ -69,7 +69,7 @@
     "name": "hiveModel",
     "type": "gltfModel",
     "actingScenes": "endingScene hiveScene",
-    "path": "webgl/models/Hive/hive.glb"
+    "path": "webgl/models/Hive/hive-2.glb"
   },
   {
     "name": "hiveExtModel",
