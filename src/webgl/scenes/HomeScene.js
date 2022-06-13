@@ -1,4 +1,4 @@
-import {Group, Vector3} from 'three'
+import {BufferGeometry, CatmullRomCurve3, Group, Line, LineBasicMaterial, Mesh} from 'three'
 import Particules from '../shaders/fireflies'
 import Grass from '../shaders/grass/grassCinematique'
 import WebGl from '../webglManager'
@@ -8,18 +8,13 @@ import treeLocation from '../elementsLocations/cinematique/tree.json'
 import nenupharLocation from '../elementsLocations/cinematique/nenuphar.json'
 import bridgeLocation from '../elementsLocations/cinematique/bridge.json'
 import Listener from '../utils/Listener'
-import gsap, { Back, Elastic, Power1 } from 'gsap/all'
+import gsap from 'gsap/all'
 import store from '../../store/index'
 import {SlideSubtitle} from '../../utils/audioSubtitles/subtitles'
 import {convertPosition} from '@/webgl/utils/ConvertPosition'
 import hiveLocation from '../elementsLocations/cinematique/hive.json'
 import BlueBee from '../entities/BlueBee'
 import BeePath from '../elementsLocations/cinematique/beePath.json'
-import { Mesh } from 'three'
-import { CatmullRomCurve3 } from 'three'
-import { Line } from 'three'
-import { BufferGeometry } from 'three'
-import { LineBasicMaterial } from 'three'
 import mapSetting from '../elementsLocations/mapSetting.json'
 import {randomIntFromInterval} from '@/webgl/utils/RandowBetweenTwo'
 
@@ -125,8 +120,8 @@ export default class HomeScene extends Group
 
     // Hive
     this.hive = this.resources.items.hiveExtModel.scene
-    this.hive.position.set(convertPosition(0, hiveLocation).x, 6.7, convertPosition(0, hiveLocation).z)
-    this.hive.scale.set(0.95, 0.95, 0.65)
+    this.hive.position.set(convertPosition(0, hiveLocation).x, 7, convertPosition(0, hiveLocation).z)
+    this.hive.scale.set(0.95, 0.95, 0.95)
     this.add(this.hive)
 
     // Bee
