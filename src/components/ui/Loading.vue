@@ -13,7 +13,7 @@
 
     <div class="headphones">
       <img src="/images/loader/headphone.svg" alt="icon for sound, headphone">
-      <p>L'expérience nécessite l'activation du son</p>
+      <p>L'expérience nécessite l'activation du son.</p>
     </div>
   </div>
 </template>

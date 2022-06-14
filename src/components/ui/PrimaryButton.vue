@@ -35,7 +35,7 @@ export default {
   border-radius: 8px;
   transition: 0.5s;
   display: inline-block;
-  animation: 1.2s ease-in infinite alternate heartMove;
+  animation: ease-in 1.2s 3 alternate heartMove;
 
   a {
     font-size: 24px;
