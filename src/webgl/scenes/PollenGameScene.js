@@ -11,10 +11,9 @@ import {customEase} from '@/webgl/utils/CustomEase'
 import Butterflie from '@/webgl/entities/ButterflieBot'
 import store from '../../store/index'
 import {SlideSubtitle} from '@/utils/audioSubtitles/subtitles'
-import { initializeApp } from "firebase/app"
 import firebase from "firebase/compat/app"
 import "firebase/compat/firestore"
-import { collection, query, where, getDocs } from "firebase/firestore"
+import {collection, getDocs, query} from "firebase/firestore"
 
 let gameInstance = null
 
