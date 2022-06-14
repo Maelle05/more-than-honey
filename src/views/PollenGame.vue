@@ -206,7 +206,7 @@ export default {
     height: calc(100vh - 74px*2 - 42px);
     overflow: scroll;
 
-    ::-webkit-scrollbar {
+    &::-webkit-scrollbar {
       display: none;
     }
   }
