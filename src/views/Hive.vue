@@ -3,7 +3,7 @@
     <div class="customCursor" ref="cursor"/> 
     <div class="customCursorBorder" ref="cursorBorder"/>
     <TimelineComponent ref="timeline"/>
-    <PrimaryButton ref="nextButton" to="/outsideOne" label="Passer à la suite"/>
+    <PrimaryButton ref="nextButton" class="u-hidden" to="/outsideOne" label="Passer à la suite"/>
     <Tuto path="/lottie/UI/hover.json" listener="mouseMove"/>
     <div class="subtitles--wrapper"></div>
 
