@@ -11,6 +11,10 @@ import {customEase} from '@/webgl/utils/CustomEase'
 import Butterflie from '@/webgl/entities/ButterflieBot'
 import store from '../../store/index'
 import {SlideSubtitle} from '@/utils/audioSubtitles/subtitles'
+import { initializeApp } from "firebase/app"
+import firebase from "firebase/compat/app"
+import "firebase/compat/firestore"
+import { collection, query, where, getDocs } from "firebase/firestore"
 
 let gameInstance = null
 
@@ -576,6 +580,8 @@ export default class PollenGameScene extends Group {
 
   reStart(){
     // init game values
+    document.getElementsByClassName('score')[0].classList.add('u-hidden')
+    this.chrono.div.classList.remove('u-hidden')
     this.endPopUp.classList.add('u-hidden')
     this.gameProperty.beeCanMouve = false
     this.camera.position.set(0, 10, 10)
@@ -611,9 +617,186 @@ export default class PollenGameScene extends Group {
 
   endOfTheGame(){
     this.gameProperty.isFinish = true
+    document.getElementsByClassName('score')[0].innerHTML = ''
+    this.asyncCall()
     this.endPopUp.querySelector('p').innerHTML = this.gameProperty.foraged.length + ' fleurs viennent d’être pollinisées'
     this.pollenUI.classList.remove('u-cursor-hidden')
     this.endPopUp.classList.remove('u-hidden')
+    document.getElementsByClassName('score')[0].classList.remove('u-hidden')
+    this.chrono.div.classList.add('u-hidden')
+
+
+  }
+
+  async asyncCall() {
+    /**
+     * Firebase
+     */ 
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDLvjGYVP94kXOyMyq4oNoOtcDNDQZ3jNg",
+      authDomain: "more-than-honey.firebaseapp.com",
+      projectId: "more-than-honey",
+      storageBucket: "more-than-honey.appspot.com",
+      messagingSenderId: "641189547986",
+      appId: "1:641189547986:web:12e33d2f892d2deb8f020b"
+    }
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig)
+    const q = query(collection(firebase.firestore(), "pollenGame"))
+    const result = []
+    const querySnapshot = await getDocs(q)
+    querySnapshot.forEach((doc) => {
+      result.push(doc.data())
+    })
+    result.sort((a, b) => {
+      return b.score - a.score
+    })
+
+    const container = document.querySelector('.score')
+    // Property
+    let isInputset = false
+    const userScore =  parseInt(document.querySelector('.count > p').innerHTML)
+
+    function domInput(index) {
+      const list = document.createElement("div")
+      list.classList.add('inputList')
+      list.style.cssText += `
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        margin : 12px 40px 12px 0;
+        height : 42px;
+        align-items: center;
+        font-family: 'RoadRage', sans-serif;
+        transition : all .3s;
+      `
+      const classementPlayer = document.createElement("span")
+      classementPlayer.style.cssText += `
+        margin-right: 16px;
+        font-size: 24px;
+        // color: #66FFE3;
+      `
+      const div = document.createElement("div")
+      div.style.cssText += `
+        border: solid #FFFFFF 2px;
+        background-color: #00000033;
+        border-radius: 4px;
+        padding: 4px 28px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+      `
+      if ( (index+1) <= 3) {
+        const img = document.createElement("img")
+        img.src = `/images/pollenGame/bee${index+1}.svg`
+        img.style.cssText += `
+          max-width: 24px;
+          max-height: 24px;
+          margin-right: 16px;
+        `
+        div.appendChild(img)
+      }
+
+      const pseudo = document.createElement("input")
+      pseudo.maxLength = 14
+      pseudo.style.cssText += `
+        all: unset;
+        font-size: 24px;
+        width : 80px;
+      `
+      pseudo.placeholder = 'Votre Nom ...'
+
+      const score = document.createElement("span")
+      score.classList.add('scoreInput')
+      score.style.cssText += `
+        font-size: 24px;
+        margin-left: 16px;
+        color: #FFFFFF;
+      `
+      score.innerHTML = userScore
+
+      const classement = index+1 === 1 ? index+1 + 'er' : index+1 + 'e' 
+      classementPlayer.innerHTML = classement
+
+      div.appendChild(pseudo)
+      div.appendChild(score)
+      list.appendChild(classementPlayer)
+      list.appendChild(div)
+      container.appendChild(list)
+      isInputset = true 
+    }
+
+    result.forEach((element, index) => {
+      if (!isInputset && element.score < userScore) {
+        domInput(index)
+      }
+
+      const list = document.createElement("div")
+      list.style.cssText += `
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        margin : 12px 0;
+        height : 42px;
+        align-items: center;
+        font-family: 'RoadRage', sans-serif;
+      `
+      const classementPlayer = document.createElement("span")
+      classementPlayer.style.cssText += `
+        margin-right: 16px;
+        font-size: 24px;
+      `
+      const div = document.createElement("div")
+      div.style.cssText += `
+        border: solid white 2px;
+        background-color: #00000033;
+        border-radius: 4px;
+        padding: 4px 28px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+      `
+      if ( (!isInputset ? index+1 : index+2 ) <= 3) {
+        const img = document.createElement("img")
+        img.src = `/images/pollenGame/bee${!isInputset ? index+1 : index+2}.svg`
+        img.style.cssText += `
+          max-width: 24px;
+          max-height: 24px;
+          margin-right: 16px;
+        `
+        div.appendChild(img)
+      }
+
+      const pseudo = document.createElement("span")
+      pseudo.style.cssText += `
+        font-size: 24px;
+      `
+      pseudo.innerHTML = element.pseudo
+
+      const score = document.createElement("span")
+      score.style.cssText += `
+        font-size: 24px;
+        margin-left: 16px;
+      `
+      score.innerHTML = element.score
+
+      const classement = index+1 === 1 ? !isInputset ? index+1 + 'er' : index+2 + 'e' : !isInputset ? index+1 + 'e' : index+2 + 'e'
+      classementPlayer.innerHTML = classement
+
+      div.appendChild(pseudo)
+      div.appendChild(score)
+      list.appendChild(classementPlayer)
+      list.appendChild(div)
+      container.appendChild(list)
+    })
+    if (!isInputset ) {
+      domInput(result.length)
+    }
   }
 
   delete() {

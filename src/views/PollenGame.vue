@@ -43,6 +43,9 @@
       <p></p>
     </div>
 
+  <div class="score u-hidden" ref="score">
+  </div>
+
     <div class="loaderPollen u-hidden">
       <div class="loaderSpinner">
         <div></div>
@@ -63,7 +66,7 @@
 
     <div class="count u-hidden">
       <img src="/images/pollenGame/flower.png" alt="" srcset="">
-      <p></p>
+      <p>0</p>
     </div>
 
     <div class="lottieLoseForaged u-hidden">
@@ -86,6 +89,10 @@ import WebGl from '@/webgl/webglManager'
 import '@lottiefiles/lottie-player'
 import Popup from '@/components/ui/Popup'
 import Starter from '@/components/ui/Starter'
+import { initializeApp } from "firebase/app"
+import firebase from "firebase/compat/app"
+import "firebase/compat/firestore"
+import { collection, query, where, getDocs } from "firebase/firestore"
 
 export default {
   name: 'PollenGame',
@@ -99,6 +106,24 @@ export default {
     this.webglInstance = new PollenGame()
     this.webglInstance.setDOM(this.$refs.pollenGameUI)
     this.webglInstance.getActiveTimelineItem(this.$refs.timeline.$el)
+
+
+    const isSend = false
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'Enter' && !isSend) {
+        const input = document.querySelector('input')
+        if (input.value != '' && input) {
+          input.disabled = true
+          document.querySelector('.inputList').style.marginRight = 0
+
+          firebase.firestore().collection("pollenGame").doc("id" + Math.random().toString(16).slice(2)).set({
+              pseudo: input.value,
+              score: parseInt(document.querySelector('.count > p').innerHTML),
+          })
+
+        }
+      }
+    })
   },
 
   methods: {
@@ -115,9 +140,16 @@ export default {
       this.$refs.pollenGameUI.classList.add('u-cursor-hidden')
       Starter.methods.startLottieAnimation()
       this.webglInstance.reStart()
+    },
+    sendName(){
+      console.log('coucou')
+      .collection("cities").doc("LA").set({
+        name: "Los Angeles",
+        state: "CA",
+        country: "USA"
+      })
     }
   },
-
 }
 </script>
 
@@ -166,6 +198,18 @@ export default {
     }
   }
 
+  .score {
+    position: absolute;
+    right: 87px;
+    top: 74px;
+    // background: red;
+    height: calc(100vh - 74px*2 - 42px);
+    overflow: scroll;
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
 
   .chrono {
     position: absolute;

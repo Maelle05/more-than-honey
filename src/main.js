@@ -34,4 +34,3 @@ const rootManager = new Root()
 export function change(name) {
   rootManager.rootChange(name)
 }
-

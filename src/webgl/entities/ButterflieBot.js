@@ -66,7 +66,7 @@ export default class Butterflie {
 
   update(){
     if (this.mixer) {
-      this.mixer.update(this.time.delta * 0.002)
+      this.mixer.update(this.time.delta * 0.003)
     }
   }
 }
