@@ -33,8 +33,9 @@ export default {
   background: #1A1A1A40;
   border: 2px solid $white;
   border-radius: 8px;
-  transition: 0.3s;
+  transition: 0.5s;
   display: inline-block;
+  animation: 1.2s ease-in infinite alternate heartMove;
 
   a {
     font-size: 24px;
@@ -46,10 +47,22 @@ export default {
   }
 
   &:hover {
+    -webkit-animation-play-state: paused;
+    background: $white !important;
     a {
       color: $blueGreen;
     }
-    background: $white;
+  }
+
+  @keyframes heartMove {
+    from {
+      border-color: transparent;
+      background: transparent;
+    }
+    to {
+      border-color: $white;
+      background: #1A1A1A40;
+    }
   }
 }
 

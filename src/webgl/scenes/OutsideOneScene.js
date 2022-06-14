@@ -221,7 +221,7 @@ export default class OutsideOneScene extends Group
     // Ext hive
     this.extHive.position.set(convertPosition(0, hiveLocation).x, 7.1, convertPosition(0, hiveLocation).z)
     this.extHive.rotation.y = Math.PI / 3
-    this.extHive.scale.set(0.95, 0.95, 0.65)
+    this.extHive.scale.set(0.95, 0.95, 0.95)
 
     // Particles
     this.particles.position.x -= 1

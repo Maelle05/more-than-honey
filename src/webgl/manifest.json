@@ -15,7 +15,7 @@
     "name": "queenModel",
     "type": "gltfModel",
     "actingScenes": "outsideOneScene raceGameScene",
-    "path": "webgl/models/Queen/queen.glb"
+    "path": "webgl/models/Queen/queen-3.glb"
   },
   {
     "name": "hornetModel",

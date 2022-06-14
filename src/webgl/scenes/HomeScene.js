@@ -103,7 +103,7 @@ export default class HomeScene extends Group
     this.listener = new Listener()
 
     // Set fog
-    this.scene.fog.density = 0.012
+    this.scene.fog.density = 0.009
 
     //grass
     this.grass.position.set(10, -2.3, 170)
