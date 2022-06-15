@@ -202,7 +202,6 @@ export default {
     position: absolute;
     right: 87px;
     top: 74px;
-    // background: red;
     height: calc(100vh - 74px*2 - 42px);
     overflow: scroll;
 
