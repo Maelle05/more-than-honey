@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import {TextureLoader} from 'three'
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
 import EventEmitter from './EventEmitter.js'
