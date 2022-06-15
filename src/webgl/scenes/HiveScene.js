@@ -242,10 +242,5 @@ export default class HiveScene extends Group {
   }
 
   delete() {
-    window.removeEventListener("click", () => {
-      if (this.currentIntersect) {
-        console.log('click on model')
-      }
-    })
   }
 }
