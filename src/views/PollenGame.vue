@@ -89,10 +89,8 @@ import WebGl from '@/webgl/webglManager'
 import '@lottiefiles/lottie-player'
 import Popup from '@/components/ui/Popup'
 import Starter from '@/components/ui/Starter'
-import { initializeApp } from "firebase/app"
 import firebase from "firebase/compat/app"
 import "firebase/compat/firestore"
-import { collection, query, where, getDocs } from "firebase/firestore"
 
 export default {
   name: 'PollenGame',
@@ -140,14 +138,6 @@ export default {
       this.$refs.pollenGameUI.classList.add('u-cursor-hidden')
       Starter.methods.startLottieAnimation()
       this.webglInstance.reStart()
-    },
-    sendName(){
-      console.log('coucou')
-      .collection("cities").doc("LA").set({
-        name: "Los Angeles",
-        state: "CA",
-        country: "USA"
-      })
     }
   },
 }
