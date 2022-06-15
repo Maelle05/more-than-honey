@@ -1,5 +1,5 @@
-import WebGl from "../webglManager"
-import EventEmitter from "./EventEmitter"
+import WebGl from '../webglManager'
+import EventEmitter from './EventEmitter'
 import VirtualScroll from 'virtual-scroll'
 
 let listenerInstance = null
@@ -57,10 +57,10 @@ export default class Listener extends EventEmitter {
     this.trigger(`mouseClick`)
   }
 
-  scrollehandle(event){
-    this.property.virtualScroll.state = event.y
-    this.property.virtualScroll.delta = event.deltaY
-    if (event.deltaY > 0) {
+  scrollehandle(e){
+    this.property.virtualScroll.state = e.y
+    this.property.virtualScroll.delta = e.deltaY
+    if (e.deltaY > 0) {
       this.trigger(`scrollToBottom`)
     } else {
       this.trigger(`scrollToTop`)

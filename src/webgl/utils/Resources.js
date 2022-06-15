@@ -1,10 +1,7 @@
-/* eslint-disable no-case-declarations */
-import { TextureLoader } from 'three'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import {TextureLoader} from 'three'
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
 import EventEmitter from './EventEmitter.js'
-
-import { AudioClass } from "@/utils/audioSubtitles/voice"
-import {Howl, Howler} from 'howler'
+import {Howl} from 'howler'
 
 let resourcesInstance = null
 
@@ -132,7 +129,6 @@ export default class Resources extends EventEmitter {
     this.sceneItems = []
     this.toLoad = null
     this.loaded = 0
-    
 
     this.checkSceneItems(this.activeSceneName)
   }
