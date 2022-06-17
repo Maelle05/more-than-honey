@@ -3,7 +3,9 @@
     <div class="customCursor" ref="cursor"/> 
     <div class="customCursorBorder" ref="cursorBorder"/>
     <TimelineComponent ref="timeline"/>
-    <PrimaryButton ref="nextButton" class="u-hidden" to="/outsideOne" label="Passer à la suite"/>
+    <div ref="nextButton" class="u-hidden hive_button">
+      <router-link to="/outsideOne">Passer à la suite</router-link>
+    </div>
     <Tuto path="/lottie/UI/hover.json" listener="mouseMove"/>
     <div class="subtitles--wrapper"></div>
 
@@ -24,12 +26,11 @@ import HiveScene from '@/webgl/scenes/HiveScene'
 import TimelineComponent from '@/components/ui/TimelineComponent'
 import JsonBeesContent from '../../public/data/hiveContent.json'
 import Tuto from '@/components/ui/Tuto'
-import PrimaryButton from '@/components/ui/PrimaryButton'
+import Listener from '@/webgl/utils/Listener'
 
 export default {
   name: 'Hive',
   components: {
-    PrimaryButton,
     TimelineComponent,
     Tuto
   },
@@ -44,9 +45,11 @@ export default {
 
     // Send to webgl
     const scene = new HiveScene()
+    this.listener = new Listener()
+
     scene.setUpPointsFromDOM(this.$refs.points)
     scene.setUpCursor(cursorBorder)
-    scene.setNextButton(this.$refs.nextButton.$el)
+    scene.setNextButton(this.$refs.nextButton)
     scene.getActiveTimelineItem(this.$refs.timeline.$el)
 
     document.addEventListener('mousemove', (e) => {
@@ -93,6 +96,47 @@ export default {
   width: 100vw;
   height: 100vh;
   cursor: none; // custom cursor
+
+  &_button {
+    z-index: 50;
+    background: #1A1A1A40;
+    border: 2px solid $white;
+    border-radius: 8px;
+    transition: 0.5s;
+    display: inline-block;
+    animation: ease-in 1.2s 3 alternate heartMove;
+    position: fixed;
+    right: 104px;
+    bottom: 40px;
+
+    a {
+      font-size: 24px;
+      display: block;
+      padding: 8px 24px;
+      font-weight: 500;
+      font-family: 'RoadRage', sans-serif;
+      color: $white;
+    }
+
+    &:hover {
+      -webkit-animation-play-state: paused;
+      background: $white !important;
+      a {
+        color: $blueGreen;
+      }
+    }
+
+    @keyframes heartMove {
+      from {
+        border-color: transparent;
+        background: transparent;
+      }
+      to {
+        border-color: $white;
+        background: #1A1A1A40;
+      }
+    }
+  }
 
   &__point {
     position: absolute;

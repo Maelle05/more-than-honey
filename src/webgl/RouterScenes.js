@@ -1,14 +1,13 @@
-import WebGl from "./webglManager"
-
-import BaseScene from "./scenes/BaseScene"
-import HiveScene from "./scenes/HiveScene"
-import OutsideOneScene from "./scenes/OutsideOneScene"
-import PollenGameScene from "./scenes/PollenGameScene"
-import OutsideTwoScene from "./scenes/OutsideTwoScene"
-import RaceGameScene from "./scenes/RaceGameScene"
-import EndingScene from "./scenes/HiveEndingScene"
-import EventEmitter from "./utils/EventEmitter"
-import HomeScene from "./scenes/HomeScene"
+import WebGl from './webglManager'
+import BaseScene from './scenes/BaseScene'
+import HiveScene from './scenes/HiveScene'
+import OutsideOneScene from './scenes/OutsideOneScene'
+import PollenGameScene from './scenes/PollenGameScene'
+import OutsideTwoScene from './scenes/OutsideTwoScene'
+import RaceGameScene from './scenes/RaceGameScene'
+import EndingScene from './scenes/HiveEndingScene'
+import EventEmitter from './utils/EventEmitter'
+import HomeScene from './scenes/HomeScene'
 
 let routerScenesInstance = null
 

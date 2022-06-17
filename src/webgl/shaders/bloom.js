@@ -5,7 +5,7 @@ import {ShaderPass} from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import {FXAAShader} from 'three/examples/jsm/shaders/FXAAShader'
 import {AmbientLight, sRGBEncoding, Vector2} from 'three'
 
-import WebGl from "../webglManager"
+import WebGl from '../webglManager'
 import RouterScenes from '../RouterScenes'
 
 let postprosInstance = null

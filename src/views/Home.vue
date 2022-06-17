@@ -1,12 +1,12 @@
 <template>
   <div class="home" ref="container">
-   
-    <div class="home__intro" ref="intro" >
+
+    <div class="home__intro" ref="intro">
       <img class="logo" src="@/assets/images/logo.svg" alt="white logo of the project 'more than honey'">
-      <p class="u-uppercase" >Le pouvoir des abeilles</p>
-      <div class="button" ref="button" @click="playCinematique">
-        <span>Commencer l'expérience</span>
-      </div>
+      <p class="u-uppercase">Le pouvoir des abeilles</p>
+      <button class="button" ref="button" @click="playCinematique">
+        Commencer l'expérience
+      </button>
     </div>
 
     <CursorNext to="/hive" ref="cursorNext"/>
@@ -32,7 +32,7 @@ export default {
     this.scene.initCursorComponent(this.$refs.cursorNext)
   },
   methods: {
-    playCinematique(){
+    playCinematique() {
       this.scene.play(this.$refs)
       this.$refs.button.style.pointerEvents = 'none'
       this.$refs.container.classList.add('u-cursor-hidden')
@@ -46,6 +46,7 @@ export default {
   z-index: 5;
   user-select: none;
   height: 100vh;
+
   &__background {
     width: 100%;
     height: 100%;
@@ -62,8 +63,8 @@ export default {
     justify-content: center;
     align-items: center;
     user-select: none;
-    
-    p{
+
+    p {
       text-align: center;
       margin-top: -17px;
     }
@@ -77,20 +78,14 @@ export default {
       display: inline-block;
       cursor: pointer;
       margin-top: 60px;
-
-      span {
-        font-size: 24px;
-        display: block;
-        padding: 8px 24px;
-        font-weight: 500;
-        font-family: 'RoadRage', sans-serif;
-        color: $white;
-      }
+      font-size: 24px;
+      padding: 8px 24px;
+      font-weight: 500;
+      font-family: 'RoadRage', sans-serif;
+      color: $white;
 
       &:hover {
-        span {
-          color: $blueGreen;
-        }
+        color: $blueGreen;
         background: $white;
       }
     }
@@ -116,16 +111,17 @@ export default {
     transform: translateX(50%);
   }
 
-  .subtitles--wrapper{
+  .subtitles--wrapper {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 
-    p{
+    p {
       font-family: 'RoadRage', sans-serif;
       font-size: 45px;
-      span{
+
+      span {
         background: transparent;
         text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.377);
       }

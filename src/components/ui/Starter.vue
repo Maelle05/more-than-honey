@@ -23,7 +23,7 @@ export default {
       const container = document.querySelector('.starterScreen')
       container.classList.remove('u-hidden')
       player.play()
-      player.addEventListener('complete', function(){
+      player.addEventListener('complete', () => {
         player.stop()
         container.classList.add('u-hidden')
       })

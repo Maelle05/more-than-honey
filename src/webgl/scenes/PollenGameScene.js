@@ -11,9 +11,6 @@ import {customEase} from '@/webgl/utils/CustomEase'
 import Butterflie from '@/webgl/entities/ButterflieBot'
 import store from '../../store/index'
 import {SlideSubtitle} from '@/utils/audioSubtitles/subtitles'
-import firebase from "firebase/compat/app"
-import "firebase/compat/firestore"
-import {collection, getDocs, query} from "firebase/firestore"
 import { leaderBoard } from '../../utils/leaderBord'
 
 let gameInstance = null
@@ -454,13 +451,13 @@ export default class PollenGameScene extends Group {
       }
     })
 
-    document.addEventListener('keydown', (event) => {
-      if (event.code === 'Space') {
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
         this.gameProperty.spaceIsPress = true
       }
     }, false)
-    document.addEventListener('keyup', (event) => {
-      if (event.code === 'Space') {
+    document.addEventListener('keyup', (e) => {
+      if (e.code === 'Space') {
         this.gameProperty.spaceIsPress = false
         this.gameProperty.beeCanMouve = true
 

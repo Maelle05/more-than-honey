@@ -1,6 +1,6 @@
 import {AnimationMixer, Group, Raycaster, Vector2, Vector3} from 'three'
 import WebGl from '../webglManager'
-import Bee from "@/webgl/entities/BlueBee"
+import Bee from '@/webgl/entities/BlueBee'
 import {clone as skeletonClone} from 'three/examples/jsm/utils/SkeletonUtils'
 import Listener from '../utils/Listener'
 import gsap from 'gsap'
@@ -242,10 +242,5 @@ export default class HiveScene extends Group {
   }
 
   delete() {
-    window.removeEventListener("click", () => {
-      if (this.currentIntersect) {
-        console.log('click on model')
-      }
-    })
   }
 }

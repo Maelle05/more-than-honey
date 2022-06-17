@@ -89,8 +89,8 @@ import WebGl from '@/webgl/webglManager'
 import '@lottiefiles/lottie-player'
 import Popup from '@/components/ui/Popup'
 import Starter from '@/components/ui/Starter'
-import firebase from "firebase/compat/app"
-import "firebase/compat/firestore"
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/firestore'
 
 export default {
   name: 'PollenGame',

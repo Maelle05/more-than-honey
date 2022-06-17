@@ -5,20 +5,6 @@ import Home from '../views/Home.vue'
 Vue.use(VueRouter)
 
 export const routes = [
-  // {
-  //   path: '/fox',
-  //   name: 'fox',
-  //   component: function () {
-  //     return import('../views/Fox.vue')
-  //   }
-  // },
-  // {
-  //   path: '/bee',
-  //   name: 'bee',
-  //   component: function () {
-  //     return import('../views/Bee.vue')
-  //   }
-  // },
   {
     path: '/',
     name: 'home',
@@ -86,16 +72,6 @@ export const routes = [
     label: 'End',
     component: function () {
       return import('../views/Ending.vue')
-    },
-    meta: {
-      homePassedRequired: true,
-    },
-  },
-  {
-    path: '/credits',
-    name: 'credits',
-    component: function () {
-      return import('../views/Credits.vue')
     },
     meta: {
       homePassedRequired: true,

@@ -113,12 +113,6 @@ export default class WebGl{
     //   }
     //   // console.log(this.camera.position);
     // })
-
-    // document.addEventListener('keydown', (e)=>{
-    //   if (e.key === 's') {
-    //     this.saveIMG()
-    //   }
-    // })
   }
 
   getLoaderRef(loader) {
