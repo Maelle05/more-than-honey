@@ -143,7 +143,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .pollenGame {
   width: 100%;
   height: 100%;
@@ -194,6 +194,56 @@ export default {
     top: 74px;
     height: calc(100vh - 74px*2 - 42px);
     overflow: scroll;
+
+    div{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      margin : 3px 0;
+      align-items: center;
+      font-family: 'RoadRage', sans-serif;
+      transition : all .3s;
+      
+      span{
+        margin-right: 16px;
+        font-size: 24px;
+      }
+
+      div {
+        border: solid white 2px;
+        background-color: #00000033;
+        border-radius: 4px;
+        padding: 4px 28px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        img{
+          max-width: 24px;
+          max-height: 24px;
+          margin-right: 16px;
+        }
+
+        input{
+          all: unset;
+          font-size: 24px;
+          width : 80px;
+        }
+
+        span{
+          font-size: 24px;
+          margin-right: 0;
+          &.scoreUser{
+            margin-left: 16px;
+          }
+        }
+      }
+
+      &.inputList{
+        margin-right: 42px;
+      }
+    }
 
     &::-webkit-scrollbar {
       display: none;
