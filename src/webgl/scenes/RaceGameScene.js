@@ -379,6 +379,8 @@ export default class RaceGameScene extends Group {
   endOfTheGame() {
     this.lottie.classList.add('u-hidden')
     if (store.state.numberOfLife > 0) {
+      this.lifeBar.classList.add('u-hidden')
+
       this.popupEnd.classList.remove('u-hidden')
       this.raceUI.classList.remove('u-cursor-hidden')
       this.postProcessing.vignettePass.uniforms.uIntensity.value = 0
@@ -387,6 +389,7 @@ export default class RaceGameScene extends Group {
 
   losingGame() {
     this.lottie.classList.add('u-hidden')
+    this.lifeBar.classList.add('u-hidden')
     this.popupLoose.classList.remove('u-hidden')
     this.raceUI.classList.remove('u-cursor-hidden')
     gsap.killTweensOf(this.allGrounds.position)
